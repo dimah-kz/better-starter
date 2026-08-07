@@ -19,9 +19,6 @@ packages:
   - "apps/*"
   - "packages/*"
 
-overrides:
-  drizzle-orm: rc
-
 allowBuilds:
   "@parcel/watcher": true
   "@prisma/engines": false
@@ -31,20 +28,3 @@ allowBuilds:
   prisma: false
   sharp: true
   unrs-resolver: true
-
-minimumReleaseAgeExclude:
-  - "@dimah-s3/core@0.3.0"
-  - "@dimah-s3/db@0.3.0"
-  - "@dimah-s3/react@0.3.0"
-  - "@dimah-s3/server@0.3.0"
-  - "@dimah-s3/ui@0.3.0"
-  - "@better-auth/core@1.7.0-rc.4"
-  - "@better-auth/drizzle-adapter@1.7.0-rc.4"
-  - "@better-auth/i18n@1.7.0-rc.4"
-  - "@better-auth/kysely-adapter@1.7.0-rc.4"
-  - "@better-auth/memory-adapter@1.7.0-rc.4"
-  - "@better-auth/mongo-adapter@1.7.0-rc.4"
-  - "@better-auth/prisma-adapter@1.7.0-rc.4"
-  - "@better-auth/telemetry@1.7.0-rc.4"
-  - better-auth@1.7.0-rc.4
-  - "@shadcn/react@0.3.0"

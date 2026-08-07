@@ -52,9 +52,6 @@ catalogs:
       specifier: ^8.66.0
       version: 8.66.0
 
-overrides:
-  drizzle-orm: rc
-
 importers:
 
   .:
