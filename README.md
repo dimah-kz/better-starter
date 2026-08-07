@@ -1,112 +1,47 @@
 # better-starter
 
-A production-oriented [Turborepo](https://turborepo.dev/) starter for multi-tenant SaaS apps.
+A Turborepo starter for **multi-tenant SaaS** — Next.js dashboard, Better Auth, Postgres, and [dimah-s3](https://dimah-s3.vercel.app) storage, with shared packages ready for mobile or extension later.
 
-Ship a Next.js dashboard with auth, organizations, Postgres, and S3 uploads already wired — then grow into mobile or extension apps from the same packages.
+Closest mental model: a production-shaped Turborepo / create-t3-app, opinionated for org-based products from day one.
 
-**[Use this template](https://github.com/hamidrezakz/better-starter/generate)** on GitHub to start a new repo.
+**[Use this template](https://github.com/hamidrezakz/better-starter/generate)**
 
-## What's inside?
-
-This Turborepo includes the following apps and packages:
-
-### Apps and Packages
-
-- `web` — [Next.js](https://nextjs.org/) 16 app (`cacheComponents`) with a mobile-first org dashboard, auth screens, and admin views
-- `auth` — [Better Auth](https://www.better-auth.com/) server/client with email/password, `admin`, and `organization` plugins
-- `db` — [PostgreSQL](https://www.postgresql.org/) + [Drizzle ORM](https://orm.drizzle.team/) schema, client, and migrations
-- `storage` — S3-compatible uploads via [dimah-s3](https://dimah-s3.vercel.app) (`@better-starter/storage`)
-- `i18n` — shared [next-intl](https://next-intl.dev/) messages (`@better-starter/i18n`)
-- `ui` — shared [shadcn/ui](https://ui.shadcn.com/) / Base UI primitives (`@workspace/ui`)
-- `@workspace/eslint-config` — shared ESLint configs
-- `@workspace/typescript-config` — shared `tsconfig` bases
-
-Each package/app is 100% [TypeScript](https://www.typescript.org/).
-
-`apps/mobile` and `apps/extension` are reserved for later — share logic through packages, not cross-app imports.
+## Structure
 
 ```
-apps/
-  web/                 # Next.js dashboard + auth
-packages/
-  auth/                # Better Auth
-  db/                  # Drizzle + Postgres
-  storage/             # S3 ownership + key helpers
-  i18n/                # Shared messages
-  ui/                  # Shared UI primitives
-  eslint-config/
-  typescript-config/
+better-starter/
+├── apps/
+│   └── web/                 # Next.js product (dashboard, auth, admin)
+├── packages/
+│   ├── auth/                # Better Auth server & access helpers
+│   ├── db/                  # Drizzle schema, client, migrations
+│   ├── storage/             # dimah-s3 storage
+│   ├── i18n/                # Shared UI messages & locale config
+│   ├── ui/                  # Shared shadcn primitives
+│   ├── eslint-config/
+│   └── typescript-config/
+└── docs/agents/             # Contributor / agent guides
 ```
 
-### Features
-
-- Multi-tenant organizations (switcher, members, manage)
-- Platform admin (users & organizations)
-- Account settings (profile, avatar, password, sessions)
-- Avatar / org logo uploads to S3-compatible storage (e.g. Cloudflare R2)
-- Locale-ready UI with `next-intl`
-- Agent-friendly docs under [`AGENTS.md`](./AGENTS.md) and [`docs/agents/`](./docs/agents/)
-
-### Utilities
-
-This starter also includes:
-
-- [Turborepo](https://turborepo.dev/) for monorepo task orchestration
-- [pnpm](https://pnpm.io/) workspaces + catalog
-- [Tailwind CSS](https://tailwindcss.com/) v4
-- [ESLint](https://eslint.org/) + [Prettier](https://prettier.io/)
-- React Compiler enabled for `web`
+`apps/mobile` and `apps/extension` are reserved slots — share through packages, not across apps.
 
 ## Quick start
 
-**Requirements:** Node ≥ 22, pnpm 11, PostgreSQL, S3-compatible storage (e.g. Cloudflare R2).
+Node ≥ 22 · pnpm 11 · PostgreSQL · dimah-s3 storage (S3-compatible bucket, e.g. R2)
 
 ```bash
-# 1. Create from the GitHub template, then:
 pnpm install
-
-# 2. Environment
-cp .env.example .env
-# fill DATABASE_URL, BETTER_AUTH_*, S3_*
-
-# 3. Database
+cp .env.example .env          # DATABASE_URL, BETTER_AUTH_*, S3_*
 pnpm --filter @better-starter/db db:migrate
-
-# 4. Dev
-pnpm --filter web dev
+pnpm dev # runs both web and db
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+→ [http://localhost:3000](http://localhost:3000)
 
-## Scripts
+| Command                                       | What it does     |
+| --------------------------------------------- | ---------------- |
+| `pnpm --filter web dev`                       | Run the web app  |
+| `pnpm build` / `lint` / `typecheck`           | Quality gates    |
+| `pnpm --filter @better-starter/db db:migrate` | Apply migrations |
 
-| Command                                       | Description           |
-| --------------------------------------------- | --------------------- |
-| `pnpm dev`                                    | Dev all packages/apps |
-| `pnpm --filter web dev`                       | Web only              |
-| `pnpm build`                                  | Production build      |
-| `pnpm lint` / `pnpm typecheck`                | Quality gates         |
-| `pnpm --filter @better-starter/db db:migrate` | Run migrations        |
-| `pnpm --filter @better-starter/db db:studio`  | Open Drizzle Studio   |
-
-## UI components
-
-Add shadcn primitives into the shared UI package:
-
-```bash
-pnpm dlx shadcn@latest add button -c apps/web
-```
-
-```tsx
-import { Button } from "@workspace/ui/components/button"
-```
-
-App-specific UI stays in `apps/web` — do not put feature chrome in `packages/ui`.
-
-## Docs for contributors / agents
-
-Conventions and checklists live in [`AGENTS.md`](./AGENTS.md) and [`docs/agents/`](./docs/agents/).
-
-## License
-
-MIT — see [LICENSE](./LICENSE).
+Conventions live in [`AGENTS.md`](./AGENTS.md). MIT — see [LICENSE](./LICENSE).
