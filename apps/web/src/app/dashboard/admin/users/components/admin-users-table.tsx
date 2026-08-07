@@ -93,7 +93,10 @@ export function AdminUsersTable({
     startTransition(async () => {
       const result = await banUserAction({ userId: banTarget.id })
       if (!result.success) {
-        toast.add({ title: result.error ?? "Could not ban the user.", type: "error" })
+        toast.add({
+          title: result.error ?? "Could not ban the user.",
+          type: "error",
+        })
         return
       }
       setBanTarget(null)
@@ -106,7 +109,10 @@ export function AdminUsersTable({
     startTransition(async () => {
       const result = await unbanUserAction({ userId: user.id })
       if (!result.success) {
-        toast.add({ title: result.error ?? "Could not unban the user.", type: "error" })
+        toast.add({
+          title: result.error ?? "Could not unban the user.",
+          type: "error",
+        })
         return
       }
       toast.add({ title: "User unbanned.", type: "success" })

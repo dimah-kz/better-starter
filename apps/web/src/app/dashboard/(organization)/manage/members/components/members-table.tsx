@@ -115,11 +115,17 @@ export function MembersTable({
         memberId: removeTarget.id,
       })
       if (!result.success) {
-        toast.add({ title: result.error ?? "Could not remove the member.", type: "error" })
+        toast.add({
+          title: result.error ?? "Could not remove the member.",
+          type: "error",
+        })
         return
       }
       setRemoveTarget(null)
-      toast.add({ title: "Member removed from the organization.", type: "success" })
+      toast.add({
+        title: "Member removed from the organization.",
+        type: "success",
+      })
       router.refresh()
     })
   }

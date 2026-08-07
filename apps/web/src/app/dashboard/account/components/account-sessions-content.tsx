@@ -53,7 +53,10 @@ export function AccountSessionsContent({
       const result = await revokeSessionAction({ token })
       setPendingToken(null)
       if (!result.success) {
-        toast.add({ title: result.error ?? "Could not revoke session.", type: "error" })
+        toast.add({
+          title: result.error ?? "Could not revoke session.",
+          type: "error",
+        })
         return
       }
       toast.add({ title: "Session revoked.", type: "success" })

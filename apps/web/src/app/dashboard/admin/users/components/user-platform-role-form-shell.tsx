@@ -67,7 +67,10 @@ export function UserPlatformRoleFormShell({
       })
 
       if (!result.success) {
-        toast.add({ title: result.error ?? "Could not update the platform role.", type: "error" })
+        toast.add({
+          title: result.error ?? "Could not update the platform role.",
+          type: "error",
+        })
         return
       }
 

@@ -80,7 +80,10 @@ export function AvatarUploadField({
       toast.add({ title: labels.updated, type: "success" })
     },
     onError: (_file, error) => {
-      toast.add({ title: error instanceof Error ? error.message : labels.uploadFailed, type: "error" })
+      toast.add({
+        title: error instanceof Error ? error.message : labels.uploadFailed,
+        type: "error",
+      })
     },
   })
 

@@ -60,7 +60,10 @@ export function MemberRoleFormShell({
       })
 
       if (!result.success) {
-        toast.add({ title: result.error ?? "Could not update the member role.", type: "error" })
+        toast.add({
+          title: result.error ?? "Could not update the member role.",
+          type: "error",
+        })
         return
       }
 
