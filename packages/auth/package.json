@@ -1,0 +1,30 @@
+{
+  "name": "@better-starter/auth",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./errors": "./src/auth-api-error.ts",
+    "./admin-access": "./src/admin-access.ts",
+    "./organization-access": "./src/organization-access.ts"
+  },
+  "scripts": {
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@better-auth/drizzle-adapter": "rc",
+    "@better-auth/i18n": "1.7.0-rc.4",
+    "@better-starter/db": "workspace:*",
+    "@better-starter/i18n": "workspace:*",
+    "better-auth": "rc",
+    "drizzle-orm": "rc"
+  },
+  "devDependencies": {
+    "@workspace/eslint-config": "workspace:*",
+    "@workspace/typescript-config": "workspace:*",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
+  }
+}

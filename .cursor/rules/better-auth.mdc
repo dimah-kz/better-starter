@@ -1,0 +1,15 @@
+---
+description: Better Auth — auth package + app actions; open better-auth.md for detail
+globs: packages/auth/**/*,apps/**/src/lib/auth/**/*,apps/**/src/app/action/**/*
+alwaysApply: false
+---
+
+# Better Auth
+
+**Config:** `packages/auth/`. Schema: `pnpm --filter @better-starter/db auth:generate` → `db:generate` + `db:migrate`. Teams off unless enabled in `organization()`.
+
+**Writes:** app `action/` → `auth.api` with `headers: await headers()` (i18n locale cookie + session). Sign-in/up still pass `body`; `nextCookies()` sets cookies.
+
+**Permissions:** extend `*-access.ts` in auth package; UI gates via `hasPermission` / `userHasPermission` — copy sibling pattern. No `dashboard-access.ts`.
+
+**Detail (Read):** [docs/agents/better-auth.md](docs/agents/better-auth.md).

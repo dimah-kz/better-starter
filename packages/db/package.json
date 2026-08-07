@@ -1,0 +1,38 @@
+{
+  "name": "@better-starter/db",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/client.ts",
+    "./drizzle": "./src/drizzle.ts",
+    "./schema": "./src/schema/index.ts",
+    "./dimah-s3": "./src/dimah-s3-db.ts"
+  },
+  "scripts": {
+    "auth:generate": "pnpm dlx auth@rc generate --config ../auth/src/auth.ts --output ./src/schema/auth.schema.ts -y",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@dimah-s3/db": "0.3.0",
+    "@paralleldrive/cuid2": "^3.3.0",
+    "dotenv": "^17.4.2",
+    "drizzle-orm": "rc",
+    "fumadb": "0.5.1",
+    "pg": "^8.22.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.2",
+    "@types/pg": "^8.20.4",
+    "@workspace/eslint-config": "workspace:*",
+    "@workspace/typescript-config": "workspace:*",
+    "drizzle-kit": "rc",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
+  }
+}

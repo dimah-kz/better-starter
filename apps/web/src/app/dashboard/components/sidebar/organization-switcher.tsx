@@ -1,0 +1,372 @@
+"use client"
+
+import * as React from "react"
+import { useRouter } from "next/navigation"
+import { setActiveOrganizationAction } from "@/app/action/dashboard/components/set-active-organization-action"
+import { CreateOrganizationFormShell } from "@/app/dashboard/components/sidebar/create-organization-form-shell"
+import type { NavUserProfile } from "@/app/dashboard/components/sidebar/nav-user"
+import { LoadingFallbackShell } from "@/components/loading-fallback"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@workspace/ui/components/dropdown-menu"
+import {
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  useSidebar,
+} from "@workspace/ui/components/sidebar"
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@workspace/ui/components/avatar"
+import { OrganizationAvatar } from "@/components/organization-avatar"
+import { useSidebarFlyoutSide } from "@/app/dashboard/lib/sidebar-side"
+import { Input } from "@workspace/ui/components/input"
+import { cn } from "@workspace/ui/lib/utils"
+import {
+  ChevronsUpDownIcon,
+  Loader2Icon,
+  PlusIcon,
+  SearchIcon,
+} from "lucide-react"
+import { useTranslations } from "next-intl"
+
+type OrganizationSwitchContextValue = {
+  isSwitching: boolean
+  switchOrganization: (organizationId: string | null) => void
+}
+
+const OrganizationSwitchContext =
+  React.createContext<OrganizationSwitchContextValue | null>(null)
+
+export function useOrganizationSwitch() {
+  const context = React.useContext(OrganizationSwitchContext)
+
+  if (!context) {
+    throw new Error(
+      "useOrganizationSwitch must be used within OrganizationSwitchProvider"
+    )
+  }
+
+  return context
+}
+
+export function OrganizationSwitchProvider({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  const router = useRouter()
+  const [isSwitching, startTransition] = React.useTransition()
+
+  const switchOrganization = React.useCallback(
+    (organizationId: string | null) => {
+      startTransition(async () => {
+        const result = await setActiveOrganizationAction({ organizationId })
+        router.replace(result.redirectTo)
+        router.refresh()
+      })
+    },
+    [router]
+  )
+
+  const value = React.useMemo(
+    () => ({ isSwitching, switchOrganization }),
+    [isSwitching, switchOrganization]
+  )
+
+  return (
+    <OrganizationSwitchContext.Provider value={value}>
+      {children}
+    </OrganizationSwitchContext.Provider>
+  )
+}
+
+export function OrganizationSwitchOverlay() {
+  const { isSwitching } = useOrganizationSwitch()
+  const t = useTranslations("dashboard.nav.organizationSwitcher")
+
+  if (!isSwitching) {
+    return null
+  }
+
+  return <LoadingFallbackShell overlay label={t("switching")} />
+}
+
+export type SidebarOrganizationItem = {
+  id: string
+  name: string
+  logo: string | null
+}
+
+type OrganizationSwitcherProps = {
+  user: NavUserProfile
+  organizations: SidebarOrganizationItem[]
+  activeOrganizationId: string | null
+}
+
+function CreateOrganizationMenuItem({ onSelect }: { onSelect: () => void }) {
+  const t = useTranslations("dashboard.nav.organizationSwitcher")
+
+  return (
+    <DropdownMenuItem className="gap-2 p-2" onClick={onSelect}>
+      <div className="flex size-6 items-center justify-center rounded-md border bg-background">
+        <PlusIcon className="size-4" />
+      </div>
+      <span className="font-medium text-muted-foreground">
+        {t("createOrganization")}
+      </span>
+    </DropdownMenuItem>
+  )
+}
+
+function UserAvatar({
+  user,
+  className,
+}: {
+  user: NavUserProfile
+  className?: string
+}) {
+  return (
+    <Avatar className={className}>
+      <AvatarImage src={user.avatar} alt={user.name} />
+      <AvatarFallback>{user.name[0]?.toUpperCase() ?? "?"}</AvatarFallback>
+    </Avatar>
+  )
+}
+
+function PersonalAccountMenuItem({
+  user,
+  isActive,
+  disabled,
+  onSelect,
+}: {
+  user: NavUserProfile
+  isActive: boolean
+  disabled: boolean
+  onSelect: () => void
+}) {
+  return (
+    <DropdownMenuItem
+      onClick={onSelect}
+      disabled={disabled || isActive}
+      className="gap-2 p-2"
+    >
+      <UserAvatar
+        user={user}
+        className="size-6 rounded-md after:rounded-md **:data-[slot=avatar-fallback]:rounded-md **:data-[slot=avatar-image]:rounded-md"
+      />
+      <span>{user.name}</span>
+    </DropdownMenuItem>
+  )
+}
+
+export function OrganizationSwitcher({
+  user,
+  organizations,
+  activeOrganizationId,
+}: OrganizationSwitcherProps) {
+  const t = useTranslations("dashboard.nav.organizationSwitcher")
+  const { isMobile } = useSidebar()
+  const flyoutSide = useSidebarFlyoutSide(isMobile)
+  const { isSwitching, switchOrganization } = useOrganizationSwitch()
+  const [createOpen, setCreateOpen] = React.useState(false)
+  const [menuOpen, setMenuOpen] = React.useState(false)
+  const [search, setSearch] = React.useState("")
+
+  const isPersonalAccount = activeOrganizationId === null
+
+  const filteredOrganizations = React.useMemo(() => {
+    const query = search.trim().toLowerCase()
+
+    if (!query) {
+      return organizations
+    }
+
+    return organizations.filter((organization) =>
+      organization.name.toLowerCase().includes(query)
+    )
+  }, [organizations, search])
+
+  const handleMenuOpenChange = (nextOpen: boolean) => {
+    setMenuOpen(nextOpen)
+
+    if (!nextOpen) {
+      setSearch("")
+    }
+  }
+
+  const isSearching = search.trim().length > 0
+
+  const activeOrganization = React.useMemo(
+    () =>
+      organizations.find(
+        (organization) => organization.id === activeOrganizationId
+      ) ?? null,
+    [organizations, activeOrganizationId]
+  )
+
+  const handleSwitchToPersonal = () => {
+    if (isPersonalAccount || isSwitching) {
+      return
+    }
+
+    switchOrganization(null)
+  }
+
+  const handleSwitchToOrganization = (organizationId: string) => {
+    if (organizationId === activeOrganizationId || isSwitching) {
+      return
+    }
+
+    switchOrganization(organizationId)
+  }
+
+  const createForm = (
+    <CreateOrganizationFormShell
+      open={createOpen}
+      onClose={() => setCreateOpen(false)}
+    />
+  )
+
+  const dropdownContent = (
+    <DropdownMenuContent
+      className="min-w-56"
+      align="start"
+      side={flyoutSide}
+      sideOffset={4}
+    >
+      {organizations.length > 0 ? (
+        <>
+          <div
+            className="px-2 py-1.5"
+            onPointerDown={(event) => event.stopPropagation()}
+          >
+            <div className="relative">
+              <SearchIcon className="pointer-events-none absolute inset-s-2.5 top-1/2 size-3.5 -translate-y-1/2 opacity-50" />
+              <Input
+                type="search"
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+                placeholder={t("search")}
+                className="h-7 border-none bg-transparent ps-8 shadow-none focus-visible:ring-0"
+                aria-label={t("search")}
+                onKeyDown={(event) => event.stopPropagation()}
+              />
+            </div>
+          </div>
+          <DropdownMenuSeparator />
+        </>
+      ) : null}
+      {!isSearching ? (
+        <DropdownMenuGroup>
+          <DropdownMenuLabel className="text-xs text-muted-foreground">
+            {t("personalAccount")}
+          </DropdownMenuLabel>
+          <PersonalAccountMenuItem
+            user={user}
+            isActive={isPersonalAccount}
+            disabled={isSwitching}
+            onSelect={handleSwitchToPersonal}
+          />
+        </DropdownMenuGroup>
+      ) : null}
+      {organizations.length > 0 ? (
+        <>
+          {!isSearching ? <DropdownMenuSeparator /> : null}
+          <DropdownMenuGroup>
+            <DropdownMenuLabel className="text-xs text-muted-foreground">
+              {t("organizations")} ({filteredOrganizations.length})
+            </DropdownMenuLabel>
+            {filteredOrganizations.map((organization) => (
+              <DropdownMenuItem
+                key={organization.id}
+                onClick={() => handleSwitchToOrganization(organization.id)}
+                disabled={isSwitching}
+                className="gap-2 p-2"
+              >
+                <OrganizationAvatar
+                  name={organization.name}
+                  logo={organization.logo}
+                  size="sm"
+                  className="size-6 rounded-md after:rounded-md **:data-[slot=avatar-fallback]:rounded-md **:data-[slot=avatar-image]:rounded-md"
+                />
+                <span>{organization.name}</span>
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuGroup>
+        </>
+      ) : null}
+      <DropdownMenuSeparator />
+      <CreateOrganizationMenuItem onSelect={() => setCreateOpen(true)} />
+    </DropdownMenuContent>
+  )
+
+  return (
+    <>
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <DropdownMenu open={menuOpen} onOpenChange={handleMenuOpenChange}>
+            <DropdownMenuTrigger
+              disabled={isSwitching}
+              render={
+                <SidebarMenuButton
+                  size="lg"
+                  className="data-open:bg-sidebar-accent data-open:text-sidebar-accent-foreground"
+                  aria-busy={isSwitching}
+                />
+              }
+            >
+              {isPersonalAccount ? (
+                <>
+                  <UserAvatar
+                    user={user}
+                    className="size-8 rounded-lg after:rounded-lg **:data-[slot=avatar-fallback]:rounded-lg **:data-[slot=avatar-image]:rounded-lg"
+                  />
+                  <div className="grid flex-1 text-start text-sm leading-tight">
+                    <span className="truncate font-medium">{user.name}</span>
+                    <span className="truncate text-xs text-muted-foreground">
+                      {t("activePersonalAccount")}
+                    </span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <OrganizationAvatar
+                    name={activeOrganization?.name ?? ""}
+                    logo={activeOrganization?.logo ?? null}
+                    className="size-8 rounded-lg after:rounded-lg **:data-[slot=avatar-fallback]:rounded-lg **:data-[slot=avatar-image]:rounded-lg"
+                    fallbackClassName="bg-sidebar-primary text-sidebar-primary-foreground"
+                  />
+                  <div className="grid flex-1 text-start text-sm leading-tight">
+                    <span className="truncate font-medium">
+                      {activeOrganization?.name}
+                    </span>
+                    <span className="truncate text-xs text-muted-foreground">
+                      {t("activeOrganization")}
+                    </span>
+                  </div>
+                </>
+              )}
+              <ChevronsUpDownIcon
+                className={cn("ms-auto opacity-55", isSwitching && "hidden")}
+              />
+              {isSwitching ? (
+                <Loader2Icon className="ms-auto size-4 animate-spin opacity-70" />
+              ) : null}
+            </DropdownMenuTrigger>
+            {dropdownContent}
+          </DropdownMenu>
+        </SidebarMenuItem>
+      </SidebarMenu>
+      {createForm}
+    </>
+  )
+}

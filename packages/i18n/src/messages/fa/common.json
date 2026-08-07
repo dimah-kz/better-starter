@@ -1,0 +1,21 @@
+{
+  "appTitle": "داشبورد بهتر",
+  "appDescription": "قالب داشبورد سازمانی موبایل‌اول با Better Auth برای Next.js — سایدبار واکنش‌گرا، فرم‌ها و چیدمان.",
+  "metadataTitleTemplate": "%s · داشبورد بهتر",
+  "tryAgain": "تلاش دوباره",
+  "signOut": "خروج",
+  "signingOut": "در حال خروج...",
+  "darkTheme": "تم تیره",
+  "settings": "تنظیمات",
+  "goHome": "خانه",
+  "pagination": {
+    "previous": "قبلی",
+    "next": "بعدی",
+    "rowsPerPage": "ردیف در هر صفحه",
+    "range": "{start}–{end} از {total}",
+    "rangeAria": "{start} تا {end} از {total} {countLabel}"
+  },
+  "item": "مورد",
+  "items": "مورد",
+  "language": "زبان"
+}

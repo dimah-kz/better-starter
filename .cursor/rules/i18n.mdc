@@ -1,0 +1,13 @@
+---
+description: Messages and locale — open i18n.md for detail
+globs: packages/i18n/**/*.json,packages/i18n/src/**/*.ts,apps/**/src/i18n/**/*
+alwaysApply: false
+---
+
+# i18n
+
+Product copy in `@better-starter/i18n` — no hardcoded strings in UI. URLs stay English in `*-routes.ts`.
+
+Cookie locale (`BS_LOCALE`); no `[locale]` segment. `lang`/`dir` on root layout only.
+
+**Detail (Read):** [docs/agents/i18n.md](docs/agents/i18n.md).

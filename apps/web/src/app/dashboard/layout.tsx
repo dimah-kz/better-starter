@@ -1,0 +1,71 @@
+import { Suspense } from "react"
+import { DashboardHeader } from "@/app/dashboard/components/header/dashboard-header"
+import { DashboardPageFallback } from "@/app/dashboard/components/layout/dashboard-page-shell"
+import { AppSidebar } from "@/app/dashboard/components/sidebar/app-sidebar"
+import { DashboardSidebarFallback } from "@/app/dashboard/components/sidebar/dashboard-sidebar-fallback"
+import {
+  OrganizationSwitchOverlay,
+  OrganizationSwitchProvider,
+} from "@/app/dashboard/components/sidebar/organization-switcher"
+import { SidebarCloseOnNavigate } from "@/app/dashboard/components/sidebar/sidebar-close-on-navigate"
+import { getDashboardSidebarProps } from "@/app/dashboard/lib/get-dashboard-sidebar-props"
+import { requireDashboardSession } from "@/app/dashboard/lib/dashboard-session"
+import { S3ClientProvider } from "@better-starter/storage/react"
+import { SidebarInset, SidebarProvider } from "@workspace/ui/components/sidebar"
+import { getLocale } from "next-intl/server"
+
+type DashboardLayoutProps = {
+  children: React.ReactNode
+}
+
+function DashboardShellFallback() {
+  return (
+    <>
+      <DashboardSidebarFallback />
+      <SidebarInset className="relative min-h-svh">
+        <DashboardHeader />
+        <DashboardPageFallback />
+      </SidebarInset>
+    </>
+  )
+}
+
+export default function DashboardLayout({ children }: DashboardLayoutProps) {
+  return (
+    <OrganizationSwitchProvider>
+      <SidebarProvider>
+        <SidebarCloseOnNavigate />
+        <Suspense fallback={<DashboardShellFallback />}>
+          <DashboardShell>{children}</DashboardShell>
+        </Suspense>
+      </SidebarProvider>
+    </OrganizationSwitchProvider>
+  )
+}
+
+async function DashboardShell({ children }: DashboardLayoutProps) {
+  const session = await requireDashboardSession()
+  const sidebar = await getDashboardSidebarProps(session.user.id)
+  const locale = await getLocale()
+
+  return (
+    <S3ClientProvider locale={locale}>
+      <AppSidebar
+        navGroups={sidebar.navGroups}
+        navSections={sidebar.navSections}
+        organizations={sidebar.organizations}
+        activeOrganizationId={sidebar.activeOrganizationId}
+        user={{
+          name: session.user.name,
+          email: session.user.email,
+          avatar: session.user.image ?? "",
+        }}
+      />
+      <SidebarInset className="relative min-h-svh">
+        <OrganizationSwitchOverlay />
+        <DashboardHeader />
+        {children}
+      </SidebarInset>
+    </S3ClientProvider>
+  )
+}

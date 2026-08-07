@@ -1,0 +1,14 @@
+{
+  "filters": {
+    "all": "All",
+    "admins": "Admins",
+    "users": "Users",
+    "banned": "Banned",
+    "managers": "Managers",
+    "members": "Members"
+  },
+  "search": {
+    "users": "Search by name or email…",
+    "organizations": "Search by name or slug…"
+  }
+}

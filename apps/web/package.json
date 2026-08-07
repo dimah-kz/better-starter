@@ -1,0 +1,49 @@
+{
+  "name": "web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "auth:generate": "pnpm --filter @better-starter/db auth:generate",
+    "build": "next build",
+    "db:generate": "pnpm --filter @better-starter/db db:generate",
+    "db:migrate": "pnpm --filter @better-starter/db db:migrate",
+    "db:push": "pnpm --filter @better-starter/db db:push",
+    "db:studio": "pnpm --filter @better-starter/db db:studio",
+    "dev": "next dev",
+    "lint": "eslint",
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@better-starter/auth": "workspace:*",
+    "@better-starter/db": "workspace:*",
+    "@better-starter/i18n": "workspace:*",
+    "@better-starter/storage": "workspace:*",
+    "@dimah-s3/react": "0.3.0",
+    "@dimah-s3/server": "0.3.0",
+    "@workspace/ui": "workspace:*",
+    "country-flag-icons": "1.6.20",
+    "date-fns": "^4.4.0",
+    "dotenv": "^17.4.2",
+    "lucide-react": "^1.28.0",
+    "next": "16.3.0",
+    "next-intl": "^4.13.5",
+    "next-themes": "^0.4.6",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "ua-parser-js": "^2.0.10"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^26.1.2",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@workspace/eslint-config": "workspace:*",
+    "@workspace/typescript-config": "workspace:*",
+    "babel-plugin-react-compiler": "1.0.0",
+    "eslint": "catalog:",
+    "tailwindcss": "^4.3.3",
+    "typescript": "catalog:"
+  }
+}

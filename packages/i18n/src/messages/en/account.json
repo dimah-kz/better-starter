@@ -1,0 +1,39 @@
+{
+  "profile": {
+    "title": "Profile",
+    "avatar": {
+      "label": "Photo",
+      "change": "Change photo",
+      "upload": "Upload photo",
+      "remove": "Remove photo",
+      "updated": "Your photo was updated.",
+      "removed": "Your photo was removed.",
+      "uploadFailed": "Could not upload photo.",
+      "removeFailed": "Could not remove photo."
+    },
+    "email": "Email",
+    "emailHint": "Email cannot be changed from the dashboard.",
+    "displayName": "Display name",
+    "save": "Save changes",
+    "saving": "Saving…",
+    "saved": "Your profile was updated.",
+    "cancel": "Cancel"
+  },
+  "security": {
+    "title": "Password",
+    "unavailable": "This account does not sign in with email and password, so there is no password to change here."
+  },
+  "sessions": {
+    "title": "Active sessions",
+    "empty": "No active sessions were found.",
+    "onlyThisDevice": "You are only signed in on this device.",
+    "currentDevice": "This device",
+    "revoke": "Revoke",
+    "revoking": "Revoking…",
+    "signOutOthers": "Sign out other sessions",
+    "signingOutOthers": "Signing out…",
+    "signedIn": "Signed in",
+    "expires": "Session ends",
+    "ip": "IP address"
+  }
+}

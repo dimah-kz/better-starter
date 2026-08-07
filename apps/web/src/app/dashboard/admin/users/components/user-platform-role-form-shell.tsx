@@ -1,0 +1,143 @@
+"use client"
+
+import { useEffect, useId, useState, useTransition } from "react"
+import { useRouter } from "next/navigation"
+import { updateUserPlatformRoleAction } from "@/app/action/dashboard/admin/users/update-user-platform-role-action"
+import type { AdminUserItem } from "@/app/dashboard/admin/users/lib/get-admin-users-page"
+import { FormLabel } from "@/components/form/form-label"
+import { ResponsiveFormOverlay } from "@/components/responsive-form-overlay"
+import { Button } from "@workspace/ui/components/button"
+import { Checkbox } from "@workspace/ui/components/checkbox"
+import { Label } from "@workspace/ui/components/label"
+import {
+  adminPluginRoles,
+  type PlatformRole,
+} from "@better-starter/auth/admin-access"
+import { parseRoleString } from "@/lib/role-string"
+
+const platformRoles = Object.keys(adminPluginRoles) as PlatformRole[]
+import { toast } from "@workspace/ui/components/toast"
+import { useTranslations } from "next-intl"
+
+type UserPlatformRoleFormShellProps = {
+  user: AdminUserItem | null
+  open: boolean
+  onClose: () => void
+}
+
+export function UserPlatformRoleFormShell({
+  user,
+  open,
+  onClose,
+}: UserPlatformRoleFormShellProps) {
+  const t = useTranslations()
+  const router = useRouter()
+  const fieldId = useId()
+  const [isPending, startTransition] = useTransition()
+  const [roles, setRoles] = useState<string[]>(["user"])
+
+  useEffect(() => {
+    if (user) {
+      const tokens = parseRoleString(user.role)
+      setRoles(
+        tokens.length
+          ? tokens.filter((token) =>
+              (platformRoles as readonly string[]).includes(token)
+            )
+          : ["user"]
+      )
+    }
+  }, [user])
+
+  const canSubmit = Boolean(
+    user &&
+    roles.length > 0 &&
+    roles.every((role) => (platformRoles as readonly string[]).includes(role))
+  )
+
+  const handleSubmit = () => {
+    if (!user || !canSubmit) {
+      return
+    }
+
+    startTransition(async () => {
+      const result = await updateUserPlatformRoleAction({
+        userId: user.id,
+        roles: roles as PlatformRole[],
+      })
+
+      if (!result.success) {
+        toast.add({ title: result.error ?? "Could not update the platform role.", type: "error" })
+        return
+      }
+
+      toast.add({ title: "Platform role updated.", type: "success" })
+      onClose()
+      router.refresh()
+    })
+  }
+
+  const changeRoleLabel = t("dashboard.adminUserManage.changeRole")
+
+  return (
+    <ResponsiveFormOverlay
+      open={open}
+      onOpenChange={(nextOpen) => {
+        if (!nextOpen) {
+          onClose()
+        }
+      }}
+      title={changeRoleLabel}
+      description={user ? `${user.name} · ${user.email}` : undefined}
+      footer={
+        <>
+          <Button
+            type="button"
+            disabled={isPending || !canSubmit}
+            onClick={handleSubmit}
+          >
+            {changeRoleLabel}
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            disabled={isPending}
+            onClick={onClose}
+          >
+            Cancel
+          </Button>
+        </>
+      }
+    >
+      {user ? (
+        <div className="space-y-3">
+          <FormLabel required>Roles</FormLabel>
+          {platformRoles.map((option) => {
+            const checkboxId = `${fieldId}-${option}`
+
+            return (
+              <div key={option} className="flex items-center gap-2">
+                <Checkbox
+                  id={checkboxId}
+                  checked={roles.includes(option)}
+                  onCheckedChange={(checked) => {
+                    if (checked === true) {
+                      setRoles([...roles, option])
+                      return
+                    }
+
+                    setRoles(roles.filter((role) => role !== option))
+                  }}
+                  disabled={isPending}
+                />
+                <Label htmlFor={checkboxId} className="font-normal">
+                  {t(`badges.platformRole.${option}`)}
+                </Label>
+              </div>
+            )
+          })}
+        </div>
+      ) : null}
+    </ResponsiveFormOverlay>
+  )
+}

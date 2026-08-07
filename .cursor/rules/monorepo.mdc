@@ -1,0 +1,13 @@
+---
+description: Monorepo layout, packages vs apps — open monorepo.md for detail
+globs: apps/**/*,packages/**/*,pnpm-workspace.yaml,turbo.json,package.json
+alwaysApply: false
+---
+
+# Monorepo
+
+**Target:** `packages/` = core; `apps/` = `web` (Next.js) + `mobile` / `extension` (future). Explore the tree for live packages.
+
+**Deps:** apps → packages OK. packages → apps **forbidden**. shadcn primitives in `@workspace/ui`; app-composed UI in each app.
+
+**Detail (Read):** [docs/agents/monorepo.md](docs/agents/monorepo.md). Next app agent file: [apps/web/AGENTS.md](apps/web/AGENTS.md).

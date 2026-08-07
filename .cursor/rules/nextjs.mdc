@@ -1,0 +1,13 @@
+---
+description: Next.js 16 — always read node_modules docs first; never web-search
+globs: apps/**/next.config.ts,apps/**/**/cache-tags.ts,apps/**/src/app/**/lib/get-*.ts
+alwaysApply: false
+---
+
+# Next.js 16+ (this repo)
+
+Training-data Next is **wrong** for this version.
+
+1. **Read first:** `apps/web` → `node_modules/next/dist/docs/` (see [apps/web/AGENTS.md](apps/web/AGENTS.md)).
+2. **Never** web-search Next.js APIs or guides.
+3. Repo conventions after that: [docs/agents/nextjs.md](docs/agents/nextjs.md), [docs/agents/caching.md](docs/agents/caching.md).

@@ -1,0 +1,81 @@
+{
+  "nav": {
+    "sidebar": {
+      "dashboard": "داشبورد",
+      "account": "حساب کاربری",
+      "platform": "پلتفرم",
+      "organization": "سازمان",
+      "organizationManagement": "مدیریت سازمان",
+      "platformManagement": "مدیریت پلتفرم",
+      "back": "بازگشت"
+    },
+    "organizationSwitcher": {
+      "noOrganization": "بدون سازمان",
+      "notMember": "عضو هیچ سازمانی نیستید",
+      "personalAccount": "اکانت شخصی",
+      "activePersonalAccount": "اکانت شخصی",
+      "activeOrganization": "سازمان فعال",
+      "organizations": "سازمان‌ها",
+      "search": "جستجو…",
+      "createOrganization": "ایجاد سازمان",
+      "createOrganizationHint": "برای شروع یک سازمان بسازید",
+      "switching": "در حال تغییر حساب…",
+      "organizationCreated": "سازمان ایجاد شد.",
+      "organizationCreateFailed": "ایجاد سازمان انجام نشد."
+    }
+  },
+  "adminTabs": {
+    "users": "کاربران",
+    "organizations": "سازمان‌ها"
+  },
+  "manageTabs": {
+    "members": "اعضا"
+  },
+  "organizationManage": {
+    "title": "مدیریت سازمان",
+    "editName": "ویرایش نام",
+    "nameLabel": "نام سازمان",
+    "nameUpdated": "نام سازمان به‌روزرسانی شد.",
+    "nameUpdateFailed": "به‌روزرسانی نام سازمان ممکن نشد.",
+    "avatar": {
+      "change": "تغییر لوگو",
+      "upload": "آپلود لوگو",
+      "remove": "حذف لوگو",
+      "updated": "لوگوی سازمان به‌روزرسانی شد.",
+      "removed": "لوگوی سازمان حذف شد.",
+      "uploadFailed": "آپلود لوگو ممکن نشد."
+    }
+  },
+  "memberManage": {
+    "changeRole": "تغییر نقش",
+    "removeFromOrganization": "حذف از سازمان"
+  },
+  "adminPage": {
+    "title": "مدیریت پلتفرم"
+  },
+  "accountSettings": {
+    "security": "رمز عبور",
+    "sessions": "نشست‌های فعال"
+  },
+  "adminUserManage": {
+    "changeRole": "تغییر نقش پلتفرم",
+    "banUser": "مسدود کردن کاربر",
+    "unbanUser": "رفع مسدودیت",
+    "banTitle": "مسدود کردن کاربر",
+    "banDescription": "این کاربر تا زمان رفع مسدودیت نمی‌تواند وارد شود.",
+    "banConfirm": "مسدود کردن"
+  },
+  "breadcrumbSegments": {
+    "dashboard": "داشبورد",
+    "account": "حساب کاربری",
+    "admin": "مدیریت",
+    "users": "کاربران",
+    "organizations": "سازمان‌ها",
+    "manage": "مدیریت",
+    "members": "اعضا"
+  },
+  "errors": {
+    "title": "مشکلی پیش آمد",
+    "description": "بارگذاری این صفحه ممکن نشد. دوباره تلاش کنید یا بعداً برگردید."
+  }
+}

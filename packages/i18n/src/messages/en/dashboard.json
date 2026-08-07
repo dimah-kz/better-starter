@@ -1,0 +1,81 @@
+{
+  "nav": {
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "account": "Account",
+      "platform": "Platform",
+      "organization": "Organization",
+      "organizationManagement": "Organization management",
+      "platformManagement": "Platform management",
+      "back": "Back"
+    },
+    "organizationSwitcher": {
+      "noOrganization": "No organization",
+      "notMember": "Not a member of any organization",
+      "personalAccount": "Personal account",
+      "activePersonalAccount": "Personal account",
+      "activeOrganization": "Active organization",
+      "organizations": "Organizations",
+      "search": "Search…",
+      "createOrganization": "Create organization",
+      "createOrganizationHint": "Create one to get started",
+      "switching": "Switching account…",
+      "organizationCreated": "Organization created.",
+      "organizationCreateFailed": "Could not create the organization."
+    }
+  },
+  "adminTabs": {
+    "users": "Users",
+    "organizations": "Organizations"
+  },
+  "manageTabs": {
+    "members": "Members"
+  },
+  "organizationManage": {
+    "title": "Organization management",
+    "editName": "Edit name",
+    "nameLabel": "Organization name",
+    "nameUpdated": "Organization name updated.",
+    "nameUpdateFailed": "Could not update the organization name.",
+    "avatar": {
+      "change": "Change logo",
+      "upload": "Upload logo",
+      "remove": "Remove logo",
+      "updated": "Organization logo was updated.",
+      "removed": "Organization logo was removed.",
+      "uploadFailed": "Could not upload logo."
+    }
+  },
+  "memberManage": {
+    "changeRole": "Change role",
+    "removeFromOrganization": "Remove from organization"
+  },
+  "adminPage": {
+    "title": "Platform administration"
+  },
+  "accountSettings": {
+    "security": "Password",
+    "sessions": "Active sessions"
+  },
+  "adminUserManage": {
+    "changeRole": "Change platform role",
+    "banUser": "Ban user",
+    "unbanUser": "Unban user",
+    "banTitle": "Ban user",
+    "banDescription": "This user will be unable to sign in until unbanned.",
+    "banConfirm": "Ban user"
+  },
+  "breadcrumbSegments": {
+    "dashboard": "Dashboard",
+    "account": "Account",
+    "admin": "Admin",
+    "users": "Users",
+    "organizations": "Organizations",
+    "manage": "Manage",
+    "members": "Members"
+  },
+  "errors": {
+    "title": "Something went wrong",
+    "description": "We could not load this page. Try again or return later."
+  }
+}

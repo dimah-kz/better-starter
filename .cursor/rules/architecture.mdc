@@ -1,0 +1,19 @@
+---
+description: Where code belongs — packages vs apps; open architecture.md for detail
+globs: apps/**/src/**/*,packages/**/src/**/*
+alwaysApply: false
+---
+
+# Architecture
+
+**Core:** auth + db in `packages/`. **Features:** removable subtrees in apps (`route` + `action/` + SSOT).
+
+**Deps (app):** sub-feature → segment `lib/` → `src/lib` | `src/components`. No cross-sibling feature imports.
+
+**Action-first:** `app/<segment>/` + `app/action/<segment>/` (one mutation per file) → **`auth.api`** for writes.
+
+**SSOT:** `*-routes.ts`, `cache-tags.ts` per segment. **No** `dashboard-access.ts` or custom RBAC modules.
+
+**Before new code:** search upward; inline by default; one call site (~10–20 lines) → no new file/module — [architecture.md § Placement](docs/agents/architecture.md#placement), [§ Do not over-extract](docs/agents/architecture.md#do-not-over-extract).
+
+**Detail (Read):** [docs/agents/architecture.md](docs/agents/architecture.md).

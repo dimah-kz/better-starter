@@ -1,0 +1,13 @@
+---
+description: Dashboard segment — routes & nav SSOT; open dashboard.md for detail
+globs: apps/**/src/app/dashboard/**/*
+alwaysApply: false
+---
+
+# Dashboard segment
+
+**SSOT:** `dashboard-routes.ts`, `cache-tags.ts` (inside the app). Dashboard copy: `@better-starter/i18n` `dashboard.json`. **Mirror** a sibling feature when adding routes.
+
+**Writes:** `action/dashboard/…` → `auth.api`. **Reads:** `get-*.ts` + `'use cache'` + tags.
+
+**Detail (Read):** [docs/agents/dashboard.md](docs/agents/dashboard.md).

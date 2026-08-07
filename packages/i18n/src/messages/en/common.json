@@ -1,0 +1,21 @@
+{
+  "appTitle": "Better Dashboard",
+  "appDescription": "Mobile-first Better Auth organization dashboard template for Next.js—responsive sidebar, forms, and layout.",
+  "metadataTitleTemplate": "%s · Better Dashboard",
+  "tryAgain": "Try again",
+  "signOut": "Sign out",
+  "signingOut": "Signing out...",
+  "darkTheme": "Dark theme",
+  "settings": "Settings",
+  "goHome": "Home",
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "rowsPerPage": "Rows per page",
+    "range": "{start}–{end} of {total}",
+    "rangeAria": "{start} to {end} of {total} {countLabel}"
+  },
+  "item": "item",
+  "items": "items",
+  "language": "Language"
+}

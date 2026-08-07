@@ -1,0 +1,16 @@
+{
+  "fallback": "Unknown",
+  "platformRole": {
+    "user": "User",
+    "admin": "Admin"
+  },
+  "membershipRole": {
+    "owner": "Owner",
+    "admin": "Admin",
+    "member": "Member"
+  },
+  "userAccountStatus": {
+    "active": "Active",
+    "banned": "Banned"
+  }
+}

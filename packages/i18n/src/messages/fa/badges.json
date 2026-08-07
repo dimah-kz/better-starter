@@ -1,0 +1,16 @@
+{
+  "fallback": "نامشخص",
+  "platformRole": {
+    "user": "کاربر",
+    "admin": "مدیر"
+  },
+  "membershipRole": {
+    "owner": "مالک",
+    "admin": "مدیر",
+    "member": "عضو"
+  },
+  "userAccountStatus": {
+    "active": "فعال",
+    "banned": "مسدود"
+  }
+}
