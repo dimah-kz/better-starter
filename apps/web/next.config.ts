@@ -8,8 +8,10 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts")
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
+  experimental: {
+    turbopackRustReactCompiler: true,
+  },
   cacheComponents: true,
-  // Next.js 16.3 — App Shell prefetch; requires cacheComponents
   partialPrefetching: true,
   transpilePackages: [
     "@workspace/ui",
