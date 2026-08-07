@@ -1,5 +1,13 @@
 # @workspace/ui
 
-Shared UI primitives — shadcn / Base UI components and global styles.
+Shared [shadcn/ui](https://ui.shadcn.com/) primitives (Base UI under the hood) and global styles for every app.
 
-Add or regenerate components with the shadcn CLI scoped to this package. App-specific chrome and feature UI stay in each app, not here.
+**Do not hand-edit** generated components — refresh or add them with the CLI scoped to this package:
+
+```bash
+pnpm dlx shadcn@latest add button -c packages/ui
+# or refresh everything from the repo root:
+pnpm ui:sync
+```
+
+Import from `@workspace/ui/components/…`. App-specific chrome and feature UI stay in each app, not here.

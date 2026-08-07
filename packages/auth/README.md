@@ -1,5 +1,7 @@
 # @better-starter/auth
 
-Authentication for the monorepo: Better Auth with email/password, admin, and organizations.
+Authentication for the monorepo: [Better Auth](https://www.better-auth.com/) with email/password, `admin`, and `organization` plugins.
 
-Owns the auth server config, session helpers, and permission surfaces. Apps mutate through `auth.api` — not by talking to auth tables directly.
+Owns the auth server config, session helpers, and permission surfaces. Apps mutate through `auth.api` — never by talking to auth tables directly.
+
+After changing auth config, regenerate schema from the db package: `auth:generate` → `db:generate` → `db:migrate`.
