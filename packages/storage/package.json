@@ -13,14 +13,14 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.1104.0",
+    "@aws-sdk/client-s3": "^3.1105.0",
     "@better-starter/auth": "workspace:*",
     "@better-starter/db": "workspace:*",
     "@better-starter/i18n": "workspace:*",
-    "@dimah-s3/core": "0.3.0",
-    "@dimah-s3/db": "0.3.0",
-    "@dimah-s3/react": "0.3.0",
-    "@dimah-s3/server": "0.3.0",
+    "@dimah-s3/core": "0.6.3",
+    "@dimah-s3/db": "0.6.3",
+    "@dimah-s3/react": "0.6.3",
+    "@dimah-s3/server": "0.6.3",
     "drizzle-orm": "rc"
   },
   "devDependencies": {

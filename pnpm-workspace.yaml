@@ -19,6 +19,9 @@ packages:
   - "apps/*"
   - "packages/*"
 
+minimumReleaseAgeExclude:
+  - "@dimah-s3/*"
+
 allowBuilds:
   "@parcel/watcher": true
   "@prisma/engines": false
