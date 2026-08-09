@@ -2,9 +2,7 @@
   "version": "8",
   "dialect": "postgres",
   "id": "a7b71c41-0d55-4bfd-97b6-0175e162af7d",
-  "prevIds": [
-    "57703b36-f116-47de-bd18-c1f245f642aa"
-  ],
+  "prevIds": ["57703b36-f116-47de-bd18-c1f245f642aa"],
   "ddl": [
     {
       "name": "storage",
@@ -1434,14 +1432,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "schemaTo": "auth",
       "tableTo": "user",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "account_user_id_user_id_fkey",
@@ -1451,14 +1445,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "organization_id"
-      ],
+      "columns": ["organization_id"],
       "schemaTo": "auth",
       "tableTo": "organization",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "invitation_organization_id_organization_id_fkey",
@@ -1468,14 +1458,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "inviter_id"
-      ],
+      "columns": ["inviter_id"],
       "schemaTo": "auth",
       "tableTo": "user",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "invitation_inviter_id_user_id_fkey",
@@ -1485,14 +1471,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "organization_id"
-      ],
+      "columns": ["organization_id"],
       "schemaTo": "auth",
       "tableTo": "organization",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "member_organization_id_organization_id_fkey",
@@ -1502,14 +1484,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "schemaTo": "auth",
       "tableTo": "user",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "member_user_id_user_id_fkey",
@@ -1519,14 +1497,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "schemaTo": "auth",
       "tableTo": "user",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "session_user_id_user_id_fkey",
@@ -1535,9 +1509,7 @@
       "table": "session"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "account_pkey",
       "schema": "auth",
@@ -1545,9 +1517,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "invitation_pkey",
       "schema": "auth",
@@ -1555,9 +1525,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "member_pkey",
       "schema": "auth",
@@ -1565,9 +1533,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "organization_pkey",
       "schema": "auth",
@@ -1575,9 +1541,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "session_pkey",
       "schema": "auth",
@@ -1585,9 +1549,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "user_pkey",
       "schema": "auth",
@@ -1595,9 +1557,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "verification_pkey",
       "schema": "auth",
@@ -1605,9 +1565,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "private_dimah_s3_settings_pkey",
       "schema": "storage",
@@ -1615,9 +1573,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "storage_object_pkey",
       "schema": "storage",
@@ -1626,9 +1582,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "slug"
-      ],
+      "columns": ["slug"],
       "nullsNotDistinct": false,
       "name": "organization_slug_key",
       "schema": "auth",
@@ -1637,9 +1591,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "token"
-      ],
+      "columns": ["token"],
       "nullsNotDistinct": false,
       "name": "session_token_key",
       "schema": "auth",
@@ -1648,9 +1600,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "email"
-      ],
+      "columns": ["email"],
       "nullsNotDistinct": false,
       "name": "user_email_key",
       "schema": "auth",

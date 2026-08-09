@@ -20,5 +20,5 @@
   "rtl": true,
   "menuColor": "default",
   "menuAccent": "subtle",
-  "registries": {}
+  "registries": { "@reui": "https://reui.io/r/{style}/{name}.json" }
 }
