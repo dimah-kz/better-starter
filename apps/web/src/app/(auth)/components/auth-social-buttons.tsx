@@ -42,21 +42,28 @@ export function AuthSocialButtons({
       <Marker variant="separator">
         <MarkerContent>{t("continueWith")}</MarkerContent>
       </Marker>
-      <Button
-        type="button"
-        variant="outline"
-        size="default"
-        className="w-full"
-        aria-label={t("google")}
-      >
-        <span className="inline-flex items-center gap-1.5">
-          <GoogleIcon className="size-4 shrink-0" />
-          <span className="-mb-px leading-none">{t("google")}</span>
-          {lastLoginMethod === "google" ? (
-            <Badge variant="secondary">{t("lastUsed")}</Badge>
-          ) : null}
-        </span>
-      </Button>
+      <div className="relative">
+        <Button
+          type="button"
+          variant="outline"
+          size="default"
+          className="w-full"
+          aria-label={t("google")}
+        >
+          <span className="inline-flex items-center gap-1.5">
+            <GoogleIcon className="size-4 shrink-0" />
+            <span className="-mb-px leading-none">{t("google")}</span>
+          </span>
+        </Button>
+        {lastLoginMethod === "google" ? (
+          <Badge
+            variant="outline"
+            className="pointer-events-none absolute end-2 top-0 z-10 -translate-y-1/2 bg-background"
+          >
+            {t("lastUsed")}
+          </Badge>
+        ) : null}
+      </div>
     </div>
   )
 }

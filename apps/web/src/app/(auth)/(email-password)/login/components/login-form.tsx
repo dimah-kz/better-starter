@@ -72,14 +72,19 @@ export function LoginForm({
             />
           </Field>
         </FieldGroup>
-        <div className="space-y-2">
-          {lastLoginMethod === "email" ? (
-            <Badge variant="secondary">{tSocial("lastUsed")}</Badge>
-          ) : null}
+        <div className="relative">
           <FormSubmitButton
             idleText={t("submit")}
             loadingText={t("submitting")}
           />
+          {lastLoginMethod === "email" ? (
+            <Badge
+              variant="outline"
+              className="pointer-events-none absolute end-2 top-0 z-10 -translate-y-1/2 bg-background"
+            >
+              {tSocial("lastUsed")}
+            </Badge>
+          ) : null}
         </div>
       </form>
       <AuthSocialButtons lastLoginMethod={lastLoginMethod} />
