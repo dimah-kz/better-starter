@@ -3,7 +3,7 @@ import { drizzleAdapter } from "@better-auth/drizzle-adapter/relations-v2"
 import { i18n, locales as authErrorLocales } from "@better-auth/i18n"
 import { nextCookies } from "better-auth/next-js"
 import type { AccessControl } from "better-auth/plugins/access"
-import { admin, organization } from "better-auth/plugins"
+import { admin, lastLoginMethod, organization } from "better-auth/plugins"
 import { db } from "@better-starter/db"
 import * as schema from "@better-starter/db/schema"
 import { defaultLocale, localeCookieName } from "@better-starter/i18n"
@@ -48,6 +48,9 @@ export const auth = betterAuth({
       defaultLocale,
       detection: ["cookie", "header"],
       localeCookie: localeCookieName,
+    }),
+    lastLoginMethod({
+      storeInDatabase: true,
     }),
     nextCookies(),
   ],

@@ -11,6 +11,7 @@ import {
   InputGroupInput,
 } from "@workspace/ui/components/input-group"
 import { Alert, AlertDescription } from "@workspace/ui/components/alert"
+import { Badge } from "@workspace/ui/components/badge"
 import { FormSubmitButton } from "@/components/form/form-submit-button"
 import { PasswordInput } from "@/components/form/password-input"
 import { AuthSocialButtons } from "@/app/(auth)/components/auth-social-buttons"
@@ -18,10 +19,15 @@ import { useTranslations } from "next-intl"
 
 type LoginFormProps = {
   redirectTo: string
+  lastLoginMethod?: string | null
 }
 
-export function LoginForm({ redirectTo }: LoginFormProps) {
+export function LoginForm({
+  redirectTo,
+  lastLoginMethod = null,
+}: LoginFormProps) {
   const t = useTranslations("auth.login")
+  const tSocial = useTranslations("auth.social")
   const [state, formAction] = useActionState(
     signInWithEmailAction,
     AUTH_FORM_INITIAL_STATE
@@ -66,12 +72,17 @@ export function LoginForm({ redirectTo }: LoginFormProps) {
             />
           </Field>
         </FieldGroup>
-        <FormSubmitButton
-          idleText={t("submit")}
-          loadingText={t("submitting")}
-        />
+        <div className="space-y-2">
+          {lastLoginMethod === "email" ? (
+            <Badge variant="secondary">{tSocial("lastUsed")}</Badge>
+          ) : null}
+          <FormSubmitButton
+            idleText={t("submit")}
+            loadingText={t("submitting")}
+          />
+        </div>
       </form>
-      <AuthSocialButtons />
+      <AuthSocialButtons lastLoginMethod={lastLoginMethod} />
     </div>
   )
 }

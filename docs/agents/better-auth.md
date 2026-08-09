@@ -21,6 +21,8 @@
 
 **Teams:** off by default — enable in `organization()` only when you add team features.
 
+**Last login method:** `lastLoginMethod({ storeInDatabase: true })` — cookie for login UI (read in RSC); `session.user.lastLoginMethod` from DB. No auth client in core.
+
 ## When adding a mutation (in an app)
 
 1. Server Action under `app/action/…` mirroring the route (one mutation per file).

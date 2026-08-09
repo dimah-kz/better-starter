@@ -1,6 +1,7 @@
 "use client"
 
 import { useTranslations } from "next-intl"
+import { Badge } from "@workspace/ui/components/badge"
 import { Button } from "@workspace/ui/components/button"
 import { Marker, MarkerContent } from "@workspace/ui/components/marker"
 
@@ -27,7 +28,13 @@ function GoogleIcon({ className }: { className?: string }) {
   )
 }
 
-export function AuthSocialButtons() {
+type AuthSocialButtonsProps = {
+  lastLoginMethod?: string | null
+}
+
+export function AuthSocialButtons({
+  lastLoginMethod = null,
+}: AuthSocialButtonsProps) {
   const t = useTranslations("auth.social")
 
   return (
@@ -45,6 +52,9 @@ export function AuthSocialButtons() {
         <span className="inline-flex items-center gap-1.5">
           <GoogleIcon className="size-4 shrink-0" />
           <span className="-mb-px leading-none">{t("google")}</span>
+          {lastLoginMethod === "google" ? (
+            <Badge variant="secondary">{t("lastUsed")}</Badge>
+          ) : null}
         </span>
       </Button>
     </div>
