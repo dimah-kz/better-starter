@@ -27,8 +27,8 @@
     "pg": "^8.22.0"
   },
   "devDependencies": {
-    "@types/node": "^26.1.2",
-    "@types/pg": "^8.20.4",
+    "@types/node": "^26.2.0",
+    "@types/pg": "^8.21.0",
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
     "drizzle-kit": "rc",
