@@ -25,7 +25,7 @@ Explore the codebase for layout, packages, and routes. Open [docs/agents/](docs/
 - SSOT inside each app segment: `*-routes.ts`, `cache-tags.ts`; UI copy in `@repo/i18n` messages.
 - Session: auth package `session.ts`; never cache session.
 - Same-user writes: `updateTag` in the mutating action.
-- Do not hand-edit `@repo/ui` components — regen via shadcn CLI scoped to `packages/ui`.
+- Do not hand-edit `@repo/ui` components for durable fixes — regen via `pnpm ui:sync` (shadcn + ReUI + patches).
 - **Do not add new features outside `apps/web` + core packages.**
 
 <!-- BEGIN:nextjs-agent-rules -->

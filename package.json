@@ -9,7 +9,7 @@
     "format:check": "prettier --check .",
     "lint": "turbo lint",
     "typecheck": "turbo typecheck",
-    "ui:sync": "pnpm --filter @repo/ui sync:shadcn"
+    "ui:sync": "pnpm --filter @repo/ui sync"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

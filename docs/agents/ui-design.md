@@ -8,7 +8,9 @@
 
 - `lang` / `dir`: root layout only (`apps/<app>/src/app/layout.tsx`).
 - Logical Tailwind (`ms`/`me`, `start`/`end`) — not physical left/right for layout.
-- `@repo/ui/components/*`: shadcn preset (**base-mira**) — **never hand-edit**; regen via shadcn CLI scoped to `packages/ui`.
+- `@repo/ui/components/*`: shadcn preset (**base-mira**) — **never hand-edit** for durable fixes; regen via `sync:shadcn` / CLI.
+- `@repo/ui/components/reui/*`: ReUI registry items — same rule; list them in `packages/ui/scripts/reui/components.mjs`.
+- Durable ReUI overrides: `packages/ui/scripts/reui/patches/` (re-applied by `sync:reui`).
 - App behavior components: `apps/<app>/src/components/` (outside package UI) or route-scoped `components/`.
 - Link + Button: `render={<Link … />}`; `nativeButton={false}` when not a button.
 - Dashboard chrome copy: `@repo/i18n` messages — see [i18n.md](./i18n.md).
@@ -22,15 +24,26 @@ Use `@repo/ui` components **with their built-in styles** for ordinary usage. Tha
 - **Do not re-specify what the component already sets** — e.g. avoid passing `rounded-lg` on `DropdownMenuContent` or overriding button radius when the default look is fine.
 - **Document intentional exceptions** — when you override defaults for a real design reason (sidebar avatars with square corners, full-width submit buttons), keep the override minimal and scoped to that element.
 
-## shadcn CLI (monorepo)
+## shadcn / ReUI sync (monorepo)
 
-Add primitives to the shared UI package:
+Scripts are separate; the package `sync` script runs both:
+
+```bash
+pnpm ui:sync
+# → sync:shadcn  (scripts/sync-shadcn.mjs)
+# → sync:reui    (scripts/reui/sync.mjs → registry overwrite + patches)
+```
+
+Add primitives / ReUI items:
 
 ```bash
 pnpm dlx shadcn@latest add button -c packages/ui
+pnpm dlx shadcn@latest add @reui/data-grid -c packages/ui
 ```
 
-Apps import via `@repo/ui/components/<name>`. Each app's `components.json` aliases `ui` → `@repo/ui/components`.
+After adding a new `@reui/…` item, append its name to `packages/ui/scripts/reui/components.mjs`. For a durable override that must survive the next ReUI sync, add a patch under `packages/ui/scripts/reui/patches/` and register it in `patches/index.mjs`.
+
+Apps import via `@repo/ui/components/<name>` or `@repo/ui/components/reui/…`. Each app's `components.json` aliases `ui` → `@repo/ui/components`.
 
 Match existing patterns in the subtree you edit — [architecture § Placement](./architecture.md#placement).
 

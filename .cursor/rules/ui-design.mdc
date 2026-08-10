@@ -8,7 +8,7 @@ alwaysApply: false
 
 `lang`/`dir` on **root layout only**. **Logical Tailwind** (`me`/`ms`, `start`/`end`, …).
 
-**shadcn** in `@repo/ui` (`packages/ui`) — **never hand-edit**; regen via `pnpm dlx shadcn@latest add … -c packages/ui`. App behavior in `src/app/**` or `src/components/` (outside package UI).
+**shadcn + ReUI** in `@repo/ui` (`packages/ui`) — **never hand-edit** for durable fixes; regen via `pnpm ui:sync` (`sync:shadcn` then `sync:reui`). Durable ReUI overrides live in `packages/ui/scripts/reui/patches/`. App behavior in `src/app/**` or `src/components/` (outside package UI).
 
 **Defaults first** — use components with their built-in styles; `className` only when that call site truly needs customization (not to repeat radius, padding, etc. the primitive already provides).
 

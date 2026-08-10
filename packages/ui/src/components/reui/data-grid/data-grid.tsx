@@ -453,6 +453,10 @@ function DataGridProvider<TData extends object>({
       tableState.columnOrder,
       tableState.columnPinning,
       tableState.globalFilter,
+      // local override: refresh rows when useTable options change (updateTag / RSC)
+      table.options.data,
+      table.options.columns,
+      table.options.rowCount,
     ]
   )
 
