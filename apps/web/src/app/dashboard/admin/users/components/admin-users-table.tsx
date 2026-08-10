@@ -99,17 +99,21 @@ export function AdminUsersTable({
             const result = await unbanUserAction({ userId: user.id })
             if (!result.success) {
               toast.add({
-                title: result.error ?? "Could not unban the user.",
+                title:
+                  result.error ?? t("dashboard.adminUserManage.unbanFailed"),
                 type: "error",
               })
               return
             }
-            toast.add({ title: "User unbanned.", type: "success" })
+            toast.add({
+              title: t("dashboard.adminUserManage.unbanned"),
+              type: "success",
+            })
             router.refresh()
           })
         },
       }),
-    [actorUserId, isPending, locale, onChangeRole, router, tTables]
+    [actorUserId, isPending, locale, onChangeRole, router, t, tTables]
   )
 
   const table = useTable({
@@ -127,13 +131,16 @@ export function AdminUsersTable({
       const result = await banUserAction({ userId: banTarget.id })
       if (!result.success) {
         toast.add({
-          title: result.error ?? "Could not ban the user.",
+          title: result.error ?? t("dashboard.adminUserManage.banFailed"),
           type: "error",
         })
         return
       }
       setBanTarget(null)
-      toast.add({ title: "User banned.", type: "success" })
+      toast.add({
+        title: t("dashboard.adminUserManage.banned"),
+        type: "success",
+      })
       router.refresh()
     })
   }
@@ -203,12 +210,16 @@ export function AdminUsersTable({
             </AlertDialogTitle>
             <AlertDialogDescription>
               {banTarget
-                ? `${banTarget.name} — ${t("dashboard.adminUserManage.banDescription")}`
+                ? t("dashboard.adminUserManage.banDescription", {
+                    name: banTarget.name,
+                  })
                 : null}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
+            <AlertDialogCancel disabled={isPending}>
+              {t("common.cancel")}
+            </AlertDialogCancel>
             <AlertDialogAction
               variant="destructive"
               disabled={isPending}

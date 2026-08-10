@@ -48,7 +48,12 @@
   },
   "memberManage": {
     "changeRole": "تغییر نقش",
-    "removeFromOrganization": "حذف از سازمان"
+    "removeFromOrganization": "حذف از سازمان",
+    "removeTitle": "حذف از سازمان",
+    "removeDescription": "{name} عضویت و دسترسی مدیریت سازمان را از دست می‌دهد.",
+    "removeConfirm": "حذف عضو",
+    "removed": "عضو از سازمان حذف شد.",
+    "removeFailed": "حذف عضو ممکن نشد."
   },
   "adminPage": {
     "title": "مدیریت پلتفرم"
@@ -62,8 +67,12 @@
     "banUser": "مسدود کردن کاربر",
     "unbanUser": "رفع مسدودیت",
     "banTitle": "مسدود کردن کاربر",
-    "banDescription": "این کاربر تا زمان رفع مسدودیت نمی‌تواند وارد شود.",
-    "banConfirm": "مسدود کردن"
+    "banDescription": "{name} تا زمان رفع مسدودیت نمی‌تواند وارد شود.",
+    "banConfirm": "مسدود کردن",
+    "banned": "کاربر مسدود شد.",
+    "banFailed": "مسدود کردن کاربر ممکن نشد.",
+    "unbanned": "مسدودیت کاربر رفع شد.",
+    "unbanFailed": "رفع مسدودیت کاربر ممکن نشد."
   },
   "breadcrumbSegments": {
     "dashboard": "داشبورد",

@@ -35,10 +35,7 @@ import {
   dataGridFeatures,
 } from "@repo/ui/components/reui/data-grid/data-grid"
 import { DataGridTable } from "@repo/ui/components/reui/data-grid/data-grid-table"
-import {
-  ToggleGroup,
-  ToggleGroupItem,
-} from "@repo/ui/components/toggle-group"
+import { ToggleGroup, ToggleGroupItem } from "@repo/ui/components/toggle-group"
 import type { Locale } from "@repo/i18n"
 import { toast } from "@repo/ui/components/toast"
 import { useLocale, useTranslations } from "next-intl"
@@ -124,14 +121,14 @@ export function MembersTable({
       })
       if (!result.success) {
         toast.add({
-          title: result.error ?? "Could not remove the member.",
+          title: result.error ?? t("dashboard.memberManage.removeFailed"),
           type: "error",
         })
         return
       }
       setRemoveTarget(null)
       toast.add({
-        title: "Member removed from the organization.",
+        title: t("dashboard.memberManage.removed"),
         type: "success",
       })
       router.refresh()
@@ -146,7 +143,7 @@ export function MembersTable({
           <CardAction className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
             <ListSearch
               value={q}
-              placeholder={tTables("search.users")}
+              placeholder={tTables("search.members")}
               onCommit={list.setQuery}
             />
             <ToggleGroup
@@ -198,21 +195,27 @@ export function MembersTable({
       >
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Remove from organization</AlertDialogTitle>
+            <AlertDialogTitle>
+              {t("dashboard.memberManage.removeTitle")}
+            </AlertDialogTitle>
             <AlertDialogDescription>
               {removeTarget
-                ? `${removeTarget.name} will lose organization membership and management access.`
+                ? t("dashboard.memberManage.removeDescription", {
+                    name: removeTarget.name,
+                  })
                 : null}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
+            <AlertDialogCancel disabled={isPending}>
+              {t("common.cancel")}
+            </AlertDialogCancel>
             <AlertDialogAction
               variant="destructive"
               disabled={isPending}
               onClick={handleRemove}
             >
-              Remove member
+              {t("dashboard.memberManage.removeConfirm")}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

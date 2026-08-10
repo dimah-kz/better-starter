@@ -26,7 +26,7 @@ Explore `apps/` and `packages/` for what exists today. Do not import across apps
 
 **UI split:** `@repo/ui` = shadcn primitives (+ ReUI under `components/reui/`) shared across apps. App-composed UI (`badge/`, `list/`, dashboard chrome) lives in `apps/<app>/src/components/` or route-scoped `components/`.
 
-**Lists (server pages):** URL state via app `list/` (`useList`, `ListSearch`, `ListPagination`, params helpers) — do **not** put search/filter/pagination in the grid, and do **not** use ReUI `DataGridPagination` for these lists. Render with ReUI `DataGrid` + `DataGridTable` inline (copy `members-table.tsx`). Filter chips: inline shadcn `ToggleGroup`. Columns: `createDataGridColumnHelper`. Detail: [dashboard.md § Server lists](./dashboard.md#server-lists).
+**Lists (server pages):** [dashboard.md § Server lists](./dashboard.md#server-lists) — copy `members-table.tsx`; do not invent parallel table stacks.
 
 ## Naming
 

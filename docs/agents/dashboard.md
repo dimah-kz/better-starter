@@ -22,95 +22,36 @@ Sidebar drill-down items for admin/manage are derived from slice/tab registries 
 
 ## New dashboard feature checklist
 
-1. Route under `apps/<app>/src/app/dashboard/…` — mirror folder structure of a similar feature.
+1. Route under `apps/<app>/src/app/dashboard/…` — mirror a similar feature.
 2. Register URL, labels, tags (above).
 3. Lists: `get-*.ts` with `'use cache'` + tags from `cache-tags.ts`.
 4. Writes: `app/action/dashboard/…` → `auth.api` — [better-auth.md](./better-auth.md).
 5. Optional UI gate: `hasPermission` / `userHasPermission` — follow existing layout or loader in that subtree.
-6. Server lists: copy [§ Server lists](#server-lists) / `members-table.tsx` — `list/` + ReUI DataGrid inline; no app wrapper components. Also `responsive-form-overlay.tsx`, segment shells — [architecture.md § Placement](./architecture.md#placement).
+6. Server lists: copy the canonical files below — [architecture.md § Placement](./architecture.md#placement).
 
 ## Server lists {#server-lists}
 
-Split responsibilities — do not invent wrappers like `ListDataGrid` / `DataGridCard`:
+**Canonical:** copy  
+`apps/web/src/app/dashboard/(organization)/manage/members/components/members-table.tsx`  
+(+ `members-columns.tsx`, page `get-*.ts`, `*-table-params.ts`).
 
-| Layer                                                                   | Owns                                          | Does not own    |
-| ----------------------------------------------------------------------- | --------------------------------------------- | --------------- |
-| `list/` (`useList`, `ListSearch`, `ListPagination`, URL params helpers) | URL `page` / `pageSize` / `filter` / `q`      | Row rendering   |
-| ReUI `@repo/ui/.../reui/data-grid/*`                                    | Table chrome (`DataGrid`, `DataGridTable`, …) | URL / RSC fetch |
-| Feature `*-columns.tsx`                                                 | Column defs                                   | Pagination      |
-| shadcn `ToggleGroup` (inline)                                           | Enum filter chips → `list.setFilter`          | —               |
+| Layer                | Owns                                         | Does not own    |
+| -------------------- | -------------------------------------------- | --------------- |
+| `list/`              | URL `page` / `pageSize` / `filter` / `q`     | Row rendering   |
+| ReUI DataGrid        | Table chrome                                 | URL / RSC fetch |
+| Feature `*-columns`  | Column defs via `createDataGridColumnHelper` | Pagination      |
+| shadcn `ToggleGroup` | Enum chips → `list.setFilter` (inline)       | —               |
 
-Do **not** add `ListFilter` / `ListSkeleton` / `ListEmpty` / `ListFooter` wrappers — use `ToggleGroup`, `Skeleton`, DataGrid `emptyMessage`, and `ListPagination` in `CardFooter` instead.
+**Required**
 
-**Columns** — use the typed helper (ReUI `dataGridFeatures`):
+- `useTable({ features: dataGridFeatures, manualPagination: true, rowCount })`
+- Column meta: `headerTitle`, `headerClassName`, `cellClassName`
+- `ListSearch` + `ListPagination` (`list.pagination`) — never ReUI `DataGridPagination` for these lists
 
-```ts
-import { createDataGridColumnHelper } from "@/components/data-grid"
+**Do not**
 
-const columnHelper = createDataGridColumnHelper<Row>()
-
-export function createThingColumns(...) {
-  return columnHelper.columns([
-    columnHelper.accessor("name", {
-      header: t("columns.name"),
-      meta: {
-        headerTitle: t("columns.name"),
-        cellClassName: "min-w-0",
-      },
-      enableSorting: false,
-    }),
-  ])
-}
-```
-
-Meta keys are ReUI’s: `headerTitle`, `headerClassName`, `cellClassName` (not a generic `className`).
-
-**Table client component** — inline Card + `useTable` + DataGrid (canonical: `apps/web/src/app/dashboard/(organization)/manage/members/components/members-table.tsx`):
-
-```tsx
-const list = useList({ buildPath, page, pageSize, totalCount, filter, q })
-const columns = useMemo(() => createThingColumns(...), [...])
-const table = useTable({
-  features: dataGridFeatures,
-  data: rows,
-  columns,
-  getRowId: (row) => row.id,
-  manualPagination: true,
-  rowCount: totalCount,
-})
-
-return (
-  <Card className="w-full">
-    <CardHeader>
-      <CardTitle>{title}</CardTitle>
-      <CardAction className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
-        <ListSearch value={q} onCommit={list.setQuery} ... />
-        {/* optional ToggleGroup → list.setFilter */}
-      </CardAction>
-    </CardHeader>
-    <CardContent className="min-w-0">
-      <DataGrid
-        table={table}
-        recordCount={totalCount}
-        emptyMessage={...}
-        className="min-w-0"
-        tableLayout={{ width: "fixed", headerBackground: true, rowBorder: true }}
-      >
-        <DataGridContainer>
-          <DataGridTable />
-        </DataGridContainer>
-      </DataGrid>
-    </CardContent>
-    <CardFooter className="justify-between gap-2">
-      {totalCount > 0 ? <ListPagination {...list.pagination} /> : null}
-    </CardFooter>
-  </Card>
-)
-```
-
-Imports: `dataGridFeatures` / `DataGrid` / `DataGridContainer` from `@repo/ui/components/reui/data-grid/data-grid`; `DataGridTable` from `.../data-grid-table`; Card from `@repo/ui/components/card`; `ListSearch` / `ListPagination` / `useList` from `@/components/list`.
-
-Do **not** wrap this in a shared app component unless a third distinct call site needs a real behavioral difference. Keep **`ListPagination`** (URL `href`s via `buildPageHref`) — do not replace it with ReUI `DataGridPagination` (that is TanStack client state).
+- Invent `ListDataGrid` / `DataGridCard` / `ListFilter` / `ListFooter` wrappers
+- Use or revive `legacy-data-table` / app `data-table` (removed)
 
 ## Removing a slice
 

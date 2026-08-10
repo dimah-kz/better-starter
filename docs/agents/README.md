@@ -2,17 +2,17 @@
 
 Procedural guides — **not** a map of the repo. Explore code for what exists; read these when **adding or changing** a feature.
 
-| File                                     | Read when                                                           |
-| ---------------------------------------- | ------------------------------------------------------------------- |
-| [monorepo.md](./monorepo.md)             | Workspace roles, deps, new package                                  |
-| [architecture.md](./architecture.md)     | Placement, SSOT, over-extract                                       |
-| [better-auth.md](./better-auth.md)       | Auth package, mutations, permissions                                |
-| [dashboard.md](./dashboard.md)           | Dashboard route/feature; **server lists** (ReUI DataGrid + `list/`) |
-| [implementation.md](./implementation.md) | RSC, Suspense, session, storage uploads                             |
-| [caching.md](./caching.md)               | Tagged cache reads/writes (after Next in-repo docs)                 |
-| [nextjs.md](./nextjs.md)                 | **Always** use `node_modules/next/dist/docs/` — no web              |
-| [ui-design.md](./ui-design.md)           | Styling constraints (`@repo/ui`)                                    |
-| [i18n.md](./i18n.md)                     | Messages, locale, `next-intl`                                       |
+| File                                     | Read when                                                        |
+| ---------------------------------------- | ---------------------------------------------------------------- |
+| [monorepo.md](./monorepo.md)             | Workspace roles, deps, new package                               |
+| [architecture.md](./architecture.md)     | Placement, SSOT, over-extract                                    |
+| [better-auth.md](./better-auth.md)       | Auth package, mutations, permissions                             |
+| [dashboard.md](./dashboard.md)           | Dashboard route/feature; server lists → copy `members-table.tsx` |
+| [implementation.md](./implementation.md) | RSC, Suspense, session, storage uploads                          |
+| [caching.md](./caching.md)               | Tagged cache reads/writes (after Next in-repo docs)              |
+| [nextjs.md](./nextjs.md)                 | **Always** use `node_modules/next/dist/docs/` — no web           |
+| [ui-design.md](./ui-design.md)           | Styling constraints (`@repo/ui`)                                 |
+| [i18n.md](./i18n.md)                     | Messages, locale, `next-intl`                                    |
 
 ## When **not** to read
 

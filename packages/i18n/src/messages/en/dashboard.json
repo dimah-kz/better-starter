@@ -48,7 +48,12 @@
   },
   "memberManage": {
     "changeRole": "Change role",
-    "removeFromOrganization": "Remove from organization"
+    "removeFromOrganization": "Remove from organization",
+    "removeTitle": "Remove from organization",
+    "removeDescription": "{name} will lose organization membership and management access.",
+    "removeConfirm": "Remove member",
+    "removed": "Member removed from the organization.",
+    "removeFailed": "Could not remove the member."
   },
   "adminPage": {
     "title": "Platform administration"
@@ -62,8 +67,12 @@
     "banUser": "Ban user",
     "unbanUser": "Unban user",
     "banTitle": "Ban user",
-    "banDescription": "This user will be unable to sign in until unbanned.",
-    "banConfirm": "Ban user"
+    "banDescription": "{name} will be unable to sign in until unbanned.",
+    "banConfirm": "Ban user",
+    "banned": "User banned.",
+    "banFailed": "Could not ban the user.",
+    "unbanned": "User unbanned.",
+    "unbanFailed": "Could not unban the user."
   },
   "breadcrumbSegments": {
     "dashboard": "Dashboard",
