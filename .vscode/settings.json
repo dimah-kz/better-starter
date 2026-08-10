@@ -6,5 +6,12 @@
   "tailwindCSS.experimental.configFile": {
     "packages/ui/src/styles/globals.css": "packages/ui/**"
   },
+  "tailwindCSS.files.exclude": [
+    "**/.git/**",
+    "**/node_modules/**",
+    "**/.hg/**",
+    "**/.svn/**",
+    "**/packages/ui/src/components/reui/**"
+  ],
   "tailwindCSS.lint.suggestCanonicalClasses": "ignore"
 }
