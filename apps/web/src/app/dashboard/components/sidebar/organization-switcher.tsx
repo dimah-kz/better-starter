@@ -14,22 +14,22 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@workspace/ui/components/dropdown-menu"
+} from "@repo/ui/components/dropdown-menu"
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@workspace/ui/components/sidebar"
+} from "@repo/ui/components/sidebar"
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@workspace/ui/components/avatar"
+} from "@repo/ui/components/avatar"
 import { OrganizationAvatar } from "@/components/organization-avatar"
 import { useSidebarFlyoutSide } from "@/app/dashboard/lib/sidebar-side"
-import { Input } from "@workspace/ui/components/input"
-import { cn } from "@workspace/ui/lib/utils"
+import { Input } from "@repo/ui/components/input"
+import { cn } from "@repo/ui/lib/utils"
 import {
   ChevronsUpDownIcon,
   Loader2Icon,

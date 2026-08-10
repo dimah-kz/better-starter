@@ -5,7 +5,7 @@ import { headers } from "next/headers"
 import { getAuthRedirectFromForm } from "@/app/(auth)/lib/auth-form-parse"
 import { type AuthFormState } from "@/app/(auth)/lib/auth-form-state"
 import { getFormString } from "@/components/form/form-parse"
-import { auth, getAuthApiErrorMessage } from "@better-starter/auth"
+import { auth, getAuthApiErrorMessage } from "@repo/auth"
 
 export async function signUpWithEmailAction(
   _prevState: AuthFormState,

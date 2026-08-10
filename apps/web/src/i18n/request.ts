@@ -2,7 +2,7 @@ import {
   getLocaleDirection,
   loadMessages,
   resolveLocaleFromHeaders,
-} from "@better-starter/i18n"
+} from "@repo/i18n"
 import { headers } from "next/headers"
 import { getRequestConfig } from "next-intl/server"
 

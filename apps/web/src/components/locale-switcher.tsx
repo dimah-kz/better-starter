@@ -1,14 +1,14 @@
 "use client"
 
-import { locales, type Locale } from "@better-starter/i18n"
+import { locales, type Locale } from "@repo/i18n"
 import { setLocale } from "@/i18n/locale-actions"
 import {
   DropdownMenuItem,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
-} from "@workspace/ui/components/dropdown-menu"
-import { cn } from "@workspace/ui/lib/utils"
+} from "@repo/ui/components/dropdown-menu"
+import { cn } from "@repo/ui/lib/utils"
 import { IR, US } from "country-flag-icons/react/1x1"
 import { CheckIcon } from "lucide-react"
 import { useRouter } from "next/navigation"

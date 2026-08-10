@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation"
 import { createOrganizationAction } from "@/app/action/dashboard/components/create-organization-action"
 import { FormLabel } from "@/components/form/form-label"
 import { ResponsiveFormOverlay } from "@/components/responsive-form-overlay"
-import { Button } from "@workspace/ui/components/button"
-import { Input } from "@workspace/ui/components/input"
-import { toast } from "@workspace/ui/components/toast"
+import { Button } from "@repo/ui/components/button"
+import { Input } from "@repo/ui/components/input"
+import { toast } from "@repo/ui/components/toast"
 import { useTranslations } from "next-intl"
 
 type CreateOrganizationFormShellProps = {

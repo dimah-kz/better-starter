@@ -3,7 +3,7 @@ import {
   dateTimeOptions,
   formatDate as formatDateBase,
   type Locale,
-} from "@better-starter/i18n"
+} from "@repo/i18n"
 
 export { dateOnlyOptions, dateTimeOptions }
 

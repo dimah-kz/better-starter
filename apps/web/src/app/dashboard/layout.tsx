@@ -10,8 +10,8 @@ import {
 import { SidebarCloseOnNavigate } from "@/app/dashboard/components/sidebar/sidebar-close-on-navigate"
 import { getDashboardSidebarProps } from "@/app/dashboard/lib/get-dashboard-sidebar-props"
 import { requireDashboardSession } from "@/app/dashboard/lib/dashboard-session"
-import { S3ClientProvider } from "@better-starter/storage/react"
-import { SidebarInset, SidebarProvider } from "@workspace/ui/components/sidebar"
+import { S3ClientProvider } from "@repo/storage/react"
+import { SidebarInset, SidebarProvider } from "@repo/ui/components/sidebar"
 import { getLocale } from "next-intl/server"
 
 type DashboardLayoutProps = {

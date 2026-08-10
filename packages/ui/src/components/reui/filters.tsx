@@ -15,12 +15,12 @@ import {
 import { useRender } from "@base-ui/react/use-render"
 import { cva } from "class-variance-authority"
 
-import { cn } from "@workspace/ui/lib/utils"
-import { Button } from "@workspace/ui/components/button"
+import { cn } from "@repo/ui/lib/utils"
+import { Button } from "@repo/ui/components/button"
 import {
   ButtonGroup,
   ButtonGroupText,
-} from "@workspace/ui/components/button-group"
+} from "@repo/ui/components/button-group"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -32,22 +32,22 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@workspace/ui/components/dropdown-menu"
-import { Input } from "@workspace/ui/components/input"
+} from "@repo/ui/components/dropdown-menu"
+import { Input } from "@repo/ui/components/input"
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
   InputGroupText,
-} from "@workspace/ui/components/input-group"
-import { Kbd } from "@workspace/ui/components/kbd"
-import { ScrollArea } from "@workspace/ui/components/scroll-area"
+} from "@repo/ui/components/input-group"
+import { Kbd } from "@repo/ui/components/kbd"
+import { ScrollArea } from "@repo/ui/components/scroll-area"
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@workspace/ui/components/tooltip"
+} from "@repo/ui/components/tooltip"
 import { AlertCircleIcon, XIcon, CheckIcon, PlusIcon } from "lucide-react"
 
 // i18n Configuration Interface

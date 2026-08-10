@@ -11,8 +11,8 @@ import type { AccountSessionDisplay } from "@/app/dashboard/account/components/a
 import { AccountSessionsContent } from "@/app/dashboard/account/components/account-sessions-content"
 import type { AccountPanel } from "@/app/dashboard/account/lib/account-panel"
 import { ResponsiveFormOverlay } from "@/components/responsive-form-overlay"
-import { toast } from "@workspace/ui/components/toast"
-import { Button } from "@workspace/ui/components/button"
+import { toast } from "@repo/ui/components/toast"
+import { Button } from "@repo/ui/components/button"
 import { useTranslations } from "next-intl"
 
 type AccountSettingsPanelProps = {

@@ -6,8 +6,8 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLabel,
-} from "@workspace/ui/components/field"
-import { Input } from "@workspace/ui/components/input"
+} from "@repo/ui/components/field"
+import { Input } from "@repo/ui/components/input"
 import { useTranslations } from "next-intl"
 
 type AccountProfileFormFieldsProps = {

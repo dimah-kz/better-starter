@@ -3,8 +3,8 @@
 import { invalidateAdminUsersPageCache } from "@/app/action/dashboard/admin/shared/invalidate-admin-cache"
 import { invalidateUserCache } from "@/app/dashboard/lib/invalidate-user-cache"
 import { headers } from "next/headers"
-import { auth } from "@better-starter/auth"
-import { getAuthApiErrorMessage } from "@better-starter/auth"
+import { auth } from "@repo/auth"
+import { getAuthApiErrorMessage } from "@repo/auth"
 
 type BanUserInput = {
   userId: string

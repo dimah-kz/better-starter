@@ -1,7 +1,7 @@
 "use client"
 
 import { PasswordInput } from "@/components/form/password-input"
-import { Field, FieldGroup, FieldLabel } from "@workspace/ui/components/field"
+import { Field, FieldGroup, FieldLabel } from "@repo/ui/components/field"
 
 type AccountPasswordFormFieldsProps = {
   formId: string

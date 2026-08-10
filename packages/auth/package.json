@@ -1,5 +1,5 @@
 {
-  "name": "@better-starter/auth",
+  "name": "@repo/auth",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -16,14 +16,14 @@
   "dependencies": {
     "@better-auth/drizzle-adapter": "rc",
     "@better-auth/i18n": "1.7.0-rc.4",
-    "@better-starter/db": "workspace:*",
-    "@better-starter/i18n": "workspace:*",
+    "@repo/db": "workspace:*",
+    "@repo/i18n": "workspace:*",
     "better-auth": "rc",
     "drizzle-orm": "rc"
   },
   "devDependencies": {
-    "@workspace/eslint-config": "workspace:*",
-    "@workspace/typescript-config": "workspace:*",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
     "eslint": "catalog:",
     "typescript": "catalog:"
   }

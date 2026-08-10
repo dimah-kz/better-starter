@@ -5,9 +5,9 @@ import {
   parseAdminUsersPageQuery,
 } from "@/app/dashboard/admin/users/lib/get-admin-users-page"
 import { ListSkeleton } from "@/components/list"
-import { Card, CardContent } from "@workspace/ui/components/card"
+import { Card, CardContent } from "@repo/ui/components/card"
 import { headers } from "next/headers"
-import { auth } from "@better-starter/auth"
+import { auth } from "@repo/auth"
 
 type AdminUsersPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>

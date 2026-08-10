@@ -2,7 +2,7 @@
 
 import { type AccountFormState } from "@/app/action/dashboard/account/shared/account-form-state"
 import { headers } from "next/headers"
-import { auth, getAuthApiErrorMessage } from "@better-starter/auth"
+import { auth, getAuthApiErrorMessage } from "@repo/auth"
 import { getFormString } from "@/components/form/form-parse"
 
 export async function changePasswordAction(

@@ -11,7 +11,7 @@ Procedural guides — **not** a map of the repo. Explore code for what exists; r
 | [implementation.md](./implementation.md) | RSC, Suspense, session, storage uploads                |
 | [caching.md](./caching.md)               | Tagged cache reads/writes (after Next in-repo docs)    |
 | [nextjs.md](./nextjs.md)                 | **Always** use `node_modules/next/dist/docs/` — no web |
-| [ui-design.md](./ui-design.md)           | Styling constraints (`@workspace/ui`)                  |
+| [ui-design.md](./ui-design.md)           | Styling constraints (`@repo/ui`)                  |
 | [i18n.md](./i18n.md)                     | Messages, locale, `next-intl`                          |
 
 ## When **not** to read

@@ -1,18 +1,18 @@
 "use client"
 
 import type { JSX, ReactNode } from "react"
-import { useDataGrid } from "@workspace/ui/components/reui/data-grid/data-grid"
+import { useDataGrid } from "@repo/ui/components/reui/data-grid/data-grid"
 
-import { cn } from "@workspace/ui/lib/utils"
-import { Button } from "@workspace/ui/components/button"
+import { cn } from "@repo/ui/lib/utils"
+import { Button } from "@repo/ui/components/button"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@workspace/ui/components/select"
-import { Skeleton } from "@workspace/ui/components/skeleton"
+} from "@repo/ui/components/select"
+import { Skeleton } from "@repo/ui/components/skeleton"
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
 
 interface DataGridPaginationProps {

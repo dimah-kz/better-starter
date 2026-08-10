@@ -4,7 +4,7 @@ import { invalidateOrganizationBrandingCache } from "@/app/action/dashboard/(org
 import { dashboardCacheTags } from "@/app/dashboard/lib/cache-tags"
 import { headers } from "next/headers"
 import { updateTag } from "next/cache"
-import { auth, getAuthApiErrorMessage } from "@better-starter/auth"
+import { auth, getAuthApiErrorMessage } from "@repo/auth"
 
 type UpdateOrganizationNameInput = {
   organizationId: string

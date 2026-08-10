@@ -8,16 +8,16 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@workspace/ui/components/pagination"
+} from "@repo/ui/components/pagination"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@workspace/ui/components/select"
-import { formatNumber } from "@better-starter/i18n"
-import { cn } from "@workspace/ui/lib/utils"
+} from "@repo/ui/components/select"
+import { formatNumber } from "@repo/i18n"
+import { cn } from "@repo/ui/lib/utils"
 import { useLocale, useTranslations } from "next-intl"
 import {
   LIST_PAGE_SIZES,

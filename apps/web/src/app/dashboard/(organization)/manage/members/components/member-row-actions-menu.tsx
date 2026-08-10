@@ -1,13 +1,13 @@
 "use client"
 
 import { MoreHorizontalIcon, ShieldIcon, Trash2Icon } from "lucide-react"
-import { Button } from "@workspace/ui/components/button"
+import { Button } from "@repo/ui/components/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@workspace/ui/components/dropdown-menu"
+} from "@repo/ui/components/dropdown-menu"
 import type { OrganizationMemberItem } from "@/app/dashboard/(organization)/manage/members/lib/get-organization-members-page"
 import { useTranslations } from "next-intl"
 

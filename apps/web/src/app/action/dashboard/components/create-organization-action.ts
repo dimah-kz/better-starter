@@ -4,7 +4,7 @@ import { dashboardCacheTags } from "@/app/dashboard/lib/cache-tags"
 import { setDashboardActiveOrganization } from "@/app/dashboard/lib/dashboard-session"
 import { headers } from "next/headers"
 import { updateTag } from "next/cache"
-import { auth, getAuthApiErrorMessage } from "@better-starter/auth"
+import { auth, getAuthApiErrorMessage } from "@repo/auth"
 
 type CreateOrganizationInput = {
   name: string

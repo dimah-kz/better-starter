@@ -17,7 +17,8 @@ better-starter/
 │   ├── db/                  # Drizzle schema, client, migrations
 │   ├── storage/             # dimah-s3 storage
 │   ├── i18n/                # Shared UI messages & locale config
-│   ├── ui/                  # Shared shadcn primitives
+│   └── ui/                  # Shared shadcn primitives
+├── tooling/
 │   ├── eslint-config/
 │   └── typescript-config/
 └── docs/agents/             # Contributor / agent guides
@@ -32,16 +33,16 @@ Node ≥ 22 · pnpm 11 · PostgreSQL · dimah-s3 storage (S3-compatible bucket, 
 ```bash
 pnpm install
 cp .env.example .env          # DATABASE_URL, BETTER_AUTH_*, S3_*
-pnpm --filter @better-starter/db db:migrate
+pnpm --filter @repo/db db:migrate
 pnpm dev # runs both web and db
 ```
 
 → [http://localhost:3000](http://localhost:3000)
 
-| Command                                       | What it does     |
-| --------------------------------------------- | ---------------- |
-| `pnpm --filter web dev`                       | Run the web app  |
-| `pnpm build` / `lint` / `typecheck`           | Quality gates    |
-| `pnpm --filter @better-starter/db db:migrate` | Apply migrations |
+| Command                             | What it does     |
+| ----------------------------------- | ---------------- |
+| `pnpm --filter web dev`             | Run the web app  |
+| `pnpm build` / `lint` / `typecheck` | Quality gates    |
+| `pnpm --filter @repo/db db:migrate` | Apply migrations |
 
 Conventions live in [`AGENTS.md`](./AGENTS.md). MIT — see [LICENSE](./LICENSE).

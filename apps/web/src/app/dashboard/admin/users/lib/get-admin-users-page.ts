@@ -9,14 +9,14 @@ import {
   not,
   or,
   type SQL,
-} from "@better-starter/db/drizzle"
+} from "@repo/db/drizzle"
 import {
   ADMIN_USERS_DEFAULT_PAGE_SIZE,
   parseAdminUserTableFilter,
   type AdminUserTableFilter,
 } from "@/app/dashboard/admin/users/lib/admin-users-table-params"
 import { dashboardCacheTags } from "@/app/dashboard/lib/cache-tags"
-import { user } from "@better-starter/db/schema"
+import { user } from "@repo/db/schema"
 import {
   clampListPage,
   parseListFilter,
@@ -24,7 +24,7 @@ import {
   parseListPageSize,
   parseListQuery,
 } from "@/components/list"
-import { db } from "@better-starter/db"
+import { db } from "@repo/db"
 
 const MIN_QUERY_LENGTH = 2
 

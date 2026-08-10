@@ -8,7 +8,7 @@ import {
   ChevronsRightIcon,
 } from "lucide-react"
 import { useTranslations } from "next-intl"
-import { Button } from "@workspace/ui/components/button"
+import { Button } from "@repo/ui/components/button"
 import {
   Select,
   SelectContent,
@@ -16,8 +16,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@workspace/ui/components/select"
-import { cn } from "@workspace/ui/lib/utils"
+} from "@repo/ui/components/select"
+import { cn } from "@repo/ui/lib/utils"
 import type { DataTableFeatures } from "@/components/data-table/data-table-features"
 import { LIST_PAGE_SIZES } from "@/components/list/types"
 

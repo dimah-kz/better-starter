@@ -1,6 +1,6 @@
 "use client"
 
-import type { Locale } from "@better-starter/i18n"
+import type { Locale } from "@repo/i18n"
 import type { OrganizationMemberItem } from "@/app/dashboard/(organization)/manage/members/lib/get-organization-members-page"
 import { MemberRowActionsMenu } from "@/app/dashboard/(organization)/manage/members/components/member-row-actions-menu"
 import { memberRoleOptions } from "@/app/dashboard/(organization)/manage/lib/member-role-options"

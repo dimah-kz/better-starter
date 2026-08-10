@@ -5,22 +5,22 @@ import { useRouter } from "next/navigation"
 import { CameraIcon, ImagePlusIcon, Trash2Icon } from "lucide-react"
 import { AVATAR_ACCEPT, AVATAR_MAX_BYTES } from "@/lib/avatar-storage"
 import { useUpload } from "@dimah-s3/react"
-import { toast } from "@workspace/ui/components/toast"
+import { toast } from "@repo/ui/components/toast"
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@workspace/ui/components/avatar"
-import { Button } from "@workspace/ui/components/button"
+} from "@repo/ui/components/avatar"
+import { Button } from "@repo/ui/components/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@workspace/ui/components/dropdown-menu"
-import { Spinner } from "@workspace/ui/components/spinner"
-import { cn } from "@workspace/ui/lib/utils"
+} from "@repo/ui/components/dropdown-menu"
+import { Spinner } from "@repo/ui/components/spinner"
+import { cn } from "@repo/ui/lib/utils"
 
 export type AvatarUploadLabels = {
   change: string

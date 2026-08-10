@@ -7,7 +7,7 @@ import type { OrganizationBranding } from "@/app/dashboard/(organization)/manage
 import { OrganizationLogoField } from "@/app/dashboard/(organization)/manage/components/organization-logo-field"
 import { OrganizationNameFormShell } from "@/app/dashboard/(organization)/manage/components/organization-name-form-shell"
 import { OrganizationAvatar } from "@/components/organization-avatar"
-import { Button } from "@workspace/ui/components/button"
+import { Button } from "@repo/ui/components/button"
 import { useTranslations } from "next-intl"
 
 type OrganizationManageHeaderPanelProps = {

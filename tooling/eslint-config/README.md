@@ -1,4 +1,4 @@
-# @workspace/eslint-config
+# @repo/eslint-config
 
 Shared ESLint presets: `base`, `react`, and `next-js` (plus shared `ignores`).
 

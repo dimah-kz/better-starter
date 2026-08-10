@@ -1,7 +1,7 @@
 import {
   orgRoles,
   type MembershipRole,
-} from "@better-starter/auth/organization-access"
+} from "@repo/auth/organization-access"
 import { parseRoleString } from "@/lib/role-string"
 
 const membershipRoleHierarchy = [

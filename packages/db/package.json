@@ -1,5 +1,5 @@
 {
-  "name": "@better-starter/db",
+  "name": "@repo/db",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -29,8 +29,8 @@
   "devDependencies": {
     "@types/node": "^26.2.0",
     "@types/pg": "^8.21.0",
-    "@workspace/eslint-config": "workspace:*",
-    "@workspace/typescript-config": "workspace:*",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
     "drizzle-kit": "rc",
     "eslint": "catalog:",
     "typescript": "catalog:"

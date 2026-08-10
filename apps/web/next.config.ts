@@ -14,11 +14,11 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   transpilePackages: [
-    "@workspace/ui",
-    "@better-starter/auth",
-    "@better-starter/db",
-    "@better-starter/i18n",
-    "@better-starter/storage",
+    "@repo/ui",
+    "@repo/auth",
+    "@repo/db",
+    "@repo/i18n",
+    "@repo/storage",
   ],
   allowedDevOrigins: ["10.108.145.199"],
 }

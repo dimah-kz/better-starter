@@ -10,7 +10,7 @@ Dashboard UI and routes live **inside the app**, not in core packages.
 | ----------------------------- | --------------------------------------------------------------------------------------------------------- |
 | URLs                          | `dashboard/lib/dashboard-routes.ts`                                                                       |
 | Breadcrumb segments           | `dashboardRouteSegments` in `dashboard-routes.ts` + `dashboard.breadcrumbSegments` in i18n                |
-| Nav / tab copy                | `@better-starter/i18n` → `messages/en/dashboard.json`                                                     |
+| Nav / tab copy                | `@repo/i18n` → `messages/en/dashboard.json`                                                     |
 | Cache tags                    | `dashboard/lib/cache-tags.ts`                                                                             |
 | Tab registry (if tabbed area) | `*-slices.ts` or `*-tabs.ts` beside that area's `lib/` (include `icon`, `labelKey`, `pathSuffix`, `href`) |
 
@@ -35,4 +35,4 @@ Delete route tree + matching `action/dashboard/…` + unused keys in routes, lab
 
 ## Multiple apps
 
-Web dashboard (`apps/web`) is the primary target. If `apps/mobile` or `apps/extension` get surfaces later, reuse `@better-starter/auth` permissions — do not duplicate RBAC. UI and navigation SSOT stay per app.
+Web dashboard (`apps/web`) is the primary target. If `apps/mobile` or `apps/extension` get surfaces later, reuse `@repo/auth` permissions — do not duplicate RBAC. UI and navigation SSOT stay per app.

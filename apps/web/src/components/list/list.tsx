@@ -1,8 +1,8 @@
 "use client"
 
 import { type ComponentProps } from "react"
-import { TableCell, TableRow } from "@workspace/ui/components/table"
-import { cn } from "@workspace/ui/lib/utils"
+import { TableCell, TableRow } from "@repo/ui/components/table"
+import { cn } from "@repo/ui/lib/utils"
 import { ListPagination } from "@/components/list/list-pagination"
 import type { ListPaginationProps } from "@/components/list/types"
 

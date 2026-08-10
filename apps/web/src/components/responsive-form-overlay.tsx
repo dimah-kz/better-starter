@@ -1,7 +1,7 @@
 "use client"
 
 import type { ReactNode } from "react"
-import { useDirection } from "@workspace/ui/components/direction"
+import { useDirection } from "@repo/ui/components/direction"
 import {
   Sheet,
   SheetContent,
@@ -9,8 +9,8 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-} from "@workspace/ui/components/sheet"
-import { cn } from "@workspace/ui/lib/utils"
+} from "@repo/ui/components/sheet"
+import { cn } from "@repo/ui/lib/utils"
 
 export type ResponsiveFormOverlayProps = {
   open: boolean

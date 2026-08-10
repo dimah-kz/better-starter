@@ -1,5 +1,5 @@
 import { AuthSettingsMenu } from "@/app/(auth)/components/auth-settings-menu"
-import { IconStack } from "@workspace/ui/components/reui/icon-stack"
+import { IconStack } from "@repo/ui/components/reui/icon-stack"
 import { ImageIcon } from "lucide-react"
 
 export default function AuthLayout({

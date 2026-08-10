@@ -2,7 +2,7 @@
 
 import { dbClient } from "@dimah-s3/db/client"
 import { createS3Client } from "@dimah-s3/react"
-import type { Locale } from "@better-starter/i18n"
+import type { Locale } from "@repo/i18n"
 import { translationsByLocale } from "./translations"
 
 export const { api, S3Provider, useApi } = createS3Client({

@@ -9,9 +9,9 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarRail,
-} from "@workspace/ui/components/sidebar"
+} from "@repo/ui/components/sidebar"
 import { useSidebarSide } from "@/app/dashboard/lib/sidebar-side"
-import { Skeleton } from "@workspace/ui/components/skeleton"
+import { Skeleton } from "@repo/ui/components/skeleton"
 
 function SidebarRowSkeleton({ lines = 1 }: { lines?: 1 | 2 }) {
   return (

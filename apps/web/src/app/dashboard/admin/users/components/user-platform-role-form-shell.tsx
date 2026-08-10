@@ -6,17 +6,17 @@ import { updateUserPlatformRoleAction } from "@/app/action/dashboard/admin/users
 import type { AdminUserItem } from "@/app/dashboard/admin/users/lib/get-admin-users-page"
 import { FormLabel } from "@/components/form/form-label"
 import { ResponsiveFormOverlay } from "@/components/responsive-form-overlay"
-import { Button } from "@workspace/ui/components/button"
-import { Checkbox } from "@workspace/ui/components/checkbox"
-import { Label } from "@workspace/ui/components/label"
+import { Button } from "@repo/ui/components/button"
+import { Checkbox } from "@repo/ui/components/checkbox"
+import { Label } from "@repo/ui/components/label"
 import {
   adminPluginRoles,
   type PlatformRole,
-} from "@better-starter/auth/admin-access"
+} from "@repo/auth/admin-access"
 import { parseRoleString } from "@/lib/role-string"
 
 const platformRoles = Object.keys(adminPluginRoles) as PlatformRole[]
-import { toast } from "@workspace/ui/components/toast"
+import { toast } from "@repo/ui/components/toast"
 import { useTranslations } from "next-intl"
 
 type UserPlatformRoleFormShellProps = {

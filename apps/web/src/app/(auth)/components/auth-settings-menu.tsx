@@ -3,7 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { NavUserLocaleMenu } from "@/components/locale-switcher"
-import { Button } from "@workspace/ui/components/button"
+import { Button } from "@repo/ui/components/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,8 +11,8 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@workspace/ui/components/dropdown-menu"
-import { Switch } from "@workspace/ui/components/switch"
+} from "@repo/ui/components/dropdown-menu"
+import { Switch } from "@repo/ui/components/switch"
 import { HomeIcon, MoonIcon, SettingsIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useTheme } from "next-themes"

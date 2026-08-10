@@ -4,7 +4,7 @@ import { type AccountFormState } from "@/app/action/dashboard/account/shared/acc
 import { invalidateUserCache } from "@/app/dashboard/lib/invalidate-user-cache"
 import { getFormString } from "@/components/form/form-parse"
 import { headers } from "next/headers"
-import { auth, getAuthApiErrorMessage } from "@better-starter/auth"
+import { auth, getAuthApiErrorMessage } from "@repo/auth"
 
 export async function updateProfileAction(
   _prevState: AccountFormState,

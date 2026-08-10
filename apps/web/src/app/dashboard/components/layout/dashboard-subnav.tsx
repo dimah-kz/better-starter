@@ -4,7 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useTranslations } from "next-intl"
 import { resolveActiveTabKey } from "@/app/dashboard/lib/path-utils"
-import { Tabs, TabsList, TabsTrigger } from "@workspace/ui/components/tabs"
+import { Tabs, TabsList, TabsTrigger } from "@repo/ui/components/tabs"
 
 export type DashboardSubnavItem = {
   key: string

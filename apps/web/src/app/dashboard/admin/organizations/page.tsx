@@ -5,7 +5,7 @@ import {
   parseAdminOrganizationsPageQuery,
 } from "@/app/dashboard/admin/organizations/lib/get-admin-organizations-page"
 import { ListSkeleton } from "@/components/list"
-import { Card, CardContent } from "@workspace/ui/components/card"
+import { Card, CardContent } from "@repo/ui/components/card"
 
 type AdminOrganizationsPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>

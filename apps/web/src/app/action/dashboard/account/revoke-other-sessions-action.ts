@@ -1,8 +1,8 @@
 "use server"
 
 import { headers } from "next/headers"
-import { getAuthApiErrorMessage } from "@better-starter/auth"
-import { auth } from "@better-starter/auth"
+import { getAuthApiErrorMessage } from "@repo/auth"
+import { auth } from "@repo/auth"
 
 type RevokeOtherSessionsResult = {
   success: boolean

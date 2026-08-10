@@ -6,7 +6,7 @@ alwaysApply: false
 
 # Better Auth
 
-**Config:** `packages/auth/`. Schema: `pnpm --filter @better-starter/db auth:generate` → `db:generate` + `db:migrate`. Teams off unless enabled in `organization()`.
+**Config:** `packages/auth/`. Schema: `pnpm --filter @repo/db auth:generate` → `db:generate` + `db:migrate`. Teams off unless enabled in `organization()`.
 
 **Writes:** app `action/` → `auth.api` with `headers: await headers()` (i18n locale cookie + session). Sign-in/up still pass `body`; `nextCookies()` sets cookies.
 

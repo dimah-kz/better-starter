@@ -1,16 +1,16 @@
-import "@workspace/ui/globals.css"
+import "@repo/ui/globals.css"
 import type { Metadata } from "next"
 import { Suspense } from "react"
 import { ThemeProvider } from "@/components/theme-provider"
 import { HtmlLocaleSync } from "@/components/html-locale-sync"
 import { LoadingFallbackShell } from "@/components/loading-fallback"
-import { defaultLocale, getLocaleDirection } from "@better-starter/i18n"
+import { defaultLocale, getLocaleDirection } from "@repo/i18n"
 import { Vazirmatn } from "next/font/google"
 import { getLocale, getMessages, getTranslations } from "next-intl/server"
 import { NextIntlClientProvider } from "next-intl"
-import { DirectionProvider } from "@workspace/ui/components/direction"
-import { Toaster } from "@workspace/ui/components/toast"
-import { cn } from "@workspace/ui/lib/utils"
+import { DirectionProvider } from "@repo/ui/components/direction"
+import { Toaster } from "@repo/ui/components/toast"
+import { cn } from "@repo/ui/lib/utils"
 
 const vazirmatn = Vazirmatn({
   subsets: ["arabic", "latin", "latin-ext"],

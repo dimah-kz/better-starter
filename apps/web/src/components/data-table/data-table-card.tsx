@@ -8,8 +8,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@workspace/ui/components/card"
-import { cn } from "@workspace/ui/lib/utils"
+} from "@repo/ui/components/card"
+import { cn } from "@repo/ui/lib/utils"
 
 type DataTableCardProps = {
   title: ReactNode

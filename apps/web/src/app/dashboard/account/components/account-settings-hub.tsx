@@ -11,7 +11,7 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@workspace/ui/components/avatar"
+} from "@repo/ui/components/avatar"
 import {
   Item,
   ItemActions,
@@ -20,7 +20,7 @@ import {
   ItemMedia,
   ItemSeparator,
   ItemTitle,
-} from "@workspace/ui/components/item"
+} from "@repo/ui/components/item"
 type AccountSettingsHubProps = {
   profile: {
     id: string

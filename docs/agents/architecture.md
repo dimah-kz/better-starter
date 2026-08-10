@@ -16,7 +16,7 @@
 
 **In an app** (e.g. `apps/web/src/…`):
 
-1. Beside `page.tsx` → parent route `components/` → segment `lib/` or `components/` → `src/components/` → `@workspace/ui/components/*`
+1. Beside `page.tsx` → parent route `components/` → segment `lib/` or `components/` → `src/components/` → `@repo/ui/components/*`
 
 **In a package:**
 
@@ -26,7 +26,7 @@
 
 **Within an app:** sub-feature → segment `lib/` → `src/lib` | `src/components`. **No** cross-sibling feature imports — share via segment SSOT only.
 
-**Across layers:** app code imports `@better-starter/auth`, `@better-starter/db`, etc. Packages never import from apps.
+**Across layers:** app code imports `@repo/auth`, `@repo/db`, etc. Packages never import from apps.
 
 `src/lib/<feature>/` mirrors `src/components/<feature>/` when both exist (inside the app).
 
@@ -36,7 +36,7 @@
 | ------------------ | ------------------------------------------------------------------------------------- |
 | URLs               | `*-routes.ts` per segment                                                             |
 | Cache tags         | `cache-tags.ts` per segment                                                           |
-| Dashboard nav copy | `@better-starter/i18n` `dashboard.json` namespace                                     |
+| Dashboard nav copy | `@repo/i18n` `dashboard.json` namespace                                     |
 | Writes             | `app/action/<segment>/` mirrors `app/<segment>/` — one mutation per file → `auth.api` |
 | Reads              | `get-*.ts` + `'use cache'`                                                            |
 

@@ -1,8 +1,8 @@
-import type { Messages } from "@better-starter/i18n"
+import type { Messages } from "@repo/i18n"
 
 declare module "next-intl" {
   interface AppConfig {
-    Locale: (typeof import("@better-starter/i18n"))["locales"][number]
+    Locale: (typeof import("@repo/i18n"))["locales"][number]
     Messages: Messages
   }
 }

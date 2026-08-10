@@ -1,9 +1,9 @@
 "use client"
 
 import { useFormStatus } from "react-dom"
-import { Button } from "@workspace/ui/components/button"
-import { Spinner } from "@workspace/ui/components/spinner"
-import { cn } from "@workspace/ui/lib/utils"
+import { Button } from "@repo/ui/components/button"
+import { Spinner } from "@repo/ui/components/spinner"
+import { cn } from "@repo/ui/lib/utils"
 
 type FormSubmitButtonProps = {
   idleText: string

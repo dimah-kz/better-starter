@@ -21,9 +21,9 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@workspace/ui/components/alert-dialog"
-import type { Locale } from "@better-starter/i18n"
-import { toast } from "@workspace/ui/components/toast"
+} from "@repo/ui/components/alert-dialog"
+import type { Locale } from "@repo/i18n"
+import { toast } from "@repo/ui/components/toast"
 import { useLocale, useTranslations } from "next-intl"
 
 type AdminUsersTableProps = {

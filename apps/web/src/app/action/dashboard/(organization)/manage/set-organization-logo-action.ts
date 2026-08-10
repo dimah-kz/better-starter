@@ -7,8 +7,8 @@ import { isAvatarKey } from "@/lib/avatar-storage"
 import { deleteOwnedAvatarObject } from "@/lib/delete-owned-avatar"
 import { headers } from "next/headers"
 import { updateTag } from "next/cache"
-import { auth, getAuthApiErrorMessage } from "@better-starter/auth"
-import { buildPublicUrl } from "@better-starter/storage"
+import { auth, getAuthApiErrorMessage } from "@repo/auth"
+import { buildPublicUrl } from "@repo/storage"
 
 export async function setOrganizationLogoAction(
   organizationId: string,

@@ -41,7 +41,7 @@ import type {
   TableFeatures,
 } from "@tanstack/react-table"
 
-import { cn } from "@workspace/ui/lib/utils"
+import { cn } from "@repo/ui/lib/utils"
 
 /**
  * Per-column extras the grid reads off `columnDef.meta`.

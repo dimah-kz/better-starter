@@ -6,10 +6,10 @@ import {
 } from "@/app/dashboard/(organization)/manage/members/lib/get-organization-members-page"
 import { resolveDashboardActiveOrganizationId } from "@/app/dashboard/lib/dashboard-session"
 import { ListSkeleton } from "@/components/list"
-import { Card, CardContent } from "@workspace/ui/components/card"
+import { Card, CardContent } from "@repo/ui/components/card"
 import { getActorOrganizationRole } from "@/app/dashboard/(organization)/manage/members/lib/get-actor-organization-role"
 import { headers } from "next/headers"
-import { auth } from "@better-starter/auth"
+import { auth } from "@repo/auth"
 
 type OrganizationMembersPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>

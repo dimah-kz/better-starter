@@ -1,4 +1,4 @@
-import { auth, type Session } from "@better-starter/auth"
+import { auth, type Session } from "@repo/auth"
 import type { StorageOwner } from "./scope"
 
 /**

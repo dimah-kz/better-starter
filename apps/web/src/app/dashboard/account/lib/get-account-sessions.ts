@@ -1,5 +1,5 @@
 import { headers } from "next/headers"
-import { auth } from "@better-starter/auth"
+import { auth } from "@repo/auth"
 
 export type AccountSessionRow = {
   id: string

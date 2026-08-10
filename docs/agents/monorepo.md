@@ -9,7 +9,7 @@ Three app slots under `apps/` + shared core under `packages/`:
 | Slot          | Path             | Role                                                                                          |
 | ------------- | ---------------- | --------------------------------------------------------------------------------------------- |
 | **Web**       | `apps/web`       | Next.js — primary target (has [AGENTS.md](../../apps/web/AGENTS.md) for Next’s managed block) |
-| **Mobile**    | `apps/mobile`    | Future client; stack TBD — share via `@better-starter/*`                                      |
+| **Mobile**    | `apps/mobile`    | Future client; stack TBD — share via `@repo/*`                                                |
 | **Extension** | `apps/extension` | Placeholder — own UI shell; same core packages                                                |
 
 Explore `apps/` and `packages/` for what exists today. Do not import across apps; share through packages.
@@ -18,19 +18,19 @@ Explore `apps/` and `packages/` for what exists today. Do not import across apps
 
 ## Package vs app responsibilities
 
-| Layer         | Owns                                                                                                                       | Does not own                                            |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
-| **packages/** | Auth config, Drizzle schema/client/migrations, S3 storage (`@better-starter/storage`), shadcn primitives (`@workspace/ui`) | Routes, pages, app UI, Server Actions, dashboard chrome |
-| **tooling/**  | Shared eslint/tsconfig presets (`@workspace/eslint-config`, `@workspace/typescript-config`)                                | Product/runtime code                                    |
-| **apps/**     | Routes, layouts, Server Actions, feature UI, SSOT (`cache-tags`, `*-routes`), Next session helpers                         | Duplicating auth/db logic that belongs in a package     |
+| Layer         | Owns                                                                                                        | Does not own                                            |
+| ------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| **packages/** | Auth config, Drizzle schema/client/migrations, S3 storage (`@repo/storage`), shadcn primitives (`@repo/ui`) | Routes, pages, app UI, Server Actions, dashboard chrome |
+| **tooling/**  | Shared eslint/tsconfig presets (`@repo/eslint-config`, `@repo/typescript-config`)                           | Product/runtime code                                    |
+| **apps/**     | Routes, layouts, Server Actions, feature UI, SSOT (`cache-tags`, `*-routes`), Next session helpers          | Duplicating auth/db logic that belongs in a package     |
 
-**UI split:** `@workspace/ui` = shadcn primitives shared across apps. App-composed components (`badge/`, `data-table/` + `list/`, dashboard chrome) live in `apps/<app>/src/components/` or route-scoped `components/`.
+**UI split:** `@repo/ui` = shadcn primitives shared across apps. App-composed components (`badge/`, `data-table/` + `list/`, dashboard chrome) live in `apps/<app>/src/components/` or route-scoped `components/`.
 
 **Lists:** `data-table/` = TanStack Table + shadcn `Table` (columns, render). `list/` = URL-driven search / filter / pagination for server lists. Compose with `DataTableCard`.
 
 ## Naming
 
-Explore `packages/*/package.json` for live names. Target publish scope is `@better-starter/*` (`@workspace/*` configs/UI may rename later). Apps import via `workspace:*` until publish.
+Explore `packages/*/package.json` and `tooling/*/package.json` for live names. Shared scope is `@repo/*`. Apps import via `workspace:*` until publish.
 
 ## Dependency rules
 
@@ -52,12 +52,12 @@ Filter to one app/package when needed:
 
 ```bash
 pnpm --filter web dev
-pnpm --filter @better-starter/db db:migrate
+pnpm --filter @repo/db db:migrate
 ```
 
 ## Adding a new core package
 
-1. Create `packages/<name>/` with `package.json` (`name: "@better-starter/<name>"`, `"private": true` until publish).
-2. Extend `tooling/typescript-config` if needed; wire eslint from `@workspace/eslint-config`.
+1. Create `packages/<name>/` with `package.json` (`name: "@repo/<name>"`, `"private": true` until publish).
+2. Extend `tooling/typescript-config` if needed; wire eslint from `@repo/eslint-config`.
 3. Export a minimal public surface — apps import from package root or documented subpaths only.
 4. Document exports in package `README.md` (one paragraph, not agent docs).

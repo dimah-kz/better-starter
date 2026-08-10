@@ -10,15 +10,15 @@ import {
 } from "lucide-react"
 import { revokeSessionAction } from "@/app/action/dashboard/account/revoke-session-action"
 import type { SessionDeviceDisplay } from "@/app/dashboard/account/lib/format-session-device"
-import { toast } from "@workspace/ui/components/toast"
-import { Badge } from "@workspace/ui/components/badge"
-import { Button } from "@workspace/ui/components/button"
+import { toast } from "@repo/ui/components/toast"
+import { Badge } from "@repo/ui/components/badge"
+import { Button } from "@repo/ui/components/button"
 import {
   ItemDescription,
   ItemGroup,
   ItemSeparator,
   ItemTitle,
-} from "@workspace/ui/components/item"
+} from "@repo/ui/components/item"
 import { useTranslations } from "next-intl"
 
 export type AccountSessionDisplay = {

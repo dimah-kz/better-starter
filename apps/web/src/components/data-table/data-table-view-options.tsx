@@ -3,7 +3,7 @@
 import type { ReactTable, RowData } from "@tanstack/react-table"
 import { Settings2Icon } from "lucide-react"
 import { useTranslations } from "next-intl"
-import { Button } from "@workspace/ui/components/button"
+import { Button } from "@repo/ui/components/button"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -12,7 +12,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@workspace/ui/components/dropdown-menu"
+} from "@repo/ui/components/dropdown-menu"
 import type { DataTableFeatures } from "@/components/data-table/data-table-features"
 
 type DataTableViewOptionsProps<TData extends RowData> = {

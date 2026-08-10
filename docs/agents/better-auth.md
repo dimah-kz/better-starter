@@ -1,6 +1,6 @@
 # Better Auth
 
-> Rule: `.cursor/rules/better-auth.mdc`. **Explore** `@better-starter/auth` and sibling actions in `apps/web` for live patterns.
+> Rule: `.cursor/rules/better-auth.mdc`. **Explore** `@repo/auth` and sibling actions in `apps/web` for live patterns.
 
 ## Where auth lives
 
@@ -16,7 +16,7 @@
 ## When changing auth config
 
 1. Edit `auth.ts` and/or `*-access.ts` in the auth package.
-2. From the db package: `pnpm --filter @better-starter/db auth:generate` → `db:generate` → `db:migrate`.
+2. From the db package: `pnpm --filter @repo/db auth:generate` → `db:generate` → `db:migrate`.
 3. Do not hand-edit generated auth schema or add product tables there.
 
 **Teams:** off by default — enable in `organization()` only when you add team features.
@@ -26,7 +26,7 @@
 ## When adding a mutation (in an app)
 
 1. Server Action under `app/action/…` mirroring the route (one mutation per file).
-2. Import `auth` from `@better-starter/auth`. Call **`auth.api.<method>`** with `headers: await headers()` (needed for session + `@better-auth/i18n` locale cookie). Sign-in/up still pass `body`; `nextCookies()` sets the session cookie.
+2. Import `auth` from `@repo/auth`. Call **`auth.api.<method>`** with `headers: await headers()` (needed for session + `@better-auth/i18n` locale cookie). Sign-in/up still pass `body`; `nextCookies()` sets the session cookie.
 3. Surface errors with `getAuthApiErrorMessage` — Better Auth error codes are already translated by the i18n plugin.
 4. `updateTag` after success when the actor's UI must refresh — [caching.md](./caching.md).
 
@@ -43,8 +43,8 @@
 
 - `auth.api.getSession({ headers: await headers() })` for reads and route gates (e.g. dashboard layout).
 - Never `'use cache'` on session.
-- Client components: never import `@better-starter/auth` (pulls in db/pg).
+- Client components: never import `@repo/auth` (pulls in db/pg).
 
 ## Mobile & extension (future)
 
-Auth client config and secure storage live in `apps/mobile` or `apps/extension` — not in core packages. Server-side auth stays in `@better-starter/auth`; share types and permission statements from the package, not Next-specific session helpers.
+Auth client config and secure storage live in `apps/mobile` or `apps/extension` — not in core packages. Server-side auth stays in `@repo/auth`; share types and permission statements from the package, not Next-specific session helpers.

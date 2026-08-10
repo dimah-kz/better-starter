@@ -8,7 +8,7 @@ import {
   DashboardPageShell,
 } from "@/app/dashboard/components/layout/dashboard-page-shell"
 import { DashboardSubnav } from "@/app/dashboard/components/layout/dashboard-subnav"
-import { Skeleton } from "@workspace/ui/components/skeleton"
+import { Skeleton } from "@repo/ui/components/skeleton"
 import { dashboardRoutes } from "@/app/dashboard/lib/dashboard-routes"
 import { resolveDashboardActiveOrganizationId } from "@/app/dashboard/lib/dashboard-session"
 

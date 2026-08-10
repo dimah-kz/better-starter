@@ -3,13 +3,13 @@
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { SearchIcon, XIcon } from "lucide-react"
-import { Button } from "@workspace/ui/components/button"
+import { Button } from "@repo/ui/components/button"
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
-} from "@workspace/ui/components/input-group"
-import { cn } from "@workspace/ui/lib/utils"
+} from "@repo/ui/components/input-group"
+import { cn } from "@repo/ui/lib/utils"
 
 const DEFAULT_DEBOUNCE_MS = 300
 const DEFAULT_MIN_LENGTH = 2

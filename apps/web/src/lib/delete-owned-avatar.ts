@@ -3,7 +3,7 @@ import {
   objectKeyFromPublicUrl,
   s3,
   type StorageOwner,
-} from "@better-starter/storage"
+} from "@repo/storage"
 
 /** Best-effort delete of a previous owned avatar object (after profile/org link update). */
 export async function deleteOwnedAvatarObject(options: {

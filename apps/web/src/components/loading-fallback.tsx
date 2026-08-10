@@ -1,5 +1,5 @@
-import { Spinner } from "@workspace/ui/components/spinner"
-import { cn } from "@workspace/ui/lib/utils"
+import { Spinner } from "@repo/ui/components/spinner"
+import { cn } from "@repo/ui/lib/utils"
 
 type LoadingFallbackShellProps = {
   label?: string

@@ -1,4 +1,4 @@
-# @better-starter/auth
+# @repo/auth
 
 Authentication for the monorepo: [Better Auth](https://www.better-auth.com/) with email/password, `admin`, `organization`, and `lastLoginMethod` (`storeInDatabase: true`) plugins.
 

@@ -8,7 +8,7 @@ import {
 } from "@/app/dashboard/components/layout/dashboard-page-shell"
 import { dashboardRoutes } from "@/app/dashboard/lib/dashboard-routes"
 import { headers } from "next/headers"
-import { auth } from "@better-starter/auth"
+import { auth } from "@repo/auth"
 import { getTranslations } from "next-intl/server"
 
 type AdminLayoutProps = {

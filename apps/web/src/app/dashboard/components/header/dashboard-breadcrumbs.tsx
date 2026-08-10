@@ -17,7 +17,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@workspace/ui/components/breadcrumb"
+} from "@repo/ui/components/breadcrumb"
 
 type BreadcrumbSegmentKey =
   | "dashboard"

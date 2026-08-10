@@ -10,14 +10,14 @@ import {
   resolveSidebarNavSection,
   type SidebarNavSection,
 } from "@/app/dashboard/lib/sidebar-nav-sections"
-import { cn } from "@workspace/ui/lib/utils"
+import { cn } from "@repo/ui/lib/utils"
 import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@workspace/ui/components/sidebar"
+} from "@repo/ui/components/sidebar"
 
 export type NavMainItem = {
   titleKey: Parameters<ReturnType<typeof useTranslations<"dashboard">>>[0]

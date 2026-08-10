@@ -1,5 +1,5 @@
 {
-  "extends": "@workspace/typescript-config/base.json",
+  "extends": "@repo/typescript-config/base.json",
   "compilerOptions": {
     "module": "ESNext",
     "moduleResolution": "Bundler",
@@ -7,9 +7,9 @@
     "declaration": false,
     "declarationMap": false,
     "paths": {
-      "@better-starter/db": ["./src/client.ts"],
-      "@better-starter/db/schema": ["./src/schema/index.ts"],
-      "@better-starter/db/dimah-s3": ["./src/dimah-s3-db.ts"]
+      "@repo/db": ["./src/client.ts"],
+      "@repo/db/schema": ["./src/schema/index.ts"],
+      "@repo/db/dimah-s3": ["./src/dimah-s3-db.ts"]
     }
   },
   "include": ["src", "scripts", "drizzle.config.ts"]

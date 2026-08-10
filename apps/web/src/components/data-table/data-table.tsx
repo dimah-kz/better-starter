@@ -20,8 +20,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@workspace/ui/components/table"
-import { cn } from "@workspace/ui/lib/utils"
+} from "@repo/ui/components/table"
+import { cn } from "@repo/ui/lib/utils"
 import {
   dataTableFeatures,
   type DataTableColumnMeta,

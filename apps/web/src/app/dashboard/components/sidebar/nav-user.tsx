@@ -9,7 +9,7 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@workspace/ui/components/avatar"
+} from "@repo/ui/components/avatar"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,14 +18,14 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@workspace/ui/components/dropdown-menu"
+} from "@repo/ui/components/dropdown-menu"
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@workspace/ui/components/sidebar"
-import { Switch } from "@workspace/ui/components/switch"
+} from "@repo/ui/components/sidebar"
+import { Switch } from "@repo/ui/components/switch"
 import {
   ChevronsUpDownIcon,
   HomeIcon,

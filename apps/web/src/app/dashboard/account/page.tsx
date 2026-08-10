@@ -7,7 +7,7 @@ import { getAccountSessions } from "@/app/dashboard/account/lib/get-account-sess
 import { getUserHasPasswordCredential } from "@/app/dashboard/account/lib/get-user-has-password-credential"
 import { DashboardPageFallback } from "@/app/dashboard/components/layout/dashboard-page-shell"
 import { headers } from "next/headers"
-import { auth } from "@better-starter/auth"
+import { auth } from "@repo/auth"
 
 export default function AccountPage() {
   return (

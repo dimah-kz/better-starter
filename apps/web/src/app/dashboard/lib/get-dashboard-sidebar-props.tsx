@@ -18,7 +18,7 @@ import {
 } from "@/app/dashboard/lib/dashboard-session"
 import { canAccessOrganizationManage } from "@/app/dashboard/(organization)/manage/lib/can-access-organization-manage"
 import { headers } from "next/headers"
-import { auth } from "@better-starter/auth"
+import { auth } from "@repo/auth"
 
 export type DashboardSidebarProps = {
   organizations: SidebarOrganizationItem[]

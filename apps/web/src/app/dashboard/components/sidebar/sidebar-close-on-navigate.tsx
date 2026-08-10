@@ -2,7 +2,7 @@
 
 import { Suspense, useEffect } from "react"
 import { usePathname } from "next/navigation"
-import { useSidebar } from "@workspace/ui/components/sidebar"
+import { useSidebar } from "@repo/ui/components/sidebar"
 
 function SidebarCloseOnNavigateInner() {
   const pathname = usePathname()

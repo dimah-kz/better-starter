@@ -1,8 +1,8 @@
 import { cacheLife, cacheTag } from "next/cache"
-import { eq } from "@better-starter/db/drizzle"
+import { eq } from "@repo/db/drizzle"
 import { dashboardCacheTags } from "@/app/dashboard/lib/cache-tags"
-import { user } from "@better-starter/db/schema"
-import { db } from "@better-starter/db"
+import { user } from "@repo/db/schema"
+import { db } from "@repo/db"
 
 export async function getAccountProfile(userId: string) {
   "use cache"

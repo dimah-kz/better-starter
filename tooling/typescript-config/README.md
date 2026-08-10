@@ -1,4 +1,4 @@
-# @workspace/typescript-config
+# @repo/typescript-config
 
 Shared `tsconfig` bases: `base`, `react-library`, and `nextjs`.
 

@@ -9,11 +9,11 @@
     "format:check": "prettier --check .",
     "lint": "turbo lint",
     "typecheck": "turbo typecheck",
-    "ui:sync": "pnpm --filter @workspace/ui sync:shadcn"
+    "ui:sync": "pnpm --filter @repo/ui sync:shadcn"
   },
   "devDependencies": {
-    "@workspace/eslint-config": "workspace:*",
-    "@workspace/typescript-config": "workspace:*",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
     "prettier": "catalog:",
     "prettier-plugin-packagejson": "catalog:",
     "prettier-plugin-tailwindcss": "catalog:",

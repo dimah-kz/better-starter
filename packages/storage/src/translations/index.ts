@@ -1,5 +1,5 @@
 import type { Translations } from "@dimah-s3/react"
-import type { Locale } from "@better-starter/i18n"
+import type { Locale } from "@repo/i18n"
 import { fa } from "./fa"
 
 export type { Translations }

@@ -6,7 +6,7 @@ import { dashboardCacheTags } from "@/app/dashboard/lib/cache-tags"
 import { deleteOwnedAvatarObject } from "@/lib/delete-owned-avatar"
 import { headers } from "next/headers"
 import { updateTag } from "next/cache"
-import { auth, getAuthApiErrorMessage } from "@better-starter/auth"
+import { auth, getAuthApiErrorMessage } from "@repo/auth"
 
 export async function removeOrganizationLogoAction(organizationId: string) {
   const requestHeaders = await headers()

@@ -1,4 +1,4 @@
-import { toObjectKey, type StorageOwner } from "@better-starter/storage/keys"
+import { toObjectKey, type StorageOwner } from "@repo/storage/keys"
 
 export const AVATAR_PURPOSE = "avatars"
 export const AVATAR_ACCEPT = [

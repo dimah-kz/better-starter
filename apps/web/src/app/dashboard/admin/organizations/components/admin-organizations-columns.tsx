@@ -1,12 +1,12 @@
 "use client"
 
-import type { Locale } from "@better-starter/i18n"
+import type { Locale } from "@repo/i18n"
 import type { AdminOrganizationItem } from "@/app/dashboard/admin/organizations/lib/get-admin-organizations-page"
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@workspace/ui/components/avatar"
+} from "@repo/ui/components/avatar"
 import { createDataTableColumnHelper } from "@/components/data-table"
 import { formatDate } from "@/lib/format-date"
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { getLocaleDirection, type Locale } from "@better-starter/i18n"
+import { getLocaleDirection, type Locale } from "@repo/i18n"
 import { useLocale } from "next-intl"
 import { useEffect } from "react"
 

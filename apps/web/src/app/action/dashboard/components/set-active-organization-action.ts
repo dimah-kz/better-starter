@@ -8,7 +8,7 @@ import {
   setDashboardActiveOrganization,
 } from "@/app/dashboard/lib/dashboard-session"
 import { headers } from "next/headers"
-import { auth } from "@better-starter/auth"
+import { auth } from "@repo/auth"
 
 type SetActiveOrganizationInput = {
   organizationId: string | null

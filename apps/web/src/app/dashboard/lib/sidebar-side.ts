@@ -1,6 +1,6 @@
 "use client"
 
-import { useDirection } from "@workspace/ui/components/direction"
+import { useDirection } from "@repo/ui/components/direction"
 
 export function useSidebarSide(): "left" | "right" {
   return useDirection() === "rtl" ? "right" : "left"

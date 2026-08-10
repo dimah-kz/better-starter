@@ -1,5 +1,5 @@
 import { headers } from "next/headers"
-import { auth } from "@better-starter/auth"
+import { auth } from "@repo/auth"
 
 /** Role of the signed-in user in the active organization (for manage UI hints). */
 export async function getActorOrganizationRole() {

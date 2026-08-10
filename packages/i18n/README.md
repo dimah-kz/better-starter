@@ -1,4 +1,4 @@
-# @better-starter/i18n
+# @repo/i18n
 
 Shared locale config, message catalogs, and formatting helpers (`en` / `fa` today).
 

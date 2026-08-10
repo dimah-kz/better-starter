@@ -1,13 +1,13 @@
 "use client"
 
-import { Button } from "@workspace/ui/components/button"
+import { Button } from "@repo/ui/components/button"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@workspace/ui/components/card"
+} from "@repo/ui/components/card"
 import { useTranslations } from "next-intl"
 
 type SegmentErrorFallbackProps = {

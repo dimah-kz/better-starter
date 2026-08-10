@@ -2,8 +2,8 @@
 
 import { invalidateOrganizationMembersCache } from "@/app/action/dashboard/(organization)/manage/shared/invalidate-organization-manage-cache"
 import { headers } from "next/headers"
-import { auth } from "@better-starter/auth"
-import { getAuthApiErrorMessage } from "@better-starter/auth"
+import { auth } from "@repo/auth"
+import { getAuthApiErrorMessage } from "@repo/auth"
 
 type UpdateOrganizationMemberRoleInput = {
   organizationId: string

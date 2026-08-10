@@ -1,4 +1,4 @@
-# @workspace/ui
+# @repo/ui
 
 Shared [shadcn/ui](https://ui.shadcn.com/) primitives (Base UI under the hood) and global styles for every app.
 
@@ -10,4 +10,4 @@ pnpm dlx shadcn@latest add button -c packages/ui
 pnpm ui:sync
 ```
 
-Import from `@workspace/ui/components/…`. App-specific chrome and feature UI stay in each app, not here.
+Import from `@repo/ui/components/…`. App-specific chrome and feature UI stay in each app, not here.

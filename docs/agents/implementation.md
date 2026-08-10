@@ -16,11 +16,11 @@
 | `auth.api.getSession`  | Read session / route gate — `headers: await headers()` |
 | `auth.api` + `headers` | Mutations and permission checks                        |
 
-Core auth from `@better-starter/auth`. Do not gate before `auth.api`. Never cache session.
+Core auth from `@repo/auth`. Do not gate before `auth.api`. Never cache session.
 
 ## Storage uploads {#storage-uploads}
 
-`@better-starter/storage` owns keys and public URLs; app actions wire auth + cache.
+`@repo/storage` owns keys and public URLs; app actions wire auth + cache.
 
 1. Validate session → build `StorageOwner` (`user` / `org`) — see `packages/storage/src/owner/`.
 2. Verify the object key matches the owner before persisting (e.g. `isAvatarKey`).

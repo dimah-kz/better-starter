@@ -4,13 +4,13 @@ import { useActionState } from "react"
 import { MailIcon, UserIcon } from "lucide-react"
 import { signUpWithEmailAction } from "@/app/action/auth/sign-up-with-email-action"
 import { AUTH_FORM_INITIAL_STATE } from "@/app/(auth)/lib/auth-form-state"
-import { Field, FieldGroup, FieldLabel } from "@workspace/ui/components/field"
+import { Field, FieldGroup, FieldLabel } from "@repo/ui/components/field"
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
-} from "@workspace/ui/components/input-group"
-import { Alert, AlertDescription } from "@workspace/ui/components/alert"
+} from "@repo/ui/components/input-group"
+import { Alert, AlertDescription } from "@repo/ui/components/alert"
 import { FormSubmitButton } from "@/components/form/form-submit-button"
 import { PasswordInput } from "@/components/form/password-input"
 import { AuthSocialButtons } from "@/app/(auth)/components/auth-social-buttons"

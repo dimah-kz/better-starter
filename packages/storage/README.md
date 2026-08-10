@@ -1,4 +1,4 @@
-# @better-starter/storage
+# @repo/storage
 
 [dimah-s3](https://dimah-s3.vercel.app) storage for the monorepo — uploads with ownership scoped to a user or organization.
 

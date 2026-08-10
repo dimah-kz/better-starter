@@ -7,7 +7,7 @@ import {
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "@workspace/ui/components/input-group"
+} from "@repo/ui/components/input-group"
 
 type PasswordInputProps = Omit<React.ComponentProps<"input">, "type">
 

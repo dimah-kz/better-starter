@@ -48,9 +48,9 @@ flowchart TB
   end
 
   subgraph packages [Packages]
-    ui["@workspace/ui\nshadcn primitives, globals.css, cn, hooks"]
-    auth["@better-starter/auth\nauth instance, RBAC, API errors"]
-    db["@better-starter/db\nDrizzle client, schema, migrations, seed"]
+    ui["@repo/ui\nshadcn primitives, globals.css, cn, hooks"]
+    auth["@repo/auth\nauth instance, RBAC, API errors"]
+    db["@repo/db\nDrizzle client, schema, migrations, seed"]
   end
 
   web --> ui
@@ -89,7 +89,7 @@ packages/db/
 │   ├── patch-auth-schema-pg.mjs
 │   └── seed-dev/          ← از template scripts/seed-dev/
 ├── drizzle.config.ts
-└── package.json           ← name: "@better-starter/db"
+└── package.json           ← name: "@repo/db"
 ```
 
 **Exports:**
@@ -114,7 +114,7 @@ packages/db/
 
 ```
 packages/auth/src/
-├── auth.ts              ← از template (import db از @better-starter/db)
+├── auth.ts              ← از template (import db از @repo/db)
 ├── admin-access.ts
 ├── organization-access.ts
 ├── auth-api-error.ts
@@ -127,13 +127,13 @@ packages/auth/src/
 - [`session.ts`](apps/better-dashboard-template/src/lib/auth/session.ts) — وابسته به `next/headers`, `next/navigation`, و `auth-routes` اپ → می‌ماند در `apps/web/src/lib/auth/session.ts`
 - [`dashboard-session.ts`](apps/better-dashboard-template/src/app/dashboard/lib/dashboard-session.ts) — Next-specific → `apps/web/src/app/dashboard/lib/`
 
-**وابستگی:** `@better-starter/db`, `better-auth`, `drizzle-orm` (peer/transitive via db)
+**وابستگی:** `@repo/db`, `better-auth`, `drizzle-orm` (peer/transitive via db)
 
 ---
 
 ## فاز ۳ — هم‌تراز کردن `packages/ui`
 
-[`packages/ui`](packages/ui) از قبل shadcn monorepo setup دارد ([`components.json`](packages/ui/components.json) → `@workspace/ui/components`).
+[`packages/ui`](packages/ui) از قبل shadcn monorepo setup دارد ([`components.json`](packages/ui/components.json) → `@repo/ui/components`).
 
 **کارهای لازم:**
 
@@ -141,11 +141,11 @@ packages/auth/src/
 
 2. **هم‌ترازی کامپوننت‌ها:** template و package تفاوت دارند (مثلاً `drawer` در template از `vaul`، در package از Base UI). برای «همان استایل دقیق»:
    - template `src/components/ui/*` را source of truth بگیر
-   - importها را به `@workspace/ui/lib/utils` تبدیل کن
+   - importها را به `@repo/ui/lib/utils` تبدیل کن
    - در `packages/ui` جایگزین کن
    - deps گم‌شده (`vaul` اگر لازم) را به [`packages/ui/package.json`](packages/ui/package.json) اضافه کن
 
-3. **apps/web `components.json`:** از قبل درست است — aliases به `@workspace/ui` اشاره می‌کنند؛ app components در `@/components`.
+3. **apps/web `components.json`:** از قبل درست است — aliases به `@repo/ui` اشاره می‌کنند؛ app components در `@/components`.
 
 ---
 
@@ -159,13 +159,13 @@ apps/web/
 │   ├── app/                    ← کل tree از template (auth, dashboard, action, layout, page)
 │   ├── components/             ← badge/, data-table/, form/, theme-provider, … (نه ui/)
 │   ├── lib/
-│   │   ├── auth/session.ts     ← Next session (import auth از @better-starter/auth)
+│   │   ├── auth/session.ts     ← Next session (import auth از @repo/auth)
 │   │   ├── badge/, data-table/
 │   │   └── format-date.ts
 │   └── hooks/                  ← فقط اگر hook app-specific باشد
 ├── components.json
 ├── next.config.ts              ← reactCompiler, cacheComponents, transpilePackages
-├── drizzle.config.ts           ← thin re-export یا script alias به @better-starter/db
+├── drizzle.config.ts           ← thin re-export یا script alias به @repo/db
 └── package.json
 ```
 
@@ -173,13 +173,13 @@ apps/web/
 
 | قبل (template)                 | بعد (web)                                       |
 | ------------------------------ | ----------------------------------------------- |
-| `@/components/ui/*`            | `@workspace/ui/components/*`                    |
-| `@/lib/utils`                  | `@workspace/ui/lib/utils`                       |
-| `@/hooks/use-mobile`           | `@workspace/ui/hooks/use-mobile`                |
-| `@/lib/auth/auth`              | `@better-starter/auth`                          |
-| `@/lib/auth/admin-access` etc. | `@better-starter/auth`                          |
-| `@/lib/db`                     | `@better-starter/db`                            |
-| `@/db/auth.schema`             | `@better-starter/db/schema`                     |
+| `@/components/ui/*`            | `@repo/ui/components/*`                    |
+| `@/lib/utils`                  | `@repo/ui/lib/utils`                       |
+| `@/hooks/use-mobile`           | `@repo/ui/hooks/use-mobile`                |
+| `@/lib/auth/auth`              | `@repo/auth`                          |
+| `@/lib/auth/admin-access` etc. | `@repo/auth`                          |
+| `@/lib/db`                     | `@repo/db`                            |
+| `@/db/auth.schema`             | `@repo/db/schema`                     |
 | `@/lib/auth/session`           | `@/lib/auth/session` (همان مسیر، محتوای به‌روز) |
 
 **چیزهایی که بدون تغییر منطقی کپی می‌شوند:**
@@ -191,7 +191,7 @@ apps/web/
 
 **Dependencies در `apps/web/package.json`:**
 
-- workspace: `@workspace/ui`, `@better-starter/auth`, `@better-starter/db`
+- workspace: `@repo/ui`, `@repo/auth`, `@repo/db`
 - runtime: `next`, `react`, `better-auth`, `next-themes`, `ua-parser-js`, …
 - dev: `drizzle-kit`, `@types/pg`, `babel-plugin-react-compiler`
 
@@ -203,7 +203,7 @@ apps/web/
 
 - [`turbo.json`](turbo.json): اضافه کردن taskهای db (`db:migrate`, `seed:dev`) اگر لازم
 - [`pnpm-workspace.yaml`](pnpm-workspace.yaml): بدون تغییر (`apps/*`, `packages/*`)
-- Root scripts: `pnpm --filter web dev`, `pnpm --filter @better-starter/db db:migrate`
+- Root scripts: `pnpm --filter web dev`, `pnpm --filter @repo/db db:migrate`
 - حذف placeholder [`apps/web/app/`](apps/web/app/) و [`apps/web/components/`](apps/web/components/) قدیمی بعد از پورت `src/`
 
 ---
@@ -214,10 +214,10 @@ apps/web/
 
 | فایل                                                         | تغییر                                                                                  |
 | ------------------------------------------------------------ | -------------------------------------------------------------------------------------- |
-| [`AGENTS.md`](AGENTS.md)                                     | UI = `@workspace/ui` برای primitives؛ app components در `apps/<app>/src/components/`   |
+| [`AGENTS.md`](AGENTS.md)                                     | UI = `@repo/ui` برای primitives؛ app components در `apps/<app>/src/components/`   |
 | [`docs/agents/monorepo.md`](docs/agents/monorepo.md)         | اضافه کردن `packages/ui` به layout؛ حذف «UI per app»                                   |
 | [`docs/agents/ui-design.md`](docs/agents/ui-design.md)       | shadcn CLI: `pnpm dlx shadcn@latest add button -c packages/ui`؛ app aliases به package |
-| [`docs/agents/architecture.md`](docs/agents/architecture.md) | search-up: `src/components/` قبل از `@workspace/ui`؛ session Next در app               |
+| [`docs/agents/architecture.md`](docs/agents/architecture.md) | search-up: `src/components/` قبل از `@repo/ui`؛ session Next در app               |
 | [`docs/agents/better-auth.md`](docs/agents/better-auth.md)   | paths واقعی packages/auth + session در app                                             |
 | [`.cursor/rules/*.mdc`](.cursor/rules/)                      | هم‌تراز با docs جدید                                                                   |
 
@@ -232,7 +232,7 @@ apps/web/
 
 ```bash
 pnpm install
-pnpm --filter @better-starter/db db:migrate   # یا db:push در dev
+pnpm --filter @repo/db db:migrate   # یا db:push در dev
 pnpm typecheck
 pnpm build
 pnpm --filter web dev
@@ -267,5 +267,5 @@ flowchart LR
 - **UI diff:** package و template در برخی کامپوننت‌ها (drawer, button variants) متفاوتند — فاز ۳ critical است برای «همان استایل»
 - **globals.css:** بدون theme tokens کامل، dashboard sidebar/theme خراب می‌شود
 - **Session در app نه package:** با [`docs/agents/better-auth.md`](docs/agents/better-auth.md) § Mobile سازگار است — mobile بعداً client خودش را دارد
-- **Naming:** `@workspace/ui` فعلاً نگه داشته می‌شود (مثل turbo-starter scaffold)؛ rename به `@better-starter/ui` optional و خارج از scope این migration
+- **Naming:** `@repo/ui` فعلاً نگه داشته می‌شود (مثل turbo-starter scaffold)؛ rename به `@repo/ui` optional و خارج از scope این migration
 - **No API route:** template از server actions + `nextCookies()` استفاده می‌کند — همین الگو حفظ می‌شود

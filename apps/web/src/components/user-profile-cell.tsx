@@ -2,8 +2,8 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@workspace/ui/components/avatar"
-import { cn } from "@workspace/ui/lib/utils"
+} from "@repo/ui/components/avatar"
+import { cn } from "@repo/ui/lib/utils"
 
 type UserProfileDisplay = {
   name: string

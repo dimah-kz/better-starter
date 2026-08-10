@@ -1,5 +1,5 @@
 ---
-description: Logical Tailwind + shadcn via @workspace/ui — open ui-design.md for detail
+description: Logical Tailwind + shadcn via @repo/ui — open ui-design.md for detail
 globs: apps/**/src/**/*.tsx,apps/**/src/**/*.css,apps/**/src/app/**/layout.tsx,packages/ui/**/*
 alwaysApply: false
 ---
@@ -8,7 +8,7 @@ alwaysApply: false
 
 `lang`/`dir` on **root layout only**. **Logical Tailwind** (`me`/`ms`, `start`/`end`, …).
 
-**shadcn** in `@workspace/ui` (`packages/ui`) — **never hand-edit**; regen via `pnpm dlx shadcn@latest add … -c packages/ui`. App behavior in `src/app/**` or `src/components/` (outside package UI).
+**shadcn** in `@repo/ui` (`packages/ui`) — **never hand-edit**; regen via `pnpm dlx shadcn@latest add … -c packages/ui`. App behavior in `src/app/**` or `src/components/` (outside package UI).
 
 **Defaults first** — use components with their built-in styles; `className` only when that call site truly needs customization (not to repeat radius, padding, etc. the primitive already provides).
 

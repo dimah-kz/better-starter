@@ -1,5 +1,5 @@
-import { Badge } from "@workspace/ui/components/badge"
-import { cn } from "@workspace/ui/lib/utils"
+import { Badge } from "@repo/ui/components/badge"
+import { cn } from "@repo/ui/lib/utils"
 import type { ReactElement } from "react"
 
 export type LabeledBadgeVariant =

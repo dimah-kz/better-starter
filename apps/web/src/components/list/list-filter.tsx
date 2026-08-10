@@ -3,8 +3,8 @@
 import {
   ToggleGroup,
   ToggleGroupItem,
-} from "@workspace/ui/components/toggle-group"
-import { cn } from "@workspace/ui/lib/utils"
+} from "@repo/ui/components/toggle-group"
+import { cn } from "@repo/ui/lib/utils"
 import type { ListFilterOption } from "@/components/list/types"
 
 type ListFilterProps<T extends string> = {

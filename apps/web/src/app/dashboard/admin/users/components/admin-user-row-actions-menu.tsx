@@ -7,13 +7,13 @@ import {
   ShieldOffIcon,
 } from "lucide-react"
 import type { AdminUserItem } from "@/app/dashboard/admin/users/lib/get-admin-users-page"
-import { Button } from "@workspace/ui/components/button"
+import { Button } from "@repo/ui/components/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@workspace/ui/components/dropdown-menu"
+} from "@repo/ui/components/dropdown-menu"
 import { useTranslations } from "next-intl"
 
 type AdminUserRowActionsMenuProps = {

@@ -6,17 +6,17 @@ import {
   ilike,
   or,
   type SQL,
-} from "@better-starter/db/drizzle"
+} from "@repo/db/drizzle"
 import { ADMIN_ORGANIZATIONS_DEFAULT_PAGE_SIZE } from "@/app/dashboard/admin/organizations/lib/admin-organizations-table-params"
 import { dashboardCacheTags } from "@/app/dashboard/lib/cache-tags"
-import { member, organization } from "@better-starter/db/schema"
+import { member, organization } from "@repo/db/schema"
 import {
   clampListPage,
   parseListPage,
   parseListPageSize,
   parseListQuery,
 } from "@/components/list"
-import { db } from "@better-starter/db"
+import { db } from "@repo/db"
 
 const MIN_QUERY_LENGTH = 2
 

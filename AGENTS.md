@@ -21,11 +21,11 @@ Explore the codebase for layout, packages, and routes. Open [docs/agents/](docs/
 
 - **Packages → apps**, never apps → packages for app-specific UI or routes.
 - Inline by default; ~10–20 lines → no new file.
-- Writes: app `action/` → **`auth.api`** (from `@better-starter/auth`) — no custom access modules, no direct auth-table deletes.
-- SSOT inside each app segment: `*-routes.ts`, `cache-tags.ts`; UI copy in `@better-starter/i18n` messages.
+- Writes: app `action/` → **`auth.api`** (from `@repo/auth`) — no custom access modules, no direct auth-table deletes.
+- SSOT inside each app segment: `*-routes.ts`, `cache-tags.ts`; UI copy in `@repo/i18n` messages.
 - Session: auth package `session.ts`; never cache session.
 - Same-user writes: `updateTag` in the mutating action.
-- Do not hand-edit `@workspace/ui` components — regen via shadcn CLI scoped to `packages/ui`.
+- Do not hand-edit `@repo/ui` components — regen via shadcn CLI scoped to `packages/ui`.
 - **Do not add new features outside `apps/web` + core packages.**
 
 <!-- BEGIN:nextjs-agent-rules -->

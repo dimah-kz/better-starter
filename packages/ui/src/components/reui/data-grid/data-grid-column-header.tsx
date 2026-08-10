@@ -5,13 +5,13 @@ import type { HTMLAttributes, ReactNode } from "react"
 import {
   getColumnHeaderLabel,
   useDataGrid,
-} from "@workspace/ui/components/reui/data-grid/data-grid"
-import type { DataGridFeatures } from "@workspace/ui/components/reui/data-grid/data-grid"
+} from "@repo/ui/components/reui/data-grid/data-grid"
+import type { DataGridFeatures } from "@repo/ui/components/reui/data-grid/data-grid"
 import { Subscribe } from "@tanstack/react-table"
 import type { Column } from "@tanstack/react-table"
 
-import { cn } from "@workspace/ui/lib/utils"
-import { Button } from "@workspace/ui/components/button"
+import { cn } from "@repo/ui/lib/utils"
+import { Button } from "@repo/ui/components/button"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -24,7 +24,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@workspace/ui/components/dropdown-menu"
+} from "@repo/ui/components/dropdown-menu"
 import {
   ArrowDownIcon,
   ArrowUpIcon,

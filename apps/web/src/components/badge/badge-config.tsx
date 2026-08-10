@@ -8,11 +8,11 @@ import {
 import {
   adminPluginRoles,
   type PlatformRole,
-} from "@better-starter/auth/admin-access"
+} from "@repo/auth/admin-access"
 import {
   orgRoles,
   type MembershipRole,
-} from "@better-starter/auth/organization-access"
+} from "@repo/auth/organization-access"
 import { useTranslations } from "next-intl"
 import type { ReactElement } from "react"
 

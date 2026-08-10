@@ -1,6 +1,6 @@
 "use client"
 
-import type { Locale } from "@better-starter/i18n"
+import type { Locale } from "@repo/i18n"
 import type { AdminUserItem } from "@/app/dashboard/admin/users/lib/get-admin-users-page"
 import { AdminUserRowActionsMenu } from "@/app/dashboard/admin/users/components/admin-user-row-actions-menu"
 import { PlatformRoleBadge } from "@/components/badge/platform-role-badge"

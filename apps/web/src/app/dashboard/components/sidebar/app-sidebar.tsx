@@ -17,7 +17,7 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-} from "@workspace/ui/components/sidebar"
+} from "@repo/ui/components/sidebar"
 
 type AppSidebarProps = {
   user: NavUserProfile

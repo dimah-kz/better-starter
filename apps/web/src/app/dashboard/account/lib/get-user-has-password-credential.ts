@@ -1,6 +1,6 @@
-import { and, eq, isNotNull } from "@better-starter/db/drizzle"
-import { account } from "@better-starter/db/schema"
-import { db } from "@better-starter/db"
+import { and, eq, isNotNull } from "@repo/db/drizzle"
+import { account } from "@repo/db/schema"
+import { db } from "@repo/db"
 
 const CREDENTIAL_PROVIDER_ID = "credential"
 

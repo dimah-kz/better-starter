@@ -8,6 +8,6 @@ alwaysApply: false
 
 **Target:** `packages/` = core; `tooling/` = eslint/tsconfig presets; `apps/` = `web` (Next.js) + `mobile` / `extension` (future). Explore the tree for live packages.
 
-**Deps:** apps → packages OK. packages → apps **forbidden**. shadcn primitives in `@workspace/ui`; app-composed UI in each app.
+**Deps:** apps → packages OK. packages → apps **forbidden**. shadcn primitives in `@repo/ui`; app-composed UI in each app.
 
 **Detail (Read):** [docs/agents/monorepo.md](docs/agents/monorepo.md). Next app agent file: [apps/web/AGENTS.md](apps/web/AGENTS.md).
