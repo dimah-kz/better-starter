@@ -71,7 +71,8 @@ CREATE TABLE "auth"."user" (
 	"role" text,
 	"banned" boolean DEFAULT false,
 	"ban_reason" text,
-	"ban_expires" timestamp
+	"ban_expires" timestamp,
+	"last_login_method" text
 );
 --> statement-breakpoint
 CREATE TABLE "auth"."verification" (
