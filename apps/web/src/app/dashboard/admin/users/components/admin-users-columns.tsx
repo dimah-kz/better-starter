@@ -62,8 +62,8 @@ export function createAdminUsersColumns({
       header: t("columns.role"),
       meta: {
         headerTitle: t("columns.role"),
-        headerClassName: "w-28 sm:w-32",
-        cellClassName: "w-28 sm:w-32",
+        headerClassName: "whitespace-nowrap",
+        cellClassName: "whitespace-nowrap",
       },
       cell: ({ row }) => <PlatformRoleBadge role={row.original.role} />,
       enableSorting: false,
@@ -73,8 +73,8 @@ export function createAdminUsersColumns({
       header: t("columns.status"),
       meta: {
         headerTitle: t("columns.status"),
-        headerClassName: "hidden w-24 sm:table-cell",
-        cellClassName: "hidden w-24 sm:table-cell",
+        headerClassName: "hidden whitespace-nowrap sm:table-cell",
+        cellClassName: "hidden whitespace-nowrap sm:table-cell",
       },
       cell: ({ row }) => (
         <UserAccountStatusBadge banned={row.original.banned} />
@@ -86,8 +86,10 @@ export function createAdminUsersColumns({
       header: t("columns.joined"),
       meta: {
         headerTitle: t("columns.joined"),
-        headerClassName: "hidden w-28 lg:table-cell",
-        cellClassName: "hidden w-28 lg:table-cell",
+        headerClassName:
+          "hidden whitespace-nowrap text-muted-foreground lg:table-cell",
+        cellClassName:
+          "hidden whitespace-nowrap text-muted-foreground lg:table-cell",
       },
       cell: ({ row }) => formatDate(row.original.createdAt, locale),
       enableSorting: false,

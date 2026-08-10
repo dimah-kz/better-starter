@@ -42,7 +42,7 @@ export function createAdminOrganizationsColumns({
         cellClassName: "min-w-0",
       },
       cell: ({ row }) => (
-        <div className="flex min-w-0 items-center gap-2">
+        <div className="flex min-w-0 items-center gap-2.5">
           <Avatar size="sm" className="shrink-0">
             {row.original.logo ? (
               <AvatarImage src={row.original.logo} alt="" />
@@ -52,7 +52,7 @@ export function createAdminOrganizationsColumns({
             </AvatarFallback>
           </Avatar>
           <span
-            className="block truncate font-medium"
+            className="truncate text-sm leading-tight font-medium"
             title={row.original.name}
           >
             {row.original.name}
@@ -65,8 +65,10 @@ export function createAdminOrganizationsColumns({
       header: t("columns.slug"),
       meta: {
         headerTitle: t("columns.slug"),
-        headerClassName: "hidden min-w-0 text-muted-foreground sm:table-cell",
-        cellClassName: "hidden min-w-0 text-muted-foreground sm:table-cell",
+        headerClassName:
+          "hidden min-w-0 whitespace-nowrap text-muted-foreground sm:table-cell",
+        cellClassName:
+          "hidden min-w-0 whitespace-nowrap text-muted-foreground sm:table-cell",
       },
       cell: ({ row }) => (
         <span className="block truncate" title={row.original.slug}>
@@ -78,7 +80,11 @@ export function createAdminOrganizationsColumns({
     columnHelper.accessor("memberCount", {
       id: "members",
       header: t("columns.members"),
-      meta: { headerTitle: t("columns.members") },
+      meta: {
+        headerTitle: t("columns.members"),
+        headerClassName: "whitespace-nowrap",
+        cellClassName: "whitespace-nowrap",
+      },
       enableSorting: false,
     }),
     columnHelper.accessor("createdAt", {
@@ -86,8 +92,10 @@ export function createAdminOrganizationsColumns({
       header: t("columns.created"),
       meta: {
         headerTitle: t("columns.created"),
-        headerClassName: "hidden lg:table-cell",
-        cellClassName: "hidden lg:table-cell",
+        headerClassName:
+          "hidden whitespace-nowrap text-muted-foreground lg:table-cell",
+        cellClassName:
+          "hidden whitespace-nowrap text-muted-foreground lg:table-cell",
       },
       cell: ({ row }) => formatDate(row.original.createdAt, locale),
       enableSorting: false,
