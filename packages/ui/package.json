@@ -8,6 +8,7 @@
     "./postcss.config": "./postcss.config.mjs",
     "./lib/*": "./src/lib/*.ts",
     "./components/*": "./src/components/*.tsx",
+    "./components/reui/*": "./src/components/reui/*.tsx",
     "./hooks/*": "./src/hooks/*.ts"
   },
   "scripts": {

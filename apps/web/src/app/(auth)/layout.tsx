@@ -1,4 +1,5 @@
 import { AuthSettingsMenu } from "@/app/(auth)/components/auth-settings-menu"
+import { IconStack } from "@workspace/ui/components/reui/icon-stack"
 import { ImageIcon } from "lucide-react"
 
 export default function AuthLayout({
@@ -28,12 +29,12 @@ export default function AuthLayout({
         className="relative hidden min-h-svh items-center justify-center bg-muted/60 md:flex dark:bg-muted/25"
         aria-hidden="true"
       >
-        <div className="flex size-48 items-center justify-center rounded-2xl border border-dashed border-border/80 bg-background/40 dark:bg-background/20">
+        <IconStack className="h-40 w-36 text-muted-foreground">
           <ImageIcon
-            className="size-16 text-muted-foreground/35"
-            strokeWidth={1.25}
+            className="size-8 text-muted-foreground/70"
+            strokeWidth={1.5}
           />
-        </div>
+        </IconStack>
       </div>
     </div>
   )
