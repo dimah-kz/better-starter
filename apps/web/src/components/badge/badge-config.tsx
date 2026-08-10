@@ -5,40 +5,30 @@ import {
   type LabeledBadgeConfig,
   type LabeledBadgeVariant,
 } from "@/components/badge/labeled-badge"
-import {
-  adminPluginRoles,
-  type PlatformRole,
-} from "@repo/auth/admin-access"
-import {
-  orgRoles,
-  type MembershipRole,
-} from "@repo/auth/organization-access"
+import { adminPluginRoles, type PlatformRole } from "@repo/auth/admin-access"
+import { orgRoles, type MembershipRole } from "@repo/auth/organization-access"
 import { useTranslations } from "next-intl"
 import type { ReactElement } from "react"
 
 function item(
   label: string,
   variant: LabeledBadgeVariant,
-  icon: ReactElement,
-  className?: string
+  icon: ReactElement
 ): LabeledBadgeConfig {
-  return { label, variant, icon, className }
+  return { label, variant, icon }
 }
 
 const userAccountStatuses = ["active", "banned"] as const
 
 type UserAccountStatus = (typeof userAccountStatuses)[number]
 
-const activeBadgeClassName =
-  "border-transparent bg-emerald-500/10 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-400"
-
 const platformRoleVariants: Record<PlatformRole, LabeledBadgeVariant> = {
   user: "outline",
-  admin: "default",
+  admin: "primary-light",
 }
 
 const membershipRoleVariants: Record<MembershipRole, LabeledBadgeVariant> = {
-  owner: "default",
+  owner: "primary-light",
   admin: "secondary",
   member: "outline",
 }
@@ -47,41 +37,22 @@ const userAccountStatusVariants: Record<
   UserAccountStatus,
   LabeledBadgeVariant
 > = {
-  active: "outline",
-  banned: "destructive",
+  active: "success-light",
+  banned: "destructive-light",
 }
 
-const userAccountStatusClassNames: Partial<Record<UserAccountStatus, string>> =
-  {
-    active: activeBadgeClassName,
-  }
-
 function platformRoleIcon(role: PlatformRole) {
-  return role === "admin" ? (
-    <ShieldIcon data-icon="inline-start" />
-  ) : (
-    <UserIcon data-icon="inline-start" />
-  )
+  return role === "admin" ? <ShieldIcon /> : <UserIcon />
 }
 
 function membershipRoleIcon(role: MembershipRole) {
-  if (role === "owner") {
-    return <CrownIcon data-icon="inline-start" />
-  }
-
-  if (role === "admin") {
-    return <ShieldIcon data-icon="inline-start" />
-  }
-
-  return <UserIcon data-icon="inline-start" />
+  if (role === "owner") return <CrownIcon />
+  if (role === "admin") return <ShieldIcon />
+  return <UserIcon />
 }
 
 function userAccountStatusIcon(status: UserAccountStatus) {
-  return status === "banned" ? (
-    <ShieldAlertIcon data-icon="inline-start" />
-  ) : (
-    <UserIcon data-icon="inline-start" />
-  )
+  return status === "banned" ? <ShieldAlertIcon /> : <UserIcon />
 }
 
 function isPlatformRole(value: string): value is PlatformRole {
@@ -90,10 +61,6 @@ function isPlatformRole(value: string): value is PlatformRole {
 
 function isMembershipRole(value: string): value is MembershipRole {
   return value in orgRoles
-}
-
-function isUserAccountStatus(value: string): value is UserAccountStatus {
-  return (userAccountStatuses as readonly string[]).includes(value)
 }
 
 export function usePlatformRoleBadgeConfig(role: string): LabeledBadgeConfig {
@@ -111,7 +78,7 @@ export function usePlatformRoleBadgeConfig(role: string): LabeledBadgeConfig {
   return {
     label: normalizedValue || t("fallback"),
     variant: "outline",
-    icon: <UserIcon data-icon="inline-start" />,
+    icon: <UserIcon />,
   }
 }
 
@@ -130,7 +97,7 @@ export function useMembershipRoleBadgeConfig(role: string): LabeledBadgeConfig {
   return {
     label: normalizedValue || t("fallback"),
     variant: "outline",
-    icon: <UserIcon data-icon="inline-start" />,
+    icon: <UserIcon />,
   }
 }
 
@@ -142,7 +109,6 @@ export function useUserAccountStatusBadgeConfig(
   return item(
     t(`userAccountStatus.${status}`),
     userAccountStatusVariants[status],
-    userAccountStatusIcon(status),
-    userAccountStatusClassNames[status]
+    userAccountStatusIcon(status)
   )
 }

@@ -1,9 +1,8 @@
-import { Badge } from "@repo/ui/components/badge"
+import { Badge, type BadgeProps } from "@repo/ui/components/reui/badge"
 import { cn } from "@repo/ui/lib/utils"
 import type { ReactElement } from "react"
 
-export type LabeledBadgeVariant =
-  "default" | "secondary" | "destructive" | "outline"
+export type LabeledBadgeVariant = NonNullable<BadgeProps["variant"]>
 
 export type LabeledBadgeConfig = {
   label: string
@@ -19,7 +18,7 @@ export function LabeledBadge({
   className,
 }: LabeledBadgeConfig) {
   return (
-    <Badge variant={variant} className={cn(className)}>
+    <Badge variant={variant} size="sm" radius="full" className={cn(className)}>
       {icon}
       {label}
     </Badge>
