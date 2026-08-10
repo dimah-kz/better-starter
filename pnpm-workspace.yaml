@@ -18,6 +18,7 @@ catalog:
 packages:
   - "apps/*"
   - "packages/*"
+  - "tooling/*"
 
 minimumReleaseAgeExclude:
   - "@dimah-s3/*"

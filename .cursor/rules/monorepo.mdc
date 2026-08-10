@@ -1,12 +1,12 @@
 ---
 description: Monorepo layout, packages vs apps — open monorepo.md for detail
-globs: apps/**/*,packages/**/*,pnpm-workspace.yaml,turbo.json,package.json
+globs: apps/**/*,packages/**/*,tooling/**/*,pnpm-workspace.yaml,turbo.json,package.json
 alwaysApply: false
 ---
 
 # Monorepo
 
-**Target:** `packages/` = core; `apps/` = `web` (Next.js) + `mobile` / `extension` (future). Explore the tree for live packages.
+**Target:** `packages/` = core; `tooling/` = eslint/tsconfig presets; `apps/` = `web` (Next.js) + `mobile` / `extension` (future). Explore the tree for live packages.
 
 **Deps:** apps → packages OK. packages → apps **forbidden**. shadcn primitives in `@workspace/ui`; app-composed UI in each app.
 
