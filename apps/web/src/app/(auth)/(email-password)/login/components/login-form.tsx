@@ -79,8 +79,8 @@ export function LoginForm({
           />
           {lastLoginMethod === "email" ? (
             <Badge
-              variant="outline"
-              className="pointer-events-none absolute end-2 top-0 z-10 -translate-y-1/2 bg-background"
+              variant="secondary"
+              className="pointer-events-none absolute end-2 top-0 z-10 -translate-y-1/2"
             >
               {tSocial("lastUsed")}
             </Badge>
