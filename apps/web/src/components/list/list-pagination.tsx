@@ -1,13 +1,12 @@
 "use client"
 
+import type { ComponentProps, ReactNode } from "react"
+import Link from "next/link"
 import {
   Pagination,
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
 } from "@repo/ui/components/pagination"
 import {
   Select,
@@ -16,9 +15,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@repo/ui/components/select"
+import { Button } from "@repo/ui/components/button"
 import { formatNumber } from "@repo/i18n"
 import { cn } from "@repo/ui/lib/utils"
 import { useLocale, useTranslations } from "next-intl"
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
 import {
   LIST_PAGE_SIZES,
   type ListPaginationProps,
@@ -62,11 +63,63 @@ function pageNumbers(current: number, total: number): (number | "...")[] {
   return pages
 }
 
+type PageLinkProps = {
+  href: string
+  isActive?: boolean
+  disabled?: boolean
+  size?: ComponentProps<typeof Button>["size"]
+  className?: string
+  "aria-label"?: string
+  children: ReactNode
+}
+
+function PageLink({
+  href,
+  isActive,
+  disabled,
+  size = "icon",
+  className,
+  "aria-label": ariaLabel,
+  children,
+}: PageLinkProps) {
+  if (disabled) {
+    return (
+      <Button
+        variant="ghost"
+        size={size}
+        disabled
+        className={className}
+        aria-label={ariaLabel}
+      >
+        {children}
+      </Button>
+    )
+  }
+
+  return (
+    <Button
+      variant={isActive ? "outline" : "ghost"}
+      size={size}
+      className={className}
+      nativeButton={false}
+      render={
+        <Link
+          href={href}
+          aria-label={ariaLabel}
+          aria-current={isActive ? "page" : undefined}
+        />
+      }
+    >
+      {children}
+    </Button>
+  )
+}
+
 export function ListPagination({
   page,
   pageSize,
   totalCount,
-  onPageChange,
+  buildPageHref,
   onPageSizeChange,
   pageSizeOptions = LIST_PAGE_SIZES,
   countLabel,
@@ -74,7 +127,8 @@ export function ListPagination({
 }: ListPaginationProps) {
   const locale = useLocale()
   const t = useTranslations("common")
-  const resolvedCountLabel = countLabel ?? t("item")
+  const resolvedCountLabel =
+    countLabel ?? (totalCount === 1 ? t("item") : t("items"))
   const formatValue = (value: number) => formatNumber(value, locale)
 
   const totalPages = Math.max(1, Math.ceil(totalCount / pageSize))
@@ -83,7 +137,6 @@ export function ListPagination({
   const showPagination = totalPages > 1
   const atFirst = safePage <= 1
   const atLast = safePage >= totalPages
-  const pluralSuffix = totalCount === 1 ? "" : "s"
 
   return (
     <div
@@ -99,7 +152,7 @@ export function ListPagination({
           start: formatValue(start),
           end: formatValue(end),
           total: formatValue(totalCount),
-          countLabel: `${resolvedCountLabel}${pluralSuffix}`,
+          countLabel: resolvedCountLabel,
         })}
       >
         {t("pagination.range", {
@@ -113,12 +166,19 @@ export function ListPagination({
         <Pagination className="w-auto shrink-0 max-sm:order-3 max-sm:basis-full max-sm:justify-center">
           <PaginationContent>
             <PaginationItem>
-              <PaginationPrevious
-                text={t("pagination.previous")}
-                onClick={() => onPageChange(Math.max(1, safePage - 1))}
-                aria-disabled={atFirst}
-                className={atFirst ? "pointer-events-none opacity-50" : ""}
-              />
+              <PageLink
+                href={buildPageHref(Math.max(1, safePage - 1))}
+                disabled={atFirst}
+                size="default"
+                className="ps-2!"
+                aria-label={t("pagination.previous")}
+              >
+                <ChevronLeftIcon
+                  data-icon="inline-start"
+                  className="rtl:rotate-180"
+                />
+                <span className="hidden sm:block">{t("pagination.previous")}</span>
+              </PageLink>
             </PaginationItem>
 
             {pageNumbers(safePage, totalPages).map((num, index) =>
@@ -128,23 +188,27 @@ export function ListPagination({
                 </PaginationItem>
               ) : (
                 <PaginationItem key={num}>
-                  <PaginationLink
-                    isActive={num === safePage}
-                    onClick={() => onPageChange(num)}
-                  >
+                  <PageLink href={buildPageHref(num)} isActive={num === safePage}>
                     {num}
-                  </PaginationLink>
+                  </PageLink>
                 </PaginationItem>
               )
             )}
 
             <PaginationItem>
-              <PaginationNext
-                text={t("pagination.next")}
-                onClick={() => onPageChange(Math.min(totalPages, safePage + 1))}
-                aria-disabled={atLast}
-                className={atLast ? "pointer-events-none opacity-50" : ""}
-              />
+              <PageLink
+                href={buildPageHref(Math.min(totalPages, safePage + 1))}
+                disabled={atLast}
+                size="default"
+                className="pe-2!"
+                aria-label={t("pagination.next")}
+              >
+                <span className="hidden sm:block">{t("pagination.next")}</span>
+                <ChevronRightIcon
+                  data-icon="inline-end"
+                  className="rtl:rotate-180"
+                />
+              </PageLink>
             </PaginationItem>
           </PaginationContent>
         </Pagination>

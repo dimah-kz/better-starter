@@ -21,7 +21,7 @@ type DataTableCardProps = {
 
 /**
  * Standard dashboard shell: Card + title + toolbar + table body + footer.
- * Compose with `List.Search` / `List.Filter` / `List.Footer` for URL-driven lists,
+ * Compose with `ListSearch` / `ListPagination` for URL-driven lists,
  * or `DataTableViewOptions` / `DataTablePagination` for client-side tables.
  */
 export function DataTableCard({

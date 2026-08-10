@@ -11,7 +11,7 @@ import {
   adminUsersTablePath,
   type AdminUserTableFilter,
 } from "@/app/dashboard/admin/users/lib/admin-users-table-params"
-import { ListFooter, ListSearch, useList } from "@/components/list"
+import { ListPagination, ListSearch, useList } from "@/components/list"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -36,10 +36,7 @@ import {
   dataGridFeatures,
 } from "@repo/ui/components/reui/data-grid/data-grid"
 import { DataGridTable } from "@repo/ui/components/reui/data-grid/data-grid-table"
-import {
-  ToggleGroup,
-  ToggleGroupItem,
-} from "@repo/ui/components/toggle-group"
+import { ToggleGroup, ToggleGroupItem } from "@repo/ui/components/toggle-group"
 import type { Locale } from "@repo/i18n"
 import { toast } from "@repo/ui/components/toast"
 import { useLocale, useTranslations } from "next-intl"
@@ -79,7 +76,6 @@ export function AdminUsersTable({
     totalCount,
     filter,
     q,
-    countLabel: "user",
   })
 
   const filterOptions = (["all", "admins", "users", "banned"] as const).map(
@@ -151,7 +147,7 @@ export function AdminUsersTable({
             <ListSearch
               value={q}
               placeholder={tTables("search.users")}
-              buildPath={list.buildSearchPath}
+              onCommit={list.setQuery}
             />
             <ToggleGroup
               value={[filter]}
@@ -190,7 +186,7 @@ export function AdminUsersTable({
           </DataGrid>
         </CardContent>
         <CardFooter className="justify-between gap-2">
-          <ListFooter pagination={list.pagination} />
+          {totalCount > 0 ? <ListPagination {...list.pagination} /> : null}
         </CardFooter>
       </Card>
 

@@ -11,10 +11,10 @@ export type ListPaginationProps = {
   page: number
   pageSize: number
   totalCount: number
-  onPageChange: (page: number) => void
+  buildPageHref: (page: number) => string
   onPageSizeChange: (pageSize: number) => void
   pageSizeOptions?: readonly number[]
-  /** Noun for screen readers, e.g. `user` */
+  /** Noun for screen readers, e.g. already-localized `members` */
   countLabel?: string
   className?: string
 }

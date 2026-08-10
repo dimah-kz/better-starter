@@ -1,8 +1,8 @@
 "use client"
 
-import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { SearchIcon, XIcon } from "lucide-react"
+import { useTranslations } from "next-intl"
 import { Button } from "@repo/ui/components/button"
 import {
   InputGroup,
@@ -20,7 +20,7 @@ export type ListSearchProps = {
   className?: string
   debounceMs?: number
   minLength?: number
-  buildPath: (input: { q?: string; page?: number }) => string
+  onCommit: (q: string | undefined) => void
 }
 
 export function ListSearch({
@@ -29,9 +29,9 @@ export function ListSearch({
   className,
   debounceMs = DEFAULT_DEBOUNCE_MS,
   minLength = DEFAULT_MIN_LENGTH,
-  buildPath,
+  onCommit,
 }: ListSearchProps) {
-  const router = useRouter()
+  const t = useTranslations("common")
   const [draft, setDraft] = useState(value ?? "")
   const normalizedValue = value?.trim() ?? ""
 
@@ -57,16 +57,16 @@ export function ListSearch({
         return
       }
 
-      router.push(buildPath({ q: nextValue, page: 1 }))
+      onCommit(nextValue)
     }, debounceMs)
 
     return () => window.clearTimeout(timeoutId)
-  }, [buildPath, debounceMs, draft, minLength, normalizedValue, router])
+  }, [debounceMs, draft, minLength, normalizedValue, onCommit])
 
   const handleClear = () => {
     setDraft("")
     if (normalizedValue) {
-      router.push(buildPath({ q: undefined, page: 1 }))
+      onCommit(undefined)
     }
   }
 
@@ -92,7 +92,7 @@ export function ListSearch({
             type="button"
             size="sm"
             variant="ghost"
-            aria-label="Clear search"
+            aria-label={t("clearSearch")}
             onClick={handleClear}
           >
             <XIcon />

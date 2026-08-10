@@ -10,7 +10,7 @@ import {
   organizationMembersTablePath,
   type MemberTableFilter,
 } from "@/app/dashboard/(organization)/manage/members/lib/members-table-params"
-import { ListFooter, ListSearch, useList } from "@/components/list"
+import { ListPagination, ListSearch, useList } from "@/components/list"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -83,7 +83,6 @@ export function MembersTable({
     totalCount,
     filter,
     q,
-    countLabel: "member",
   })
 
   const memberFilterOptions = (["all", "managers", "members"] as const).map(
@@ -148,7 +147,7 @@ export function MembersTable({
             <ListSearch
               value={q}
               placeholder={tTables("search.users")}
-              buildPath={list.buildSearchPath}
+              onCommit={list.setQuery}
             />
             <ToggleGroup
               value={[filter]}
@@ -187,7 +186,7 @@ export function MembersTable({
           </DataGrid>
         </CardContent>
         <CardFooter className="justify-between gap-2">
-          <ListFooter pagination={list.pagination} />
+          {totalCount > 0 ? <ListPagination {...list.pagination} /> : null}
         </CardFooter>
       </Card>
 

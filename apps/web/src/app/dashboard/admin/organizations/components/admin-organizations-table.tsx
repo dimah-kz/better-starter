@@ -5,7 +5,7 @@ import { useTable } from "@tanstack/react-table"
 import { createAdminOrganizationsColumns } from "@/app/dashboard/admin/organizations/components/admin-organizations-columns"
 import type { AdminOrganizationItem } from "@/app/dashboard/admin/organizations/lib/get-admin-organizations-page"
 import { adminOrganizationsTablePath } from "@/app/dashboard/admin/organizations/lib/admin-organizations-table-params"
-import { ListFooter, ListSearch, useList } from "@/components/list"
+import { ListPagination, ListSearch, useList } from "@/components/list"
 import {
   Card,
   CardAction,
@@ -48,7 +48,6 @@ export function AdminOrganizationsTable({
     pageSize,
     totalCount,
     q,
-    countLabel: "organization",
   })
 
   const columns = useMemo(
@@ -77,7 +76,7 @@ export function AdminOrganizationsTable({
           <ListSearch
             value={q}
             placeholder={tTables("search.organizations")}
-            buildPath={list.buildSearchPath}
+            onCommit={list.setQuery}
           />
         </CardAction>
       </CardHeader>
@@ -99,7 +98,7 @@ export function AdminOrganizationsTable({
         </DataGrid>
       </CardContent>
       <CardFooter className="justify-between gap-2">
-        <ListFooter pagination={list.pagination} />
+        {totalCount > 0 ? <ListPagination {...list.pagination} /> : null}
       </CardFooter>
     </Card>
   )

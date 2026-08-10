@@ -1,4 +1,3 @@
-export { ListFooter } from "./list-footer"
 export { ListPagination } from "./list-pagination"
 export { ListSearch, type ListSearchProps } from "./list-search"
 

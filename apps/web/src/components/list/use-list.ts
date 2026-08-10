@@ -44,22 +44,29 @@ export function useList<TFilter extends string = string>({
           page: patch.page ?? page,
           pageSize: patch.pageSize ?? pageSize,
           filter: patch.filter ?? filter,
-          q: patch.q !== undefined ? patch.q : q,
+          q: "q" in patch ? patch.q : q,
         })
       )
     },
     [buildPath, filter, page, pageSize, q, router]
   )
 
-  const buildSearchPath = useCallback(
-    (input: { q?: string; page?: number }) =>
+  const buildPageHref = useCallback(
+    (nextPage: number) =>
       buildPath({
-        page: input.page ?? 1,
+        page: nextPage,
         pageSize,
         filter,
-        q: input.q,
+        q,
       }),
-    [buildPath, filter, pageSize]
+    [buildPath, filter, pageSize, q]
+  )
+
+  const setQuery = useCallback(
+    (nextQuery?: string) => {
+      navigate({ page: 1, q: nextQuery })
+    },
+    [navigate]
   )
 
   const pagination: ListPaginationProps = {
@@ -68,14 +75,14 @@ export function useList<TFilter extends string = string>({
     totalCount,
     countLabel,
     pageSizeOptions,
-    onPageChange: (nextPage) => navigate({ page: nextPage }),
+    buildPageHref,
     onPageSizeChange: (nextPageSize) =>
       navigate({ page: 1, pageSize: nextPageSize }),
   }
 
   return {
     navigate,
-    buildSearchPath,
+    setQuery,
     setFilter: (nextFilter: TFilter) =>
       navigate({ page: 1, filter: nextFilter }),
     pagination,
