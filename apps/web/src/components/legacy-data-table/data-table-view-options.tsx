@@ -13,7 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@repo/ui/components/dropdown-menu"
-import type { DataTableFeatures } from "@/components/data-table/data-table-features"
+import type { DataTableFeatures } from "./data-table-features"
 
 type DataTableViewOptionsProps<TData extends RowData> = {
   table: ReactTable<DataTableFeatures, TData>

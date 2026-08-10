@@ -18,7 +18,7 @@ import {
   DropdownMenuTrigger,
 } from "@repo/ui/components/dropdown-menu"
 import { cn } from "@repo/ui/lib/utils"
-import type { DataTableFeatures } from "@/components/data-table/data-table-features"
+import type { DataTableFeatures } from "./data-table-features"
 
 type DataTableColumnHeaderProps<
   TData extends RowData,

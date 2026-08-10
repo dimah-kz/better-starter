@@ -26,7 +26,7 @@ import {
   dataTableFeatures,
   type DataTableColumnMeta,
   type DataTableFeatures,
-} from "@/components/data-table/data-table-features"
+} from "./data-table-features"
 
 export type DataTableInstance<TData extends RowData> = ReactTable<
   DataTableFeatures,

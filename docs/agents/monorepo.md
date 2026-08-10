@@ -24,9 +24,9 @@ Explore `apps/` and `packages/` for what exists today. Do not import across apps
 | **tooling/**  | Shared eslint/tsconfig presets (`@repo/eslint-config`, `@repo/typescript-config`)                           | Product/runtime code                                    |
 | **apps/**     | Routes, layouts, Server Actions, feature UI, SSOT (`cache-tags`, `*-routes`), Next session helpers          | Duplicating auth/db logic that belongs in a package     |
 
-**UI split:** `@repo/ui` = shadcn primitives shared across apps. App-composed components (`badge/`, `data-table/` + `list/`, dashboard chrome) live in `apps/<app>/src/components/` or route-scoped `components/`.
+**UI split:** `@repo/ui` = shadcn primitives (+ ReUI under `components/reui/`) shared across apps. App-composed UI (`badge/`, `list/`, dashboard chrome) lives in `apps/<app>/src/components/` or route-scoped `components/`.
 
-**Lists:** `data-table/` = TanStack Table + shadcn `Table` (columns, render). `list/` = URL-driven search / filter / pagination for server lists. Compose with `DataTableCard`.
+**Lists (server pages):** URL state in app `list/` — do **not** put search/filter/pagination in the grid. Render with ReUI `DataGrid` + `DataGridTable` inline at the feature table (copy `members-table.tsx`). Columns: `createDataGridColumnHelper` from `@/components/data-grid`. Detail: [dashboard.md § Server lists](./dashboard.md#server-lists).
 
 ## Naming
 

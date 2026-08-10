@@ -1,3 +1,7 @@
+/**
+ * Archived pre-ReUI app data-table (unused).
+ * Kept for reference only — do not import from this folder.
+ */
 export {
   dataTableFeatures,
   type DataTableColumnMeta,

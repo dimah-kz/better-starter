@@ -18,7 +18,7 @@ import {
   SelectValue,
 } from "@repo/ui/components/select"
 import { cn } from "@repo/ui/lib/utils"
-import type { DataTableFeatures } from "@/components/data-table/data-table-features"
+import type { DataTableFeatures } from "./data-table-features"
 import { LIST_PAGE_SIZES } from "@/components/list/types"
 
 type DataTablePaginationProps<TData extends RowData> = {

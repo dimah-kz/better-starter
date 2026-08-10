@@ -2,15 +2,11 @@
 
 import type { Locale } from "@repo/i18n"
 import type { AdminOrganizationItem } from "@/app/dashboard/admin/organizations/lib/get-admin-organizations-page"
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@repo/ui/components/avatar"
-import { createDataTableColumnHelper } from "@/components/data-table"
+import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar"
+import { createDataGridColumnHelper } from "@/components/data-grid"
 import { formatDate } from "@/lib/format-date"
 
-const columnHelper = createDataTableColumnHelper<AdminOrganizationItem>()
+const columnHelper = createDataGridColumnHelper<AdminOrganizationItem>()
 
 function organizationInitials(name: string) {
   return name
@@ -41,7 +37,10 @@ export function createAdminOrganizationsColumns({
     columnHelper.accessor("name", {
       id: "organization",
       header: t("columns.organization"),
-      meta: { className: "min-w-0" },
+      meta: {
+        headerTitle: t("columns.organization"),
+        cellClassName: "min-w-0",
+      },
       cell: ({ row }) => (
         <div className="flex min-w-0 items-center gap-2">
           <Avatar size="sm" className="shrink-0">
@@ -64,7 +63,11 @@ export function createAdminOrganizationsColumns({
     }),
     columnHelper.accessor("slug", {
       header: t("columns.slug"),
-      meta: { className: "hidden min-w-0 text-muted-foreground sm:table-cell" },
+      meta: {
+        headerTitle: t("columns.slug"),
+        headerClassName: "hidden min-w-0 text-muted-foreground sm:table-cell",
+        cellClassName: "hidden min-w-0 text-muted-foreground sm:table-cell",
+      },
       cell: ({ row }) => (
         <span className="block truncate" title={row.original.slug}>
           {row.original.slug}
@@ -75,12 +78,17 @@ export function createAdminOrganizationsColumns({
     columnHelper.accessor("memberCount", {
       id: "members",
       header: t("columns.members"),
+      meta: { headerTitle: t("columns.members") },
       enableSorting: false,
     }),
     columnHelper.accessor("createdAt", {
       id: "created",
       header: t("columns.created"),
-      meta: { className: "hidden lg:table-cell" },
+      meta: {
+        headerTitle: t("columns.created"),
+        headerClassName: "hidden lg:table-cell",
+        cellClassName: "hidden lg:table-cell",
+      },
       cell: ({ row }) => formatDate(row.original.createdAt, locale),
       enableSorting: false,
     }),

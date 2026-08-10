@@ -5,11 +5,11 @@ import type { AdminUserItem } from "@/app/dashboard/admin/users/lib/get-admin-us
 import { AdminUserRowActionsMenu } from "@/app/dashboard/admin/users/components/admin-user-row-actions-menu"
 import { PlatformRoleBadge } from "@/components/badge/platform-role-badge"
 import { UserAccountStatusBadge } from "@/components/badge/user-account-status-badge"
-import { createDataTableColumnHelper } from "@/components/data-table"
+import { createDataGridColumnHelper } from "@/components/data-grid"
 import { UserProfileCell } from "@/components/user-profile-cell"
 import { formatDate } from "@/lib/format-date"
 
-const columnHelper = createDataTableColumnHelper<AdminUserItem>()
+const columnHelper = createDataGridColumnHelper<AdminUserItem>()
 
 type TablesTranslator = {
   (key: "columns.user"): string
@@ -42,7 +42,10 @@ export function createAdminUsersColumns({
     columnHelper.accessor("name", {
       id: "user",
       header: t("columns.user"),
-      meta: { className: "min-w-0" },
+      meta: {
+        headerTitle: t("columns.user"),
+        cellClassName: "min-w-0",
+      },
       cell: ({ row }) => (
         <UserProfileCell
           variant="inline"
@@ -57,14 +60,22 @@ export function createAdminUsersColumns({
     }),
     columnHelper.accessor("role", {
       header: t("columns.role"),
-      meta: { className: "w-28 sm:w-32" },
+      meta: {
+        headerTitle: t("columns.role"),
+        headerClassName: "w-28 sm:w-32",
+        cellClassName: "w-28 sm:w-32",
+      },
       cell: ({ row }) => <PlatformRoleBadge role={row.original.role} />,
       enableSorting: false,
     }),
     columnHelper.accessor("banned", {
       id: "status",
       header: t("columns.status"),
-      meta: { className: "hidden w-24 sm:table-cell" },
+      meta: {
+        headerTitle: t("columns.status"),
+        headerClassName: "hidden w-24 sm:table-cell",
+        cellClassName: "hidden w-24 sm:table-cell",
+      },
       cell: ({ row }) => (
         <UserAccountStatusBadge banned={row.original.banned} />
       ),
@@ -73,14 +84,22 @@ export function createAdminUsersColumns({
     columnHelper.accessor("createdAt", {
       id: "joined",
       header: t("columns.joined"),
-      meta: { className: "hidden w-28 lg:table-cell" },
+      meta: {
+        headerTitle: t("columns.joined"),
+        headerClassName: "hidden w-28 lg:table-cell",
+        cellClassName: "hidden w-28 lg:table-cell",
+      },
       cell: ({ row }) => formatDate(row.original.createdAt, locale),
       enableSorting: false,
     }),
     columnHelper.display({
       id: "actions",
       header: () => <span className="sr-only">{t("columns.actions")}</span>,
-      meta: { className: "w-12" },
+      meta: {
+        headerTitle: t("columns.actions"),
+        headerClassName: "w-12",
+        cellClassName: "w-12",
+      },
       cell: ({ row }) => (
         <AdminUserRowActionsMenu
           user={row.original}

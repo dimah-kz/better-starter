@@ -2,6 +2,7 @@
 
 import { useMemo, useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
+import { useTable } from "@tanstack/react-table"
 import { banUserAction } from "@/app/action/dashboard/admin/users/ban-user-action"
 import { unbanUserAction } from "@/app/action/dashboard/admin/users/unban-user-action"
 import { createAdminUsersColumns } from "@/app/dashboard/admin/users/components/admin-users-columns"
@@ -10,7 +11,6 @@ import {
   adminUsersTablePath,
   type AdminUserTableFilter,
 } from "@/app/dashboard/admin/users/lib/admin-users-table-params"
-import { DataTable, DataTableCard } from "@/components/data-table"
 import { List, useList } from "@/components/list"
 import {
   AlertDialog,
@@ -22,6 +22,20 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@repo/ui/components/alert-dialog"
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@repo/ui/components/card"
+import {
+  DataGrid,
+  DataGridContainer,
+  dataGridFeatures,
+} from "@repo/ui/components/reui/data-grid/data-grid"
+import { DataGridTable } from "@repo/ui/components/reui/data-grid/data-grid-table"
 import type { Locale } from "@repo/i18n"
 import { toast } from "@repo/ui/components/toast"
 import { useLocale, useTranslations } from "next-intl"
@@ -98,6 +112,15 @@ export function AdminUsersTable({
     [actorUserId, isPending, locale, onChangeRole, router, tTables]
   )
 
+  const table = useTable({
+    features: dataGridFeatures,
+    data: users,
+    columns,
+    getRowId: (row) => row.id,
+    manualPagination: true,
+    rowCount: totalCount,
+  })
+
   const handleBan = () => {
     if (!banTarget) return
     startTransition(async () => {
@@ -117,10 +140,10 @@ export function AdminUsersTable({
 
   return (
     <>
-      <DataTableCard
-        title={t("dashboard.adminTabs.users")}
-        toolbar={
-          <>
+      <Card className="w-full">
+        <CardHeader>
+          <CardTitle>{t("dashboard.adminTabs.users")}</CardTitle>
+          <CardAction className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
             <List.Search
               value={q}
               placeholder={tTables("search.users")}
@@ -131,20 +154,29 @@ export function AdminUsersTable({
               options={filterOptions}
               onValueChange={list.setFilter}
             />
-          </>
-        }
-        footer={<List.Footer pagination={list.pagination} />}
-      >
-        <DataTable
-          variant="plain"
-          columns={columns}
-          data={users}
-          getRowId={(row) => row.id}
-          manualPagination
-          rowCount={totalCount}
-          emptyMessage={tTables("empty.users")}
-        />
-      </DataTableCard>
+          </CardAction>
+        </CardHeader>
+        <CardContent className="min-w-0">
+          <DataGrid
+            table={table}
+            recordCount={totalCount}
+            emptyMessage={tTables("empty.users")}
+            className="min-w-0"
+            tableLayout={{
+              width: "fixed",
+              headerBackground: true,
+              rowBorder: true,
+            }}
+          >
+            <DataGridContainer>
+              <DataGridTable />
+            </DataGridContainer>
+          </DataGrid>
+        </CardContent>
+        <CardFooter className="justify-between gap-2">
+          <List.Footer pagination={list.pagination} />
+        </CardFooter>
+      </Card>
 
       <AlertDialog
         open={Boolean(banTarget)}

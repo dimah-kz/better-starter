@@ -2,6 +2,7 @@
 
 import { useMemo, useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
+import { useTable } from "@tanstack/react-table"
 import { removeOrganizationMemberAction } from "@/app/action/dashboard/(organization)/manage/members/remove-organization-member-action"
 import { createMembersColumns } from "@/app/dashboard/(organization)/manage/members/components/members-columns"
 import type { OrganizationMemberItem } from "@/app/dashboard/(organization)/manage/members/lib/get-organization-members-page"
@@ -9,7 +10,6 @@ import {
   organizationMembersTablePath,
   type MemberTableFilter,
 } from "@/app/dashboard/(organization)/manage/members/lib/members-table-params"
-import { DataTable, DataTableCard } from "@/components/data-table"
 import { List, useList } from "@/components/list"
 import {
   AlertDialog,
@@ -21,6 +21,20 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@repo/ui/components/alert-dialog"
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@repo/ui/components/card"
+import {
+  DataGrid,
+  DataGridContainer,
+  dataGridFeatures,
+} from "@repo/ui/components/reui/data-grid/data-grid"
+import { DataGridTable } from "@repo/ui/components/reui/data-grid/data-grid-table"
 import type { Locale } from "@repo/i18n"
 import { toast } from "@repo/ui/components/toast"
 import { useLocale, useTranslations } from "next-intl"
@@ -89,6 +103,15 @@ export function MembersTable({
     [actorRole, actorUserId, isPending, locale, onChangeRole, tTables]
   )
 
+  const table = useTable({
+    features: dataGridFeatures,
+    data: members,
+    columns,
+    getRowId: (row) => row.id,
+    manualPagination: true,
+    rowCount: totalCount,
+  })
+
   const handleRemove = () => {
     if (!removeTarget) return
     startTransition(async () => {
@@ -114,10 +137,10 @@ export function MembersTable({
 
   return (
     <>
-      <DataTableCard
-        title={t("dashboard.manageTabs.members")}
-        toolbar={
-          <>
+      <Card className="w-full">
+        <CardHeader>
+          <CardTitle>{t("dashboard.manageTabs.members")}</CardTitle>
+          <CardAction className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
             <List.Search
               value={q}
               placeholder={tTables("search.users")}
@@ -128,20 +151,29 @@ export function MembersTable({
               options={memberFilterOptions}
               onValueChange={list.setFilter}
             />
-          </>
-        }
-        footer={<List.Footer pagination={list.pagination} />}
-      >
-        <DataTable
-          variant="plain"
-          columns={columns}
-          data={members}
-          getRowId={(row) => row.id}
-          manualPagination
-          rowCount={totalCount}
-          emptyMessage={tTables("empty.members")}
-        />
-      </DataTableCard>
+          </CardAction>
+        </CardHeader>
+        <CardContent className="min-w-0">
+          <DataGrid
+            table={table}
+            recordCount={totalCount}
+            emptyMessage={tTables("empty.members")}
+            className="min-w-0"
+            tableLayout={{
+              width: "fixed",
+              headerBackground: true,
+              rowBorder: true,
+            }}
+          >
+            <DataGridContainer>
+              <DataGridTable />
+            </DataGridContainer>
+          </DataGrid>
+        </CardContent>
+        <CardFooter className="justify-between gap-2">
+          <List.Footer pagination={list.pagination} />
+        </CardFooter>
+      </Card>
 
       <AlertDialog
         open={Boolean(removeTarget)}

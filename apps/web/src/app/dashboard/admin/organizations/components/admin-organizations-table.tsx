@@ -1,12 +1,26 @@
 "use client"
 
 import { useMemo } from "react"
+import { useTable } from "@tanstack/react-table"
 import { createAdminOrganizationsColumns } from "@/app/dashboard/admin/organizations/components/admin-organizations-columns"
 import type { AdminOrganizationItem } from "@/app/dashboard/admin/organizations/lib/get-admin-organizations-page"
 import { adminOrganizationsTablePath } from "@/app/dashboard/admin/organizations/lib/admin-organizations-table-params"
-import type { Locale } from "@repo/i18n"
-import { DataTable, DataTableCard } from "@/components/data-table"
 import { List, useList } from "@/components/list"
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@repo/ui/components/card"
+import {
+  DataGrid,
+  DataGridContainer,
+  dataGridFeatures,
+} from "@repo/ui/components/reui/data-grid/data-grid"
+import { DataGridTable } from "@repo/ui/components/reui/data-grid/data-grid-table"
+import type { Locale } from "@repo/i18n"
 import { useLocale, useTranslations } from "next-intl"
 
 type AdminOrganizationsTableProps = {
@@ -46,27 +60,47 @@ export function AdminOrganizationsTable({
     [locale, tTables]
   )
 
+  const table = useTable({
+    features: dataGridFeatures,
+    data: organizations,
+    columns,
+    getRowId: (row) => row.id,
+    manualPagination: true,
+    rowCount: totalCount,
+  })
+
   return (
-    <DataTableCard
-      title={t("dashboard.adminTabs.organizations")}
-      toolbar={
-        <List.Search
-          value={q}
-          placeholder={tTables("search.organizations")}
-          buildPath={list.buildSearchPath}
-        />
-      }
-      footer={<List.Footer pagination={list.pagination} />}
-    >
-      <DataTable
-        variant="plain"
-        columns={columns}
-        data={organizations}
-        getRowId={(row) => row.id}
-        manualPagination
-        rowCount={totalCount}
-        emptyMessage={tTables("empty.organizations")}
-      />
-    </DataTableCard>
+    <Card className="w-full">
+      <CardHeader>
+        <CardTitle>{t("dashboard.adminTabs.organizations")}</CardTitle>
+        <CardAction className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
+          <List.Search
+            value={q}
+            placeholder={tTables("search.organizations")}
+            buildPath={list.buildSearchPath}
+          />
+        </CardAction>
+      </CardHeader>
+      <CardContent className="min-w-0">
+        <DataGrid
+          table={table}
+          recordCount={totalCount}
+          emptyMessage={tTables("empty.organizations")}
+          className="min-w-0"
+          tableLayout={{
+            width: "fixed",
+            headerBackground: true,
+            rowBorder: true,
+          }}
+        >
+          <DataGridContainer>
+            <DataGridTable />
+          </DataGridContainer>
+        </DataGrid>
+      </CardContent>
+      <CardFooter className="justify-between gap-2">
+        <List.Footer pagination={list.pagination} />
+      </CardFooter>
+    </Card>
   )
 }
