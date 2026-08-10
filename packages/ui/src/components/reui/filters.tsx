@@ -351,10 +351,8 @@ function FilterInput<T = unknown>({
         // height on purpose so the style's `.cn-input-group` applies (h-8 nova,
         // h-9 maia/luma, h-7 mira, h-10 sera); sm/lg step down/up from it.
         // Base covers nova/lyra/rhea/vega; only deviating styles are listed.
-        context.size == "sm" &&
-          "h-7! h-6!",
-        context.size == "lg" &&
-          "h-9! h-8!",
+        context.size == "sm" && "h-6! h-7!",
+        context.size == "lg" && "h-8! h-9!",
         // Sera's `.cn-input` is `px-0` (underline inputs sit flush); inside a
         // segmented chip that collides with the neighbouring segment, so give
         // the value input the same inline padding sera uses elsewhere.
@@ -378,10 +376,8 @@ function FilterInput<T = unknown>({
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
         className={cn(
-          context.size == "sm" &&
-            "h-7! text-xs h-6!",
-          context.size == "lg" &&
-            "h-9! h-8!"
+          context.size == "sm" && "h-6! h-7! text-xs",
+          context.size == "lg" && "h-8! h-9!"
         )}
         {...props}
       />
@@ -389,7 +385,7 @@ function FilterInput<T = unknown>({
         <InputGroupAddon align="inline-end">
           <Tooltip>
             <TooltipTrigger render={<InputGroupButton size="icon-xs" />}>
-              <AlertCircleIcon className="text-destructive size-3.5" />
+              <AlertCircleIcon className="size-3.5 text-destructive" />
             </TooltipTrigger>
             <TooltipContent>
               <p className="text-sm">{validationMessage}</p>
@@ -413,10 +409,7 @@ interface FilterRemoveButtonProps extends React.ButtonHTMLAttributes<HTMLButtonE
 
 function FilterRemoveButton({
   className,
-  icon = (
-    <XIcon
-    />
-  ),
+  icon = <XIcon />,
   ...props
 }: FilterRemoveButtonProps) {
   const context = useFilterContext()
@@ -486,8 +479,7 @@ export interface FilterFieldGroup<T = unknown> {
 
 // Union type for both flat and grouped field configurations
 export type FilterFieldsConfig<T = unknown> =
-  | FilterFieldConfig<T>[]
-  | FilterFieldGroup<T>[]
+  FilterFieldConfig<T>[] | FilterFieldGroup<T>[]
 
 export interface FilterFieldConfig<T = unknown> {
   key?: string
@@ -833,14 +825,16 @@ function FilterOperatorDropdown<T = unknown>({
             key={op.value}
             onClick={() => onChange(op.value)}
             className={cn(
-              "data-highlighted:bg-accent data-highlighted:text-accent-foreground flex items-center justify-between"
+              "flex items-center justify-between data-highlighted:bg-accent data-highlighted:text-accent-foreground"
             )}
           >
             <span>{op.label}</span>
-            <CheckIcon className={cn(
-                                "text-primary ms-auto",
-                                op.value === operator ? "opacity-100" : "opacity-0"
-                              )} />
+            <CheckIcon
+              className={cn(
+                "ms-auto text-primary",
+                op.value === operator ? "opacity-100" : "opacity-0"
+              )}
+            />
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
@@ -1014,7 +1008,7 @@ function SelectOptionsPopover<T = unknown>({
               field.label || ""
             )}
             className={cn(
-              "border-input h-8 rounded-none border-0 bg-transparent! px-2 text-sm shadow-none",
+              "h-8 rounded-none border-0 border-input bg-transparent! px-2 text-sm shadow-none",
               "focus-visible:border-border focus-visible:ring-0 focus-visible:ring-offset-0",
               open && "placeholder:text-foreground"
             )}
@@ -1081,16 +1075,16 @@ function SelectOptionsPopover<T = unknown>({
           id={`${baseId}-listbox`}
         >
           {isAsync && loading && allFilteredOptions.length === 0 ? (
-            <div className="text-muted-foreground py-2 text-center text-sm">
+            <div className="py-2 text-center text-sm text-muted-foreground">
               {context.i18n.loadingOptions ?? DEFAULT_I18N.loadingOptions}
             </div>
           ) : isAsync && error ? (
-            <div className="text-muted-foreground py-2 text-center text-sm">
+            <div className="py-2 text-center text-sm text-muted-foreground">
               {context.i18n.errorLoadingOptions ??
                 DEFAULT_I18N.errorLoadingOptions}
             </div>
           ) : allFilteredOptions.length === 0 ? (
-            <div className="text-muted-foreground py-2 text-center text-sm">
+            <div className="py-2 text-center text-sm text-muted-foreground">
               {context.i18n.noResultsFound}
             </div>
           ) : field.renderOptionList ? (
@@ -1200,7 +1194,7 @@ function FilterValueSelector<T = unknown>({
 
   if (field.customRenderer) {
     return (
-      <ButtonGroupText className="hover:bg-accent aria-expanded:bg-accent bg-background dark:bg-input/30 text-start whitespace-nowrap outline-hidden">
+      <ButtonGroupText className="bg-background text-start whitespace-nowrap outline-hidden hover:bg-accent aria-expanded:bg-accent dark:bg-input/30">
         {field.customRenderer({ field, values, onChange, operator })}
       </ButtonGroupText>
     )
@@ -1596,15 +1590,15 @@ function FilterSubmenuContent<T = unknown>({
           }}
         >
           {isAsync && loading && filteredOptions.length === 0 ? (
-            <div className="text-muted-foreground py-2 text-center text-sm">
+            <div className="py-2 text-center text-sm text-muted-foreground">
               {i18n.loadingOptions ?? DEFAULT_I18N.loadingOptions}
             </div>
           ) : isAsync && error ? (
-            <div className="text-muted-foreground py-2 text-center text-sm">
+            <div className="py-2 text-center text-sm text-muted-foreground">
               {i18n.errorLoadingOptions ?? DEFAULT_I18N.errorLoadingOptions}
             </div>
           ) : filteredOptions.length === 0 ? (
-            <div className="text-muted-foreground py-2 text-center text-sm">
+            <div className="py-2 text-center text-sm text-muted-foreground">
               {i18n.noResultsFound}
             </div>
           ) : field.renderOptionList ? (
@@ -1806,8 +1800,7 @@ export function Filters<T = unknown>({
   const triggerButton = useRender({
     render: (trigger as React.ReactElement) ?? (
       <Button variant="outline">
-        <PlusIcon
-        />
+        <PlusIcon />
         {mergedI18n.addFilter}
       </Button>
     ),
@@ -1940,7 +1933,7 @@ export function Filters<T = unknown>({
                       }}
                     />
                     {enableShortcut && shortcutLabel && (
-                      <Kbd className="bg-background absolute top-1/2 end-2 -translate-y-1/2 border">
+                      <Kbd className="absolute end-2 top-1/2 -translate-y-1/2 border bg-background">
                         {shortcutLabel}
                       </Kbd>
                     )}
@@ -1960,7 +1953,7 @@ export function Filters<T = unknown>({
                     {(() => {
                       if (filteredFields.length === 0) {
                         return (
-                          <div className="text-muted-foreground py-2 text-center text-sm">
+                          <div className="py-2 text-center text-sm text-muted-foreground">
                             {mergedI18n.noFieldsFound}
                           </div>
                         )
@@ -2007,7 +2000,7 @@ export function Filters<T = unknown>({
                                   setHighlightedIndex(index)
                                   setActiveMenu("root")
                                 }}
-                                className="data-popup-open:bg-accent data-popup-open:text-accent-foreground data-highlighted:bg-accent data-highlighted:text-accent-foreground"
+                                className="data-highlighted:bg-accent data-highlighted:text-accent-foreground data-popup-open:bg-accent data-popup-open:text-accent-foreground"
                               >
                                 {field.icon}
                                 <span>{field.label}</span>

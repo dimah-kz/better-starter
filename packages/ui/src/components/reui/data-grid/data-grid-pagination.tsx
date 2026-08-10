@@ -143,12 +143,12 @@ function DataGridPagination(props: DataGridPaginationProps): JSX.Element {
         mergedProps.className
       )}
     >
-      <div className="order-2 flex flex-wrap items-center space-x-2.5 rtl:space-x-reverse pb-2.5 sm:order-1 sm:pb-0">
+      <div className="order-2 flex flex-wrap items-center space-x-2.5 pb-2.5 sm:order-1 sm:pb-0 rtl:space-x-reverse">
         {isLoading ? (
           mergedProps.sizesSkeleton
         ) : (
           <>
-            <div className="text-muted-foreground text-sm">
+            <div className="text-sm text-muted-foreground">
               {mergedProps.rowsPerPageLabel}
             </div>
             <Select
@@ -181,7 +181,7 @@ function DataGridPagination(props: DataGridPaginationProps): JSX.Element {
           mergedProps.infoSkeleton
         ) : (
           <>
-            <div className="text-muted-foreground order-2 text-sm text-nowrap sm:order-1">
+            <div className="order-2 text-sm text-nowrap text-muted-foreground sm:order-1">
               {paginationInfo}
             </div>
             {pageCount > 1 && (

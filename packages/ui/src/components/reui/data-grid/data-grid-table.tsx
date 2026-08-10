@@ -104,8 +104,7 @@ function getDataGridScrollAreaViewport(node: HTMLElement): HTMLElement | null {
 }
 
 type DataGridResizeStartEvent =
-  | ReactMouseEvent<HTMLDivElement>
-  | ReactTouchEvent<HTMLDivElement>
+  ReactMouseEvent<HTMLDivElement> | ReactTouchEvent<HTMLDivElement>
 
 type DataGridResizeDocumentEvent = globalThis.MouseEvent | globalThis.TouchEvent
 
@@ -607,7 +606,7 @@ function DataGridTableBase({ children }: { children: ReactNode }) {
     <table
       data-slot="data-grid-table"
       className={cn(
-        "text-foreground caption-bottom text-start align-middle text-sm font-normal rtl:text-right",
+        "caption-bottom text-start align-middle text-sm font-normal text-foreground rtl:text-right",
         props.tableLayout?.columnsResizable ? "min-w-0" : "w-full min-w-full",
         props.tableLayout?.width === "auto" ? "table-auto" : "table-fixed",
         !props.tableLayout?.columnsResizable && "",
@@ -861,7 +860,7 @@ function DataGridTableHeadRowCell<TData extends object>({
         isLastStartPinned ? "start" : isFirstEndPinned ? "end" : undefined
       }
       className={cn(
-        "text-foreground relative h-10 text-start align-middle font-medium rtl:text-right [&:has([role=checkbox])]:pe-0",
+        "relative h-10 text-start align-middle font-medium text-foreground rtl:text-right [&:has([role=checkbox])]:pe-0",
         headerCellSpacing,
         props.tableLayout?.headerBackground && "bg-muted",
         props.tableLayout?.cellBorder && "border-e",
@@ -875,7 +874,7 @@ function DataGridTableHeadRowCell<TData extends object>({
         props.tableLayout?.columnsPinnable &&
           column.getCanPin() &&
           cn(
-            "data-pinned:bg-muted data-outer-pinned-col:bg-clip-padding data-pinned:isolate",
+            "data-outer-pinned-col:bg-clip-padding data-pinned:isolate data-pinned:bg-muted",
             "[&[data-pinned=end]:last-child_div.cursor-col-resize:last-child]:opacity-0 [&[data-pinned=end][data-last-col=end]]:shadow-[inset_1px_0_0_0_var(--border)] [&[data-pinned=start][data-last-col=start]]:shadow-[inset_-1px_0_0_0_var(--border)]",
             "[&:not([data-pinned]):has(+[data-pinned])_div.cursor-col-resize:last-child]:opacity-0 [&[data-last-col=start]_div.cursor-col-resize:last-child]:opacity-0"
           ),
@@ -984,7 +983,7 @@ function DataGridTableHeadRowCellResize<TData extends object>({
         onMouseDown: handleMouseDown,
         onTouchStart: handleTouchStart,
         className: cn(
-          "absolute top-0 h-full cursor-col-resize user-select-none touch-none z-10 flex",
+          "user-select-none absolute top-0 z-10 flex h-full cursor-col-resize touch-none",
           isLastVisibleColumn
             ? "end-0 w-5 justify-end before:hidden"
             : isPinned
@@ -1008,8 +1007,8 @@ function DataGridTableHeadRowCellResize<TData extends object>({
             (isResizeModeOnEnd
               ? "opacity-100"
               : isLastVisibleColumn
-                ? "before:absolute before:end-0 before:block before:inset-y-0 before:w-0.5 before:bg-primary opacity-100"
-                : "before:block before:bg-primary before:w-0.5 opacity-100")
+                ? "opacity-100 before:absolute before:inset-y-0 before:end-0 before:block before:w-0.5 before:bg-primary"
+                : "opacity-100 before:block before:w-0.5 before:bg-primary")
         ),
       }}
     />
@@ -1102,10 +1101,10 @@ function DataGridTableResizeIndicator({
       data-slot="data-grid-table-resize-indicator"
       className="pointer-events-none absolute inset-y-0 z-50"
     >
-      <div className="bg-primary/85 absolute inset-y-0 start-0 w-px -translate-x-1/2 rtl:translate-x-1/2" />
+      <div className="absolute inset-y-0 start-0 w-px -translate-x-1/2 bg-primary/85 rtl:translate-x-1/2" />
       <div
         ref={indicatorHeadRef}
-        className="bg-primary rounded-b-sm absolute top-0 start-0 -translate-x-1/2 rtl:translate-x-1/2 shadow-xs"
+        className="absolute start-0 top-0 -translate-x-1/2 rounded-b-sm bg-primary shadow-xs rtl:translate-x-1/2"
         style={{ width: 5 }}
       />
     </div>
@@ -1129,10 +1128,8 @@ function DataGridTableBody({ children }: { children: ReactNode }) {
     <tbody
       data-slot="data-grid-table-body"
       className={cn(
-        props.tableLayout?.rowRounded &&
-          "[&_td:first-child]:rounded-s-lg",
-        props.tableLayout?.rowRounded &&
-          "[&_td:last-child]:rounded-e-lg",
+        props.tableLayout?.rowRounded && "[&_td:first-child]:rounded-s-lg",
+        props.tableLayout?.rowRounded && "[&_td:last-child]:rounded-e-lg",
         props.tableClassNames?.body
       )}
     >
@@ -1189,7 +1186,7 @@ function DataGridTableFootRowCell({
     <td
       colSpan={colSpan}
       className={cn(
-        "text-secondary-foreground/80 align-middle font-medium",
+        "align-middle font-medium text-secondary-foreground/80",
         spacing,
         props.tableLayout?.footerBackground && "bg-muted/40 dark:bg-background",
         props.tableLayout?.cellBorder && "border-e",
@@ -1211,10 +1208,10 @@ function DataGridTableBodyRowSkeleton({ children }: { children: ReactNode }) {
         props.onRowClick && "cursor-pointer",
         !props.tableLayout?.stripped &&
           props.tableLayout?.rowBorder &&
-          "border-border border-b [&:not(:last-child)>td]:border-b",
+          "border-b border-border [&:not(:last-child)>td]:border-b",
         props.tableLayout?.cellBorder && "*:last:border-e-0",
         props.tableLayout?.stripped &&
-          "odd:bg-muted/90 odd:hover:bg-muted hover:bg-transparent",
+          "odd:bg-muted/90 hover:bg-transparent odd:hover:bg-muted",
         table.options.enableRowSelection && "*:first:relative",
         props.tableClassNames?.bodyRow
       )}
@@ -1253,7 +1250,7 @@ function DataGridTableBodyRowSkeletonCell<TData extends object>({
         column.columnDef.meta?.cellClassName,
         props.tableLayout?.columnsPinnable &&
           column.getCanPin() &&
-          "data-pinned:bg-background data-pinned:isolate [&[data-pinned=end][data-last-col=end]]:shadow-[inset_1px_0_0_0_var(--border)] [&[data-pinned=start][data-last-col=start]]:shadow-[inset_-1px_0_0_0_var(--border)]",
+          "data-pinned:isolate data-pinned:bg-background [&[data-pinned=end][data-last-col=end]]:shadow-[inset_1px_0_0_0_var(--border)] [&[data-pinned=start][data-last-col=start]]:shadow-[inset_-1px_0_0_0_var(--border)]",
         column.getIndex() === 0 ||
           column.getIndex() === table.getVisibleLeafColumns().length - 1
           ? props.tableClassNames?.edgeCell
@@ -1322,7 +1319,7 @@ function DataGridTableBodyRow<TData extends object>({
                 "hover:bg-transparent",
                 dataIndex % 2 === 0 && "bg-muted/90 hover:bg-muted"
               )
-            : "odd:bg-muted/90 odd:hover:bg-muted hover:bg-transparent"),
+            : "odd:bg-muted/90 hover:bg-transparent odd:hover:bg-muted"),
         table.options.enableRowSelection && "*:first:relative",
         props.tableLayout?.rowsPinnable &&
           isRowPinned &&
@@ -1423,7 +1420,7 @@ function DataGridTableBodyRowCell<TData extends object>({
         props.tableLayout?.columnsPinnable &&
           column.getCanPin() &&
           cn(
-            "data-pinned:bg-background data-pinned:isolate",
+            "data-pinned:isolate data-pinned:bg-background",
             "[&[data-pinned=start][data-last-col=start]]:shadow-[inset_-1px_0_0_0_var(--border)]",
             "[&[data-pinned=end][data-last-col=end]]:shadow-[inset_1px_0_0_0_var(--border)]"
           ),
@@ -1498,7 +1495,7 @@ function DataGridTableEmpty() {
     <tr>
       <td
         colSpan={Math.max(visibleColumnCount, 1)}
-        className="text-muted-foreground py-6 text-center text-sm"
+        className="py-6 text-center text-sm text-muted-foreground"
       >
         {props.emptyMessage || "No data available"}
       </td>
@@ -1510,8 +1507,8 @@ function DataGridTableLoader() {
   const { props } = useDataGrid()
 
   return (
-    <div className="absolute top-1/2 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 -translate-y-1/2">
-      <div className="text-muted-foreground bg-card rounded-lg flex items-center gap-2 border px-4 py-2 text-sm leading-none font-medium">
+    <div className="absolute start-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rtl:translate-x-1/2">
+      <div className="flex items-center gap-2 rounded-lg border bg-card px-4 py-2 text-sm leading-none font-medium text-muted-foreground">
         <Spinner className="size-5 opacity-60" />
         {props.loadingMessage || "Loading..."}
       </div>
@@ -1541,7 +1538,7 @@ function DataGridTableRowPin<TData extends object>({
         }
       }}
       className={cn(
-        "text-muted-foreground hover:text-foreground rounded-md inline-flex size-7 items-center justify-center transition-colors",
+        "inline-flex size-7 items-center justify-center rounded-md text-muted-foreground transition-colors hover:text-foreground",
         isPinned && "text-primary hover:text-primary/80"
       )}
     >
@@ -1604,7 +1601,7 @@ function DataGridTableRowSelect<TData extends object>({
         <>
           <div
             className={cn(
-              "bg-primary absolute inset-s-0 top-0 bottom-0 hidden w-[2px]",
+              "absolute inset-s-0 top-0 bottom-0 hidden w-[2px] bg-primary",
               row.getIsSelected() && "block"
             )}
           ></div>
@@ -1691,7 +1688,7 @@ function DataGridTableRowExpand<TData extends object>({
             row.toggleExpanded()
           }}
           className={cn(
-            "text-muted-foreground hover:text-foreground rounded-md inline-flex items-center justify-center transition-colors",
+            "inline-flex items-center justify-center rounded-md text-muted-foreground transition-colors hover:text-foreground",
             controlSize
           )}
         >
@@ -1774,7 +1771,7 @@ function DataGridTableBodyRows<TData extends object>({
         >
           <div className="flex items-center justify-center">
             <svg
-              className="text-muted-foreground me-3 -ms-1 h-5 w-5 animate-spin"
+              className="-ms-1 me-3 h-5 w-5 animate-spin text-muted-foreground"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"

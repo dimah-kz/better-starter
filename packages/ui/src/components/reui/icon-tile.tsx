@@ -44,8 +44,8 @@ const iconTileVariants = cva(
          * quiet, colorful sibling of `frame`. Retint with a text color class.
          */
         soft: [
-          "isolate p-(--icon-tile-inset) text-primary bg-current/10",
-          "after:absolute after:-z-10 after:inset-(--icon-tile-inset)",
+          "isolate bg-current/10 p-(--icon-tile-inset) text-primary",
+          "after:absolute after:inset-(--icon-tile-inset) after:-z-10",
           "after:rounded-[calc(var(--icon-tile-radius)-var(--icon-tile-inset))]",
           "after:border after:border-current/20 after:bg-current/5",
         ],
@@ -54,18 +54,18 @@ const iconTileVariants = cva(
         /** Double container - a muted ring around an inset card, matching Frame. */
         frame: [
           "isolate border border-border bg-muted/50 p-(--icon-tile-inset)",
-          "after:absolute after:-z-10 after:inset-(--icon-tile-inset)",
+          "after:absolute after:inset-(--icon-tile-inset) after:-z-10",
           "after:rounded-[calc(var(--icon-tile-radius)-var(--icon-tile-inset))]",
           "after:border after:border-border after:bg-card after:shadow-xs",
         ],
       },
       size: {
-        xs: "[--icon-tile-size:--spacing(6)] [--icon-tile-icon-size:--spacing(3.5)] [--icon-tile-inset:--spacing(0.5)]",
-        sm: "[--icon-tile-size:--spacing(8)] [--icon-tile-icon-size:--spacing(4)] [--icon-tile-inset:--spacing(0.5)]",
+        xs: "[--icon-tile-icon-size:--spacing(3.5)] [--icon-tile-inset:--spacing(0.5)] [--icon-tile-size:--spacing(6)]",
+        sm: "[--icon-tile-icon-size:--spacing(4)] [--icon-tile-inset:--spacing(0.5)] [--icon-tile-size:--spacing(8)]",
         default:
-          "[--icon-tile-size:--spacing(10)] [--icon-tile-icon-size:--spacing(4.5)] [--icon-tile-inset:--spacing(0.75)]",
-        lg: "[--icon-tile-size:--spacing(12)] [--icon-tile-icon-size:--spacing(5.5)] [--icon-tile-inset:--spacing(0.75)]",
-        xl: "[--icon-tile-size:--spacing(14)] [--icon-tile-icon-size:--spacing(7)] [--icon-tile-inset:--spacing(1)]",
+          "[--icon-tile-icon-size:--spacing(4.5)] [--icon-tile-inset:--spacing(0.75)] [--icon-tile-size:--spacing(10)]",
+        lg: "[--icon-tile-icon-size:--spacing(5.5)] [--icon-tile-inset:--spacing(0.75)] [--icon-tile-size:--spacing(12)]",
+        xl: "[--icon-tile-icon-size:--spacing(7)] [--icon-tile-inset:--spacing(1)] [--icon-tile-size:--spacing(14)]",
       },
       /**
        * `default`: active style radius. `full`: circular.
@@ -82,7 +82,7 @@ const iconTileVariants = cva(
        */
       radius: {
         default:
-          "[--icon-tile-radius:min(var(--radius-md),calc(var(--icon-tile-size)/3))] [--icon-tile-radius:min(var(--radius-md),calc(var(--icon-tile-size)/3))]",
+          "[--icon-tile-radius:min(var(--radius-md),calc(var(--icon-tile-size)/3))]",
         full: "[--icon-tile-radius:calc(infinity*1px)]",
       },
     },

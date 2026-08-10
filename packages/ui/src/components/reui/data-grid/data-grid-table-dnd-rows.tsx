@@ -302,7 +302,7 @@ function DataGridTableDndRow<TData extends object>({
                         seam as well only competes with the row borders it sits
                         between. `data-edge` still carries the direction for
                         anyone styling their own. */}
-                    <span className="bg-primary absolute inset-y-0 start-0 w-0.5" />
+                    <span className="absolute inset-y-0 start-0 w-0.5 bg-primary" />
                   </div>
                 ) : null}
               </DataGridTableBodyRowCell>
@@ -681,7 +681,7 @@ function DataGridTableDndRows<TData extends object>({
                 <table
                   aria-hidden="true"
                   style={{ width: carried.width, tableLayout: "fixed" }}
-                  className="bg-background border-border pointer-events-none cursor-grabbing rounded-md border shadow-lg"
+                  className="pointer-events-none cursor-grabbing rounded-md border border-border bg-background shadow-lg"
                 >
                   <tbody>
                     {/* Padding rides on the inner element, not the cell. A `td` can

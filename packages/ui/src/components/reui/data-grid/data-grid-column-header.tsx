@@ -25,7 +25,18 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu"
-import { ArrowDownIcon, ArrowUpIcon, ChevronsUpDownIcon, CheckIcon, ArrowLeftToLineIcon, ArrowRightToLineIcon, ArrowLeftIcon, ArrowRightIcon, Settings2Icon, PinOffIcon } from "lucide-react"
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  ChevronsUpDownIcon,
+  CheckIcon,
+  ArrowLeftToLineIcon,
+  ArrowRightToLineIcon,
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  Settings2Icon,
+  PinOffIcon,
+} from "lucide-react"
 
 interface DataGridColumnHeaderProps<
   TData extends object,
@@ -84,12 +95,12 @@ function DataGridColumnHeaderInner<TData extends object, TValue>({
   }
 
   const headerLabelClassName = cn(
-    "text-secondary-foreground/80 inline-flex h-full items-center gap-1.5 font-normal [&_svg]:opacity-60 text-[0.8125rem] leading-[calc(1.125/0.8125)] [&_svg]:size-3.5",
+    "inline-flex h-full items-center gap-1.5 text-[0.8125rem] leading-[calc(1.125/0.8125)] font-normal text-secondary-foreground/80 [&_svg]:size-3.5 [&_svg]:opacity-60",
     className
   )
 
   const headerButtonClassName = cn(
-    "text-secondary-foreground/80 hover:bg-secondary data-[state=open]:bg-secondary hover:text-foreground data-[state=open]:text-foreground px-2 font-normal h-6 rounded-md",
+    "h-6 rounded-md px-2 font-normal text-secondary-foreground/80 hover:bg-secondary hover:text-foreground data-[state=open]:bg-secondary data-[state=open]:text-foreground",
     className
   )
 
@@ -143,7 +154,7 @@ function DataGridColumnHeaderInner<TData extends object, TValue>({
           <ArrowUpIcon className="size-3.5!" />
           <span className="grow">Asc</span>
           {isSorted === "asc" && (
-            <CheckIcon className="text-primary size-4 opacity-100!" />
+            <CheckIcon className="size-4 text-primary opacity-100!" />
           )}
         </DropdownMenuItem>,
         <DropdownMenuItem
@@ -160,7 +171,7 @@ function DataGridColumnHeaderInner<TData extends object, TValue>({
           <ArrowDownIcon className="size-3.5!" />
           <span className="grow">Desc</span>
           {isSorted === "desc" && (
-            <CheckIcon className="text-primary size-4 opacity-100!" />
+            <CheckIcon className="size-4 text-primary opacity-100!" />
           )}
         </DropdownMenuItem>
       )
@@ -180,7 +191,7 @@ function DataGridColumnHeaderInner<TData extends object, TValue>({
           <ArrowLeftToLineIcon className="size-3.5!" aria-hidden="true" />
           <span className="grow">Pin to left</span>
           {isPinned === "start" && (
-            <CheckIcon className="text-primary size-4 opacity-100!" />
+            <CheckIcon className="size-4 text-primary opacity-100!" />
           )}
         </DropdownMenuItem>,
         <DropdownMenuItem
@@ -190,7 +201,7 @@ function DataGridColumnHeaderInner<TData extends object, TValue>({
           <ArrowRightToLineIcon className="size-3.5!" aria-hidden="true" />
           <span className="grow">Pin to right</span>
           {isPinned === "end" && (
-            <CheckIcon className="text-primary size-4 opacity-100!" />
+            <CheckIcon className="size-4 text-primary opacity-100!" />
           )}
         </DropdownMenuItem>
       )
@@ -314,7 +325,7 @@ function DataGridColumnHeaderInner<TData extends object, TValue>({
           <Button
             size="icon-sm"
             variant="ghost"
-            className="rounded-md -me-1 size-7"
+            className="-me-1 size-7 rounded-md"
             onClick={() => column.pin(false)}
             aria-label={`Unpin ${resolvedTitle} column`}
             title={`Unpin ${resolvedTitle} column`}

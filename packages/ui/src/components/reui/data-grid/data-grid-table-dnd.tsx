@@ -117,7 +117,10 @@ function DataGridTableDndHeader<TData extends object>({
             {...listeners}
             aria-label="Drag to reorder"
           >
-            <GripVerticalIcon className="opacity-60 hover:opacity-100" aria-hidden="true" />
+            <GripVerticalIcon
+              className="opacity-60 hover:opacity-100"
+              aria-hidden="true"
+            />
           </Button>
         )}
         <div className="grow">

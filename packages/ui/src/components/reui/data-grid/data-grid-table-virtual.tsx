@@ -325,7 +325,7 @@ function DataGridTableVirtualPinnedPlaceholderCell<TData extends object>({
         props.tableLayout?.cellBorder && "border-e",
         props.tableLayout?.columnsPinnable &&
           column.getCanPin() &&
-          "data-pinned:bg-background data-pinned:isolate [&[data-pinned=end][data-last-col=end]]:shadow-[inset_1px_0_0_0_var(--border)] [&[data-pinned=start][data-last-col=start]]:shadow-[inset_-1px_0_0_0_var(--border)]"
+          "data-pinned:isolate data-pinned:bg-background [&[data-pinned=end][data-last-col=end]]:shadow-[inset_1px_0_0_0_var(--border)] [&[data-pinned=start][data-last-col=start]]:shadow-[inset_-1px_0_0_0_var(--border)]"
       )}
     />
   )
@@ -417,7 +417,7 @@ function DataGridTableVirtualStatusRow<TData extends object>({
     <DataGridTableVirtualUtilityRow
       table={table}
       centerCellClassName={cn(
-        "text-muted-foreground py-4 text-center text-sm",
+        "py-4 text-center text-sm text-muted-foreground",
         className
       )}
     >
