@@ -14,19 +14,19 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1106.0",
-    "@repo/auth": "workspace:*",
-    "@repo/db": "workspace:*",
-    "@repo/i18n": "workspace:*",
     "@dimah-s3/core": "0.6.3",
     "@dimah-s3/db": "0.6.3",
     "@dimah-s3/react": "0.6.3",
     "@dimah-s3/server": "0.6.3",
+    "@repo/auth": "workspace:*",
+    "@repo/db": "workspace:*",
+    "@repo/i18n": "workspace:*",
     "drizzle-orm": "rc"
   },
   "devDependencies": {
-    "@types/react": "^19.2.18",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.18",
     "eslint": "catalog:",
     "react": "^19.2.8",
     "typescript": "catalog:"

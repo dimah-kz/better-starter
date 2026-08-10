@@ -16,14 +16,14 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@dimah-s3/react": "0.6.3",
+    "@dimah-s3/server": "0.6.3",
     "@repo/auth": "workspace:*",
     "@repo/db": "workspace:*",
     "@repo/i18n": "workspace:*",
     "@repo/storage": "workspace:*",
-    "@dimah-s3/react": "0.6.3",
-    "@dimah-s3/server": "0.6.3",
-    "@tanstack/react-table": "^9.1.1",
     "@repo/ui": "workspace:*",
+    "@tanstack/react-table": "^9.1.2",
     "country-flag-icons": "1.6.20",
     "date-fns": "^4.4.0",
     "dotenv": "^17.4.2",
@@ -36,12 +36,12 @@
     "ua-parser-js": "^2.0.10"
   },
   "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^26.2.0",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "catalog:",
     "tailwindcss": "^4.3.3",

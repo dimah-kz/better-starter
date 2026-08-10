@@ -177,7 +177,9 @@ export function ListPagination({
                   data-icon="inline-start"
                   className="rtl:rotate-180"
                 />
-                <span className="hidden sm:block">{t("pagination.previous")}</span>
+                <span className="hidden sm:block">
+                  {t("pagination.previous")}
+                </span>
               </PageLink>
             </PaginationItem>
 
@@ -188,7 +190,10 @@ export function ListPagination({
                 </PaginationItem>
               ) : (
                 <PaginationItem key={num}>
-                  <PageLink href={buildPageHref(num)} isActive={num === safePage}>
+                  <PageLink
+                    href={buildPageHref(num)}
+                    isActive={num === safePage}
+                  >
                     {num}
                   </PageLink>
                 </PaginationItem>

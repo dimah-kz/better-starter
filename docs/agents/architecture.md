@@ -36,7 +36,7 @@
 | ------------------ | ------------------------------------------------------------------------------------- |
 | URLs               | `*-routes.ts` per segment                                                             |
 | Cache tags         | `cache-tags.ts` per segment                                                           |
-| Dashboard nav copy | `@repo/i18n` `dashboard.json` namespace                                     |
+| Dashboard nav copy | `@repo/i18n` `dashboard.json` namespace                                               |
 | Writes             | `app/action/<segment>/` mirrors `app/<segment>/` — one mutation per file → `auth.api` |
 | Reads              | `get-*.ts` + `'use cache'`                                                            |
 

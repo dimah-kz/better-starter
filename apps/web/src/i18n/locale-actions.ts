@@ -1,10 +1,6 @@
 "use server"
 
-import {
-  isValidLocale,
-  localeCookieName,
-  type Locale,
-} from "@repo/i18n"
+import { isValidLocale, localeCookieName, type Locale } from "@repo/i18n"
 import { cookies } from "next/headers"
 
 export async function setLocale(locale: Locale) {

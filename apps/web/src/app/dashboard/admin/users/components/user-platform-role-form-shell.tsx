@@ -9,10 +9,7 @@ import { ResponsiveFormOverlay } from "@/components/responsive-form-overlay"
 import { Button } from "@repo/ui/components/button"
 import { Checkbox } from "@repo/ui/components/checkbox"
 import { Label } from "@repo/ui/components/label"
-import {
-  adminPluginRoles,
-  type PlatformRole,
-} from "@repo/auth/admin-access"
+import { adminPluginRoles, type PlatformRole } from "@repo/auth/admin-access"
 import { parseRoleString } from "@/lib/role-string"
 
 const platformRoles = Object.keys(adminPluginRoles) as PlatformRole[]

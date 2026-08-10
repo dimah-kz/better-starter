@@ -17,10 +17,7 @@ import { cva } from "class-variance-authority"
 
 import { cn } from "@repo/ui/lib/utils"
 import { Button } from "@repo/ui/components/button"
-import {
-  ButtonGroup,
-  ButtonGroupText,
-} from "@repo/ui/components/button-group"
+import { ButtonGroup, ButtonGroupText } from "@repo/ui/components/button-group"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,

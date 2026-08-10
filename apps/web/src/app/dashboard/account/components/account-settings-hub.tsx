@@ -7,11 +7,7 @@ import type { AccountSessionDisplay } from "@/app/dashboard/account/components/a
 import { useTranslations } from "next-intl"
 import { accountListSettingsItems } from "@/app/dashboard/account/lib/account-settings-items"
 import type { AccountPanel } from "@/app/dashboard/account/lib/account-panel"
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@repo/ui/components/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar"
 import {
   Item,
   ItemActions,

@@ -5,11 +5,7 @@ import Link from "next/link"
 import { logoutAction } from "@/app/action/dashboard/components/logout-action"
 import { NavUserLocaleMenu } from "@/components/locale-switcher"
 import { useSidebarFlyoutSide } from "@/app/dashboard/lib/sidebar-side"
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@repo/ui/components/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar"
 import {
   DropdownMenu,
   DropdownMenuContent,

@@ -27,10 +27,10 @@
     "pg": "^8.23.0"
   },
   "devDependencies": {
-    "@types/node": "^26.2.0",
-    "@types/pg": "^8.21.0",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "@types/node": "^26.2.0",
+    "@types/pg": "^8.21.0",
     "drizzle-kit": "rc",
     "eslint": "catalog:",
     "typescript": "catalog:"

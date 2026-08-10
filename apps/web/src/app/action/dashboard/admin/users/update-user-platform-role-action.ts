@@ -5,10 +5,7 @@ import { invalidateUserCache } from "@/app/dashboard/lib/invalidate-user-cache"
 import { headers } from "next/headers"
 import { auth } from "@repo/auth"
 import { getAuthApiErrorMessage } from "@repo/auth"
-import {
-  adminPluginRoles,
-  type PlatformRole,
-} from "@repo/auth/admin-access"
+import { adminPluginRoles, type PlatformRole } from "@repo/auth/admin-access"
 
 type UpdateUserPlatformRoleInput = {
   userId: string

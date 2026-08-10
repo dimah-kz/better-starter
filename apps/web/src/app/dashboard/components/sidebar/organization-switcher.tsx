@@ -21,11 +21,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@repo/ui/components/sidebar"
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@repo/ui/components/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar"
 import { OrganizationAvatar } from "@/components/organization-avatar"
 import { useSidebarFlyoutSide } from "@/app/dashboard/lib/sidebar-side"
 import { Input } from "@repo/ui/components/input"
