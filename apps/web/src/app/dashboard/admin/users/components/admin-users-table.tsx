@@ -11,7 +11,7 @@ import {
   adminUsersTablePath,
   type AdminUserTableFilter,
 } from "@/app/dashboard/admin/users/lib/admin-users-table-params"
-import { List, useList } from "@/components/list"
+import { ListFooter, ListSearch, useList } from "@/components/list"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -36,6 +36,10 @@ import {
   dataGridFeatures,
 } from "@repo/ui/components/reui/data-grid/data-grid"
 import { DataGridTable } from "@repo/ui/components/reui/data-grid/data-grid-table"
+import {
+  ToggleGroup,
+  ToggleGroupItem,
+} from "@repo/ui/components/toggle-group"
 import type { Locale } from "@repo/i18n"
 import { toast } from "@repo/ui/components/toast"
 import { useLocale, useTranslations } from "next-intl"
@@ -144,16 +148,28 @@ export function AdminUsersTable({
         <CardHeader>
           <CardTitle>{t("dashboard.adminTabs.users")}</CardTitle>
           <CardAction className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
-            <List.Search
+            <ListSearch
               value={q}
               placeholder={tTables("search.users")}
               buildPath={list.buildSearchPath}
             />
-            <List.Filter
-              value={filter}
-              options={filterOptions}
-              onValueChange={list.setFilter}
-            />
+            <ToggleGroup
+              value={[filter]}
+              onValueChange={(next) => {
+                const selected = next[0]
+                if (selected) {
+                  list.setFilter(selected as AdminUserTableFilter)
+                }
+              }}
+              size="sm"
+              className="shrink-0"
+            >
+              {filterOptions.map((option) => (
+                <ToggleGroupItem key={option.value} value={option.value}>
+                  {option.label}
+                </ToggleGroupItem>
+              ))}
+            </ToggleGroup>
           </CardAction>
         </CardHeader>
         <CardContent className="min-w-0">
@@ -174,7 +190,7 @@ export function AdminUsersTable({
           </DataGrid>
         </CardContent>
         <CardFooter className="justify-between gap-2">
-          <List.Footer pagination={list.pagination} />
+          <ListFooter pagination={list.pagination} />
         </CardFooter>
       </Card>
 

@@ -5,7 +5,7 @@ import { useTable } from "@tanstack/react-table"
 import { createAdminOrganizationsColumns } from "@/app/dashboard/admin/organizations/components/admin-organizations-columns"
 import type { AdminOrganizationItem } from "@/app/dashboard/admin/organizations/lib/get-admin-organizations-page"
 import { adminOrganizationsTablePath } from "@/app/dashboard/admin/organizations/lib/admin-organizations-table-params"
-import { List, useList } from "@/components/list"
+import { ListFooter, ListSearch, useList } from "@/components/list"
 import {
   Card,
   CardAction,
@@ -74,7 +74,7 @@ export function AdminOrganizationsTable({
       <CardHeader>
         <CardTitle>{t("dashboard.adminTabs.organizations")}</CardTitle>
         <CardAction className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
-          <List.Search
+          <ListSearch
             value={q}
             placeholder={tTables("search.organizations")}
             buildPath={list.buildSearchPath}
@@ -99,7 +99,7 @@ export function AdminOrganizationsTable({
         </DataGrid>
       </CardContent>
       <CardFooter className="justify-between gap-2">
-        <List.Footer pagination={list.pagination} />
+        <ListFooter pagination={list.pagination} />
       </CardFooter>
     </Card>
   )

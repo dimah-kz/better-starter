@@ -33,11 +33,14 @@ Sidebar drill-down items for admin/manage are derived from slice/tab registries 
 
 Split responsibilities — do not invent wrappers like `ListDataGrid` / `DataGridCard`:
 
-| Layer                                                    | Owns                                          | Does not own    |
-| -------------------------------------------------------- | --------------------------------------------- | --------------- |
-| `list/` (`useList`, `List.Search` / `Filter` / `Footer`) | URL `page` / `pageSize` / `filter` / `q`      | Row rendering   |
-| ReUI `@repo/ui/.../reui/data-grid/*`                     | Table chrome (`DataGrid`, `DataGridTable`, …) | URL / RSC fetch |
-| Feature `*-columns.tsx`                                  | Column defs                                   | Pagination      |
+| Layer                                                                                  | Owns                                          | Does not own    |
+| -------------------------------------------------------------------------------------- | --------------------------------------------- | --------------- |
+| `list/` (`useList`, `ListSearch`, `ListFooter` / `ListPagination`, URL params helpers) | URL `page` / `pageSize` / `filter` / `q`      | Row rendering   |
+| ReUI `@repo/ui/.../reui/data-grid/*`                                                   | Table chrome (`DataGrid`, `DataGridTable`, …) | URL / RSC fetch |
+| Feature `*-columns.tsx`                                                                | Column defs                                   | Pagination      |
+| shadcn `ToggleGroup` (inline)                                                          | Enum filter chips → `list.setFilter`          | —               |
+
+Do **not** add `ListFilter` / `ListSkeleton` / `ListEmpty` wrappers — use `ToggleGroup`, `Skeleton`, and DataGrid `emptyMessage` instead.
 
 **Columns** — use the typed helper (ReUI `dataGridFeatures`):
 
@@ -81,8 +84,8 @@ return (
     <CardHeader>
       <CardTitle>{title}</CardTitle>
       <CardAction className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
-        <List.Search value={q} buildPath={list.buildSearchPath} ... />
-        {/* optional List.Filter */}
+        <ListSearch value={q} buildPath={list.buildSearchPath} ... />
+        {/* optional ToggleGroup → list.setFilter */}
       </CardAction>
     </CardHeader>
     <CardContent className="min-w-0">
@@ -99,15 +102,15 @@ return (
       </DataGrid>
     </CardContent>
     <CardFooter className="justify-between gap-2">
-      <List.Footer pagination={list.pagination} />
+      <ListFooter pagination={list.pagination} />
     </CardFooter>
   </Card>
 )
 ```
 
-Imports: `dataGridFeatures` / `DataGrid` / `DataGridContainer` from `@repo/ui/components/reui/data-grid/data-grid`; `DataGridTable` from `.../data-grid-table`; Card from `@repo/ui/components/card`; list from `@/components/list`.
+Imports: `dataGridFeatures` / `DataGrid` / `DataGridContainer` from `@repo/ui/components/reui/data-grid/data-grid`; `DataGridTable` from `.../data-grid-table`; Card from `@repo/ui/components/card`; `ListSearch` / `ListFooter` / `useList` from `@/components/list`.
 
-Do **not** wrap this in a shared app component unless a third distinct call site needs a real behavioral difference.
+Do **not** wrap this in a shared app component unless a third distinct call site needs a real behavioral difference. Keep **`ListFooter`** (URL pagination) — do not replace it with ReUI `DataGridPagination` (that is TanStack client state).
 
 ## Removing a slice
 

@@ -1,5 +1,3 @@
-import type { LucideIcon } from "lucide-react"
-
 export const LIST_PAGE_SIZES = [10, 20, 50, 100] as const
 
 export type ListSearchParamsInput = {
@@ -19,10 +17,4 @@ export type ListPaginationProps = {
   /** Noun for screen readers, e.g. `user` */
   countLabel?: string
   className?: string
-}
-
-export type ListFilterOption<T extends string = string> = {
-  value: T
-  label: string
-  icon?: LucideIcon
 }
