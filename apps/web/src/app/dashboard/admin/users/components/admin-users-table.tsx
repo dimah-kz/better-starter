@@ -175,17 +175,11 @@ export function AdminUsersTable({
             </ToggleGroup>
           </CardAction>
         </CardHeader>
-        <CardContent className="min-w-0">
+        <CardContent>
           <DataGrid
             table={table}
             recordCount={totalCount}
             emptyMessage={tTables("empty.users")}
-            className="min-w-0"
-            tableLayout={{
-              width: "fixed",
-              headerBackground: true,
-              rowBorder: true,
-            }}
           >
             <DataGridContainer>
               <DataGridTable />

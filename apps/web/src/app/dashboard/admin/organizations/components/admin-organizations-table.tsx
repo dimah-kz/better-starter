@@ -80,17 +80,11 @@ export function AdminOrganizationsTable({
           />
         </CardAction>
       </CardHeader>
-      <CardContent className="min-w-0">
+      <CardContent>
         <DataGrid
           table={table}
           recordCount={totalCount}
           emptyMessage={tTables("empty.organizations")}
-          className="min-w-0"
-          tableLayout={{
-            width: "fixed",
-            headerBackground: true,
-            rowBorder: true,
-          }}
         >
           <DataGridContainer>
             <DataGridTable />

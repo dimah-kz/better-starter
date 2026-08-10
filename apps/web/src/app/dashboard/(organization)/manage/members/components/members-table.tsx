@@ -165,17 +165,11 @@ export function MembersTable({
             </ToggleGroup>
           </CardAction>
         </CardHeader>
-        <CardContent className="min-w-0">
+        <CardContent>
           <DataGrid
             table={table}
             recordCount={totalCount}
             emptyMessage={tTables("empty.members")}
-            className="min-w-0"
-            tableLayout={{
-              width: "fixed",
-              headerBackground: true,
-              rowBorder: true,
-            }}
           >
             <DataGridContainer>
               <DataGridTable />
