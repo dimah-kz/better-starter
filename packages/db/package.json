@@ -24,7 +24,7 @@
     "dotenv": "^17.4.2",
     "drizzle-orm": "rc",
     "fumadb": "0.5.1",
-    "pg": "^8.22.0"
+    "pg": "^8.23.0"
   },
   "devDependencies": {
     "@types/node": "^26.2.0",
