@@ -98,8 +98,8 @@ export function createMembersColumns({
       header: () => <span className="sr-only">{t("columns.actions")}</span>,
       meta: {
         headerTitle: t("columns.actions"),
-        headerClassName: "w-12",
-        cellClassName: "w-12",
+        headerClassName: "w-full text-end",
+        cellClassName: "w-full text-end",
       },
       cell: ({ row }) => (
         <MemberRowActionsMenu
