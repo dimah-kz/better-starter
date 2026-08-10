@@ -10,5 +10,40 @@
   "search": {
     "users": "جستجو با نام یا ایمیل…",
     "organizations": "جستجو با نام یا شناسه…"
+  },
+  "columns": {
+    "user": "کاربر",
+    "role": "نقش",
+    "status": "وضعیت",
+    "joined": "عضویت",
+    "actions": "عملیات",
+    "organization": "سازمان",
+    "slug": "شناسه",
+    "members": "اعضا",
+    "created": "ایجاد"
+  },
+  "empty": {
+    "users": "کاربری یافت نشد.",
+    "members": "عضوی یافت نشد.",
+    "organizations": "سازمانی یافت نشد.",
+    "results": "نتیجه‌ای نیست."
+  },
+  "columnHeader": {
+    "asc": "صعودی",
+    "desc": "نزولی",
+    "hide": "پنهان"
+  },
+  "viewOptions": {
+    "trigger": "نمایش",
+    "label": "ستون‌ها"
+  },
+  "pagination": {
+    "selected": "{selected} از {total} ردیف انتخاب شده.",
+    "rowsPerPage": "ردیف در صفحه",
+    "page": "صفحه {page} از {pageCount}",
+    "firstPage": "رفتن به صفحه اول",
+    "previousPage": "رفتن به صفحه قبل",
+    "nextPage": "رفتن به صفحه بعد",
+    "lastPage": "رفتن به صفحه آخر"
   }
 }

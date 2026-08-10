@@ -23,7 +23,9 @@ Explore `apps/` and `packages/` for what exists today. Do not import across apps
 | **packages/** | Auth config, Drizzle schema/client/migrations, S3 storage (`@better-starter/storage`), shadcn primitives (`@workspace/ui`), eslint/tsconfig presets | Routes, pages, app UI, Server Actions, dashboard chrome |
 | **apps/**     | Routes, layouts, Server Actions, feature UI, SSOT (`cache-tags`, `*-routes`), Next session helpers                                                  | Duplicating auth/db logic that belongs in a package     |
 
-**UI split:** `@workspace/ui` = shadcn primitives shared across apps. App-composed components (`badge/`, `data-table/`, dashboard chrome) live in `apps/<app>/src/components/` or route-scoped `components/`.
+**UI split:** `@workspace/ui` = shadcn primitives shared across apps. App-composed components (`badge/`, `data-table/` + `list/`, dashboard chrome) live in `apps/<app>/src/components/` or route-scoped `components/`.
+
+**Lists:** `data-table/` = TanStack Table + shadcn `Table` (columns, render). `list/` = URL-driven search / filter / pagination for server lists. Compose with `DataTableCard`.
 
 ## Naming
 

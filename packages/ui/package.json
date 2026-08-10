@@ -9,6 +9,7 @@
     "./lib/*": "./src/lib/*.ts",
     "./components/*": "./src/components/*.tsx",
     "./components/reui/*": "./src/components/reui/*.tsx",
+    "./components/reui/data-grid/*": "./src/components/reui/data-grid/*.tsx",
     "./hooks/*": "./src/hooks/*.ts"
   },
   "scripts": {
@@ -19,7 +20,13 @@
   "dependencies": {
     "@base-ui/react": "^1.7.0",
     "@dimah-s3/ui": "0.6.3",
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/modifiers": "^9.0.0",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
     "@shadcn/react": "^0.3.0",
+    "@tanstack/react-table": "^9.1.1",
+    "@tanstack/react-virtual": "^3.14.9",
     "class-variance-authority": "^0.7.1",
     "cmdk": "^1.1.1",
     "cnfast": "^0.1.0",

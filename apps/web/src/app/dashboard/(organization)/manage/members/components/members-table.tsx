@@ -1,16 +1,16 @@
 "use client"
 
-import { formatDate } from "@/lib/format-date"
+import { useMemo, useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
-import { useState, useTransition } from "react"
 import { removeOrganizationMemberAction } from "@/app/action/dashboard/(organization)/manage/members/remove-organization-member-action"
-import { MemberRowActionsMenu } from "@/app/dashboard/(organization)/manage/members/components/member-row-actions-menu"
-import { toast } from "@workspace/ui/components/toast"
+import { createMembersColumns } from "@/app/dashboard/(organization)/manage/members/components/members-columns"
 import type { OrganizationMemberItem } from "@/app/dashboard/(organization)/manage/members/lib/get-organization-members-page"
 import {
   organizationMembersTablePath,
   type MemberTableFilter,
 } from "@/app/dashboard/(organization)/manage/members/lib/members-table-params"
+import { DataTable, DataTableCard } from "@/components/data-table"
+import { List, useList } from "@/components/list"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -21,42 +21,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@workspace/ui/components/alert-dialog"
-import { List, useList } from "@/components/list"
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@workspace/ui/components/card"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@workspace/ui/components/table"
-import { MembershipRoleBadge } from "@/components/badge/membership-role-badge"
-import { UserProfileCell } from "@/components/user-profile-cell"
-import { memberRoleOptions } from "@/app/dashboard/(organization)/manage/lib/member-role-options"
-import { roleStringHas } from "@/lib/role-string"
+import type { Locale } from "@better-starter/i18n"
+import { toast } from "@workspace/ui/components/toast"
 import { useLocale, useTranslations } from "next-intl"
-
-function canChangeMemberRole(
-  actorRole: string | null,
-  memberRole: string
-): boolean {
-  if (!memberRoleOptions(actorRole).length) return false
-  if (
-    roleStringHas(memberRole, "owner") &&
-    !roleStringHas(actorRole ?? "", "owner")
-  ) {
-    return false
-  }
-  return true
-}
 
 type MembersTableProps = {
   organizationId: string
@@ -83,8 +50,9 @@ export function MembersTable({
   actorRole,
   onChangeRole,
 }: MembersTableProps) {
-  const locale = useLocale()
+  const locale = useLocale() as Locale
   const t = useTranslations()
+  const tTables = useTranslations("tables")
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
   const [removeTarget, setRemoveTarget] =
@@ -105,6 +73,20 @@ export function MembersTable({
       value,
       label: t(`tables.filters.${value}`),
     })
+  )
+
+  const columns = useMemo(
+    () =>
+      createMembersColumns({
+        t: tTables,
+        locale,
+        actorUserId,
+        actorRole,
+        disabled: isPending,
+        onChangeRole,
+        onRemove: setRemoveTarget,
+      }),
+    [actorRole, actorUserId, isPending, locale, onChangeRole, tTables]
   )
 
   const handleRemove = () => {
@@ -132,13 +114,13 @@ export function MembersTable({
 
   return (
     <>
-      <Card className="w-full">
-        <CardHeader>
-          <CardTitle>{t("dashboard.manageTabs.members")}</CardTitle>
-          <CardAction className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
+      <DataTableCard
+        title={t("dashboard.manageTabs.members")}
+        toolbar={
+          <>
             <List.Search
               value={q}
-              placeholder={t("tables.search.users")}
+              placeholder={tTables("search.users")}
               buildPath={list.buildSearchPath}
             />
             <List.Filter
@@ -146,73 +128,20 @@ export function MembersTable({
               options={memberFilterOptions}
               onValueChange={list.setFilter}
             />
-          </CardAction>
-        </CardHeader>
-
-        <CardContent className="min-w-0">
-          <Table className="table-fixed">
-            <TableHeader>
-              <TableRow>
-                <TableHead className="min-w-0 whitespace-normal">
-                  User
-                </TableHead>
-                <TableHead className="w-28 whitespace-normal sm:w-32">
-                  Role
-                </TableHead>
-                <TableHead className="hidden w-28 whitespace-normal lg:table-cell">
-                  Joined
-                </TableHead>
-                <TableHead className="w-12 whitespace-normal">
-                  <span className="sr-only">Actions</span>
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {members.length ? (
-                members.map((member) => (
-                  <TableRow key={member.id}>
-                    <TableCell className="min-w-0 whitespace-normal">
-                      <UserProfileCell
-                        variant="inline"
-                        user={{
-                          name: member.name,
-                          email: member.email,
-                          image: member.image,
-                        }}
-                      />
-                    </TableCell>
-                    <TableCell className="whitespace-normal">
-                      <MembershipRoleBadge role={member.role} />
-                    </TableCell>
-                    <TableCell className="hidden whitespace-normal lg:table-cell">
-                      {formatDate(member.joinedAt, locale)}
-                    </TableCell>
-                    <TableCell className="w-12 whitespace-normal">
-                      <MemberRowActionsMenu
-                        member={member}
-                        disabled={isPending}
-                        canRemove={member.userId !== actorUserId}
-                        canChangeRole={canChangeMemberRole(
-                          actorRole,
-                          member.role
-                        )}
-                        onChangeRole={() => onChangeRole(member)}
-                        onRemove={() => setRemoveTarget(member)}
-                      />
-                    </TableCell>
-                  </TableRow>
-                ))
-              ) : (
-                <List.Empty colSpan={4}>No members found.</List.Empty>
-              )}
-            </TableBody>
-          </Table>
-        </CardContent>
-
-        <CardFooter className="justify-between gap-2">
-          <List.Footer pagination={list.pagination} />
-        </CardFooter>
-      </Card>
+          </>
+        }
+        footer={<List.Footer pagination={list.pagination} />}
+      >
+        <DataTable
+          variant="plain"
+          columns={columns}
+          data={members}
+          getRowId={(row) => row.id}
+          manualPagination
+          rowCount={totalCount}
+          emptyMessage={tTables("empty.members")}
+        />
+      </DataTableCard>
 
       <AlertDialog
         open={Boolean(removeTarget)}

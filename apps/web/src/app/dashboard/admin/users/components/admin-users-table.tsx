@@ -1,19 +1,17 @@
 "use client"
 
-import { useState, useTransition } from "react"
+import { useMemo, useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { banUserAction } from "@/app/action/dashboard/admin/users/ban-user-action"
 import { unbanUserAction } from "@/app/action/dashboard/admin/users/unban-user-action"
-import { AdminUserRowActionsMenu } from "@/app/dashboard/admin/users/components/admin-user-row-actions-menu"
+import { createAdminUsersColumns } from "@/app/dashboard/admin/users/components/admin-users-columns"
 import type { AdminUserItem } from "@/app/dashboard/admin/users/lib/get-admin-users-page"
 import {
   adminUsersTablePath,
   type AdminUserTableFilter,
 } from "@/app/dashboard/admin/users/lib/admin-users-table-params"
-import { PlatformRoleBadge } from "@/components/badge/platform-role-badge"
-import { UserAccountStatusBadge } from "@/components/badge/user-account-status-badge"
+import { DataTable, DataTableCard } from "@/components/data-table"
 import { List, useList } from "@/components/list"
-import { UserProfileCell } from "@/components/user-profile-cell"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -24,23 +22,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@workspace/ui/components/alert-dialog"
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@workspace/ui/components/card"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@workspace/ui/components/table"
-import { formatDate } from "@/lib/format-date"
+import type { Locale } from "@better-starter/i18n"
 import { toast } from "@workspace/ui/components/toast"
 import { useLocale, useTranslations } from "next-intl"
 
@@ -65,8 +47,9 @@ export function AdminUsersTable({
   actorUserId,
   onChangeRole,
 }: AdminUsersTableProps) {
-  const locale = useLocale()
+  const locale = useLocale() as Locale
   const t = useTranslations()
+  const tTables = useTranslations("tables")
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
   const [banTarget, setBanTarget] = useState<AdminUserItem | null>(null)
@@ -88,6 +71,33 @@ export function AdminUsersTable({
     })
   )
 
+  const columns = useMemo(
+    () =>
+      createAdminUsersColumns({
+        t: tTables,
+        locale,
+        actorUserId,
+        disabled: isPending,
+        onChangeRole,
+        onBan: setBanTarget,
+        onUnban: (user) => {
+          startTransition(async () => {
+            const result = await unbanUserAction({ userId: user.id })
+            if (!result.success) {
+              toast.add({
+                title: result.error ?? "Could not unban the user.",
+                type: "error",
+              })
+              return
+            }
+            toast.add({ title: "User unbanned.", type: "success" })
+            router.refresh()
+          })
+        },
+      }),
+    [actorUserId, isPending, locale, onChangeRole, router, tTables]
+  )
+
   const handleBan = () => {
     if (!banTarget) return
     startTransition(async () => {
@@ -105,30 +115,15 @@ export function AdminUsersTable({
     })
   }
 
-  const handleUnban = (user: AdminUserItem) => {
-    startTransition(async () => {
-      const result = await unbanUserAction({ userId: user.id })
-      if (!result.success) {
-        toast.add({
-          title: result.error ?? "Could not unban the user.",
-          type: "error",
-        })
-        return
-      }
-      toast.add({ title: "User unbanned.", type: "success" })
-      router.refresh()
-    })
-  }
-
   return (
     <>
-      <Card className="w-full">
-        <CardHeader>
-          <CardTitle>{t("dashboard.adminTabs.users")}</CardTitle>
-          <CardAction className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
+      <DataTableCard
+        title={t("dashboard.adminTabs.users")}
+        toolbar={
+          <>
             <List.Search
               value={q}
-              placeholder={t("tables.search.users")}
+              placeholder={tTables("search.users")}
               buildPath={list.buildSearchPath}
             />
             <List.Filter
@@ -136,76 +131,20 @@ export function AdminUsersTable({
               options={filterOptions}
               onValueChange={list.setFilter}
             />
-          </CardAction>
-        </CardHeader>
-
-        <CardContent className="min-w-0">
-          <Table className="table-fixed">
-            <TableHeader>
-              <TableRow>
-                <TableHead className="min-w-0 whitespace-normal">
-                  User
-                </TableHead>
-                <TableHead className="w-28 whitespace-normal sm:w-32">
-                  Role
-                </TableHead>
-                <TableHead className="hidden w-24 whitespace-normal sm:table-cell">
-                  Status
-                </TableHead>
-                <TableHead className="hidden w-28 whitespace-normal lg:table-cell">
-                  Joined
-                </TableHead>
-                <TableHead className="w-12 whitespace-normal">
-                  <span className="sr-only">Actions</span>
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {users.length ? (
-                users.map((user) => (
-                  <TableRow key={user.id}>
-                    <TableCell className="min-w-0 whitespace-normal">
-                      <UserProfileCell
-                        variant="inline"
-                        user={{
-                          name: user.name,
-                          email: user.email,
-                          image: user.image,
-                        }}
-                      />
-                    </TableCell>
-                    <TableCell className="whitespace-normal">
-                      <PlatformRoleBadge role={user.role} />
-                    </TableCell>
-                    <TableCell className="hidden whitespace-normal sm:table-cell">
-                      <UserAccountStatusBadge banned={user.banned} />
-                    </TableCell>
-                    <TableCell className="hidden whitespace-normal lg:table-cell">
-                      {formatDate(user.createdAt, locale)}
-                    </TableCell>
-                    <TableCell className="w-12 whitespace-normal">
-                      <AdminUserRowActionsMenu
-                        user={user}
-                        disabled={isPending}
-                        isSelf={user.id === actorUserId}
-                        onChangeRole={() => onChangeRole(user)}
-                        onBan={() => setBanTarget(user)}
-                        onUnban={() => handleUnban(user)}
-                      />
-                    </TableCell>
-                  </TableRow>
-                ))
-              ) : (
-                <List.Empty colSpan={5}>No users found.</List.Empty>
-              )}
-            </TableBody>
-          </Table>
-        </CardContent>
-
-        <CardFooter className="justify-between gap-2">
-          <List.Footer pagination={list.pagination} />
-        </CardFooter>
-      </Card>
+          </>
+        }
+        footer={<List.Footer pagination={list.pagination} />}
+      >
+        <DataTable
+          variant="plain"
+          columns={columns}
+          data={users}
+          getRowId={(row) => row.id}
+          manualPagination
+          rowCount={totalCount}
+          emptyMessage={tTables("empty.users")}
+        />
+      </DataTableCard>
 
       <AlertDialog
         open={Boolean(banTarget)}

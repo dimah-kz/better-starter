@@ -22,6 +22,7 @@
     "@better-starter/storage": "workspace:*",
     "@dimah-s3/react": "0.6.3",
     "@dimah-s3/server": "0.6.3",
+    "@tanstack/react-table": "^9.1.1",
     "@workspace/ui": "workspace:*",
     "country-flag-icons": "1.6.20",
     "date-fns": "^4.4.0",

@@ -27,7 +27,7 @@ Sidebar drill-down items for admin/manage are derived from slice/tab registries 
 3. Lists: `get-*.ts` with `'use cache'` + tags from `cache-tags.ts`.
 4. Writes: `app/action/dashboard/…` → `auth.api` — [better-auth.md](./better-auth.md).
 5. Optional UI gate: `hasPermission` / `userHasPermission` — follow existing layout or loader in that subtree.
-6. Reuse app `components/data-table/`, `responsive-form-overlay.tsx`, segment shells — [architecture.md § Placement](./architecture.md#placement).
+6. Reuse app `components/data-table/` (+ `list/` for URL search/filter/pagination), `responsive-form-overlay.tsx`, segment shells — [architecture.md § Placement](./architecture.md#placement).
 
 ## Removing a slice
 

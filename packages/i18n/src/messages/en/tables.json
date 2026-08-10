@@ -10,5 +10,40 @@
   "search": {
     "users": "Search by name or email…",
     "organizations": "Search by name or slug…"
+  },
+  "columns": {
+    "user": "User",
+    "role": "Role",
+    "status": "Status",
+    "joined": "Joined",
+    "actions": "Actions",
+    "organization": "Organization",
+    "slug": "Slug",
+    "members": "Members",
+    "created": "Created"
+  },
+  "empty": {
+    "users": "No users found.",
+    "members": "No members found.",
+    "organizations": "No organizations found.",
+    "results": "No results."
+  },
+  "columnHeader": {
+    "asc": "Asc",
+    "desc": "Desc",
+    "hide": "Hide"
+  },
+  "viewOptions": {
+    "trigger": "View",
+    "label": "Toggle columns"
+  },
+  "pagination": {
+    "selected": "{selected} of {total} row(s) selected.",
+    "rowsPerPage": "Rows per page",
+    "page": "Page {page} of {pageCount}",
+    "firstPage": "Go to first page",
+    "previousPage": "Go to previous page",
+    "nextPage": "Go to next page",
+    "lastPage": "Go to last page"
   }
 }
