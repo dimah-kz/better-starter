@@ -26,12 +26,14 @@ Use `@repo/ui` components **with their built-in styles** for ordinary usage. Tha
 
 ## shadcn / ReUI sync (monorepo)
 
-Scripts are separate; the package `sync` script runs both:
+Scripts are separate; the package `sync` script runs both (quiet summary + one format pass):
 
 ```bash
 pnpm ui:sync
-# → sync:shadcn  (scripts/sync-shadcn.mjs)
-# → sync:reui    (scripts/reui/sync.mjs → registry overwrite + patches)
+# → scripts/sync.mjs
+#   → sync:shadcn  (scripts/sync-shadcn.mjs)
+#   → sync:reui    (scripts/reui/sync.mjs → registry overwrite + patches)
+#   → prettier once
 ```
 
 Add primitives / ReUI items:
