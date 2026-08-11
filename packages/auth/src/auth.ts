@@ -23,6 +23,7 @@ export const auth = betterAuth({
     schemaName: "auth",
   }),
   session: {
+    freshAge: 0,
     cookieCache: {
       enabled: true,
       maxAge: 5 * 60,
