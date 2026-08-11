@@ -2,24 +2,16 @@
 
 import { useEffect, useRef, useState, type DragEvent } from "react"
 import { useRouter } from "next/navigation"
-import { CameraIcon, ImagePlusIcon, Trash2Icon, UserIcon } from "lucide-react"
+import { UserIcon, XIcon } from "lucide-react"
 import { AVATAR_ACCEPT, AVATAR_MAX_BYTES } from "@/lib/avatar-storage"
 import { useUpload } from "@dimah-s3/react"
 import { toast } from "@repo/ui/components/toast"
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar"
 import { Button } from "@repo/ui/components/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@repo/ui/components/dropdown-menu"
 import { Spinner } from "@repo/ui/components/spinner"
 import { cn } from "@repo/ui/lib/utils"
 
 export type AvatarUploadLabels = {
-  change: string
   upload: string
   remove: string
   updated: string
@@ -84,17 +76,13 @@ export function AvatarUploadField({
 
   const busy = phase !== "idle" && phase !== "success" && phase !== "error"
   const pending = busy || removing
+  const canUpload = !preview && !pending
 
   const onPick = (fileList: FileList | null) => {
     const file = fileList?.[0]
-    if (!file) return
+    if (!file || !canUpload) return
     void upload(file, toKey(file.name), { acl: "public-read" })
     if (inputRef.current) inputRef.current.value = ""
-  }
-
-  const openFileDialog = () => {
-    if (pending) return
-    inputRef.current?.click()
   }
 
   const onRemove = async () => {
@@ -113,28 +101,10 @@ export function AvatarUploadField({
     }
   }
 
-  const onDragEnter = (event: DragEvent) => {
+  const onDrag = (event: DragEvent, dragging: boolean) => {
     event.preventDefault()
     event.stopPropagation()
-    if (!pending) setIsDragging(true)
-  }
-
-  const onDragLeave = (event: DragEvent) => {
-    event.preventDefault()
-    event.stopPropagation()
-    setIsDragging(false)
-  }
-
-  const onDragOver = (event: DragEvent) => {
-    event.preventDefault()
-    event.stopPropagation()
-  }
-
-  const onDrop = (event: DragEvent) => {
-    event.preventDefault()
-    event.stopPropagation()
-    setIsDragging(false)
-    if (!pending) onPick(event.dataTransfer.files)
+    if (canUpload) setIsDragging(dragging)
   }
 
   return (
@@ -146,32 +116,35 @@ export function AvatarUploadField({
       )}
     >
       <div
-        role={preview ? undefined : "button"}
-        tabIndex={preview || pending ? undefined : 0}
-        aria-label={preview ? undefined : labels.upload}
+        role={canUpload ? "button" : undefined}
+        tabIndex={canUpload ? 0 : undefined}
+        aria-label={canUpload ? labels.upload : undefined}
         aria-busy={pending}
         className={cn(
           "relative size-full overflow-hidden rounded-full border border-dashed transition-colors",
-          !preview && "cursor-pointer",
+          canUpload && "cursor-pointer",
           isDragging
             ? "border-primary bg-primary/5"
             : "border-muted-foreground/25 hover:border-muted-foreground/50",
           pending && "pointer-events-none opacity-70"
         )}
-        onDragEnter={onDragEnter}
-        onDragLeave={onDragLeave}
-        onDragOver={onDragOver}
-        onDrop={onDrop}
-        onClick={preview ? undefined : openFileDialog}
+        onDragEnter={(event) => onDrag(event, true)}
+        onDragLeave={(event) => onDrag(event, false)}
+        onDragOver={(event) => onDrag(event, true)}
+        onDrop={(event) => {
+          onDrag(event, false)
+          onPick(event.dataTransfer.files)
+        }}
+        onClick={canUpload ? () => inputRef.current?.click() : undefined}
         onKeyDown={
-          preview
-            ? undefined
-            : (event) => {
+          canUpload
+            ? (event) => {
                 if (event.key === "Enter" || event.key === " ") {
                   event.preventDefault()
-                  openFileDialog()
+                  inputRef.current?.click()
                 }
               }
+            : undefined
         }
       >
         <Avatar className="size-full after:hidden">
@@ -188,41 +161,17 @@ export function AvatarUploadField({
         ) : null}
       </div>
 
-      {preview ? (
-        <div className="absolute end-0.5 top-0.5 z-10">
-          <DropdownMenu>
-            <DropdownMenuTrigger
-              render={
-                <Button
-                  type="button"
-                  size="icon-xs"
-                  variant="secondary"
-                  disabled={pending}
-                  className="rounded-full border border-background shadow-sm"
-                  aria-label={labels.change}
-                />
-              }
-            >
-              {pending ? <Spinner data-icon /> : <CameraIcon data-icon />}
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" side="bottom" sideOffset={6}>
-              <DropdownMenuGroup>
-                <DropdownMenuItem disabled={pending} onClick={openFileDialog}>
-                  <ImagePlusIcon />
-                  {labels.upload}
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  variant="destructive"
-                  disabled={pending}
-                  onClick={() => void onRemove()}
-                >
-                  <Trash2Icon />
-                  {labels.remove}
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+      {preview && !pending ? (
+        <Button
+          type="button"
+          size="icon-xs"
+          variant="secondary"
+          onClick={() => void onRemove()}
+          className="absolute end-0.5 top-0.5 z-10 rounded-full"
+          aria-label={labels.remove}
+        >
+          <XIcon className="size-3.5" />
+        </Button>
       ) : null}
 
       <input
@@ -230,6 +179,7 @@ export function AvatarUploadField({
         type="file"
         accept={AVATAR_ACCEPT.join(",")}
         className="sr-only"
+        disabled={!canUpload}
         onChange={(event) => onPick(event.target.files)}
       />
     </div>

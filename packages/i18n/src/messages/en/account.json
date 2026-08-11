@@ -4,7 +4,6 @@
     "description": "Update your name and photo.",
     "avatar": {
       "label": "Photo",
-      "change": "Change photo",
       "upload": "Upload photo",
       "remove": "Remove photo",
       "updated": "Your photo was updated.",

@@ -30,7 +30,6 @@ export function AccountAvatarField({
         setAction={setAccountAvatarAction}
         removeAction={removeAccountAvatarAction}
         labels={{
-          change: t("change"),
           upload: t("upload"),
           remove: t("remove"),
           updated: t("updated"),

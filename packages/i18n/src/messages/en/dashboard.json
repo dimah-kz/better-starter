@@ -37,7 +37,6 @@
     "nameUpdated": "Organization name updated.",
     "nameUpdateFailed": "Could not update the organization name.",
     "avatar": {
-      "change": "Change logo",
       "upload": "Upload logo",
       "remove": "Remove logo",
       "updated": "Organization logo was updated.",

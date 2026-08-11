@@ -29,7 +29,6 @@ export function OrganizationLogoField({
       setAction={(key) => setOrganizationLogoAction(organizationId, key)}
       removeAction={() => removeOrganizationLogoAction(organizationId)}
       labels={{
-        change: t("change"),
         upload: t("upload"),
         remove: t("remove"),
         updated: t("updated"),
