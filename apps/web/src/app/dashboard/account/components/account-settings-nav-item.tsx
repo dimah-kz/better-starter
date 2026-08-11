@@ -33,8 +33,7 @@ export function AccountSettingsNavItem({
 }: AccountSettingsNavItemProps) {
   return (
     <Item
-      variant="outline"
-      className="hover:bg-muted/50"
+      className="rounded-none hover:bg-muted/50"
       role="listitem"
       render={
         href ? (

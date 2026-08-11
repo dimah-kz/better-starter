@@ -60,7 +60,12 @@
   },
   "accountSettings": {
     "back": "Back",
+    "sections": {
+      "account": "Account",
+      "security": "Security"
+    },
     "security": "Security",
+    "securityOverview": "Password & sessions",
     "securityDescription": "Password and signed-in devices",
     "password": "Password",
     "passwordDescription": "Change the password for this account",

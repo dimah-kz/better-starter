@@ -6,7 +6,7 @@ import { KeyRoundIcon, MonitorSmartphoneIcon, ShieldIcon } from "lucide-react"
 export const accountHubSections = [
   {
     key: "security",
-    labelKey: "accountSettings.security",
+    labelKey: "accountSettings.securityOverview",
     descriptionKey: "accountSettings.securityDescription",
     icon: ShieldIcon,
     href: dashboardRoutes.accountSecurity(),
