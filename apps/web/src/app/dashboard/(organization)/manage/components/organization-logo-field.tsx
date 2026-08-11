@@ -36,9 +36,7 @@ export function OrganizationLogoField({
         removed: t("removed"),
         uploadFailed: t("uploadFailed"),
       }}
-      className="size-10"
-      size="lg"
-      fallbackClassName="bg-primary/10 font-medium text-primary"
+      compact
     />
   )
 }

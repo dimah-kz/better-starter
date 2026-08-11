@@ -29,7 +29,6 @@ export function AccountProfileFormFields({
   return (
     <FieldGroup>
       <Field>
-        <FieldLabel>{t("avatar.label")}</FieldLabel>
         <AccountAvatarField
           userId={profile.id}
           name={profile.name}

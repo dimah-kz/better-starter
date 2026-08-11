@@ -1,8 +1,8 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, type DragEvent } from "react"
 import { useRouter } from "next/navigation"
-import { CameraIcon, ImagePlusIcon, Trash2Icon } from "lucide-react"
+import { CameraIcon, ImagePlusIcon, Trash2Icon, UserIcon } from "lucide-react"
 import { AVATAR_ACCEPT, AVATAR_MAX_BYTES } from "@/lib/avatar-storage"
 import { useUpload } from "@dimah-s3/react"
 import { toast } from "@repo/ui/components/toast"
@@ -38,8 +38,7 @@ type AvatarUploadFieldProps = {
   removeAction: () => Promise<RemoveAvatarResult>
   labels: AvatarUploadLabels
   className?: string
-  fallbackClassName?: string
-  size?: "default" | "sm" | "lg"
+  compact?: boolean
 }
 
 export function AvatarUploadField({
@@ -50,13 +49,13 @@ export function AvatarUploadField({
   removeAction,
   labels,
   className,
-  fallbackClassName,
-  size,
+  compact = false,
 }: AvatarUploadFieldProps) {
   const router = useRouter()
   const inputRef = useRef<HTMLInputElement>(null)
   const [preview, setPreview] = useState(image)
   const [removing, setRemoving] = useState(false)
+  const [isDragging, setIsDragging] = useState(false)
 
   useEffect(() => {
     setPreview(image)
@@ -93,6 +92,11 @@ export function AvatarUploadField({
     if (inputRef.current) inputRef.current.value = ""
   }
 
+  const openFileDialog = () => {
+    if (pending) return
+    inputRef.current?.click()
+  }
+
   const onRemove = async () => {
     setRemoving(true)
     try {
@@ -109,47 +113,104 @@ export function AvatarUploadField({
     }
   }
 
-  return (
-    <div className={cn("relative shrink-0", className ?? "size-16")}>
-      <Avatar className="size-full" size={size}>
-        {preview ? <AvatarImage src={preview} alt={name} /> : null}
-        <AvatarFallback className={cn(fallbackClassName)}>
-          {name[0]?.toUpperCase() ?? "?"}
-        </AvatarFallback>
-      </Avatar>
+  const onDragEnter = (event: DragEvent) => {
+    event.preventDefault()
+    event.stopPropagation()
+    if (!pending) setIsDragging(true)
+  }
 
-      <div className="absolute inset-e-0 bottom-0 z-10 translate-x-1/4 translate-y-1/4">
-        <DropdownMenu>
-          <DropdownMenuTrigger
-            render={
-              <Button
-                type="button"
-                size="icon-xs"
-                variant="secondary"
-                disabled={pending}
-                className="rounded-full border border-background shadow-sm"
-                aria-label={labels.change}
-              />
-            }
-          >
-            {pending ? (
-              <Spinner data-icon />
-            ) : preview ? (
-              <CameraIcon data-icon />
-            ) : (
-              <ImagePlusIcon data-icon />
-            )}
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" side="bottom" sideOffset={6}>
-            <DropdownMenuGroup>
-              <DropdownMenuItem
-                disabled={pending}
-                onClick={() => inputRef.current?.click()}
-              >
-                <ImagePlusIcon />
-                {labels.upload}
-              </DropdownMenuItem>
-              {preview ? (
+  const onDragLeave = (event: DragEvent) => {
+    event.preventDefault()
+    event.stopPropagation()
+    setIsDragging(false)
+  }
+
+  const onDragOver = (event: DragEvent) => {
+    event.preventDefault()
+    event.stopPropagation()
+  }
+
+  const onDrop = (event: DragEvent) => {
+    event.preventDefault()
+    event.stopPropagation()
+    setIsDragging(false)
+    if (!pending) onPick(event.dataTransfer.files)
+  }
+
+  return (
+    <div
+      className={cn(
+        "relative shrink-0",
+        compact ? "size-16" : "size-24",
+        className
+      )}
+    >
+      <div
+        role={preview ? undefined : "button"}
+        tabIndex={preview || pending ? undefined : 0}
+        aria-label={preview ? undefined : labels.upload}
+        aria-busy={pending}
+        className={cn(
+          "relative size-full overflow-hidden rounded-full border border-dashed transition-colors",
+          !preview && "cursor-pointer",
+          isDragging
+            ? "border-primary bg-primary/5"
+            : "border-muted-foreground/25 hover:border-muted-foreground/50",
+          pending && "pointer-events-none opacity-70"
+        )}
+        onDragEnter={onDragEnter}
+        onDragLeave={onDragLeave}
+        onDragOver={onDragOver}
+        onDrop={onDrop}
+        onClick={preview ? undefined : openFileDialog}
+        onKeyDown={
+          preview
+            ? undefined
+            : (event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault()
+                  openFileDialog()
+                }
+              }
+        }
+      >
+        <Avatar className="size-full after:hidden">
+          {preview ? <AvatarImage src={preview} alt={name} /> : null}
+          <AvatarFallback className="bg-transparent">
+            <UserIcon className="size-6 text-muted-foreground" />
+          </AvatarFallback>
+        </Avatar>
+
+        {pending ? (
+          <div className="absolute inset-0 flex items-center justify-center bg-background/60">
+            <Spinner className="size-5" />
+          </div>
+        ) : null}
+      </div>
+
+      {preview ? (
+        <div className="absolute end-0.5 top-0.5 z-10">
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              render={
+                <Button
+                  type="button"
+                  size="icon-xs"
+                  variant="secondary"
+                  disabled={pending}
+                  className="rounded-full border border-background shadow-sm"
+                  aria-label={labels.change}
+                />
+              }
+            >
+              {pending ? <Spinner data-icon /> : <CameraIcon data-icon />}
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" side="bottom" sideOffset={6}>
+              <DropdownMenuGroup>
+                <DropdownMenuItem disabled={pending} onClick={openFileDialog}>
+                  <ImagePlusIcon />
+                  {labels.upload}
+                </DropdownMenuItem>
                 <DropdownMenuItem
                   variant="destructive"
                   disabled={pending}
@@ -158,11 +219,11 @@ export function AvatarUploadField({
                   <Trash2Icon />
                   {labels.remove}
                 </DropdownMenuItem>
-              ) : null}
-            </DropdownMenuGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      ) : null}
 
       <input
         ref={inputRef}

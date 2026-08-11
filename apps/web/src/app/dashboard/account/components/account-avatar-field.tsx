@@ -20,7 +20,7 @@ export function AccountAvatarField({
   const t = useTranslations("account.profile.avatar")
 
   return (
-    <div className="self-start">
+    <div className="flex justify-center">
       <AvatarUploadField
         name={name}
         image={image}
@@ -37,7 +37,6 @@ export function AccountAvatarField({
           removed: t("removed"),
           uploadFailed: t("uploadFailed"),
         }}
-        fallbackClassName="text-lg"
       />
     </div>
   )
