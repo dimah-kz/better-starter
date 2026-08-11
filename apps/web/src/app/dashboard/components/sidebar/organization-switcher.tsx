@@ -149,6 +149,8 @@ function PersonalAccountMenuItem({
   disabled: boolean
   onSelect: () => void
 }) {
+  const t = useTranslations("dashboard.nav.organizationSwitcher")
+
   return (
     <DropdownMenuItem
       onClick={onSelect}
@@ -159,7 +161,7 @@ function PersonalAccountMenuItem({
         user={user}
         className="size-6 rounded-md after:rounded-md **:data-[slot=avatar-fallback]:rounded-md **:data-[slot=avatar-image]:rounded-md"
       />
-      <span>{user.name}</span>
+      <span>{t("personalAccount")}</span>
     </DropdownMenuItem>
   )
 }
@@ -263,9 +265,6 @@ export function OrganizationSwitcher({
       ) : null}
       {!isSearching ? (
         <DropdownMenuGroup>
-          <DropdownMenuLabel className="text-xs text-muted-foreground">
-            {t("personalAccount")}
-          </DropdownMenuLabel>
           <PersonalAccountMenuItem
             user={user}
             isActive={isPersonalAccount}
@@ -327,9 +326,8 @@ export function OrganizationSwitcher({
                     className="size-8 rounded-lg after:rounded-lg **:data-[slot=avatar-fallback]:rounded-lg **:data-[slot=avatar-image]:rounded-lg"
                   />
                   <div className="grid flex-1 text-start text-sm leading-tight">
-                    <span className="truncate font-medium">{user.name}</span>
-                    <span className="truncate text-xs text-muted-foreground">
-                      {t("activePersonalAccount")}
+                    <span className="truncate font-medium">
+                      {t("personalAccount")}
                     </span>
                   </div>
                 </>
