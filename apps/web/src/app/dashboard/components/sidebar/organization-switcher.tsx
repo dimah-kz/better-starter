@@ -22,6 +22,7 @@ import {
   useSidebar,
 } from "@repo/ui/components/sidebar"
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar"
+import { IconTile } from "@repo/ui/components/reui/icon-tile"
 import { OrganizationAvatar } from "@/components/organization-avatar"
 import { useSidebarFlyoutSide } from "@/app/dashboard/lib/sidebar-side"
 import { Input } from "@repo/ui/components/input"
@@ -113,9 +114,9 @@ function CreateOrganizationMenuItem({ onSelect }: { onSelect: () => void }) {
 
   return (
     <DropdownMenuItem className="gap-2 p-2" onClick={onSelect}>
-      <div className="flex size-6 items-center justify-center rounded-md border bg-background">
-        <PlusIcon className="size-4" />
-      </div>
+      <IconTile variant="outline" size="xs">
+        <PlusIcon />
+      </IconTile>
       <span className="font-medium text-muted-foreground">
         {t("createOrganization")}
       </span>
@@ -326,9 +327,7 @@ export function OrganizationSwitcher({
                     className="size-8 rounded-lg after:rounded-lg **:data-[slot=avatar-fallback]:rounded-lg **:data-[slot=avatar-image]:rounded-lg"
                   />
                   <div className="grid flex-1 text-start text-sm leading-tight">
-                    <span className="truncate font-medium">
-                      {t("personalAccount")}
-                    </span>
+                    <span className="truncate font-medium">{user.name}</span>
                   </div>
                 </>
               ) : (
