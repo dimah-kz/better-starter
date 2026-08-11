@@ -43,6 +43,10 @@
     }
   },
   "organizationSettings": {
+    "sections": {
+      "general": "General",
+      "delete": "Delete"
+    },
     "profile": {
       "title": "Organization profile",
       "description": "Update the organization name and logo.",
@@ -56,7 +60,7 @@
     },
     "delete": {
       "title": "Delete organization",
-      "description": "Permanently delete this organization and its membership data. This cannot be undone.",
+      "navDescription": "Permanently remove this organization",
       "confirmTitle": "Delete organization",
       "confirmDescription": "“{name}” will be permanently deleted. This cannot be undone.",
       "confirm": "Delete organization",

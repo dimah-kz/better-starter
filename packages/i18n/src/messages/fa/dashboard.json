@@ -43,6 +43,10 @@
     }
   },
   "organizationSettings": {
+    "sections": {
+      "general": "عمومی",
+      "delete": "حذف"
+    },
     "profile": {
       "title": "پروفایل سازمان",
       "description": "نام و لوگوی سازمان را به‌روزرسانی کنید.",
@@ -56,7 +60,7 @@
     },
     "delete": {
       "title": "حذف سازمان",
-      "description": "این سازمان و داده‌های عضویت آن برای همیشه حذف می‌شود. این کار قابل بازگشت نیست.",
+      "navDescription": "حذف دائمی این سازمان",
       "confirmTitle": "حذف سازمان",
       "confirmDescription": "«{name}» برای همیشه حذف می‌شود. این کار قابل بازگشت نیست.",
       "confirm": "حذف سازمان",
