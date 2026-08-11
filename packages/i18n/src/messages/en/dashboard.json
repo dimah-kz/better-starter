@@ -59,8 +59,13 @@
     "title": "Platform administration"
   },
   "accountSettings": {
-    "security": "Password",
-    "sessions": "Active sessions"
+    "back": "Back",
+    "security": "Security",
+    "securityDescription": "Password and signed-in devices",
+    "password": "Password",
+    "passwordDescription": "Change the password for this account",
+    "sessions": "Active sessions",
+    "sessionsDescription": "Review devices signed in to your account"
   },
   "adminUserManage": {
     "changeRole": "Change platform role",
@@ -77,6 +82,7 @@
   "breadcrumbSegments": {
     "dashboard": "Dashboard",
     "account": "Account",
+    "security": "Security",
     "admin": "Admin",
     "users": "Users",
     "organizations": "Organizations",

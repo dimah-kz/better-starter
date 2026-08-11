@@ -59,8 +59,13 @@
     "title": "مدیریت پلتفرم"
   },
   "accountSettings": {
-    "security": "رمز عبور",
-    "sessions": "نشست‌های فعال"
+    "back": "بازگشت",
+    "security": "امنیت",
+    "securityDescription": "رمز عبور و دستگاه‌های واردشده",
+    "password": "رمز عبور",
+    "passwordDescription": "تغییر رمز عبور این حساب",
+    "sessions": "نشست‌های فعال",
+    "sessionsDescription": "دستگاه‌هایی که وارد حساب شده‌اند را ببینید"
   },
   "adminUserManage": {
     "changeRole": "تغییر نقش پلتفرم",
@@ -77,6 +82,7 @@
   "breadcrumbSegments": {
     "dashboard": "داشبورد",
     "account": "حساب کاربری",
+    "security": "امنیت",
     "admin": "مدیریت",
     "users": "کاربران",
     "organizations": "سازمان‌ها",

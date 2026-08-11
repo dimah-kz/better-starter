@@ -16,9 +16,11 @@ import { Button } from "@repo/ui/components/button"
 import {
   ItemDescription,
   ItemGroup,
+  ItemMedia,
   ItemSeparator,
   ItemTitle,
 } from "@repo/ui/components/item"
+import { IconTile } from "@repo/ui/components/reui/icon-tile"
 import { useTranslations } from "next-intl"
 
 export type AccountSessionDisplay = {
@@ -72,7 +74,7 @@ export function AccountSessionsContent({
     sessions.length === 1 && sessions[0]?.token === currentSessionToken
 
   return (
-    <div className="space-y-3">
+    <div className="flex flex-col gap-3">
       <ItemGroup className="gap-0" role="list">
         {sessions.map((session, index) => {
           const isCurrent = session.token === currentSessionToken
@@ -83,17 +85,19 @@ export function AccountSessionsContent({
               {index > 0 ? <ItemSeparator /> : null}
               <article
                 role="listitem"
-                className="flex w-full items-start gap-2.5 py-3"
+                className="flex w-full items-start gap-3 py-3"
               >
-                <SessionDeviceIcon kind={session.device.kind} />
-                <div className="min-w-0 flex-1 space-y-2">
+                <ItemMedia>
+                  <SessionDeviceIcon kind={session.device.kind} />
+                </ItemMedia>
+                <div className="flex min-w-0 flex-1 flex-col gap-2">
                   <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0 space-y-1">
+                    <div className="flex min-w-0 flex-col gap-1">
                       <ItemTitle className="text-sm">
                         {session.device.title}
                       </ItemTitle>
                       {session.device.subtitle ? (
-                        <ItemDescription className="text-sm">
+                        <ItemDescription>
                           {session.device.subtitle}
                         </ItemDescription>
                       ) : null}
@@ -163,16 +167,18 @@ function SessionMetaList({ session }: { session: AccountSessionDisplay }) {
 }
 
 function SessionDeviceIcon({ kind }: { kind: SessionDeviceDisplay["kind"] }) {
-  const className = "mt-0.5 size-4 shrink-0 text-muted-foreground"
+  const Icon =
+    kind === "mobile"
+      ? SmartphoneIcon
+      : kind === "tablet"
+        ? TabletIcon
+        : kind === "desktop"
+          ? MonitorIcon
+          : LaptopIcon
 
-  switch (kind) {
-    case "mobile":
-      return <SmartphoneIcon className={className} aria-hidden />
-    case "tablet":
-      return <TabletIcon className={className} aria-hidden />
-    case "desktop":
-      return <MonitorIcon className={className} aria-hidden />
-    default:
-      return <LaptopIcon className={className} aria-hidden />
-  }
+  return (
+    <IconTile variant="outline" size="sm">
+      <Icon aria-hidden />
+    </IconTile>
+  )
 }

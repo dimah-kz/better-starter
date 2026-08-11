@@ -1,6 +1,7 @@
 {
   "profile": {
     "title": "Profile",
+    "description": "Update your name and photo.",
     "avatar": {
       "label": "Photo",
       "change": "Change photo",
@@ -19,12 +20,14 @@
     "saved": "Your profile was updated.",
     "cancel": "Cancel"
   },
-  "security": {
+  "password": {
     "title": "Password",
+    "description": "Change the password for this account.",
     "unavailable": "This account does not sign in with email and password, so there is no password to change here."
   },
   "sessions": {
     "title": "Active sessions",
+    "description": "Review devices signed in to your account.",
     "empty": "No active sessions were found.",
     "onlyThisDevice": "You are only signed in on this device.",
     "currentDevice": "This device",

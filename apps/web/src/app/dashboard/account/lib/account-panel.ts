@@ -1,3 +1,3 @@
-export type AccountPanel = "profile" | "security" | "sessions"
+export type AccountPanel = "profile" | "password" | "sessions"
 
-export type AccountListPanel = Exclude<AccountPanel, "profile">
+export type AccountSecurityPanel = Exclude<AccountPanel, "profile">

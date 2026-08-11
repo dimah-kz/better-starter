@@ -15,27 +15,29 @@ import { toast } from "@repo/ui/components/toast"
 import { Button } from "@repo/ui/components/button"
 import { useTranslations } from "next-intl"
 
+type AccountProfile = {
+  id: string
+  name: string
+  email: string
+  image: string | null
+}
+
 type AccountSettingsPanelProps = {
   section: AccountPanel | null
   onClose: () => void
-  profile: {
-    id: string
-    name: string
-    email: string
-    image: string | null
-  }
-  hasPasswordCredential: boolean
-  sessions: AccountSessionDisplay[]
-  currentSessionToken: string
+  profile?: AccountProfile
+  hasPasswordCredential?: boolean
+  sessions?: AccountSessionDisplay[]
+  currentSessionToken?: string
 }
 
 export function AccountSettingsPanel({
   section,
   onClose,
   profile,
-  hasPasswordCredential,
-  sessions,
-  currentSessionToken,
+  hasPasswordCredential = false,
+  sessions = [],
+  currentSessionToken = "",
 }: AccountSettingsPanelProps) {
   const t = useTranslations("account")
   const router = useRouter()
@@ -104,7 +106,7 @@ export function AccountSettingsPanel({
     })
   }
 
-  const { title, footer, children } = resolvePanelContent({
+  const { title, description, footer, children } = resolvePanelContent({
     t,
     section,
     isPending,
@@ -131,6 +133,7 @@ export function AccountSettingsPanel({
         }
       }}
       title={title}
+      description={description}
       footer={footer}
     >
       {children}
@@ -148,7 +151,7 @@ type ResolvePanelContentArgs = {
   profileFormId: string
   passwordFormId: string
   passwordFormRef: RefObject<HTMLFormElement | null>
-  profile: AccountSettingsPanelProps["profile"]
+  profile: AccountProfile | undefined
   sessions: AccountSessionDisplay[]
   currentSessionToken: string
   handleProfileSubmit: (formData: FormData) => void
@@ -175,8 +178,18 @@ function resolvePanelContent({
 }: ResolvePanelContentArgs) {
   switch (section) {
     case "profile":
+      if (!profile) {
+        return {
+          title: "",
+          description: undefined,
+          footer: null,
+          children: null,
+        }
+      }
+
       return {
         title: t("profile.title"),
+        description: t("profile.description"),
         footer: (
           <>
             <Button type="submit" form={profileFormId} disabled={isPending}>
@@ -196,7 +209,7 @@ function resolvePanelContent({
           <form
             id={profileFormId}
             noValidate
-            className="space-y-4"
+            className="flex flex-col gap-4"
             onSubmit={(event) => {
               event.preventDefault()
               handleProfileSubmit(new FormData(event.currentTarget))
@@ -209,9 +222,10 @@ function resolvePanelContent({
           </form>
         ),
       }
-    case "security":
+    case "password":
       return {
-        title: t("security.title"),
+        title: t("password.title"),
+        description: t("password.description"),
         footer: hasPasswordCredential ? (
           <>
             <Button
@@ -240,7 +254,7 @@ function resolvePanelContent({
             ref={passwordFormRef}
             id={passwordFormId}
             noValidate
-            className="space-y-4"
+            className="flex flex-col gap-4"
             onSubmit={(event) => {
               event.preventDefault()
               handlePasswordSubmit()
@@ -250,13 +264,14 @@ function resolvePanelContent({
           </form>
         ) : (
           <p className="text-sm text-muted-foreground">
-            {t("security.unavailable")}
+            {t("password.unavailable")}
           </p>
         ),
       }
     case "sessions":
       return {
         title: t("sessions.title"),
+        description: t("sessions.description"),
         footer: hasOtherSessions ? (
           <>
             <Button
@@ -293,6 +308,7 @@ function resolvePanelContent({
     default:
       return {
         title: "",
+        description: undefined,
         footer: null,
         children: null,
       }
