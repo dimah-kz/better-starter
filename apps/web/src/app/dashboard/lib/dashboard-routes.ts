@@ -8,6 +8,7 @@ export const dashboardRouteSegments = {
   security: "security",
   manage: "manage",
   members: "members",
+  settings: "settings",
   users: "users",
 } as const
 
@@ -37,4 +38,5 @@ export const dashboardRoutes = {
     `${DASHBOARD_BASE_PATH}/${dashboardRouteSegments.account}/${dashboardRouteSegments.security}`,
   organizationManageRoot: () => managePath(),
   organizationMembers: () => managePath(dashboardRouteSegments.members),
+  organizationSettings: () => managePath(dashboardRouteSegments.settings),
 } as const

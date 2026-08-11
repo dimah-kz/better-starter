@@ -26,3 +26,16 @@ export async function canUpdateOrganizationDetails(organizationId: string) {
 
   return success
 }
+
+/** UI gate for deleting the organization (owner). */
+export async function canDeleteOrganization(organizationId: string) {
+  const { success } = await auth.api.hasPermission({
+    headers: await headers(),
+    body: {
+      organizationId,
+      permissions: { organization: ["delete"] },
+    },
+  })
+
+  return success
+}

@@ -18,6 +18,7 @@
       "search": "جستجو…",
       "createOrganization": "ایجاد سازمان",
       "createOrganizationHint": "برای شروع یک سازمان بسازید",
+      "nameLabel": "نام سازمان",
       "switching": "در حال تغییر حساب…",
       "organizationCreated": "سازمان ایجاد شد.",
       "organizationCreateFailed": "ایجاد سازمان انجام نشد."
@@ -28,20 +29,40 @@
     "organizations": "سازمان‌ها"
   },
   "manageTabs": {
-    "members": "اعضا"
+    "members": "اعضا",
+    "settings": "تنظیمات"
   },
   "organizationManage": {
     "title": "مدیریت سازمان",
-    "editName": "ویرایش نام",
-    "nameLabel": "نام سازمان",
-    "nameUpdated": "نام سازمان به‌روزرسانی شد.",
-    "nameUpdateFailed": "به‌روزرسانی نام سازمان ممکن نشد.",
     "avatar": {
       "upload": "آپلود لوگو",
       "remove": "حذف لوگو",
       "updated": "لوگوی سازمان به‌روزرسانی شد.",
       "removed": "لوگوی سازمان حذف شد.",
       "uploadFailed": "آپلود لوگو ممکن نشد."
+    }
+  },
+  "organizationSettings": {
+    "profile": {
+      "title": "پروفایل سازمان",
+      "description": "نام و لوگوی سازمان را به‌روزرسانی کنید.",
+      "nameLabel": "نام سازمان",
+      "slugLabel": "اسلاگ",
+      "slugHint": "اسلاگ از اینجا قابل تغییر نیست.",
+      "save": "ذخیره تغییرات",
+      "saving": "در حال ذخیره…",
+      "saved": "پروفایل سازمان به‌روزرسانی شد.",
+      "saveFailed": "به‌روزرسانی پروفایل سازمان ممکن نشد."
+    },
+    "delete": {
+      "title": "حذف سازمان",
+      "description": "این سازمان و داده‌های عضویت آن برای همیشه حذف می‌شود. این کار قابل بازگشت نیست.",
+      "confirmTitle": "حذف سازمان",
+      "confirmDescription": "«{name}» برای همیشه حذف می‌شود. این کار قابل بازگشت نیست.",
+      "confirm": "حذف سازمان",
+      "deleting": "در حال حذف…",
+      "deleted": "سازمان حذف شد.",
+      "failed": "حذف سازمان ممکن نشد."
     }
   },
   "memberManage": {
@@ -90,7 +111,8 @@
     "users": "کاربران",
     "organizations": "سازمان‌ها",
     "manage": "مدیریت",
-    "members": "اعضا"
+    "members": "اعضا",
+    "settings": "تنظیمات"
   },
   "errors": {
     "title": "مشکلی پیش آمد",

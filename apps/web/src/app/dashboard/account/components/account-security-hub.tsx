@@ -4,12 +4,12 @@ import Link from "next/link"
 import { Fragment, useState } from "react"
 import { ChevronLeftIcon } from "lucide-react"
 import { AccountSettingsPanel } from "@/app/dashboard/account/components/account-settings-panel"
-import { AccountSettingsNavItem } from "@/app/dashboard/account/components/account-settings-nav-item"
-import { AccountSettingsSection } from "@/app/dashboard/account/components/account-settings-section"
 import type { AccountSessionDisplay } from "@/app/dashboard/account/components/account-sessions-content"
 import type { AccountSecurityPanel } from "@/app/dashboard/account/lib/account-panel"
 import { accountSecurityItems } from "@/app/dashboard/account/lib/account-settings-items"
 import { dashboardRoutes } from "@/app/dashboard/lib/dashboard-routes"
+import { SettingsNavItem } from "@/components/settings-nav-item"
+import { SettingsSection } from "@/components/settings-section"
 import { Button } from "@repo/ui/components/button"
 import { ItemSeparator } from "@repo/ui/components/item"
 import { useTranslations } from "next-intl"
@@ -48,11 +48,11 @@ export function AccountSecurityHub({
           </Button>
         </div>
 
-        <AccountSettingsSection label={t("accountSettings.sections.security")}>
+        <SettingsSection label={t("accountSettings.sections.security")}>
           {accountSecurityItems.map((item, index) => (
             <Fragment key={item.key}>
               {index > 0 ? <ItemSeparator className="my-0" /> : null}
-              <AccountSettingsNavItem
+              <SettingsNavItem
                 title={t(item.labelKey)}
                 description={t(item.descriptionKey)}
                 icon={item.icon}
@@ -60,7 +60,7 @@ export function AccountSecurityHub({
               />
             </Fragment>
           ))}
-        </AccountSettingsSection>
+        </SettingsSection>
       </div>
 
       <AccountSettingsPanel

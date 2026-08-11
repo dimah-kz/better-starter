@@ -7,6 +7,7 @@ import { db } from "@repo/db"
 export type OrganizationBranding = {
   id: string
   name: string
+  slug: string
   logo: string | null
 }
 
@@ -20,6 +21,7 @@ export async function getActiveOrganizationBranding(organizationId: string) {
     .select({
       id: organization.id,
       name: organization.name,
+      slug: organization.slug,
       logo: organization.logo,
     })
     .from(organization)

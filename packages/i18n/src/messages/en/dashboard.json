@@ -18,6 +18,7 @@
       "search": "Search…",
       "createOrganization": "Create organization",
       "createOrganizationHint": "Create one to get started",
+      "nameLabel": "Organization name",
       "switching": "Switching account…",
       "organizationCreated": "Organization created.",
       "organizationCreateFailed": "Could not create the organization."
@@ -28,20 +29,40 @@
     "organizations": "Organizations"
   },
   "manageTabs": {
-    "members": "Members"
+    "members": "Members",
+    "settings": "Settings"
   },
   "organizationManage": {
     "title": "Organization management",
-    "editName": "Edit name",
-    "nameLabel": "Organization name",
-    "nameUpdated": "Organization name updated.",
-    "nameUpdateFailed": "Could not update the organization name.",
     "avatar": {
       "upload": "Upload logo",
       "remove": "Remove logo",
       "updated": "Organization logo was updated.",
       "removed": "Organization logo was removed.",
       "uploadFailed": "Could not upload logo."
+    }
+  },
+  "organizationSettings": {
+    "profile": {
+      "title": "Organization profile",
+      "description": "Update the organization name and logo.",
+      "nameLabel": "Organization name",
+      "slugLabel": "Slug",
+      "slugHint": "Slug cannot be changed from the dashboard.",
+      "save": "Save changes",
+      "saving": "Saving…",
+      "saved": "Organization profile updated.",
+      "saveFailed": "Could not update the organization profile."
+    },
+    "delete": {
+      "title": "Delete organization",
+      "description": "Permanently delete this organization and its membership data. This cannot be undone.",
+      "confirmTitle": "Delete organization",
+      "confirmDescription": "“{name}” will be permanently deleted. This cannot be undone.",
+      "confirm": "Delete organization",
+      "deleting": "Deleting…",
+      "deleted": "Organization deleted.",
+      "failed": "Could not delete the organization."
     }
   },
   "memberManage": {
@@ -90,7 +111,8 @@
     "users": "Users",
     "organizations": "Organizations",
     "manage": "Manage",
-    "members": "Members"
+    "members": "Members",
+    "settings": "Settings"
   },
   "errors": {
     "title": "Something went wrong",

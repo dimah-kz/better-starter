@@ -3,11 +3,11 @@
 import { Fragment, useState } from "react"
 import { ChevronRightIcon } from "lucide-react"
 import { AccountSettingsPanel } from "@/app/dashboard/account/components/account-settings-panel"
-import { AccountSettingsNavItem } from "@/app/dashboard/account/components/account-settings-nav-item"
-import { AccountSettingsSection } from "@/app/dashboard/account/components/account-settings-section"
 import { useTranslations } from "next-intl"
 import { accountHubSections } from "@/app/dashboard/account/lib/account-settings-items"
 import type { AccountPanel } from "@/app/dashboard/account/lib/account-panel"
+import { SettingsNavItem } from "@/components/settings-nav-item"
+import { SettingsSection } from "@/components/settings-section"
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar"
 import {
   Item,
@@ -36,7 +36,7 @@ export function AccountSettingsHub({ profile }: AccountSettingsHubProps) {
   return (
     <>
       <div className="flex w-full max-w-xl flex-col gap-6">
-        <AccountSettingsSection label={t("accountSettings.sections.account")}>
+        <SettingsSection label={t("accountSettings.sections.account")}>
           <Item
             className="rounded-none hover:bg-muted/50"
             render={
@@ -65,13 +65,13 @@ export function AccountSettingsHub({ profile }: AccountSettingsHubProps) {
               <ChevronRightIcon className="size-4 rtl:rotate-180" aria-hidden />
             </ItemActions>
           </Item>
-        </AccountSettingsSection>
+        </SettingsSection>
 
-        <AccountSettingsSection label={t("accountSettings.sections.security")}>
+        <SettingsSection label={t("accountSettings.sections.security")}>
           {accountHubSections.map((item, index) => (
             <Fragment key={item.key}>
               {index > 0 ? <ItemSeparator className="my-0" /> : null}
-              <AccountSettingsNavItem
+              <SettingsNavItem
                 title={t(item.labelKey)}
                 description={t(item.descriptionKey)}
                 icon={item.icon}
@@ -79,7 +79,7 @@ export function AccountSettingsHub({ profile }: AccountSettingsHubProps) {
               />
             </Fragment>
           ))}
-        </AccountSettingsSection>
+        </SettingsSection>
       </div>
 
       <AccountSettingsPanel

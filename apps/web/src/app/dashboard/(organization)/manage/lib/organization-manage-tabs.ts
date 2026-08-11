@@ -2,7 +2,7 @@ import {
   dashboardRouteSegments,
   dashboardRoutes,
 } from "@/app/dashboard/lib/dashboard-routes"
-import { UsersIcon } from "lucide-react"
+import { SettingsIcon, UsersIcon } from "lucide-react"
 
 /** Add a row when you add a manage route under `dashboard/manage/<segment>/`. */
 export const organizationManageTabs = [
@@ -12,6 +12,13 @@ export const organizationManageTabs = [
     icon: UsersIcon,
     pathSuffix: `/${dashboardRouteSegments.members}`,
     href: dashboardRoutes.organizationMembers(),
+  },
+  {
+    key: "settings",
+    labelKey: "manageTabs.settings",
+    icon: SettingsIcon,
+    pathSuffix: `/${dashboardRouteSegments.settings}`,
+    href: dashboardRoutes.organizationSettings(),
   },
 ] as const
 

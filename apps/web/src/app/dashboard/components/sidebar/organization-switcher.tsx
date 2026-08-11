@@ -28,6 +28,7 @@ import { useSidebarFlyoutSide } from "@/app/dashboard/lib/sidebar-side"
 import { Input } from "@repo/ui/components/input"
 import { cn } from "@repo/ui/lib/utils"
 import {
+  CheckIcon,
   ChevronsUpDownIcon,
   Loader2Icon,
   PlusIcon,
@@ -157,12 +158,14 @@ function PersonalAccountMenuItem({
       onClick={onSelect}
       disabled={disabled || isActive}
       className="gap-2 p-2"
+      aria-current={isActive ? "true" : undefined}
     >
       <UserAvatar
         user={user}
         className="size-6 rounded-md after:rounded-md **:data-[slot=avatar-fallback]:rounded-md **:data-[slot=avatar-image]:rounded-md"
       />
-      <span>{t("personalAccount")}</span>
+      <span className="flex-1">{t("personalAccount")}</span>
+      {isActive ? <CheckIcon className="text-muted-foreground" /> : null}
     </DropdownMenuItem>
   )
 }
@@ -281,22 +284,30 @@ export function OrganizationSwitcher({
             <DropdownMenuLabel className="text-xs text-muted-foreground">
               {t("organizations")} ({filteredOrganizations.length})
             </DropdownMenuLabel>
-            {filteredOrganizations.map((organization) => (
-              <DropdownMenuItem
-                key={organization.id}
-                onClick={() => handleSwitchToOrganization(organization.id)}
-                disabled={isSwitching}
-                className="gap-2 p-2"
-              >
-                <OrganizationAvatar
-                  name={organization.name}
-                  logo={organization.logo}
-                  size="sm"
-                  className="size-6 rounded-md after:rounded-md **:data-[slot=avatar-fallback]:rounded-md **:data-[slot=avatar-image]:rounded-md"
-                />
-                <span>{organization.name}</span>
-              </DropdownMenuItem>
-            ))}
+            {filteredOrganizations.map((organization) => {
+              const isActive = organization.id === activeOrganizationId
+
+              return (
+                <DropdownMenuItem
+                  key={organization.id}
+                  onClick={() => handleSwitchToOrganization(organization.id)}
+                  disabled={isSwitching || isActive}
+                  className="gap-2 p-2"
+                  aria-current={isActive ? "true" : undefined}
+                >
+                  <OrganizationAvatar
+                    name={organization.name}
+                    logo={organization.logo}
+                    size="sm"
+                    className="size-6 rounded-md after:rounded-md **:data-[slot=avatar-fallback]:rounded-md **:data-[slot=avatar-image]:rounded-md"
+                  />
+                  <span className="flex-1">{organization.name}</span>
+                  {isActive ? (
+                    <CheckIcon className="text-muted-foreground" />
+                  ) : null}
+                </DropdownMenuItem>
+              )
+            })}
           </DropdownMenuGroup>
         </>
       ) : null}

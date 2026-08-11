@@ -20,22 +20,23 @@ export function OrganizationLogoField({
   const t = useTranslations("dashboard.organizationManage.avatar")
 
   return (
-    <AvatarUploadField
-      name={name}
-      image={logo}
-      toKey={(fileName) =>
-        toAvatarKey({ kind: "org", id: organizationId }, fileName)
-      }
-      setAction={(key) => setOrganizationLogoAction(organizationId, key)}
-      removeAction={() => removeOrganizationLogoAction(organizationId)}
-      labels={{
-        upload: t("upload"),
-        remove: t("remove"),
-        updated: t("updated"),
-        removed: t("removed"),
-        uploadFailed: t("uploadFailed"),
-      }}
-      compact
-    />
+    <div className="flex justify-center">
+      <AvatarUploadField
+        name={name}
+        image={logo}
+        toKey={(fileName) =>
+          toAvatarKey({ kind: "org", id: organizationId }, fileName)
+        }
+        setAction={(key) => setOrganizationLogoAction(organizationId, key)}
+        removeAction={() => removeOrganizationLogoAction(organizationId)}
+        labels={{
+          upload: t("upload"),
+          remove: t("remove"),
+          updated: t("updated"),
+          removed: t("removed"),
+          uploadFailed: t("uploadFailed"),
+        }}
+      />
+    </div>
   )
 }

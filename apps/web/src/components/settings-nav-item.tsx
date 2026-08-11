@@ -16,7 +16,7 @@ import { IconTile } from "@repo/ui/components/reui/icon-tile"
 const itemTriggerClassName =
   "flex w-full min-w-0 items-center gap-2.5 text-start"
 
-type AccountSettingsNavItemProps = {
+type SettingsNavItemProps = {
   title: string
   description: string
   icon: LucideIcon
@@ -24,13 +24,13 @@ type AccountSettingsNavItemProps = {
   onClick?: () => void
 }
 
-export function AccountSettingsNavItem({
+export function SettingsNavItem({
   title,
   description,
   icon: Icon,
   href,
   onClick,
-}: AccountSettingsNavItemProps) {
+}: SettingsNavItemProps) {
   return (
     <Item
       className="rounded-none hover:bg-muted/50"

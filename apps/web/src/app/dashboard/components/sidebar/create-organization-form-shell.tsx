@@ -20,7 +20,6 @@ export function CreateOrganizationFormShell({
   onClose,
 }: CreateOrganizationFormShellProps) {
   const t = useTranslations("dashboard.nav.organizationSwitcher")
-  const tManage = useTranslations("dashboard.organizationManage")
   const router = useRouter()
   const fieldId = useId()
   const [isPending, startTransition] = useTransition()
@@ -89,7 +88,7 @@ export function CreateOrganizationFormShell({
     >
       <div className="space-y-3">
         <FormLabel htmlFor={`${fieldId}-name`} required>
-          {tManage("nameLabel")}
+          {t("nameLabel")}
         </FormLabel>
         <Input
           id={`${fieldId}-name`}
