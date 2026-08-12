@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { UserIcon, XIcon } from "lucide-react"
 import { AVATAR_ACCEPT, AVATAR_MAX_BYTES } from "@/lib/avatar-storage"
-import { useUpload } from "@dimah-s3/react"
+import { useFormatDimahError, useUpload } from "@dimah-s3/react"
 import { toast } from "@repo/ui/components/toast"
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar"
 import { Button } from "@repo/ui/components/button"
@@ -44,6 +44,7 @@ export function AvatarUploadField({
   compact = false,
 }: AvatarUploadFieldProps) {
   const router = useRouter()
+  const formatError = useFormatDimahError()
   const [preview, setPreview] = useState(image)
   const [removing, setRemoving] = useState(false)
 
@@ -51,14 +52,21 @@ export function AvatarUploadField({
     setPreview(image)
   }, [image])
 
-  const { phase, getRootProps, getInputProps, isDragActive } = useUpload({
-    accept: [...AVATAR_ACCEPT],
+  const {
+    phase,
+    fileInfo,
+    getRootProps,
+    getInputProps,
+    isDragActive,
+    isDragReject,
+  } = useUpload({
+    accept: AVATAR_ACCEPT,
     maxFileSize: AVATAR_MAX_BYTES,
     objectKey: (file) => toKey(file.name),
     uploadOptions: { acl: "public-read" },
     disabled: Boolean(preview) || removing,
-    onSuccess: async (_file, result) => {
-      const outcome = await setAction(result.key)
+    onSuccess: async (_file, { key }) => {
+      const outcome = await setAction(key)
       if ("error" in outcome) {
         toast.add({ title: outcome.error, type: "error" })
         return
@@ -68,10 +76,7 @@ export function AvatarUploadField({
       toast.add({ title: labels.updated, type: "success" })
     },
     onError: (_file, error) => {
-      toast.add({
-        title: error instanceof Error ? error.message : labels.uploadFailed,
-        type: "error",
-      })
+      toast.add({ title: formatError(error), type: "error" })
     },
     onFileReject: () => {
       toast.add({ title: labels.uploadFailed, type: "error" })
@@ -81,6 +86,7 @@ export function AvatarUploadField({
   const pending =
     (phase !== "idle" && phase !== "success" && phase !== "error") || removing
   const canUpload = !preview && !pending
+  const src = preview ?? (phase === "error" ? null : fileInfo?.previewUrl)
 
   const onRemove = async () => {
     setRemoving(true)
@@ -114,15 +120,17 @@ export function AvatarUploadField({
           className: cn(
             "relative size-full overflow-hidden rounded-full border border-dashed transition-colors",
             canUpload && "cursor-pointer",
-            isDragActive
-              ? "border-primary bg-primary/5"
-              : "border-muted-foreground/25 hover:border-muted-foreground/50",
+            isDragReject
+              ? "border-destructive bg-destructive/5"
+              : isDragActive
+                ? "border-primary bg-primary/5"
+                : "border-muted-foreground/25 hover:border-muted-foreground/50",
             pending && "pointer-events-none opacity-70"
           ),
         })}
       >
         <Avatar className="size-full after:hidden">
-          {preview ? <AvatarImage src={preview} alt={name} /> : null}
+          {src ? <AvatarImage src={src} alt={name} /> : null}
           <AvatarFallback className="bg-transparent">
             <UserIcon className="size-6 text-muted-foreground" />
           </AvatarFallback>
