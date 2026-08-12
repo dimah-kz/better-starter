@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState, type DragEvent } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { UserIcon, XIcon } from "lucide-react"
 import { AVATAR_ACCEPT, AVATAR_MAX_BYTES } from "@/lib/avatar-storage"
@@ -44,18 +44,19 @@ export function AvatarUploadField({
   compact = false,
 }: AvatarUploadFieldProps) {
   const router = useRouter()
-  const inputRef = useRef<HTMLInputElement>(null)
   const [preview, setPreview] = useState(image)
   const [removing, setRemoving] = useState(false)
-  const [isDragging, setIsDragging] = useState(false)
 
   useEffect(() => {
     setPreview(image)
   }, [image])
 
-  const { upload, phase } = useUpload({
+  const { phase, getRootProps, getInputProps, isDragActive } = useUpload({
     accept: [...AVATAR_ACCEPT],
     maxFileSize: AVATAR_MAX_BYTES,
+    objectKey: (file) => toKey(file.name),
+    uploadOptions: { acl: "public-read" },
+    disabled: Boolean(preview) || removing,
     onSuccess: async (_file, result) => {
       const outcome = await setAction(result.key)
       if ("error" in outcome) {
@@ -72,18 +73,14 @@ export function AvatarUploadField({
         type: "error",
       })
     },
+    onFileReject: () => {
+      toast.add({ title: labels.uploadFailed, type: "error" })
+    },
   })
 
-  const busy = phase !== "idle" && phase !== "success" && phase !== "error"
-  const pending = busy || removing
+  const pending =
+    (phase !== "idle" && phase !== "success" && phase !== "error") || removing
   const canUpload = !preview && !pending
-
-  const onPick = (fileList: FileList | null) => {
-    const file = fileList?.[0]
-    if (!file || !canUpload) return
-    void upload(file, toKey(file.name), { acl: "public-read" })
-    if (inputRef.current) inputRef.current.value = ""
-  }
 
   const onRemove = async () => {
     setRemoving(true)
@@ -101,12 +98,6 @@ export function AvatarUploadField({
     }
   }
 
-  const onDrag = (event: DragEvent, dragging: boolean) => {
-    event.preventDefault()
-    event.stopPropagation()
-    if (canUpload) setIsDragging(dragging)
-  }
-
   return (
     <div
       className={cn(
@@ -116,36 +107,19 @@ export function AvatarUploadField({
       )}
     >
       <div
-        role={canUpload ? "button" : undefined}
-        tabIndex={canUpload ? 0 : undefined}
-        aria-label={canUpload ? labels.upload : undefined}
-        aria-busy={pending}
-        className={cn(
-          "relative size-full overflow-hidden rounded-full border border-dashed transition-colors",
-          canUpload && "cursor-pointer",
-          isDragging
-            ? "border-primary bg-primary/5"
-            : "border-muted-foreground/25 hover:border-muted-foreground/50",
-          pending && "pointer-events-none opacity-70"
-        )}
-        onDragEnter={(event) => onDrag(event, true)}
-        onDragLeave={(event) => onDrag(event, false)}
-        onDragOver={(event) => onDrag(event, true)}
-        onDrop={(event) => {
-          onDrag(event, false)
-          onPick(event.dataTransfer.files)
-        }}
-        onClick={canUpload ? () => inputRef.current?.click() : undefined}
-        onKeyDown={
-          canUpload
-            ? (event) => {
-                if (event.key === "Enter" || event.key === " ") {
-                  event.preventDefault()
-                  inputRef.current?.click()
-                }
-              }
-            : undefined
-        }
+        {...getRootProps({
+          role: canUpload ? "button" : undefined,
+          "aria-label": canUpload ? labels.upload : undefined,
+          "aria-busy": pending,
+          className: cn(
+            "relative size-full overflow-hidden rounded-full border border-dashed transition-colors",
+            canUpload && "cursor-pointer",
+            isDragActive
+              ? "border-primary bg-primary/5"
+              : "border-muted-foreground/25 hover:border-muted-foreground/50",
+            pending && "pointer-events-none opacity-70"
+          ),
+        })}
       >
         <Avatar className="size-full after:hidden">
           {preview ? <AvatarImage src={preview} alt={name} /> : null}
@@ -159,6 +133,8 @@ export function AvatarUploadField({
             <Spinner className="size-5" />
           </div>
         ) : null}
+
+        <input {...getInputProps()} />
       </div>
 
       {preview && !pending ? (
@@ -173,15 +149,6 @@ export function AvatarUploadField({
           <XIcon className="size-3.5" />
         </Button>
       ) : null}
-
-      <input
-        ref={inputRef}
-        type="file"
-        accept={AVATAR_ACCEPT.join(",")}
-        className="sr-only"
-        disabled={!canUpload}
-        onChange={(event) => onPick(event.target.files)}
-      />
     </div>
   )
 }

@@ -6,7 +6,6 @@ import type { Translations } from "@dimah-s3/react"
  */
 export const fa = {
   '"{name}" deleted(status)': "«{name}» حذف شد",
-  "Accepted {types}.(dropzone hint)": "فرمت‌های مجاز: {types}.",
   "Access denied(API error)": "دسترسی غیرمجاز",
   "All {count} file(s) uploaded(status)": "هر {count} فایل آپلود شد",
   'Are you sure you want to delete "{name}"? This action cannot be undone.(dialog description)':
@@ -33,9 +32,9 @@ export const fa = {
   "Download started(toast)": "دانلود آغاز شد",
   "Download(button)": "دانلود",
   "Drag and drop files here(dropzone)": "فایل‌ها را اینجا بکشید و رها کنید",
-  "Each up to {size}(dropzone hint)": "هر کدام حداکثر {size}",
   "File deleted(toast)": "فایل حذف شد",
   "File is empty(file validation)": "فایل خالی است",
+  "File not accepted(toast)": "فایل پذیرفته نشد",
   "File not found(API error)": "فایل یافت نشد",
   "File size exceeds {size} limit(file validation)":
     "حجم فایل از حد {size} بیشتر است",
@@ -52,7 +51,6 @@ export const fa = {
   "Preparing…(upload status)": "در حال آماده‌سازی…",
   "Something went wrong(API error)": "خطای داخلی سرور",
   "Unknown error(fallback)": "خطای ناشناخته",
-  "Up to {size}(dropzone hint)": "حداکثر {size}",
   "Upload ID is required(API error)": "شناسه آپلود الزامی است",
   "Upload complete(toast)": "آپلود کامل شد",
   "Upload failed(status)": "آپلود ناموفق بود",
@@ -63,9 +61,6 @@ export const fa = {
   "Uploading {done}/{total}(toast)": "در حال آپلود {done}/{total}",
   "Uploading(toast)": "در حال آپلود",
   "Validating…(upload status)": "در حال اعتبارسنجی…",
-  "You can upload a file(dropzone hint)": "می‌توانید یک فایل آپلود کنید",
-  "You can upload {count} files(dropzone hint)":
-    "می‌توانید {count} فایل آپلود کنید",
   "{count} file(s) uploaded(toast)": "{count} فایل آپلود شد",
   "{done}/{total} files(upload progress)": "{done}/{total} فایل",
   "{name} is required(API error)": "{name} الزامی است",
