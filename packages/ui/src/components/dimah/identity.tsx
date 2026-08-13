@@ -42,7 +42,7 @@ function Identity({
     <div
       data-slot="identity"
       data-size={size}
-      className={cn(identityVariants({ size, className }))}
+      className={cn(identityVariants({ size }), className)}
       {...props}
     />
   )
@@ -50,7 +50,7 @@ function Identity({
 
 function IdentityAvatar({
   className,
-  size = "sm",
+  size,
   src,
   name,
   alt,
@@ -62,10 +62,18 @@ function IdentityAvatar({
   alt?: string
 }) {
   return (
-    <Avatar size={size} className={className} {...props}>
+    <Avatar
+      size={size}
+      className={cn(
+        size == null &&
+          "group-data-[size=lg]/identity:size-10 group-data-[size=sm]/identity:size-6 group-data-[size=sm]/identity:**:data-[slot=avatar-fallback]:text-xs",
+        className
+      )}
+      {...props}
+    >
       {children ?? (
         <>
-          {src ? <AvatarImage src={src} alt={alt ?? ""} /> : null}
+          {src ? <AvatarImage src={src} alt={alt ?? name ?? ""} /> : null}
           <AvatarFallback>{getInitials(name ?? "")}</AvatarFallback>
         </>
       )}
@@ -78,7 +86,7 @@ function IdentityContent({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="identity-content"
       className={cn(
-        "flex min-w-0 flex-1 flex-col gap-0.5 group-data-[size=sm]/identity:gap-0",
+        "flex max-w-full min-w-0 flex-1 flex-col gap-0.5 overflow-hidden group-data-[size=sm]/identity:gap-0",
         className
       )}
       {...props}
@@ -91,19 +99,19 @@ function IdentityTitle({
   children,
   title,
   ...props
-}: React.ComponentProps<"div">) {
+}: React.ComponentProps<"span">) {
   return (
-    <div
+    <span
       data-slot="identity-title"
       title={title ?? (typeof children === "string" ? children : undefined)}
       className={cn(
-        "max-w-96 truncate text-sm leading-tight font-medium group-data-[size=sm]/identity:text-xs",
+        "block max-w-full min-w-0 truncate text-start text-sm/tight font-medium group-data-[size=lg]/identity:text-base/tight group-data-[size=sm]/identity:text-xs/tight",
         className
       )}
       {...props}
     >
       {children}
-    </div>
+    </span>
   )
 }
 
@@ -112,19 +120,19 @@ function IdentityDescription({
   children,
   title,
   ...props
-}: React.ComponentProps<"p">) {
+}: React.ComponentProps<"span">) {
   return (
-    <p
+    <span
       data-slot="identity-description"
       title={title ?? (typeof children === "string" ? children : undefined)}
       className={cn(
-        "max-w-96 truncate text-xs leading-tight text-muted-foreground",
+        "block max-w-full min-w-0 truncate text-start text-xs/tight text-muted-foreground",
         className
       )}
       {...props}
     >
       {children}
-    </p>
+    </span>
   )
 }
 
