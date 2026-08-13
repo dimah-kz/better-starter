@@ -4,7 +4,7 @@ import * as React from "react"
 import { CreateOrganizationFormShell } from "@/app/dashboard/components/sidebar/create-organization-form-shell"
 import type { SidebarOrganizationItem } from "@/app/dashboard/components/sidebar/organization-switcher"
 import { useOrganizationSwitch } from "@/app/dashboard/components/sidebar/organization-switcher"
-import { OrganizationAvatar } from "@/components/organization-avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar"
 import { cn } from "@repo/ui/lib/utils"
 import { PlusIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
@@ -49,11 +49,14 @@ export function DashboardOrganizationsCard({
                   "border-primary/40 bg-primary/8 ring-1 ring-primary/15"
               )}
             >
-              <OrganizationAvatar
-                name={organization.name}
-                logo={organization.logo}
-                className="size-10 rounded-lg after:rounded-lg **:data-[slot=avatar-fallback]:rounded-lg **:data-[slot=avatar-image]:rounded-lg"
-              />
+              <Avatar className="size-10 rounded-lg after:rounded-lg **:data-[slot=avatar-fallback]:rounded-lg **:data-[slot=avatar-image]:rounded-lg">
+                {organization.logo ? (
+                  <AvatarImage src={organization.logo} alt="" />
+                ) : null}
+                <AvatarFallback>
+                  {organization.name[0]?.toUpperCase() ?? "?"}
+                </AvatarFallback>
+              </Avatar>
               <span className="line-clamp-2 w-full text-xs leading-snug font-medium">
                 {organization.name}
               </span>

@@ -23,7 +23,6 @@ import {
 } from "@repo/ui/components/sidebar"
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar"
 import { IconTile } from "@repo/ui/components/reui/icon-tile"
-import { OrganizationAvatar } from "@/components/organization-avatar"
 import { useSidebarFlyoutSide } from "@/app/dashboard/lib/sidebar-side"
 import { Input } from "@repo/ui/components/input"
 import { cn } from "@repo/ui/lib/utils"
@@ -295,12 +294,17 @@ export function OrganizationSwitcher({
                   className="gap-2 p-2"
                   aria-current={isActive ? "true" : undefined}
                 >
-                  <OrganizationAvatar
-                    name={organization.name}
-                    logo={organization.logo}
+                  <Avatar
                     size="sm"
                     className="size-6 rounded-md after:rounded-md **:data-[slot=avatar-fallback]:rounded-md **:data-[slot=avatar-image]:rounded-md"
-                  />
+                  >
+                    {organization.logo ? (
+                      <AvatarImage src={organization.logo} alt="" />
+                    ) : null}
+                    <AvatarFallback>
+                      {organization.name[0]?.toUpperCase() ?? "?"}
+                    </AvatarFallback>
+                  </Avatar>
                   <span className="flex-1">{organization.name}</span>
                   {isActive ? (
                     <CheckIcon className="text-muted-foreground" />
@@ -343,12 +347,14 @@ export function OrganizationSwitcher({
                 </>
               ) : (
                 <>
-                  <OrganizationAvatar
-                    name={activeOrganization?.name ?? ""}
-                    logo={activeOrganization?.logo ?? null}
-                    className="size-8 rounded-lg after:rounded-lg **:data-[slot=avatar-fallback]:rounded-lg **:data-[slot=avatar-image]:rounded-lg"
-                    fallbackClassName="bg-sidebar-primary text-sidebar-primary-foreground"
-                  />
+                  <Avatar className="size-8 rounded-lg after:rounded-lg **:data-[slot=avatar-fallback]:rounded-lg **:data-[slot=avatar-image]:rounded-lg">
+                    {activeOrganization?.logo ? (
+                      <AvatarImage src={activeOrganization.logo} alt="" />
+                    ) : null}
+                    <AvatarFallback className="bg-sidebar-primary text-sidebar-primary-foreground">
+                      {activeOrganization?.name[0]?.toUpperCase() ?? "?"}
+                    </AvatarFallback>
+                  </Avatar>
                   <div className="grid flex-1 text-start text-sm leading-tight">
                     <span className="truncate font-medium">
                       {activeOrganization?.name}
