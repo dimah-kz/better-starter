@@ -44,18 +44,19 @@ export function createAdminOrganizationsColumns({
     {
       id: "slug",
       header: t("columns.slug"),
-      className: "text-muted-foreground",
+      className: "min-w-36 text-muted-foreground",
       cell: (row) => row.slug,
     },
     {
       id: "members",
       header: t("columns.members"),
+      className: "min-w-24",
       cell: (row) => row.memberCount,
     },
     {
       id: "created",
       header: t("columns.created"),
-      className: "text-muted-foreground",
+      className: "min-w-36 text-muted-foreground",
       cell: (row) => formatDate(row.createdAt, locale),
     },
   ]

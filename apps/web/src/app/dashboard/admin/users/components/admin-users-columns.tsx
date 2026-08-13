@@ -60,23 +60,25 @@ export function createAdminUsersColumns({
     {
       id: "role",
       header: t("columns.role"),
+      className: "min-w-28",
       cell: (row) => <PlatformRoleBadge role={row.role} />,
     },
     {
       id: "status",
       header: t("columns.status"),
+      className: "min-w-28",
       cell: (row) => <UserAccountStatusBadge banned={row.banned} />,
     },
     {
       id: "joined",
       header: t("columns.joined"),
-      className: "text-muted-foreground",
+      className: "min-w-36 text-muted-foreground",
       cell: (row) => formatDate(row.createdAt, locale),
     },
     {
       id: "actions",
       header: <span className="sr-only">{t("columns.actions")}</span>,
-      className: "text-end",
+      className: "w-12 text-end",
       cell: (row) => (
         <AdminUserRowActionsMenu
           user={row}

@@ -74,18 +74,19 @@ export function createMembersColumns({
     {
       id: "role",
       header: t("columns.role"),
+      className: "min-w-28",
       cell: (row) => <MembershipRoleBadge role={row.role} />,
     },
     {
       id: "joined",
       header: t("columns.joined"),
-      className: "text-muted-foreground",
+      className: "min-w-36 text-muted-foreground",
       cell: (row) => formatDate(row.joinedAt, locale),
     },
     {
       id: "actions",
       header: <span className="sr-only">{t("columns.actions")}</span>,
-      className: "text-end",
+      className: "w-12 text-end",
       cell: (row) => (
         <MemberRowActionsMenu
           member={row}

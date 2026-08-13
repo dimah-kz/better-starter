@@ -46,7 +46,7 @@ Sidebar drill-down items for admin/manage are derived from slice/tab registries 
 
 1. `get-*.ts` — tagged cache page from the database (`page` / `pageSize` / `filter` / `q`). Use `LIST_SEARCH_MIN_LENGTH` from `list/` for `q`.
 2. `*-table-params.ts` — `listPath` + parse helpers.
-3. `*-columns.tsx` — `ListColumn<T>[]` (`id`, `header`, `cell`, optional class names).
+3. `*-columns.tsx` — `ListColumn<T>[]` (`id`, `header`, `cell`, optional class names). Identity: `w-full min-w-0`. Compact columns: `min-w-*`. Trailing row-actions: `id: "actions"` so `ListTable` keeps them flush; any other last column is inset from the end.
 4. `*-table.tsx` — Card + `ListSearch` + optional chips + `ListTable` (`caption`, `busy={list.isPending}`, empty vs results) + `ListPagination` (`list.pagination`, pass `countLabel` into `useList`).
 5. `page.tsx` — parse search params, fetch, pass the server page into the table. Suspense fallback: `ListSkeleton`.
 

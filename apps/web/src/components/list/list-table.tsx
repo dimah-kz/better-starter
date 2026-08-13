@@ -12,6 +12,10 @@ import {
 import { cn } from "@repo/ui/lib/utils"
 import type { ListColumn } from "@/components/list/types"
 
+function columnChromeClass(columnId: string, isLast: boolean) {
+  return cn("px-4", isLast && columnId !== "actions" && "pe-6")
+}
+
 export type ListTableProps<T> = {
   rows: T[]
   columns: ListColumn<T>[]
@@ -40,11 +44,15 @@ export function ListTable<T>({
       ) : null}
       <TableHeader>
         <TableRow>
-          {columns.map((column) => (
+          {columns.map((column, index) => (
             <TableHead
               key={column.id}
               scope="col"
-              className={cn(column.className, column.headerClassName)}
+              className={cn(
+                columnChromeClass(column.id, index === columns.length - 1),
+                column.className,
+                column.headerClassName
+              )}
             >
               {column.header}
             </TableHead>
@@ -71,10 +79,14 @@ export function ListTable<T>({
         ) : (
           rows.map((row) => (
             <TableRow key={getRowId(row)}>
-              {columns.map((column) => (
+              {columns.map((column, index) => (
                 <TableCell
                   key={column.id}
-                  className={cn(column.className, column.cellClassName)}
+                  className={cn(
+                    columnChromeClass(column.id, index === columns.length - 1),
+                    column.className,
+                    column.cellClassName
+                  )}
                 >
                   {column.cell(row)}
                 </TableCell>
