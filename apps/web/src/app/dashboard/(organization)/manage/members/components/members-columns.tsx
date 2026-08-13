@@ -8,7 +8,7 @@ import { MembershipRoleBadge } from "@/components/badge/membership-role-badge"
 import { createDataGridColumnHelper } from "@/components/data-grid"
 import { UserProfileCell } from "@/components/user-profile-cell"
 import { formatDate } from "@/lib/format-date"
-import { roleStringHas } from "@/lib/role-string"
+import { parseRoleString } from "@/lib/role-string"
 
 const columnHelper = createDataGridColumnHelper<OrganizationMemberItem>()
 
@@ -18,8 +18,8 @@ function canChangeMemberRole(
 ): boolean {
   if (!memberRoleOptions(actorRole).length) return false
   if (
-    roleStringHas(memberRole, "owner") &&
-    !roleStringHas(actorRole ?? "", "owner")
+    parseRoleString(memberRole).includes("owner") &&
+    !parseRoleString(actorRole).includes("owner")
   ) {
     return false
   }

@@ -10,7 +10,3 @@ export function parseRoleString(role: string | null | undefined): string[] {
     .map((token) => token.trim())
     .filter(Boolean)
 }
-
-export function roleStringHas(role: string, token: string): boolean {
-  return parseRoleString(role).includes(token)
-}
