@@ -85,6 +85,7 @@ export function AdminOrganizationsTable({
           table={table}
           recordCount={totalCount}
           emptyMessage={tTables("empty.organizations")}
+          tableLayout={{ width: "fixed" }}
         >
           <DataGridContainer>
             <DataGridTable />

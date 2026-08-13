@@ -10,6 +10,7 @@
     "./components/*": "./src/components/*.tsx",
     "./components/reui/*": "./src/components/reui/*.tsx",
     "./components/reui/data-grid/*": "./src/components/reui/data-grid/*.tsx",
+    "./components/dimah/*": "./src/components/dimah/*.tsx",
     "./hooks/*": "./src/hooks/*.ts"
   },
   "scripts": {

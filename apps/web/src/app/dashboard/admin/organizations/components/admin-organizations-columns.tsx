@@ -1,21 +1,17 @@
 "use client"
 
 import type { Locale } from "@repo/i18n"
+import {
+  Identity,
+  IdentityAvatar,
+  IdentityContent,
+  IdentityTitle,
+} from "@repo/ui/components/dimah/identity"
 import type { AdminOrganizationItem } from "@/app/dashboard/admin/organizations/lib/get-admin-organizations-page"
-import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar"
 import { createDataGridColumnHelper } from "@/components/data-grid"
 import { formatDate } from "@/lib/format-date"
 
 const columnHelper = createDataGridColumnHelper<AdminOrganizationItem>()
-
-function organizationInitials(name: string) {
-  return name
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase() ?? "")
-    .join("")
-}
 
 type TablesTranslator = {
   (key: "columns.organization"): string
@@ -41,23 +37,14 @@ export function createAdminOrganizationsColumns({
         headerTitle: t("columns.organization"),
         cellClassName: "min-w-0",
       },
+      size: 300,
       cell: ({ row }) => (
-        <div className="flex min-w-0 items-center gap-2.5">
-          <Avatar size="sm" className="shrink-0">
-            {row.original.logo ? (
-              <AvatarImage src={row.original.logo} alt="" />
-            ) : null}
-            <AvatarFallback>
-              {organizationInitials(row.original.name)}
-            </AvatarFallback>
-          </Avatar>
-          <span
-            className="truncate text-sm leading-tight font-medium"
-            title={row.original.name}
-          >
-            {row.original.name}
-          </span>
-        </div>
+        <Identity>
+          <IdentityAvatar src={row.original.logo} name={row.original.name} />
+          <IdentityContent>
+            <IdentityTitle>{row.original.name}</IdentityTitle>
+          </IdentityContent>
+        </Identity>
       ),
       enableSorting: false,
     }),
@@ -65,10 +52,8 @@ export function createAdminOrganizationsColumns({
       header: t("columns.slug"),
       meta: {
         headerTitle: t("columns.slug"),
-        headerClassName:
-          "hidden min-w-0 whitespace-nowrap text-muted-foreground sm:table-cell",
-        cellClassName:
-          "hidden min-w-0 whitespace-nowrap text-muted-foreground sm:table-cell",
+        headerClassName: "min-w-0 whitespace-nowrap text-muted-foreground",
+        cellClassName: "min-w-0 whitespace-nowrap text-muted-foreground",
       },
       cell: ({ row }) => (
         <span className="block truncate" title={row.original.slug}>
@@ -92,10 +77,8 @@ export function createAdminOrganizationsColumns({
       header: t("columns.created"),
       meta: {
         headerTitle: t("columns.created"),
-        headerClassName:
-          "hidden whitespace-nowrap text-muted-foreground lg:table-cell",
-        cellClassName:
-          "hidden whitespace-nowrap text-muted-foreground lg:table-cell",
+        headerClassName: "whitespace-nowrap text-muted-foreground",
+        cellClassName: "whitespace-nowrap text-muted-foreground",
       },
       cell: ({ row }) => formatDate(row.original.createdAt, locale),
       enableSorting: false,

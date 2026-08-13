@@ -180,6 +180,7 @@ export function AdminUsersTable({
             table={table}
             recordCount={totalCount}
             emptyMessage={tTables("empty.users")}
+            tableLayout={{ width: "fixed" }}
           >
             <DataGridContainer>
               <DataGridTable />

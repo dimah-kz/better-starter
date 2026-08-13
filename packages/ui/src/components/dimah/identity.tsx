@@ -1,6 +1,8 @@
-import type { ComponentProps } from "react"
-import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar"
+import * as React from "react"
+import { cva, type VariantProps } from "class-variance-authority"
+
 import { cn } from "@repo/ui/lib/utils"
+import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar"
 
 function getInitials(value: string) {
   const parts = value.trim().split(/\s+/).filter(Boolean)
@@ -15,26 +17,38 @@ function getInitials(value: string) {
   return `${first ?? ""}${last ?? ""}`.toUpperCase()
 }
 
-function User({
+const identityVariants = cva(
+  "group/identity flex w-full min-w-0 items-center",
+  {
+    variants: {
+      size: {
+        sm: "gap-1.5",
+        default: "gap-2.5",
+        lg: "gap-3",
+      },
+    },
+    defaultVariants: {
+      size: "default",
+    },
+  }
+)
+
+function Identity({
   className,
   size = "default",
   ...props
-}: ComponentProps<"div"> & { size?: "default" | "sm" | "lg" }) {
+}: React.ComponentProps<"div"> & VariantProps<typeof identityVariants>) {
   return (
     <div
-      data-slot="user"
+      data-slot="identity"
       data-size={size}
-      className={cn(
-        "group/user flex w-full min-w-0 items-center gap-2.5",
-        "data-[size=lg]:gap-3 data-[size=sm]:gap-1.5",
-        className
-      )}
+      className={cn(identityVariants({ size, className }))}
       {...props}
     />
   )
 }
 
-function UserAvatar({
+function IdentityAvatar({
   className,
   size = "sm",
   src,
@@ -42,7 +56,7 @@ function UserAvatar({
   alt,
   children,
   ...props
-}: ComponentProps<typeof Avatar> & {
+}: React.ComponentProps<typeof Avatar> & {
   src?: string | null
   name?: string
   alt?: string
@@ -59,12 +73,12 @@ function UserAvatar({
   )
 }
 
-function UserContent({ className, ...props }: ComponentProps<"div">) {
+function IdentityContent({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
-      data-slot="user-content"
+      data-slot="identity-content"
       className={cn(
-        "flex min-w-0 flex-1 flex-col gap-0.5 group-data-[size=sm]/user:gap-0",
+        "flex min-w-0 flex-1 flex-col gap-0.5 group-data-[size=sm]/identity:gap-0",
         className
       )}
       {...props}
@@ -72,18 +86,18 @@ function UserContent({ className, ...props }: ComponentProps<"div">) {
   )
 }
 
-function UserName({
+function IdentityTitle({
   className,
   children,
   title,
   ...props
-}: ComponentProps<"div">) {
+}: React.ComponentProps<"div">) {
   return (
     <div
-      data-slot="user-name"
+      data-slot="identity-title"
       title={title ?? (typeof children === "string" ? children : undefined)}
       className={cn(
-        "truncate text-sm leading-tight font-medium group-data-[size=sm]/user:text-xs",
+        "max-w-96 truncate text-sm leading-tight font-medium group-data-[size=sm]/identity:text-xs",
         className
       )}
       {...props}
@@ -93,18 +107,18 @@ function UserName({
   )
 }
 
-function UserDescription({
+function IdentityDescription({
   className,
   children,
   title,
   ...props
-}: ComponentProps<"p">) {
+}: React.ComponentProps<"p">) {
   return (
     <p
-      data-slot="user-description"
+      data-slot="identity-description"
       title={title ?? (typeof children === "string" ? children : undefined)}
       className={cn(
-        "truncate text-xs leading-tight text-muted-foreground",
+        "max-w-96 truncate text-xs leading-tight text-muted-foreground",
         className
       )}
       {...props}
@@ -114,4 +128,10 @@ function UserDescription({
   )
 }
 
-export { User, UserAvatar, UserContent, UserName, UserDescription }
+export {
+  Identity,
+  IdentityAvatar,
+  IdentityContent,
+  IdentityTitle,
+  IdentityDescription,
+}

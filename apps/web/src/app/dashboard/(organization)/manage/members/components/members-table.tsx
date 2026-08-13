@@ -170,6 +170,7 @@ export function MembersTable({
             table={table}
             recordCount={totalCount}
             emptyMessage={tTables("empty.members")}
+            tableLayout={{ width: "fixed" }}
           >
             <DataGridContainer>
               <DataGridTable />

@@ -1,18 +1,18 @@
 "use client"
 
 import type { Locale } from "@repo/i18n"
+import {
+  Identity,
+  IdentityAvatar,
+  IdentityContent,
+  IdentityDescription,
+  IdentityTitle,
+} from "@repo/ui/components/dimah/identity"
 import type { OrganizationMemberItem } from "@/app/dashboard/(organization)/manage/members/lib/get-organization-members-page"
 import { MemberRowActionsMenu } from "@/app/dashboard/(organization)/manage/members/components/member-row-actions-menu"
 import { memberRoleOptions } from "@/app/dashboard/(organization)/manage/lib/member-role-options"
 import { MembershipRoleBadge } from "@/components/badge/membership-role-badge"
 import { createDataGridColumnHelper } from "@/components/data-grid"
-import {
-  User,
-  UserAvatar,
-  UserContent,
-  UserDescription,
-  UserName,
-} from "@/components/user"
 import { formatDate } from "@/lib/format-date"
 import { parseRoleString } from "@/lib/role-string"
 
@@ -66,14 +66,15 @@ export function createMembersColumns({
         headerTitle: t("columns.user"),
         cellClassName: "min-w-0",
       },
+      size: 300,
       cell: ({ row }) => (
-        <User>
-          <UserAvatar src={row.original.image} name={row.original.name} />
-          <UserContent>
-            <UserName>{row.original.name}</UserName>
-            <UserDescription>{row.original.email}</UserDescription>
-          </UserContent>
-        </User>
+        <Identity>
+          <IdentityAvatar src={row.original.image} name={row.original.name} />
+          <IdentityContent>
+            <IdentityTitle>{row.original.name}</IdentityTitle>
+            <IdentityDescription>{row.original.email}</IdentityDescription>
+          </IdentityContent>
+        </Identity>
       ),
       enableSorting: false,
     }),
@@ -92,10 +93,8 @@ export function createMembersColumns({
       header: t("columns.joined"),
       meta: {
         headerTitle: t("columns.joined"),
-        headerClassName:
-          "hidden whitespace-nowrap text-muted-foreground lg:table-cell",
-        cellClassName:
-          "hidden whitespace-nowrap text-muted-foreground lg:table-cell",
+        headerClassName: "whitespace-nowrap text-muted-foreground",
+        cellClassName: "whitespace-nowrap text-muted-foreground",
       },
       cell: ({ row }) => formatDate(row.original.joinedAt, locale),
       enableSorting: false,

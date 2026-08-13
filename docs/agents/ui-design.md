@@ -11,6 +11,7 @@
 - `@repo/ui/components/*`: shadcn preset (**base-mira**) — **never hand-edit** for durable fixes; regen via `sync:shadcn` / CLI.
 - `@repo/ui/components/reui/*`: ReUI registry items — same rule; list them in `packages/ui/scripts/reui/components.mjs`.
 - Durable ReUI overrides: `packages/ui/scripts/reui/patches/` (re-applied by `sync:reui`).
+- `@repo/ui/components/dimah/*`: first-party Dimah components — **edit in place**.
 - App behavior components: `apps/<app>/src/components/` (outside package UI) or route-scoped `components/`.
 - Link + Button: `render={<Link … />}`; `nativeButton={false}` when not a button.
 - Dashboard chrome copy: `@repo/i18n` messages — see [i18n.md](./i18n.md).
@@ -45,7 +46,7 @@ pnpm dlx shadcn@latest add @reui/data-grid -c packages/ui
 
 After adding a new `@reui/…` item, append its name to `packages/ui/scripts/reui/components.mjs`. For a durable override that must survive the next ReUI sync, add a patch under `packages/ui/scripts/reui/patches/` and register it in `patches/index.mjs`.
 
-Apps import via `@repo/ui/components/<name>` or `@repo/ui/components/reui/…`. Each app's `components.json` aliases `ui` → `@repo/ui/components`.
+Apps import via `@repo/ui/components/<name>`, `@repo/ui/components/reui/…`, or `@repo/ui/components/dimah/…`. Each app's `components.json` aliases `ui` → `@repo/ui/components`.
 
 Match existing patterns in the subtree you edit — [architecture § Placement](./architecture.md#placement).
 

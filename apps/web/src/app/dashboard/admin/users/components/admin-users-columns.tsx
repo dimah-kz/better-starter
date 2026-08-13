@@ -1,18 +1,18 @@
 "use client"
 
 import type { Locale } from "@repo/i18n"
+import {
+  Identity,
+  IdentityAvatar,
+  IdentityContent,
+  IdentityDescription,
+  IdentityTitle,
+} from "@repo/ui/components/dimah/identity"
 import type { AdminUserItem } from "@/app/dashboard/admin/users/lib/get-admin-users-page"
 import { AdminUserRowActionsMenu } from "@/app/dashboard/admin/users/components/admin-user-row-actions-menu"
 import { PlatformRoleBadge } from "@/components/badge/platform-role-badge"
 import { UserAccountStatusBadge } from "@/components/badge/user-account-status-badge"
 import { createDataGridColumnHelper } from "@/components/data-grid"
-import {
-  User,
-  UserAvatar,
-  UserContent,
-  UserDescription,
-  UserName,
-} from "@/components/user"
 import { formatDate } from "@/lib/format-date"
 
 const columnHelper = createDataGridColumnHelper<AdminUserItem>()
@@ -52,14 +52,15 @@ export function createAdminUsersColumns({
         headerTitle: t("columns.user"),
         cellClassName: "min-w-0",
       },
+      size: 300,
       cell: ({ row }) => (
-        <User>
-          <UserAvatar src={row.original.image} name={row.original.name} />
-          <UserContent>
-            <UserName>{row.original.name}</UserName>
-            <UserDescription>{row.original.email}</UserDescription>
-          </UserContent>
-        </User>
+        <Identity>
+          <IdentityAvatar src={row.original.image} name={row.original.name} />
+          <IdentityContent>
+            <IdentityTitle>{row.original.name}</IdentityTitle>
+            <IdentityDescription>{row.original.email}</IdentityDescription>
+          </IdentityContent>
+        </Identity>
       ),
       enableSorting: false,
     }),
@@ -78,8 +79,8 @@ export function createAdminUsersColumns({
       header: t("columns.status"),
       meta: {
         headerTitle: t("columns.status"),
-        headerClassName: "hidden whitespace-nowrap sm:table-cell",
-        cellClassName: "hidden whitespace-nowrap sm:table-cell",
+        headerClassName: "whitespace-nowrap",
+        cellClassName: "whitespace-nowrap",
       },
       cell: ({ row }) => (
         <UserAccountStatusBadge banned={row.original.banned} />
@@ -91,10 +92,8 @@ export function createAdminUsersColumns({
       header: t("columns.joined"),
       meta: {
         headerTitle: t("columns.joined"),
-        headerClassName:
-          "hidden whitespace-nowrap text-muted-foreground lg:table-cell",
-        cellClassName:
-          "hidden whitespace-nowrap text-muted-foreground lg:table-cell",
+        headerClassName: "whitespace-nowrap text-muted-foreground",
+        cellClassName: "whitespace-nowrap text-muted-foreground",
       },
       cell: ({ row }) => formatDate(row.original.createdAt, locale),
       enableSorting: false,

@@ -46,6 +46,7 @@ Sidebar drill-down items for admin/manage are derived from slice/tab registries 
 
 - `useTable({ features: dataGridFeatures, manualPagination: true, rowCount })`
 - Column meta: `headerTitle`, `headerClassName`, `cellClassName`
+- Show every column at every breakpoint — no `hidden sm:table-cell` / `lg:table-cell`. The grid scrolls horizontally when space is tight.
 - `ListSearch` + `ListPagination` (`list.pagination`) — never ReUI `DataGridPagination` for these lists
 
 **Do not**
