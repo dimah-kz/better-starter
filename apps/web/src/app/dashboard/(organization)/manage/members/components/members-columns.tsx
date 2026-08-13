@@ -60,7 +60,7 @@ export function createMembersColumns({
     {
       id: "user",
       header: t("columns.user"),
-      cellClassName: "min-w-0",
+      className: "w-full min-w-0",
       cell: (row) => (
         <Identity>
           <IdentityAvatar src={row.image} name={row.name} />
@@ -74,22 +74,18 @@ export function createMembersColumns({
     {
       id: "role",
       header: t("columns.role"),
-      headerClassName: "whitespace-nowrap",
-      cellClassName: "whitespace-nowrap",
       cell: (row) => <MembershipRoleBadge role={row.role} />,
     },
     {
       id: "joined",
       header: t("columns.joined"),
-      headerClassName: "whitespace-nowrap text-muted-foreground",
-      cellClassName: "whitespace-nowrap text-muted-foreground",
+      className: "text-muted-foreground",
       cell: (row) => formatDate(row.joinedAt, locale),
     },
     {
       id: "actions",
       header: <span className="sr-only">{t("columns.actions")}</span>,
-      headerClassName: "w-full text-end",
-      cellClassName: "w-full text-end",
+      className: "text-end",
       cell: (row) => (
         <MemberRowActionsMenu
           member={row}

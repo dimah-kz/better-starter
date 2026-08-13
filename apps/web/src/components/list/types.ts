@@ -6,6 +6,7 @@ export type ListColumn<T> = {
   id: string
   header: ReactNode
   cell: (row: T) => ReactNode
+  className?: string
   headerClassName?: string
   cellClassName?: string
 }

@@ -31,7 +31,7 @@ export function createAdminOrganizationsColumns({
     {
       id: "organization",
       header: t("columns.organization"),
-      cellClassName: "min-w-0",
+      className: "w-full min-w-0",
       cell: (row) => (
         <Identity>
           <IdentityAvatar src={row.logo} name={row.name} />
@@ -44,26 +44,18 @@ export function createAdminOrganizationsColumns({
     {
       id: "slug",
       header: t("columns.slug"),
-      headerClassName: "min-w-0 whitespace-nowrap text-muted-foreground",
-      cellClassName: "min-w-0 whitespace-nowrap text-muted-foreground",
-      cell: (row) => (
-        <span className="block truncate" title={row.slug}>
-          {row.slug}
-        </span>
-      ),
+      className: "text-muted-foreground",
+      cell: (row) => row.slug,
     },
     {
       id: "members",
       header: t("columns.members"),
-      headerClassName: "whitespace-nowrap",
-      cellClassName: "whitespace-nowrap",
       cell: (row) => row.memberCount,
     },
     {
       id: "created",
       header: t("columns.created"),
-      headerClassName: "whitespace-nowrap text-muted-foreground",
-      cellClassName: "whitespace-nowrap text-muted-foreground",
+      className: "text-muted-foreground",
       cell: (row) => formatDate(row.createdAt, locale),
     },
   ]

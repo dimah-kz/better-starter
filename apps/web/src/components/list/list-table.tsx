@@ -7,6 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@repo/ui/components/table"
+import { cn } from "@repo/ui/lib/utils"
 import type { ListColumn } from "@/components/list/types"
 
 export type ListTableProps<T> = {
@@ -27,7 +28,10 @@ export function ListTable<T>({
       <TableHeader>
         <TableRow>
           {columns.map((column) => (
-            <TableHead key={column.id} className={column.headerClassName}>
+            <TableHead
+              key={column.id}
+              className={cn(column.className, column.headerClassName)}
+            >
               {column.header}
             </TableHead>
           ))}
@@ -47,7 +51,10 @@ export function ListTable<T>({
           rows.map((row) => (
             <TableRow key={getRowId(row)}>
               {columns.map((column) => (
-                <TableCell key={column.id} className={column.cellClassName}>
+                <TableCell
+                  key={column.id}
+                  className={cn(column.className, column.cellClassName)}
+                >
                   {column.cell(row)}
                 </TableCell>
               ))}
