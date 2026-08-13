@@ -94,6 +94,61 @@ function IdentityContent({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+function IdentityAddon({ className, ...props }: React.ComponentProps<"span">) {
+  return (
+    <span
+      data-slot="identity-addon"
+      className={cn(
+        "inline-flex shrink-0 items-center justify-center [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-3.5 group-data-[size=lg]/identity:[&_svg:not([class*='size-'])]:size-4 group-data-[size=sm]/identity:[&_svg:not([class*='size-'])]:size-3",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+function isIdentityAddon(
+  node: React.ReactNode
+): node is React.ReactElement<React.ComponentProps<typeof IdentityAddon>> {
+  return React.isValidElement(node) && node.type === IdentityAddon
+}
+
+function getIdentityLineLabel(children: React.ReactNode) {
+  const parts: string[] = []
+  React.Children.forEach(children, (node) => {
+    if (typeof node === "string" && node.trim()) parts.push(node)
+  })
+  return parts.length > 0 ? parts.join(" ") : undefined
+}
+
+function renderIdentityLine(children: React.ReactNode) {
+  const result: React.ReactNode[] = []
+  let label: React.ReactNode[] = []
+  let labelIndex = 0
+
+  const flushLabel = () => {
+    if (label.length === 0) return
+    result.push(
+      <span key={`label-${labelIndex++}`} className="min-w-0 truncate">
+        {label}
+      </span>
+    )
+    label = []
+  }
+
+  for (const node of React.Children.toArray(children)) {
+    if (isIdentityAddon(node)) {
+      flushLabel()
+      result.push(node)
+      continue
+    }
+    label.push(node)
+  }
+  flushLabel()
+
+  return result
+}
+
 function IdentityTitle({
   className,
   children,
@@ -103,14 +158,14 @@ function IdentityTitle({
   return (
     <span
       data-slot="identity-title"
-      title={title ?? (typeof children === "string" ? children : undefined)}
+      title={title ?? getIdentityLineLabel(children)}
       className={cn(
-        "block max-w-full min-w-0 truncate text-start text-sm/tight font-medium group-data-[size=lg]/identity:text-base/tight group-data-[size=sm]/identity:text-xs/tight",
+        "flex max-w-full min-w-0 items-center gap-1 text-start text-sm/tight font-medium group-data-[size=lg]/identity:text-base/tight group-data-[size=sm]/identity:gap-0.5 group-data-[size=sm]/identity:text-xs/tight",
         className
       )}
       {...props}
     >
-      {children}
+      {renderIdentityLine(children)}
     </span>
   )
 }
@@ -124,14 +179,14 @@ function IdentityDescription({
   return (
     <span
       data-slot="identity-description"
-      title={title ?? (typeof children === "string" ? children : undefined)}
+      title={title ?? getIdentityLineLabel(children)}
       className={cn(
-        "block max-w-full min-w-0 truncate text-start text-xs/tight text-muted-foreground",
+        "flex max-w-full min-w-0 items-center gap-1 text-start text-xs/tight text-muted-foreground group-data-[size=sm]/identity:gap-0.5",
         className
       )}
       {...props}
     >
-      {children}
+      {renderIdentityLine(children)}
     </span>
   )
 }
@@ -142,4 +197,5 @@ export {
   IdentityContent,
   IdentityTitle,
   IdentityDescription,
+  IdentityAddon,
 }
