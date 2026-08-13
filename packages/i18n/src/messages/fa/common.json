@@ -11,6 +11,8 @@
   "pagination": {
     "previous": "قبلی",
     "next": "بعدی",
+    "nav": "صفحه‌بندی",
+    "goToPage": "رفتن به صفحه {page}",
     "rowsPerPage": "ردیف در هر صفحه",
     "range": "{start}–{end} از {total}",
     "rangeAria": "{start} تا {end} از {total} {countLabel}"

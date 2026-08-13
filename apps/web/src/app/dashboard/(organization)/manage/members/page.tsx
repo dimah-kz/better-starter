@@ -5,8 +5,7 @@ import {
   parseOrganizationMembersPageQuery,
 } from "@/app/dashboard/(organization)/manage/members/lib/get-organization-members-page"
 import { resolveDashboardActiveOrganizationId } from "@/app/dashboard/lib/dashboard-session"
-import { Card, CardContent } from "@repo/ui/components/card"
-import { Skeleton } from "@repo/ui/components/skeleton"
+import { ListSkeleton } from "@/components/list"
 import { getActorOrganizationRole } from "@/app/dashboard/(organization)/manage/members/lib/get-actor-organization-role"
 import { headers } from "next/headers"
 import { auth } from "@repo/auth"
@@ -19,19 +18,7 @@ export default function OrganizationMembersPage(
   props: OrganizationMembersPageProps
 ) {
   return (
-    <Suspense
-      fallback={
-        <Card className="w-full">
-          <CardContent className="flex min-w-0 flex-col gap-3 py-6">
-            <Skeleton className="h-8 w-full" />
-            <Skeleton className="h-8 w-full" />
-            <Skeleton className="h-8 w-3/4" />
-            <Skeleton className="h-8 w-full" />
-            <Skeleton className="h-8 w-5/6" />
-          </CardContent>
-        </Card>
-      }
-    >
+    <Suspense fallback={<ListSkeleton />}>
       <OrganizationMembersPageContent {...props} />
     </Suspense>
   )

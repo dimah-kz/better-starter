@@ -18,6 +18,7 @@ import {
 import { dashboardCacheTags } from "@/app/dashboard/lib/cache-tags"
 import { member, user } from "@repo/db/schema"
 import {
+  LIST_SEARCH_MIN_LENGTH,
   clampListPage,
   parseListFilter,
   parseListPage,
@@ -25,8 +26,6 @@ import {
   parseListQuery,
 } from "@/components/list"
 import { db } from "@repo/db"
-
-const MIN_QUERY_LENGTH = 2
 
 function roleColumnHasToken(column: typeof member.role, token: string): SQL {
   return or(
@@ -87,7 +86,7 @@ function buildMembersWhere(
     )
   }
 
-  if (q && q.length >= MIN_QUERY_LENGTH) {
+  if (q && q.length >= LIST_SEARCH_MIN_LENGTH) {
     conditions.push(
       or(ilike(user.name, `%${q}%`), ilike(user.email, `%${q}%`))!
     )

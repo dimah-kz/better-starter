@@ -71,6 +71,7 @@ export function MembersTable({
   const [removeTarget, setRemoveTarget] =
     useState<OrganizationMemberItem | null>(null)
 
+  const title = t("dashboard.manageTabs.members")
   const list = useList({
     buildPath: organizationMembersTablePath,
     page,
@@ -78,6 +79,7 @@ export function MembersTable({
     totalCount,
     filter,
     q,
+    countLabel: tTables("count.members"),
   })
 
   const memberFilterOptions = (["all", "managers", "members"] as const).map(
@@ -128,7 +130,7 @@ export function MembersTable({
     <>
       <Card className="w-full">
         <CardHeader>
-          <CardTitle>{t("dashboard.manageTabs.members")}</CardTitle>
+          <CardTitle>{title}</CardTitle>
           <CardAction className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
             <ListSearch
               value={q}
@@ -159,7 +161,13 @@ export function MembersTable({
             rows={members}
             columns={columns}
             getRowId={(row) => row.id}
-            empty={tTables("empty.members")}
+            caption={title}
+            busy={list.isPending}
+            empty={
+              q || filter !== "all"
+                ? tTables("empty.results")
+                : tTables("empty.members")
+            }
           />
         </CardContent>
         <CardFooter className="justify-between gap-2">

@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import { useCallback } from "react"
+import { useCallback, useTransition } from "react"
 import type {
   ListPaginationProps,
   ListSearchParamsInput,
@@ -29,6 +29,7 @@ export function useList<TFilter extends string = string>({
   pageSizeOptions,
 }: UseListOptions<TFilter>) {
   const router = useRouter()
+  const [isPending, startTransition] = useTransition()
 
   const navigate = useCallback(
     (
@@ -39,16 +40,18 @@ export function useList<TFilter extends string = string>({
         q?: string
       }>
     ) => {
-      router.push(
-        buildPath({
-          page: patch.page ?? page,
-          pageSize: patch.pageSize ?? pageSize,
-          filter: patch.filter ?? filter,
-          q: "q" in patch ? patch.q : q,
-        })
-      )
+      startTransition(() => {
+        router.push(
+          buildPath({
+            page: patch.page ?? page,
+            pageSize: patch.pageSize ?? pageSize,
+            filter: patch.filter ?? filter,
+            q: "q" in patch ? patch.q : q,
+          })
+        )
+      })
     },
-    [buildPath, filter, page, pageSize, q, router]
+    [buildPath, filter, page, pageSize, q, router, startTransition]
   )
 
   const buildPageHref = useCallback(
@@ -81,6 +84,7 @@ export function useList<TFilter extends string = string>({
   }
 
   return {
+    isPending,
     navigate,
     setQuery,
     setFilter: (nextFilter: TFilter) =>

@@ -1,7 +1,9 @@
 import type { ReactNode } from "react"
+import { Empty, EmptyHeader, EmptyTitle } from "@repo/ui/components/empty"
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -15,6 +17,8 @@ export type ListTableProps<T> = {
   columns: ListColumn<T>[]
   getRowId: (row: T) => string
   empty?: ReactNode
+  caption?: ReactNode
+  busy?: boolean
 }
 
 export function ListTable<T>({
@@ -22,14 +26,24 @@ export function ListTable<T>({
   columns,
   getRowId,
   empty,
+  caption,
+  busy,
 }: ListTableProps<T>) {
   return (
-    <Table>
+    <Table
+      aria-busy={busy || undefined}
+      data-pending={busy ? "" : undefined}
+      className={cn(busy && "pointer-events-none opacity-60")}
+    >
+      {caption ? (
+        <TableCaption className="sr-only">{caption}</TableCaption>
+      ) : null}
       <TableHeader>
         <TableRow>
           {columns.map((column) => (
             <TableHead
               key={column.id}
+              scope="col"
               className={cn(column.className, column.headerClassName)}
             >
               {column.header}
@@ -42,9 +56,16 @@ export function ListTable<T>({
           <TableRow>
             <TableCell
               colSpan={Math.max(columns.length, 1)}
-              className="py-6 text-center whitespace-normal text-muted-foreground"
+              className="whitespace-normal"
+              aria-live="polite"
             >
-              {empty}
+              {empty ? (
+                <Empty>
+                  <EmptyHeader>
+                    <EmptyTitle>{empty}</EmptyTitle>
+                  </EmptyHeader>
+                </Empty>
+              ) : null}
             </TableCell>
           </TableRow>
         ) : (

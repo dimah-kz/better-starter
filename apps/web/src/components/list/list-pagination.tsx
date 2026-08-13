@@ -148,6 +148,8 @@ export function ListPagination({
     >
       <span
         className="shrink-0 max-sm:order-1"
+        aria-live="polite"
+        aria-atomic="true"
         aria-label={t("pagination.rangeAria", {
           start: formatValue(start),
           end: formatValue(end),
@@ -163,7 +165,10 @@ export function ListPagination({
       </span>
 
       {showPagination ? (
-        <Pagination className="w-auto shrink-0 max-sm:order-3 max-sm:basis-full max-sm:justify-center">
+        <Pagination
+          aria-label={t("pagination.nav")}
+          className="w-auto shrink-0 max-sm:order-3 max-sm:basis-full max-sm:justify-center"
+        >
           <PaginationContent>
             <PaginationItem>
               <PageLink
@@ -193,6 +198,9 @@ export function ListPagination({
                   <PageLink
                     href={buildPageHref(num)}
                     isActive={num === safePage}
+                    aria-label={t("pagination.goToPage", {
+                      page: formatValue(num),
+                    })}
                   >
                     {num}
                   </PageLink>

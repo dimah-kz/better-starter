@@ -28,5 +28,10 @@
     "members": "عضوی یافت نشد.",
     "organizations": "سازمانی یافت نشد.",
     "results": "نتیجه‌ای نیست."
+  },
+  "count": {
+    "users": "کاربر",
+    "members": "عضو",
+    "organizations": "سازمان"
   }
 }

@@ -28,5 +28,10 @@
     "members": "No members found.",
     "organizations": "No organizations found.",
     "results": "No results."
+  },
+  "count": {
+    "users": "users",
+    "members": "members",
+    "organizations": "organizations"
   }
 }

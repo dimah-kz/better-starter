@@ -67,6 +67,7 @@ export function AdminUsersTable({
   const [isPending, startTransition] = useTransition()
   const [banTarget, setBanTarget] = useState<AdminUserItem | null>(null)
 
+  const title = t("dashboard.adminTabs.users")
   const list = useList({
     buildPath: adminUsersTablePath,
     page,
@@ -74,6 +75,7 @@ export function AdminUsersTable({
     totalCount,
     filter,
     q,
+    countLabel: tTables("count.users"),
   })
 
   const filterOptions = (["all", "admins", "users", "banned"] as const).map(
@@ -138,7 +140,7 @@ export function AdminUsersTable({
     <>
       <Card className="w-full">
         <CardHeader>
-          <CardTitle>{t("dashboard.adminTabs.users")}</CardTitle>
+          <CardTitle>{title}</CardTitle>
           <CardAction className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
             <ListSearch
               value={q}
@@ -169,7 +171,13 @@ export function AdminUsersTable({
             rows={users}
             columns={columns}
             getRowId={(row) => row.id}
-            empty={tTables("empty.users")}
+            caption={title}
+            busy={list.isPending}
+            empty={
+              q || filter !== "all"
+                ? tTables("empty.results")
+                : tTables("empty.users")
+            }
           />
         </CardContent>
         <CardFooter className="justify-between gap-2">

@@ -4,14 +4,13 @@ import { ADMIN_ORGANIZATIONS_DEFAULT_PAGE_SIZE } from "@/app/dashboard/admin/org
 import { dashboardCacheTags } from "@/app/dashboard/lib/cache-tags"
 import { member, organization } from "@repo/db/schema"
 import {
+  LIST_SEARCH_MIN_LENGTH,
   clampListPage,
   parseListPage,
   parseListPageSize,
   parseListQuery,
 } from "@/components/list"
 import { db } from "@repo/db"
-
-const MIN_QUERY_LENGTH = 2
 
 export type AdminOrganizationItem = {
   id: string
@@ -37,7 +36,7 @@ export type AdminOrganizationsPageResult = {
 }
 
 function buildOrganizationsWhere(q?: string): SQL | undefined {
-  if (!q || q.length < MIN_QUERY_LENGTH) {
+  if (!q || q.length < LIST_SEARCH_MIN_LENGTH) {
     return undefined
   }
 

@@ -39,7 +39,7 @@ export function AdminUserRowActionsMenu({
     <DropdownMenu>
       <DropdownMenuTrigger
         render={<Button size="icon-sm" variant="ghost" />}
-        aria-label={`Actions for ${user.name}`}
+        aria-label={t("rowActions", { name: user.name })}
       >
         <MoreHorizontalIcon />
       </DropdownMenuTrigger>

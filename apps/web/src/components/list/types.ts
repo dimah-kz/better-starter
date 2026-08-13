@@ -2,6 +2,8 @@ import type { ReactNode } from "react"
 
 export const LIST_PAGE_SIZES = [10, 20, 50, 100] as const
 
+export const LIST_SEARCH_MIN_LENGTH = 2
+
 export type ListColumn<T> = {
   id: string
   header: ReactNode

@@ -18,6 +18,7 @@ import {
 import { dashboardCacheTags } from "@/app/dashboard/lib/cache-tags"
 import { user } from "@repo/db/schema"
 import {
+  LIST_SEARCH_MIN_LENGTH,
   clampListPage,
   parseListFilter,
   parseListPage,
@@ -25,8 +26,6 @@ import {
   parseListQuery,
 } from "@/components/list"
 import { db } from "@repo/db"
-
-const MIN_QUERY_LENGTH = 2
 
 function roleColumnHasToken(column: typeof user.role, token: string): SQL {
   return or(
@@ -82,7 +81,7 @@ function buildUsersWhere(
     conditions.push(eq(user.banned, true))
   }
 
-  if (q && q.length >= MIN_QUERY_LENGTH) {
+  if (q && q.length >= LIST_SEARCH_MIN_LENGTH) {
     conditions.push(
       or(ilike(user.name, `%${q}%`), ilike(user.email, `%${q}%`))!
     )

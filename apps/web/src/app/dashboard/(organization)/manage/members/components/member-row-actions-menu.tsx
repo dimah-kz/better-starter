@@ -34,7 +34,7 @@ export function MemberRowActionsMenu({
     <DropdownMenu>
       <DropdownMenuTrigger
         render={<Button size="icon-sm" variant="ghost" />}
-        aria-label={`Actions for ${member.name}`}
+        aria-label={t("rowActions", { name: member.name })}
       >
         <MoreHorizontalIcon />
       </DropdownMenuTrigger>

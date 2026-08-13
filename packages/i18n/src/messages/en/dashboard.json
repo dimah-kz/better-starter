@@ -70,6 +70,7 @@
     }
   },
   "memberManage": {
+    "rowActions": "Actions for {name}",
     "changeRole": "Change role",
     "removeFromOrganization": "Remove from organization",
     "removeTitle": "Remove from organization",
@@ -95,6 +96,7 @@
     "sessionsDescription": "Review devices signed in to your account"
   },
   "adminUserManage": {
+    "rowActions": "Actions for {name}",
     "changeRole": "Change platform role",
     "banUser": "Ban user",
     "unbanUser": "Unban user",

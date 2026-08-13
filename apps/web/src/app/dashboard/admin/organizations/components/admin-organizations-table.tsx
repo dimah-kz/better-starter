@@ -40,12 +40,14 @@ export function AdminOrganizationsTable({
   const t = useTranslations()
   const tTables = useTranslations("tables")
 
+  const title = t("dashboard.adminTabs.organizations")
   const list = useList({
     buildPath: adminOrganizationsTablePath,
     page,
     pageSize,
     totalCount,
     q,
+    countLabel: tTables("count.organizations"),
   })
 
   const columns = useMemo(
@@ -60,7 +62,7 @@ export function AdminOrganizationsTable({
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>{t("dashboard.adminTabs.organizations")}</CardTitle>
+        <CardTitle>{title}</CardTitle>
         <CardAction className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
           <ListSearch
             value={q}
@@ -74,7 +76,9 @@ export function AdminOrganizationsTable({
           rows={organizations}
           columns={columns}
           getRowId={(row) => row.id}
-          empty={tTables("empty.organizations")}
+          caption={title}
+          busy={list.isPending}
+          empty={q ? tTables("empty.results") : tTables("empty.organizations")}
         />
       </CardContent>
       <CardFooter className="justify-between gap-2">

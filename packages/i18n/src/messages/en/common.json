@@ -11,6 +11,8 @@
   "pagination": {
     "previous": "Previous",
     "next": "Next",
+    "nav": "Pagination",
+    "goToPage": "Go to page {page}",
     "rowsPerPage": "Rows per page",
     "range": "{start}–{end} of {total}",
     "rangeAria": "{start} to {end} of {total} {countLabel}"

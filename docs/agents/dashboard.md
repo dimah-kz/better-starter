@@ -44,20 +44,22 @@ Sidebar drill-down items for admin/manage are derived from slice/tab registries 
 
 **New list checklist**
 
-1. `get-*.ts` — tagged cache page from the database (`page` / `pageSize` / `filter` / `q`).
+1. `get-*.ts` — tagged cache page from the database (`page` / `pageSize` / `filter` / `q`). Use `LIST_SEARCH_MIN_LENGTH` from `list/` for `q`.
 2. `*-table-params.ts` — `listPath` + parse helpers.
 3. `*-columns.tsx` — `ListColumn<T>[]` (`id`, `header`, `cell`, optional class names).
-4. `*-table.tsx` — Card + `ListSearch` + optional chips + `ListTable` + `ListPagination` (`list.pagination`).
-5. `page.tsx` — parse search params, fetch, pass the server page into the table.
+4. `*-table.tsx` — Card + `ListSearch` + optional chips + `ListTable` (`caption`, `busy={list.isPending}`, empty vs results) + `ListPagination` (`list.pagination`, pass `countLabel` into `useList`).
+5. `page.tsx` — parse search params, fetch, pass the server page into the table. Suspense fallback: `ListSkeleton`.
 
 **Required**
 
 - Show every column at every breakpoint — no `hidden sm:table-cell` / `lg:table-cell`. The table scrolls horizontally when space is tight.
 - `ListSearch` + `ListPagination` from `list/` — never client row-model pagination for these lists.
+- `caption` (same copy as the card title), `countLabel`, and `busy={list.isPending}`.
+- Empty copy: `tables.empty.results` when `q` or a non-default filter is active; otherwise `tables.empty.<noun>`.
 
 **Do not**
 
-- Use TanStack Table or ReUI DataGrid on URL / RSC lists (add `@reui/data-grid` later only for a client ops grid).
+- Use TanStack Table or ReUI DataGrid on URL / RSC lists. A client ops grid can be added later with `pnpm dlx shadcn add @reui/data-grid -c packages/ui` — do not keep a dead grid stack in the template.
 - Invent `ListDataGrid` / `DataGridCard` / `ListFilter` / `ListFooter` wrappers.
 - Use or revive `legacy-data-table` / app `data-table` (removed).
 

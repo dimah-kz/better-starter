@@ -70,6 +70,7 @@
     }
   },
   "memberManage": {
+    "rowActions": "عملیات {name}",
     "changeRole": "تغییر نقش",
     "removeFromOrganization": "حذف از سازمان",
     "removeTitle": "حذف از سازمان",
@@ -95,6 +96,7 @@
     "sessionsDescription": "دستگاه‌هایی که وارد حساب شده‌اند را ببینید"
   },
   "adminUserManage": {
+    "rowActions": "عملیات {name}",
     "changeRole": "تغییر نقش پلتفرم",
     "banUser": "مسدود کردن کاربر",
     "unbanUser": "رفع مسدودیت",
