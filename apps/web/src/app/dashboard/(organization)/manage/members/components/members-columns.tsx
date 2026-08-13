@@ -6,7 +6,13 @@ import { MemberRowActionsMenu } from "@/app/dashboard/(organization)/manage/memb
 import { memberRoleOptions } from "@/app/dashboard/(organization)/manage/lib/member-role-options"
 import { MembershipRoleBadge } from "@/components/badge/membership-role-badge"
 import { createDataGridColumnHelper } from "@/components/data-grid"
-import { UserProfileCell } from "@/components/user-profile-cell"
+import {
+  User,
+  UserAvatar,
+  UserContent,
+  UserDescription,
+  UserName,
+} from "@/components/user"
 import { formatDate } from "@/lib/format-date"
 import { parseRoleString } from "@/lib/role-string"
 
@@ -61,14 +67,13 @@ export function createMembersColumns({
         cellClassName: "min-w-0",
       },
       cell: ({ row }) => (
-        <UserProfileCell
-          variant="inline"
-          user={{
-            name: row.original.name,
-            email: row.original.email,
-            image: row.original.image,
-          }}
-        />
+        <User>
+          <UserAvatar src={row.original.image} name={row.original.name} />
+          <UserContent>
+            <UserName>{row.original.name}</UserName>
+            <UserDescription>{row.original.email}</UserDescription>
+          </UserContent>
+        </User>
       ),
       enableSorting: false,
     }),

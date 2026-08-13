@@ -6,7 +6,13 @@ import { AdminUserRowActionsMenu } from "@/app/dashboard/admin/users/components/
 import { PlatformRoleBadge } from "@/components/badge/platform-role-badge"
 import { UserAccountStatusBadge } from "@/components/badge/user-account-status-badge"
 import { createDataGridColumnHelper } from "@/components/data-grid"
-import { UserProfileCell } from "@/components/user-profile-cell"
+import {
+  User,
+  UserAvatar,
+  UserContent,
+  UserDescription,
+  UserName,
+} from "@/components/user"
 import { formatDate } from "@/lib/format-date"
 
 const columnHelper = createDataGridColumnHelper<AdminUserItem>()
@@ -47,14 +53,13 @@ export function createAdminUsersColumns({
         cellClassName: "min-w-0",
       },
       cell: ({ row }) => (
-        <UserProfileCell
-          variant="inline"
-          user={{
-            name: row.original.name,
-            email: row.original.email,
-            image: row.original.image,
-          }}
-        />
+        <User>
+          <UserAvatar src={row.original.image} name={row.original.name} />
+          <UserContent>
+            <UserName>{row.original.name}</UserName>
+            <UserDescription>{row.original.email}</UserDescription>
+          </UserContent>
+        </User>
       ),
       enableSorting: false,
     }),
