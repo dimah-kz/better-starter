@@ -2,7 +2,6 @@
 
 import { useMemo, useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
-import { useTable } from "@tanstack/react-table"
 import { removeOrganizationMemberAction } from "@/app/action/dashboard/(organization)/manage/members/remove-organization-member-action"
 import { createMembersColumns } from "@/app/dashboard/(organization)/manage/members/components/members-columns"
 import type { OrganizationMemberItem } from "@/app/dashboard/(organization)/manage/members/lib/get-organization-members-page"
@@ -10,7 +9,12 @@ import {
   organizationMembersTablePath,
   type MemberTableFilter,
 } from "@/app/dashboard/(organization)/manage/members/lib/members-table-params"
-import { ListPagination, ListSearch, useList } from "@/components/list"
+import {
+  ListPagination,
+  ListSearch,
+  ListTable,
+  useList,
+} from "@/components/list"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -29,12 +33,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@repo/ui/components/card"
-import {
-  DataGrid,
-  DataGridContainer,
-  dataGridFeatures,
-} from "@repo/ui/components/reui/data-grid/data-grid"
-import { DataGridTable } from "@repo/ui/components/reui/data-grid/data-grid-table"
 import { ToggleGroup, ToggleGroupItem } from "@repo/ui/components/toggle-group"
 import type { Locale } from "@repo/i18n"
 import { toast } from "@repo/ui/components/toast"
@@ -103,15 +101,6 @@ export function MembersTable({
     [actorRole, actorUserId, isPending, locale, onChangeRole, tTables]
   )
 
-  const table = useTable({
-    features: dataGridFeatures,
-    data: members,
-    columns,
-    getRowId: (row) => row.id,
-    manualPagination: true,
-    rowCount: totalCount,
-  })
-
   const handleRemove = () => {
     if (!removeTarget) return
     startTransition(async () => {
@@ -166,16 +155,12 @@ export function MembersTable({
           </CardAction>
         </CardHeader>
         <CardContent>
-          <DataGrid
-            table={table}
-            recordCount={totalCount}
-            emptyMessage={tTables("empty.members")}
-            tableLayout={{ width: "fixed" }}
-          >
-            <DataGridContainer>
-              <DataGridTable />
-            </DataGridContainer>
-          </DataGrid>
+          <ListTable
+            rows={members}
+            columns={columns}
+            getRowId={(row) => row.id}
+            empty={tTables("empty.members")}
+          />
         </CardContent>
         <CardFooter className="justify-between gap-2">
           {totalCount > 0 ? <ListPagination {...list.pagination} /> : null}

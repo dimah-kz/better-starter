@@ -10,4 +10,6 @@ alwaysApply: false
 
 **Writes:** `action/dashboard/…` → `auth.api`. **Reads:** `get-*.ts` + `'use cache'` + tags.
 
+**Lists:** URL `list/` + `ListTable`; never ReUI DataGrid / TanStack Table for server pages.
+
 **Detail (Read):** [docs/agents/dashboard.md](docs/agents/dashboard.md).

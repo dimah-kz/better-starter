@@ -1,4 +1,14 @@
+import type { ReactNode } from "react"
+
 export const LIST_PAGE_SIZES = [10, 20, 50, 100] as const
+
+export type ListColumn<T> = {
+  id: string
+  header: ReactNode
+  cell: (row: T) => ReactNode
+  headerClassName?: string
+  cellClassName?: string
+}
 
 export type ListSearchParamsInput = {
   page?: number

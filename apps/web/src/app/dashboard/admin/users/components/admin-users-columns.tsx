@@ -12,10 +12,8 @@ import type { AdminUserItem } from "@/app/dashboard/admin/users/lib/get-admin-us
 import { AdminUserRowActionsMenu } from "@/app/dashboard/admin/users/components/admin-user-row-actions-menu"
 import { PlatformRoleBadge } from "@/components/badge/platform-role-badge"
 import { UserAccountStatusBadge } from "@/components/badge/user-account-status-badge"
-import { createDataGridColumnHelper } from "@/components/data-grid"
+import type { ListColumn } from "@/components/list"
 import { formatDate } from "@/lib/format-date"
-
-const columnHelper = createDataGridColumnHelper<AdminUserItem>()
 
 type TablesTranslator = {
   (key: "columns.user"): string
@@ -43,81 +41,58 @@ export function createAdminUsersColumns({
   onChangeRole,
   onBan,
   onUnban,
-}: CreateAdminUsersColumnsOptions) {
-  return columnHelper.columns([
-    columnHelper.accessor("name", {
+}: CreateAdminUsersColumnsOptions): ListColumn<AdminUserItem>[] {
+  return [
+    {
       id: "user",
       header: t("columns.user"),
-      meta: {
-        headerTitle: t("columns.user"),
-        cellClassName: "min-w-0",
-      },
-      size: 300,
-      cell: ({ row }) => (
+      cellClassName: "min-w-0",
+      cell: (row) => (
         <Identity>
-          <IdentityAvatar src={row.original.image} name={row.original.name} />
+          <IdentityAvatar src={row.image} name={row.name} />
           <IdentityContent>
-            <IdentityTitle>{row.original.name}</IdentityTitle>
-            <IdentityDescription>{row.original.email}</IdentityDescription>
+            <IdentityTitle>{row.name}</IdentityTitle>
+            <IdentityDescription>{row.email}</IdentityDescription>
           </IdentityContent>
         </Identity>
       ),
-      enableSorting: false,
-    }),
-    columnHelper.accessor("role", {
+    },
+    {
+      id: "role",
       header: t("columns.role"),
-      meta: {
-        headerTitle: t("columns.role"),
-        headerClassName: "whitespace-nowrap",
-        cellClassName: "whitespace-nowrap",
-      },
-      cell: ({ row }) => <PlatformRoleBadge role={row.original.role} />,
-      enableSorting: false,
-    }),
-    columnHelper.accessor("banned", {
+      headerClassName: "whitespace-nowrap",
+      cellClassName: "whitespace-nowrap",
+      cell: (row) => <PlatformRoleBadge role={row.role} />,
+    },
+    {
       id: "status",
       header: t("columns.status"),
-      meta: {
-        headerTitle: t("columns.status"),
-        headerClassName: "whitespace-nowrap",
-        cellClassName: "whitespace-nowrap",
-      },
-      cell: ({ row }) => (
-        <UserAccountStatusBadge banned={row.original.banned} />
-      ),
-      enableSorting: false,
-    }),
-    columnHelper.accessor("createdAt", {
+      headerClassName: "whitespace-nowrap",
+      cellClassName: "whitespace-nowrap",
+      cell: (row) => <UserAccountStatusBadge banned={row.banned} />,
+    },
+    {
       id: "joined",
       header: t("columns.joined"),
-      meta: {
-        headerTitle: t("columns.joined"),
-        headerClassName: "whitespace-nowrap text-muted-foreground",
-        cellClassName: "whitespace-nowrap text-muted-foreground",
-      },
-      cell: ({ row }) => formatDate(row.original.createdAt, locale),
-      enableSorting: false,
-    }),
-    columnHelper.display({
+      headerClassName: "whitespace-nowrap text-muted-foreground",
+      cellClassName: "whitespace-nowrap text-muted-foreground",
+      cell: (row) => formatDate(row.createdAt, locale),
+    },
+    {
       id: "actions",
-      header: () => <span className="sr-only">{t("columns.actions")}</span>,
-      meta: {
-        headerTitle: t("columns.actions"),
-        headerClassName: "w-full text-end",
-        cellClassName: "w-full text-end",
-      },
-      cell: ({ row }) => (
+      header: <span className="sr-only">{t("columns.actions")}</span>,
+      headerClassName: "w-full text-end",
+      cellClassName: "w-full text-end",
+      cell: (row) => (
         <AdminUserRowActionsMenu
-          user={row.original}
+          user={row}
           disabled={disabled}
-          isSelf={row.original.id === actorUserId}
-          onChangeRole={() => onChangeRole(row.original)}
-          onBan={() => onBan(row.original)}
-          onUnban={() => onUnban(row.original)}
+          isSelf={row.id === actorUserId}
+          onChangeRole={() => onChangeRole(row)}
+          onBan={() => onBan(row)}
+          onUnban={() => onUnban(row)}
         />
       ),
-      enableSorting: false,
-      enableHiding: false,
-    }),
-  ])
+    },
+  ]
 }

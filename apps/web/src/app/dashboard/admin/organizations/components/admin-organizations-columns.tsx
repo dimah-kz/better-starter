@@ -8,10 +8,8 @@ import {
   IdentityTitle,
 } from "@repo/ui/components/dimah/identity"
 import type { AdminOrganizationItem } from "@/app/dashboard/admin/organizations/lib/get-admin-organizations-page"
-import { createDataGridColumnHelper } from "@/components/data-grid"
+import type { ListColumn } from "@/components/list"
 import { formatDate } from "@/lib/format-date"
-
-const columnHelper = createDataGridColumnHelper<AdminOrganizationItem>()
 
 type TablesTranslator = {
   (key: "columns.organization"): string
@@ -28,60 +26,45 @@ type CreateAdminOrganizationsColumnsOptions = {
 export function createAdminOrganizationsColumns({
   t,
   locale,
-}: CreateAdminOrganizationsColumnsOptions) {
-  return columnHelper.columns([
-    columnHelper.accessor("name", {
+}: CreateAdminOrganizationsColumnsOptions): ListColumn<AdminOrganizationItem>[] {
+  return [
+    {
       id: "organization",
       header: t("columns.organization"),
-      meta: {
-        headerTitle: t("columns.organization"),
-        cellClassName: "min-w-0",
-      },
-      size: 300,
-      cell: ({ row }) => (
+      cellClassName: "min-w-0",
+      cell: (row) => (
         <Identity>
-          <IdentityAvatar src={row.original.logo} name={row.original.name} />
+          <IdentityAvatar src={row.logo} name={row.name} />
           <IdentityContent>
-            <IdentityTitle>{row.original.name}</IdentityTitle>
+            <IdentityTitle>{row.name}</IdentityTitle>
           </IdentityContent>
         </Identity>
       ),
-      enableSorting: false,
-    }),
-    columnHelper.accessor("slug", {
+    },
+    {
+      id: "slug",
       header: t("columns.slug"),
-      meta: {
-        headerTitle: t("columns.slug"),
-        headerClassName: "min-w-0 whitespace-nowrap text-muted-foreground",
-        cellClassName: "min-w-0 whitespace-nowrap text-muted-foreground",
-      },
-      cell: ({ row }) => (
-        <span className="block truncate" title={row.original.slug}>
-          {row.original.slug}
+      headerClassName: "min-w-0 whitespace-nowrap text-muted-foreground",
+      cellClassName: "min-w-0 whitespace-nowrap text-muted-foreground",
+      cell: (row) => (
+        <span className="block truncate" title={row.slug}>
+          {row.slug}
         </span>
       ),
-      enableSorting: false,
-    }),
-    columnHelper.accessor("memberCount", {
+    },
+    {
       id: "members",
       header: t("columns.members"),
-      meta: {
-        headerTitle: t("columns.members"),
-        headerClassName: "whitespace-nowrap",
-        cellClassName: "whitespace-nowrap",
-      },
-      enableSorting: false,
-    }),
-    columnHelper.accessor("createdAt", {
+      headerClassName: "whitespace-nowrap",
+      cellClassName: "whitespace-nowrap",
+      cell: (row) => row.memberCount,
+    },
+    {
       id: "created",
       header: t("columns.created"),
-      meta: {
-        headerTitle: t("columns.created"),
-        headerClassName: "whitespace-nowrap text-muted-foreground",
-        cellClassName: "whitespace-nowrap text-muted-foreground",
-      },
-      cell: ({ row }) => formatDate(row.original.createdAt, locale),
-      enableSorting: false,
-    }),
-  ])
+      headerClassName: "whitespace-nowrap text-muted-foreground",
+      cellClassName: "whitespace-nowrap text-muted-foreground",
+      cell: (row) => formatDate(row.createdAt, locale),
+    },
+  ]
 }

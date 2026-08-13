@@ -1,5 +1,6 @@
 export { ListPagination } from "./list-pagination"
 export { ListSearch, type ListSearchProps } from "./list-search"
+export { ListTable, type ListTableProps } from "./list-table"
 
 export { useList } from "./use-list"
 
@@ -16,6 +17,7 @@ export {
 
 export {
   LIST_PAGE_SIZES,
+  type ListColumn,
   type ListPaginationProps,
   type ListSearchParamsInput,
 } from "./types"

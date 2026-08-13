@@ -3,7 +3,6 @@ import path from "node:path"
 import { fileURLToPath } from "node:url"
 
 import { done, heading, ok } from "../../lib/cli.mjs"
-import { patch as dataGridContextOptionsDeps } from "./data-grid-context-options-deps.mjs"
 
 /**
  * @typedef {{
@@ -22,7 +21,7 @@ import { patch as dataGridContextOptionsDeps } from "./data-grid-context-options
  */
 
 /** @type {UiPatch[]} */
-export const patches = [dataGridContextOptionsDeps]
+export const patches = []
 
 /** Normalized paths (posix) of files that carry local ReUI overrides. */
 export function getOverrideFiles() {

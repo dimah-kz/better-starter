@@ -35,24 +35,31 @@ Sidebar drill-down items for admin/manage are derived from slice/tab registries 
 `apps/web/src/app/dashboard/(organization)/manage/members/components/members-table.tsx`  
 (+ `members-columns.tsx`, page `get-*.ts`, `*-table-params.ts`).
 
-| Layer                | Owns                                         | Does not own    |
-| -------------------- | -------------------------------------------- | --------------- |
-| `list/`              | URL `page` / `pageSize` / `filter` / `q`     | Row rendering   |
-| ReUI DataGrid        | Table chrome                                 | URL / RSC fetch |
-| Feature `*-columns`  | Column defs via `createDataGridColumnHelper` | Pagination      |
-| shadcn `ToggleGroup` | Enum chips → `list.setFilter` (inline)       | —               |
+| Layer                | Owns                                   | Does not own |
+| -------------------- | -------------------------------------- | ------------ |
+| `list/` URL          | `page` / `pageSize` / `filter` / `q`   | Cells        |
+| `ListTable`          | thead / tbody / empty                  | Fetch / URL  |
+| Feature `*-columns`  | `ListColumn<T>[]`                      | Pagination   |
+| shadcn `ToggleGroup` | Enum chips → `list.setFilter` (inline) | —            |
+
+**New list checklist**
+
+1. `get-*.ts` — tagged cache page from the database (`page` / `pageSize` / `filter` / `q`).
+2. `*-table-params.ts` — `listPath` + parse helpers.
+3. `*-columns.tsx` — `ListColumn<T>[]` (`id`, `header`, `cell`, optional class names).
+4. `*-table.tsx` — Card + `ListSearch` + optional chips + `ListTable` + `ListPagination` (`list.pagination`).
+5. `page.tsx` — parse search params, fetch, pass the server page into the table.
 
 **Required**
 
-- `useTable({ features: dataGridFeatures, manualPagination: true, rowCount })`
-- Column meta: `headerTitle`, `headerClassName`, `cellClassName`
-- Show every column at every breakpoint — no `hidden sm:table-cell` / `lg:table-cell`. The grid scrolls horizontally when space is tight.
-- `ListSearch` + `ListPagination` (`list.pagination`) — never ReUI `DataGridPagination` for these lists
+- Show every column at every breakpoint — no `hidden sm:table-cell` / `lg:table-cell`. The table scrolls horizontally when space is tight.
+- `ListSearch` + `ListPagination` from `list/` — never client row-model pagination for these lists.
 
 **Do not**
 
-- Invent `ListDataGrid` / `DataGridCard` / `ListFilter` / `ListFooter` wrappers
-- Use or revive `legacy-data-table` / app `data-table` (removed)
+- Use TanStack Table or ReUI DataGrid on URL / RSC lists (add `@reui/data-grid` later only for a client ops grid).
+- Invent `ListDataGrid` / `DataGridCard` / `ListFilter` / `ListFooter` wrappers.
+- Use or revive `legacy-data-table` / app `data-table` (removed).
 
 ## Removing a slice
 

@@ -26,7 +26,7 @@ Explore `apps/` and `packages/` for what exists today. Do not import across apps
 
 **UI split:** `@repo/ui` = shadcn primitives + ReUI (`components/reui/`) + first-party Dimah (`components/dimah/`) shared across apps. App-composed UI (`badge/`, `list/`, dashboard chrome) lives in `apps/<app>/src/components/` or route-scoped `components/`.
 
-**Lists (server pages):** [dashboard.md § Server lists](./dashboard.md#server-lists) — copy `members-table.tsx`; do not invent parallel table stacks.
+**Lists (server pages):** [dashboard.md § Server lists](./dashboard.md#server-lists) — copy `members-table.tsx` (`list/` + `ListTable`); do not invent parallel table stacks.
 
 ## Naming
 

@@ -2,7 +2,6 @@
 
 import { useMemo, useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
-import { useTable } from "@tanstack/react-table"
 import { banUserAction } from "@/app/action/dashboard/admin/users/ban-user-action"
 import { unbanUserAction } from "@/app/action/dashboard/admin/users/unban-user-action"
 import { createAdminUsersColumns } from "@/app/dashboard/admin/users/components/admin-users-columns"
@@ -11,7 +10,12 @@ import {
   adminUsersTablePath,
   type AdminUserTableFilter,
 } from "@/app/dashboard/admin/users/lib/admin-users-table-params"
-import { ListPagination, ListSearch, useList } from "@/components/list"
+import {
+  ListPagination,
+  ListSearch,
+  ListTable,
+  useList,
+} from "@/components/list"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -30,12 +34,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@repo/ui/components/card"
-import {
-  DataGrid,
-  DataGridContainer,
-  dataGridFeatures,
-} from "@repo/ui/components/reui/data-grid/data-grid"
-import { DataGridTable } from "@repo/ui/components/reui/data-grid/data-grid-table"
 import { ToggleGroup, ToggleGroupItem } from "@repo/ui/components/toggle-group"
 import type { Locale } from "@repo/i18n"
 import { toast } from "@repo/ui/components/toast"
@@ -116,15 +114,6 @@ export function AdminUsersTable({
     [actorUserId, isPending, locale, onChangeRole, router, t, tTables]
   )
 
-  const table = useTable({
-    features: dataGridFeatures,
-    data: users,
-    columns,
-    getRowId: (row) => row.id,
-    manualPagination: true,
-    rowCount: totalCount,
-  })
-
   const handleBan = () => {
     if (!banTarget) return
     startTransition(async () => {
@@ -176,16 +165,12 @@ export function AdminUsersTable({
           </CardAction>
         </CardHeader>
         <CardContent>
-          <DataGrid
-            table={table}
-            recordCount={totalCount}
-            emptyMessage={tTables("empty.users")}
-            tableLayout={{ width: "fixed" }}
-          >
-            <DataGridContainer>
-              <DataGridTable />
-            </DataGridContainer>
-          </DataGrid>
+          <ListTable
+            rows={users}
+            columns={columns}
+            getRowId={(row) => row.id}
+            empty={tTables("empty.users")}
+          />
         </CardContent>
         <CardFooter className="justify-between gap-2">
           {totalCount > 0 ? <ListPagination {...list.pagination} /> : null}

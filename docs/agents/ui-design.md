@@ -41,7 +41,7 @@ Add primitives / ReUI items:
 
 ```bash
 pnpm dlx shadcn@latest add button -c packages/ui
-pnpm dlx shadcn@latest add @reui/data-grid -c packages/ui
+pnpm dlx shadcn@latest add @reui/icon-tile -c packages/ui
 ```
 
 After adding a new `@reui/…` item, append its name to `packages/ui/scripts/reui/components.mjs`. For a durable override that must survive the next ReUI sync, add a patch under `packages/ui/scripts/reui/patches/` and register it in `patches/index.mjs`.
