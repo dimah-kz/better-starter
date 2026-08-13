@@ -20,8 +20,14 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@repo/ui/components/alert-dialog"
-import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar"
 import { Button } from "@repo/ui/components/button"
+import {
+  Identity,
+  IdentityAvatar,
+  IdentityContent,
+  IdentityDescription,
+  IdentityTitle,
+} from "@repo/ui/components/dimah/identity"
 import {
   Item,
   ItemActions,
@@ -53,8 +59,6 @@ export function OrganizationSettingsHub({
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [isSaving, startSaveTransition] = useTransition()
   const [isDeleting, startDeleteTransition] = useTransition()
-
-  const previewLogo = organization.logo ?? ""
 
   const handleSave = (formData: FormData) => {
     if (!canEdit) {
@@ -126,22 +130,16 @@ export function OrganizationSettingsHub({
               ) : undefined
             }
           >
-            <ItemMedia>
-              <Avatar className="size-11">
-                <AvatarImage src={previewLogo} alt={organization.name} />
-                <AvatarFallback>
-                  {organization.name[0]?.toUpperCase() ?? "?"}
-                </AvatarFallback>
-              </Avatar>
-            </ItemMedia>
-            <ItemContent className="min-w-0">
-              <ItemTitle className="truncate text-sm">
-                {organization.name}
-              </ItemTitle>
-              <ItemDescription className="truncate">
-                {organization.slug}
-              </ItemDescription>
-            </ItemContent>
+            <Identity size="lg" className="w-auto flex-1">
+              <IdentityAvatar
+                src={organization.logo}
+                name={organization.name}
+              />
+              <IdentityContent>
+                <IdentityTitle>{organization.name}</IdentityTitle>
+                <IdentityDescription>{organization.slug}</IdentityDescription>
+              </IdentityContent>
+            </Identity>
             {canEdit ? (
               <ItemActions className="shrink-0 text-muted-foreground">
                 <ChevronRightIcon

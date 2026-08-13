@@ -5,7 +5,13 @@ import Link from "next/link"
 import { logoutAction } from "@/app/action/dashboard/components/logout-action"
 import { NavUserLocaleMenu } from "@/components/locale-switcher"
 import { useSidebarFlyoutSide } from "@/app/dashboard/lib/sidebar-side"
-import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar"
+import {
+  Identity,
+  IdentityAvatar,
+  IdentityContent,
+  IdentityDescription,
+  IdentityTitle,
+} from "@repo/ui/components/dimah/identity"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -82,16 +88,13 @@ export function NavUser({ user }: { user: NavUserProfile }) {
   }
 
   const userSummary = (
-    <>
-      <Avatar>
-        <AvatarImage src={user.avatar} alt={user.name} />
-        <AvatarFallback>{user.name[0]?.toUpperCase() ?? "?"}</AvatarFallback>
-      </Avatar>
-      <div className="grid flex-1 text-start text-sm leading-tight">
-        <span className="truncate font-medium">{user.name}</span>
-        <span className="truncate text-xs">{user.email}</span>
-      </div>
-    </>
+    <Identity className="w-auto flex-1">
+      <IdentityAvatar src={user.avatar} name={user.name} />
+      <IdentityContent>
+        <IdentityTitle>{user.name}</IdentityTitle>
+        <IdentityDescription>{user.email}</IdentityDescription>
+      </IdentityContent>
+    </Identity>
   )
 
   return (
@@ -114,9 +117,7 @@ export function NavUser({ user }: { user: NavUserProfile }) {
           >
             <DropdownMenuGroup>
               <DropdownMenuLabel className="p-0 font-normal">
-                <div className="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
-                  {userSummary}
-                </div>
+                <div className="px-1 py-1.5">{userSummary}</div>
               </DropdownMenuLabel>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

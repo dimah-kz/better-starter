@@ -21,7 +21,13 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@repo/ui/components/sidebar"
-import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar"
+import {
+  Identity,
+  IdentityAvatar,
+  IdentityContent,
+  IdentityDescription,
+  IdentityTitle,
+} from "@repo/ui/components/dimah/identity"
 import { IconTile } from "@repo/ui/components/reui/icon-tile"
 import { useSidebarFlyoutSide } from "@/app/dashboard/lib/sidebar-side"
 import { Input } from "@repo/ui/components/input"
@@ -124,20 +130,11 @@ function CreateOrganizationMenuItem({ onSelect }: { onSelect: () => void }) {
   )
 }
 
-function UserAvatar({
-  user,
-  className,
-}: {
-  user: NavUserProfile
-  className?: string
-}) {
-  return (
-    <Avatar className={className}>
-      <AvatarImage src={user.avatar} alt={user.name} />
-      <AvatarFallback>{user.name[0]?.toUpperCase() ?? "?"}</AvatarFallback>
-    </Avatar>
-  )
-}
+const switcherAvatarClassName = {
+  menu: "rounded-md after:rounded-md **:data-[slot=avatar-fallback]:rounded-md **:data-[slot=avatar-image]:rounded-md",
+  trigger:
+    "rounded-lg after:rounded-lg **:data-[slot=avatar-fallback]:rounded-lg **:data-[slot=avatar-image]:rounded-lg",
+} as const
 
 function PersonalAccountMenuItem({
   user,
@@ -156,15 +153,20 @@ function PersonalAccountMenuItem({
     <DropdownMenuItem
       onClick={onSelect}
       disabled={disabled || isActive}
-      className="gap-2 p-2"
+      className="p-2"
       aria-current={isActive ? "true" : undefined}
     >
-      <UserAvatar
-        user={user}
-        className="size-6 rounded-md after:rounded-md **:data-[slot=avatar-fallback]:rounded-md **:data-[slot=avatar-image]:rounded-md"
-      />
-      <span className="flex-1">{t("personalAccount")}</span>
-      {isActive ? <CheckIcon className="text-muted-foreground" /> : null}
+      <Identity size="sm">
+        <IdentityAvatar
+          src={user.avatar}
+          name={user.name}
+          className={switcherAvatarClassName.menu}
+        />
+        <IdentityContent>
+          <IdentityTitle>{t("personalAccount")}</IdentityTitle>
+        </IdentityContent>
+        {isActive ? <CheckIcon className="text-muted-foreground" /> : null}
+      </Identity>
     </DropdownMenuItem>
   )
 }
@@ -291,24 +293,22 @@ export function OrganizationSwitcher({
                   key={organization.id}
                   onClick={() => handleSwitchToOrganization(organization.id)}
                   disabled={isSwitching || isActive}
-                  className="gap-2 p-2"
+                  className="p-2"
                   aria-current={isActive ? "true" : undefined}
                 >
-                  <Avatar
-                    size="sm"
-                    className="size-6 rounded-md after:rounded-md **:data-[slot=avatar-fallback]:rounded-md **:data-[slot=avatar-image]:rounded-md"
-                  >
-                    {organization.logo ? (
-                      <AvatarImage src={organization.logo} alt="" />
+                  <Identity size="sm">
+                    <IdentityAvatar
+                      src={organization.logo}
+                      name={organization.name}
+                      className={switcherAvatarClassName.menu}
+                    />
+                    <IdentityContent>
+                      <IdentityTitle>{organization.name}</IdentityTitle>
+                    </IdentityContent>
+                    {isActive ? (
+                      <CheckIcon className="text-muted-foreground" />
                     ) : null}
-                    <AvatarFallback>
-                      {organization.name[0]?.toUpperCase() ?? "?"}
-                    </AvatarFallback>
-                  </Avatar>
-                  <span className="flex-1">{organization.name}</span>
-                  {isActive ? (
-                    <CheckIcon className="text-muted-foreground" />
-                  ) : null}
+                  </Identity>
                 </DropdownMenuItem>
               )
             })}
@@ -335,42 +335,46 @@ export function OrganizationSwitcher({
                 />
               }
             >
-              {isPersonalAccount ? (
-                <>
-                  <UserAvatar
-                    user={user}
-                    className="size-8 rounded-lg after:rounded-lg **:data-[slot=avatar-fallback]:rounded-lg **:data-[slot=avatar-image]:rounded-lg"
-                  />
-                  <div className="grid flex-1 text-start text-sm leading-tight">
-                    <span className="truncate font-medium">{user.name}</span>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <Avatar className="size-8 rounded-lg after:rounded-lg **:data-[slot=avatar-fallback]:rounded-lg **:data-[slot=avatar-image]:rounded-lg">
-                    {activeOrganization?.logo ? (
-                      <AvatarImage src={activeOrganization.logo} alt="" />
-                    ) : null}
-                    <AvatarFallback className="bg-sidebar-primary text-sidebar-primary-foreground">
-                      {activeOrganization?.name[0]?.toUpperCase() ?? "?"}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="grid flex-1 text-start text-sm leading-tight">
-                    <span className="truncate font-medium">
-                      {activeOrganization?.name}
-                    </span>
-                    <span className="truncate text-xs text-muted-foreground">
-                      {t("activeOrganization")}
-                    </span>
-                  </div>
-                </>
-              )}
-              <ChevronsUpDownIcon
-                className={cn("ms-auto opacity-55", isSwitching && "hidden")}
-              />
-              {isSwitching ? (
-                <Loader2Icon className="ms-auto size-4 animate-spin opacity-70" />
-              ) : null}
+              <Identity className="w-auto flex-1">
+                {isPersonalAccount ? (
+                  <>
+                    <IdentityAvatar
+                      src={user.avatar}
+                      name={user.name}
+                      className={switcherAvatarClassName.trigger}
+                    />
+                    <IdentityContent>
+                      <IdentityTitle>{user.name}</IdentityTitle>
+                      <IdentityDescription>
+                        {t("personalAccount")}
+                      </IdentityDescription>
+                    </IdentityContent>
+                  </>
+                ) : (
+                  <>
+                    <IdentityAvatar
+                      src={activeOrganization?.logo}
+                      name={activeOrganization?.name}
+                      className={cn(
+                        switcherAvatarClassName.trigger,
+                        "**:data-[slot=avatar-fallback]:bg-sidebar-primary **:data-[slot=avatar-fallback]:text-sidebar-primary-foreground"
+                      )}
+                    />
+                    <IdentityContent>
+                      <IdentityTitle>{activeOrganization?.name}</IdentityTitle>
+                      <IdentityDescription>
+                        {t("activeOrganization")}
+                      </IdentityDescription>
+                    </IdentityContent>
+                  </>
+                )}
+                <ChevronsUpDownIcon
+                  className={cn("ms-auto opacity-55", isSwitching && "hidden")}
+                />
+                {isSwitching ? (
+                  <Loader2Icon className="ms-auto size-4 animate-spin opacity-70" />
+                ) : null}
+              </Identity>
             </DropdownMenuTrigger>
             {dropdownContent}
           </DropdownMenu>

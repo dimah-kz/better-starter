@@ -8,16 +8,14 @@ import { accountHubSections } from "@/app/dashboard/account/lib/account-settings
 import type { AccountPanel } from "@/app/dashboard/account/lib/account-panel"
 import { SettingsNavItem } from "@/components/settings-nav-item"
 import { SettingsSection } from "@/components/settings-section"
-import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar"
 import {
-  Item,
-  ItemActions,
-  ItemContent,
-  ItemDescription,
-  ItemMedia,
-  ItemSeparator,
-  ItemTitle,
-} from "@repo/ui/components/item"
+  Identity,
+  IdentityAvatar,
+  IdentityContent,
+  IdentityDescription,
+  IdentityTitle,
+} from "@repo/ui/components/dimah/identity"
+import { Item, ItemActions, ItemSeparator } from "@repo/ui/components/item"
 
 type AccountSettingsHubProps = {
   profile: {
@@ -31,7 +29,6 @@ type AccountSettingsHubProps = {
 export function AccountSettingsHub({ profile }: AccountSettingsHubProps) {
   const t = useTranslations("dashboard")
   const [openSection, setOpenSection] = useState<AccountPanel | null>(null)
-  const previewImage = profile.image ?? ""
 
   return (
     <>
@@ -47,20 +44,13 @@ export function AccountSettingsHub({ profile }: AccountSettingsHubProps) {
               />
             }
           >
-            <ItemMedia>
-              <Avatar className="size-11">
-                <AvatarImage src={previewImage} alt={profile.name} />
-                <AvatarFallback>
-                  {profile.name[0]?.toUpperCase() ?? "?"}
-                </AvatarFallback>
-              </Avatar>
-            </ItemMedia>
-            <ItemContent className="min-w-0">
-              <ItemTitle className="truncate text-sm">{profile.name}</ItemTitle>
-              <ItemDescription className="truncate">
-                {profile.email}
-              </ItemDescription>
-            </ItemContent>
+            <Identity size="lg" className="w-auto flex-1">
+              <IdentityAvatar src={profile.image} name={profile.name} />
+              <IdentityContent>
+                <IdentityTitle>{profile.name}</IdentityTitle>
+                <IdentityDescription>{profile.email}</IdentityDescription>
+              </IdentityContent>
+            </Identity>
             <ItemActions className="shrink-0 text-muted-foreground">
               <ChevronRightIcon className="size-4 rtl:rotate-180" aria-hidden />
             </ItemActions>
