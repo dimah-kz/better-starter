@@ -31,8 +31,8 @@ catalogs:
       specifier: ^2.10.9
       version: 2.10.9
     globals:
-      specifier: ^17.10.0
-      version: 17.10.0
+      specifier: ^17.11.0
+      version: 17.11.0
     prettier:
       specifier: ^3.9.6
       version: 3.9.6
@@ -81,11 +81,11 @@ importers:
   apps/web:
     dependencies:
       '@dimah-s3/react':
-        specifier: 0.7.1
-        version: 0.7.1(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(react@19.2.8)(use-sync-external-store@1.6.0(react@19.2.8))
+        specifier: 0.7.2
+        version: 0.7.2(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(react@19.2.8)(use-sync-external-store@1.6.0(react@19.2.8))
       '@dimah-s3/server':
-        specifier: 0.7.1
-        version: 0.7.1(@aws-sdk/client-s3@3.1108.0)
+        specifier: 0.7.2
+        version: 0.7.2(@aws-sdk/client-s3@3.1109.0)
       '@repo/auth':
         specifier: workspace:*
         version: link:../../packages/auth
@@ -200,8 +200,8 @@ importers:
   packages/db:
     dependencies:
       '@dimah-s3/db':
-        specifier: 0.7.1
-        version: 0.7.1(@dimah-s3/server@0.7.1(@aws-sdk/client-s3@3.1108.0))(drizzle-orm@1.0.0-rc.4(@electric-sql/pglite@0.4.1)(@types/pg@8.21.0)(mysql2@3.15.3)(pg@8.23.0)(postgres@3.4.7)(valibot@1.2.0(typescript@7.0.2))(zod@4.4.3))(prisma@7.8.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@7.0.2))
+        specifier: 0.7.2
+        version: 0.7.2(@dimah-s3/server@0.7.2(@aws-sdk/client-s3@3.1109.0))(drizzle-orm@1.0.0-rc.4(@electric-sql/pglite@0.4.1)(@types/pg@8.21.0)(mysql2@3.15.3)(pg@8.23.0)(postgres@3.4.7)(valibot@1.2.0(typescript@7.0.2))(zod@4.4.3))(prisma@7.8.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@7.0.2))
       '@paralleldrive/cuid2':
         specifier: ^3.3.0
         version: 3.3.0
@@ -258,20 +258,20 @@ importers:
   packages/storage:
     dependencies:
       '@aws-sdk/client-s3':
-        specifier: ^3.1108.0
-        version: 3.1108.0
+        specifier: ^3.1109.0
+        version: 3.1109.0
       '@dimah-s3/core':
-        specifier: 0.7.1
-        version: 0.7.1
+        specifier: 0.7.2
+        version: 0.7.2
       '@dimah-s3/db':
-        specifier: 0.7.1
-        version: 0.7.1(@dimah-s3/server@0.7.1(@aws-sdk/client-s3@3.1108.0))(drizzle-orm@1.0.0-rc.4(@electric-sql/pglite@0.4.1)(@types/pg@8.21.0)(mysql2@3.15.3)(pg@8.23.0)(postgres@3.4.7)(valibot@1.2.0(typescript@7.0.2))(zod@4.4.3))(prisma@7.8.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@7.0.2))
+        specifier: 0.7.2
+        version: 0.7.2(@dimah-s3/server@0.7.2(@aws-sdk/client-s3@3.1109.0))(drizzle-orm@1.0.0-rc.4(@electric-sql/pglite@0.4.1)(@types/pg@8.21.0)(mysql2@3.15.3)(pg@8.23.0)(postgres@3.4.7)(valibot@1.2.0(typescript@7.0.2))(zod@4.4.3))(prisma@7.8.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@7.0.2))
       '@dimah-s3/react':
-        specifier: 0.7.1
-        version: 0.7.1(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(react@19.2.8)(use-sync-external-store@1.6.0(react@19.2.8))
+        specifier: 0.7.2
+        version: 0.7.2(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(react@19.2.8)(use-sync-external-store@1.6.0(react@19.2.8))
       '@dimah-s3/server':
-        specifier: 0.7.1
-        version: 0.7.1(@aws-sdk/client-s3@3.1108.0)
+        specifier: 0.7.2
+        version: 0.7.2(@aws-sdk/client-s3@3.1109.0)
       '@repo/auth':
         specifier: workspace:*
         version: link:../auth
@@ -310,8 +310,8 @@ importers:
         specifier: ^1.7.0
         version: 1.7.0(@date-fns/tz@1.5.0)(@types/react@19.2.18)(date-fns@4.4.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@dimah-s3/ui':
-        specifier: 0.7.1
-        version: 0.7.1(@base-ui/react@1.7.0(@date-fns/tz@1.5.0)(@types/react@19.2.18)(date-fns@4.4.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(class-variance-authority@0.7.1)(cnfast@0.1.0)(lucide-react@1.31.0(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        specifier: 0.7.2
+        version: 0.7.2(@base-ui/react@1.7.0(@date-fns/tz@1.5.0)(@types/react@19.2.18)(date-fns@4.4.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(class-variance-authority@0.7.1)(cnfast@0.1.0)(lucide-react@1.31.0(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@shadcn/react':
         specifier: ^0.3.0
         version: 0.3.0(@types/react@19.2.18)(react@19.2.8)
@@ -432,7 +432,7 @@ importers:
         version: 2.10.9(eslint@10.8.1(jiti@2.7.0))(turbo@2.10.9)
       globals:
         specifier: 'catalog:'
-        version: 17.10.0
+        version: 17.11.0
       typescript-eslint:
         specifier: 'catalog:'
         version: 8.67.0(eslint@10.8.1(jiti@2.7.0))(typescript@7.0.2)
@@ -449,8 +449,8 @@ packages:
     resolution: {integrity: sha512-insWOqKKNUrbN/dohEG7BJ0U5GkyqhjbMb/NHNaLUtq+7my2M8C4EnZZZoxMmXRqCC+P9dEr+KyJA2JGGzoKLg==}
     engines: {node: '>=20.0.0'}
 
-  '@aws-sdk/client-s3@3.1108.0':
-    resolution: {integrity: sha512-prdothEAFE1G8H0s0+zFGuNZdSj+Acg/siB1dFxPS181op9+hJ1GLr+b2anJch4B9a/xbWy7k8eG/enH3cNSjQ==}
+  '@aws-sdk/client-s3@3.1109.0':
+    resolution: {integrity: sha512-iPWzBeGkAe5H5+dBBGCOdIT4uMhpu12OK+nFnDzjvOChVnHIws4LeoG7Yl0kJHSRWZnNEkVcF4vQYTJny0e5xA==}
     engines: {node: '>=20.0.0'}
 
   '@aws-sdk/core@3.977.7':
@@ -497,12 +497,12 @@ packages:
     resolution: {integrity: sha512-XWRyon2MTHXD/zMoo0Mbge6Vwf+iE0qQaM/RyGO6NfZ9WukCFiQL27nQVZjYy2JwSIg+iXZxKOX95OBXqlSM4w==}
     engines: {node: '>=20.0.0'}
 
-  '@aws-sdk/s3-presigned-post@3.1108.0':
-    resolution: {integrity: sha512-iZ0vQqjOp1qr8cNpPHw8OvCh+KWvqzhqgDGLxif5NHu1SktyckXC2e6jswuR1s60fo3wdtr81Cl5IpoiE7Gpig==}
+  '@aws-sdk/s3-presigned-post@3.1109.0':
+    resolution: {integrity: sha512-URRWa3Q5hkB2gyT4lIDQ3QoDxB2RSvRot6PIzfuRcb7sYSreQ90qo0FqNKLEsuBUG9JnKtJ+n2Uizo4BoSEYsA==}
     engines: {node: '>=20.0.0'}
 
-  '@aws-sdk/s3-request-presigner@3.1108.0':
-    resolution: {integrity: sha512-X0lX/rlyhlpQY97cwM2Rebuuj4HRMkp1wVYjJx1DHMTUI6Fehsh3/mZOd9U2HIbp1/nSciBmoD0dkpc3uXlUfA==}
+  '@aws-sdk/s3-request-presigner@3.1109.0':
+    resolution: {integrity: sha512-tVoeEJ1sERyMrzmFnE1blsKrwg40xzAPgrlk4dlqAUN317GeJAD1hUcY3kciqTH7T/QvxVr6PE5iQAaASnPWRg==}
     engines: {node: '>=20.0.0'}
 
   '@aws-sdk/signature-v4-multi-region@3.996.44':
@@ -784,31 +784,31 @@ packages:
   '@date-fns/tz@1.5.0':
     resolution: {integrity: sha512-lwYN/vDPeNRULcepoE/LO2Pgx+7/RV+S9ARfbc9lr2DtGkOD7pAiruHvbR1RX3Qyf6ja47EWJDMsNK5vK08DJg==}
 
-  '@dimah-s3/core@0.7.1':
-    resolution: {integrity: sha512-k9J8vvFYCUbVoU2SK6Pnvou/elCdhZPGtXBppTpO9NNWuLp93Rw7atyni9jf392y+mNVEUU846zYTLqHPgmwXg==}
+  '@dimah-s3/core@0.7.2':
+    resolution: {integrity: sha512-37eURDvSysUj2liFNHDgn4c3RVBAY46Qx5gHoveS/vCDJI4/ErIFkfds5PNYWnD3SYgwi/7gDegP0T9EJU8HTw==}
 
-  '@dimah-s3/db@0.7.1':
-    resolution: {integrity: sha512-+eqdGHkDkLRiNP+X+7sNTXYa83oC8sPvpzU3uLqmXmD2Gr04X7bks/2IQj/Y/pyuQogo7ytB8rhgW5ahlEoJNA==}
+  '@dimah-s3/db@0.7.2':
+    resolution: {integrity: sha512-fNE/No4hUrHMXcz9MxH/8FLaVdnqRf0bzfwmO2Y2ZwTwq3hheg3XdNGYKKOTIOddH5zksMvgRgVUXTBQkrP8zg==}
     peerDependencies:
-      '@dimah-s3/server': 0.7.1
+      '@dimah-s3/server': 0.7.2
       drizzle-orm: ^0.44.0 || ^0.45.0 || >=1.0.0-rc.1 <2.0.0
     peerDependenciesMeta:
       drizzle-orm:
         optional: true
 
-  '@dimah-s3/react@0.7.1':
-    resolution: {integrity: sha512-luRMx5yLi2vvgMpPpkSPlfuQY2pykap/OhXNwVGycnGyIaNySULmra+jjSlUpoX1RdkRDbSl7XF9ob6hBdwjVQ==}
+  '@dimah-s3/react@0.7.2':
+    resolution: {integrity: sha512-wXt9ECE4f40Xgq1YM21saH/g7ZpPxJ6HHC9dEHAAgHXF5vjUHIeVG7k5ZcX+rfRFuHMEr5PEilYG9s8qhCGO0Q==}
     peerDependencies:
       '@fuma-translate/react': ^1.0.2
       react: '>=18'
 
-  '@dimah-s3/server@0.7.1':
-    resolution: {integrity: sha512-FF8+zlnqwNzBsJ/CjESTszsCcINwfNIzbdn/DQ0iMDK1BLEGx7hijfKQzs1fNDFhHNw4Mq53Zrqt2MRIDFiZPg==}
+  '@dimah-s3/server@0.7.2':
+    resolution: {integrity: sha512-KkTRb0vkxDkDeHy7cL83MWkGFb2qpv49caaOOFyLGN5QhvRFO/PuDlhOFG+2+gi5O7DCcx4dP6N0+i/RqPucbA==}
     peerDependencies:
       '@aws-sdk/client-s3': '>=3'
 
-  '@dimah-s3/ui@0.7.1':
-    resolution: {integrity: sha512-S+/kgkXb9B7/WkPuoAZ0WLYXheJ3jgwFf9HLKfU9GsmQvyfuG9NyhyTVZtV1X04kNTN6YQxkQxSfD7Q026T6Mw==}
+  '@dimah-s3/ui@0.7.2':
+    resolution: {integrity: sha512-Cab1LGzPtUoPGGu4W/0KltEZJeHzjde4IPY/KyIKirMmH9/5VPsV+wMfcHqutMWqR2XZaHfZ5mmUcNrsPB9stw==}
     peerDependencies:
       '@base-ui/react': '>=1.0.0'
       '@fuma-translate/react': ^1.0.2
@@ -2630,8 +2630,8 @@ packages:
     resolution: {integrity: sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==}
     engines: {node: '>=8'}
 
-  ansi-regex@6.2.2:
-    resolution: {integrity: sha512-Bq3SmSpyFHaWjPk8If9yc6svM8c56dB5BAtW4Qbw5jHTwwXXcTLoRMkpDJp6VL0XzlWaCHTXrkFURMYmD0sLqg==}
+  ansi-regex@6.3.0:
+    resolution: {integrity: sha512-WpDfL7NO6j7tH88IDBNVdUJxDh9nmCteAVW9dsep846XdwF4naCBK+/tGLX3KJgcpgMRXCFlTM2hKGoK9FsdrQ==}
     engines: {node: '>=12'}
 
   ansi-styles@4.3.0:
@@ -3728,8 +3728,8 @@ packages:
     resolution: {integrity: sha512-XxwI8EOhVQgWp6iDL+3b0r86f4d6AX6zSU55HfB4ydCEuXLXc5FcYeOu+nnGftS4TEju/11rt4KJPTMgbfmv4A==}
     engines: {node: '>=10.13.0'}
 
-  globals@17.10.0:
-    resolution: {integrity: sha512-V0kztuWST2k8A/VbxAY8+L+7+Rgo3fyA24IHRLrZp7HOzJjV0gHSaZUjK9lpP/IrBSNite2tZ1prhRkinRu1CA==}
+  globals@17.11.0:
+    resolution: {integrity: sha512-Z2I8hM+PbJDXQDq3Icgpzv+mPdwr68iZUU9d5WW4FuXfDUQfkZaZuvjMv42/5crNyw154+9+VWXbYrUgDXbxNw==}
     engines: {node: '>=18'}
 
   globalthis@1.0.4:
@@ -5407,8 +5407,8 @@ packages:
   zod@4.4.3:
     resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
 
-  zustand@5.0.14:
-    resolution: {integrity: sha512-/8tAspM5LMPr28b3fwLYrtdj77ECpfZviaP75CMTnwO8ISyaE4GDIG/9rDDYq/cH9D2Xw2A2RXglLInmVBQB/g==}
+  zustand@5.0.15:
+    resolution: {integrity: sha512-MpSEjRiBkA9crSYeOUH32rJC7SVqAbm0Fqcqge/bUi2PPoLcBWKOsG+C8mevmpr8TwXHBVkChbbJiyvkE+i/3A==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@types/react': '>=18.0.0'
@@ -5437,7 +5437,7 @@ snapshots:
       '@smithy/types': 4.17.0
       tslib: 2.8.1
 
-  '@aws-sdk/client-s3@3.1108.0':
+  '@aws-sdk/client-s3@3.1109.0':
     dependencies:
       '@aws-sdk/checksums': 3.1000.27
       '@aws-sdk/core': 3.977.7
@@ -5566,9 +5566,9 @@ snapshots:
       '@smithy/types': 4.17.0
       tslib: 2.8.1
 
-  '@aws-sdk/s3-presigned-post@3.1108.0':
+  '@aws-sdk/s3-presigned-post@3.1109.0':
     dependencies:
-      '@aws-sdk/client-s3': 3.1108.0
+      '@aws-sdk/client-s3': 3.1109.0
       '@aws-sdk/core': 3.977.7
       '@aws-sdk/types': 3.974.3
       '@smithy/core': 3.32.0
@@ -5576,7 +5576,7 @@ snapshots:
       '@smithy/types': 4.17.0
       tslib: 2.8.1
 
-  '@aws-sdk/s3-request-presigner@3.1108.0':
+  '@aws-sdk/s3-request-presigner@3.1109.0':
     dependencies:
       '@aws-sdk/core': 3.977.7
       '@aws-sdk/signature-v4-multi-region': 3.996.44
@@ -5905,12 +5905,12 @@ snapshots:
 
   '@date-fns/tz@1.5.0': {}
 
-  '@dimah-s3/core@0.7.1': {}
+  '@dimah-s3/core@0.7.2': {}
 
-  '@dimah-s3/db@0.7.1(@dimah-s3/server@0.7.1(@aws-sdk/client-s3@3.1108.0))(drizzle-orm@1.0.0-rc.4(@electric-sql/pglite@0.4.1)(@types/pg@8.21.0)(mysql2@3.15.3)(pg@8.23.0)(postgres@3.4.7)(valibot@1.2.0(typescript@7.0.2))(zod@4.4.3))(prisma@7.8.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@7.0.2))':
+  '@dimah-s3/db@0.7.2(@dimah-s3/server@0.7.2(@aws-sdk/client-s3@3.1109.0))(drizzle-orm@1.0.0-rc.4(@electric-sql/pglite@0.4.1)(@types/pg@8.21.0)(mysql2@3.15.3)(pg@8.23.0)(postgres@3.4.7)(valibot@1.2.0(typescript@7.0.2))(zod@4.4.3))(prisma@7.8.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@7.0.2))':
     dependencies:
-      '@dimah-s3/core': 0.7.1
-      '@dimah-s3/server': 0.7.1(@aws-sdk/client-s3@3.1108.0)
+      '@dimah-s3/core': 0.7.2
+      '@dimah-s3/server': 0.7.2(@aws-sdk/client-s3@3.1109.0)
       '@paralleldrive/cuid2': 3.3.0
       fumadb: 0.5.1(drizzle-orm@1.0.0-rc.4(@electric-sql/pglite@0.4.1)(@types/pg@8.21.0)(mysql2@3.15.3)(pg@8.23.0)(postgres@3.4.7)(valibot@1.2.0(typescript@7.0.2))(zod@4.4.3))(prisma@7.8.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@7.0.2))
     optionalDependencies:
@@ -5921,30 +5921,30 @@ snapshots:
       - prisma
       - typeorm
 
-  '@dimah-s3/react@0.7.1(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(react@19.2.8)(use-sync-external-store@1.6.0(react@19.2.8))':
+  '@dimah-s3/react@0.7.2(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(react@19.2.8)(use-sync-external-store@1.6.0(react@19.2.8))':
     dependencies:
-      '@dimah-s3/core': 0.7.1
+      '@dimah-s3/core': 0.7.2
       '@fuma-translate/react': 1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       immer: 11.1.16
       react: 19.2.8
       react-dropzone: 20.1.0(@types/react@19.2.18)(react@19.2.8)
-      zustand: 5.0.14(@types/react@19.2.18)(immer@11.1.16)(react@19.2.8)(use-sync-external-store@1.6.0(react@19.2.8))
+      zustand: 5.0.15(@types/react@19.2.18)(immer@11.1.16)(react@19.2.8)(use-sync-external-store@1.6.0(react@19.2.8))
     transitivePeerDependencies:
       - '@types/react'
       - use-sync-external-store
 
-  '@dimah-s3/server@0.7.1(@aws-sdk/client-s3@3.1108.0)':
+  '@dimah-s3/server@0.7.2(@aws-sdk/client-s3@3.1109.0)':
     dependencies:
-      '@aws-sdk/client-s3': 3.1108.0
-      '@aws-sdk/s3-presigned-post': 3.1108.0
-      '@aws-sdk/s3-request-presigner': 3.1108.0
-      '@dimah-s3/core': 0.7.1
+      '@aws-sdk/client-s3': 3.1109.0
+      '@aws-sdk/s3-presigned-post': 3.1109.0
+      '@aws-sdk/s3-request-presigner': 3.1109.0
+      '@dimah-s3/core': 0.7.2
 
-  '@dimah-s3/ui@0.7.1(@base-ui/react@1.7.0(@date-fns/tz@1.5.0)(@types/react@19.2.18)(date-fns@4.4.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(class-variance-authority@0.7.1)(cnfast@0.1.0)(lucide-react@1.31.0(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+  '@dimah-s3/ui@0.7.2(@base-ui/react@1.7.0(@date-fns/tz@1.5.0)(@types/react@19.2.18)(date-fns@4.4.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(class-variance-authority@0.7.1)(cnfast@0.1.0)(lucide-react@1.31.0(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
     dependencies:
       '@base-ui/react': 1.7.0(@date-fns/tz@1.5.0)(@types/react@19.2.18)(date-fns@4.4.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      '@dimah-s3/core': 0.7.1
-      '@dimah-s3/react': 0.7.1(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(react@19.2.8)(use-sync-external-store@1.6.0(react@19.2.8))
+      '@dimah-s3/core': 0.7.2
+      '@dimah-s3/react': 0.7.2(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(react@19.2.8)(use-sync-external-store@1.6.0(react@19.2.8))
       '@fuma-translate/react': 1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       class-variance-authority: 0.7.1
       cnfast: 0.1.0
@@ -7415,7 +7415,7 @@ snapshots:
 
   ansi-regex@5.0.1: {}
 
-  ansi-regex@6.2.2: {}
+  ansi-regex@6.3.0: {}
 
   ansi-styles@4.3.0:
     dependencies:
@@ -8540,7 +8540,7 @@ snapshots:
     dependencies:
       is-glob: 4.0.3
 
-  globals@17.10.0: {}
+  globals@17.11.0: {}
 
   globalthis@1.0.4:
     dependencies:
@@ -9917,7 +9917,7 @@ snapshots:
 
   strip-ansi@7.2.0:
     dependencies:
-      ansi-regex: 6.2.2
+      ansi-regex: 6.3.0
 
   strip-bom@3.0.0: {}
 
@@ -10257,7 +10257,7 @@ snapshots:
 
   zod@4.4.3: {}
 
-  zustand@5.0.14(@types/react@19.2.18)(immer@11.1.16)(react@19.2.8)(use-sync-external-store@1.6.0(react@19.2.8)):
+  zustand@5.0.15(@types/react@19.2.18)(immer@11.1.16)(react@19.2.8)(use-sync-external-store@1.6.0(react@19.2.8)):
     optionalDependencies:
       '@types/react': 19.2.18
       immer: 11.1.16
