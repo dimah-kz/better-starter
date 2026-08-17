@@ -81,11 +81,11 @@ importers:
   apps/web:
     dependencies:
       '@dimah-s3/react':
-        specifier: 0.7.4
-        version: 0.7.4(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(react@19.2.8)(use-sync-external-store@1.6.0(react@19.2.8))
+        specifier: 0.8.0
+        version: 0.8.0(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(react@19.2.8)(use-sync-external-store@1.6.0(react@19.2.8))
       '@dimah-s3/server':
-        specifier: 0.7.4
-        version: 0.7.4(@aws-sdk/client-s3@3.1111.0)
+        specifier: 0.8.0
+        version: 0.8.0(@aws-sdk/client-s3@3.1111.0)
       '@repo/auth':
         specifier: workspace:*
         version: link:../../packages/auth
@@ -200,8 +200,8 @@ importers:
   packages/db:
     dependencies:
       '@dimah-s3/db':
-        specifier: 0.7.4
-        version: 0.7.4(@dimah-s3/server@0.7.4(@aws-sdk/client-s3@3.1111.0))(drizzle-orm@1.0.0-rc.4(@electric-sql/pglite@0.4.1)(@types/pg@8.21.0)(mysql2@3.15.3)(pg@8.23.0)(postgres@3.4.7)(valibot@1.2.0(typescript@7.0.2))(zod@4.4.3))(prisma@7.8.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@7.0.2))
+        specifier: 0.8.0
+        version: 0.8.0(@dimah-s3/server@0.8.0(@aws-sdk/client-s3@3.1111.0))(drizzle-orm@1.0.0-rc.4(@electric-sql/pglite@0.4.1)(@types/pg@8.21.0)(mysql2@3.15.3)(pg@8.23.0)(postgres@3.4.7)(valibot@1.2.0(typescript@7.0.2))(zod@4.4.3))(prisma@7.8.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@7.0.2))
       '@paralleldrive/cuid2':
         specifier: ^3.3.0
         version: 3.3.0
@@ -261,17 +261,17 @@ importers:
         specifier: ^3.1111.0
         version: 3.1111.0
       '@dimah-s3/core':
-        specifier: 0.7.4
-        version: 0.7.4
+        specifier: 0.8.0
+        version: 0.8.0
       '@dimah-s3/db':
-        specifier: 0.7.4
-        version: 0.7.4(@dimah-s3/server@0.7.4(@aws-sdk/client-s3@3.1111.0))(drizzle-orm@1.0.0-rc.4(@electric-sql/pglite@0.4.1)(@types/pg@8.21.0)(mysql2@3.15.3)(pg@8.23.0)(postgres@3.4.7)(valibot@1.2.0(typescript@7.0.2))(zod@4.4.3))(prisma@7.8.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@7.0.2))
+        specifier: 0.8.0
+        version: 0.8.0(@dimah-s3/server@0.8.0(@aws-sdk/client-s3@3.1111.0))(drizzle-orm@1.0.0-rc.4(@electric-sql/pglite@0.4.1)(@types/pg@8.21.0)(mysql2@3.15.3)(pg@8.23.0)(postgres@3.4.7)(valibot@1.2.0(typescript@7.0.2))(zod@4.4.3))(prisma@7.8.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@7.0.2))
       '@dimah-s3/react':
-        specifier: 0.7.4
-        version: 0.7.4(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(react@19.2.8)(use-sync-external-store@1.6.0(react@19.2.8))
+        specifier: 0.8.0
+        version: 0.8.0(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(react@19.2.8)(use-sync-external-store@1.6.0(react@19.2.8))
       '@dimah-s3/server':
-        specifier: 0.7.4
-        version: 0.7.4(@aws-sdk/client-s3@3.1111.0)
+        specifier: 0.8.0
+        version: 0.8.0(@aws-sdk/client-s3@3.1111.0)
       '@repo/auth':
         specifier: workspace:*
         version: link:../auth
@@ -310,8 +310,8 @@ importers:
         specifier: ^1.7.0
         version: 1.7.0(@date-fns/tz@1.5.0)(@types/react@19.2.18)(date-fns@4.4.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@dimah-s3/ui':
-        specifier: 0.7.4
-        version: 0.7.4(@base-ui/react@1.7.0(@date-fns/tz@1.5.0)(@types/react@19.2.18)(date-fns@4.4.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(class-variance-authority@0.7.1)(cnfast@0.1.0)(lucide-react@1.31.0(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        specifier: 0.8.0
+        version: 0.8.0(@base-ui/react@1.7.0(@date-fns/tz@1.5.0)(@types/react@19.2.18)(date-fns@4.4.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(class-variance-authority@0.7.1)(cnfast@0.1.0)(lucide-react@1.31.0(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@shadcn/react':
         specifier: ^0.3.0
         version: 0.3.0(@types/react@19.2.18)(react@19.2.8)
@@ -346,8 +346,8 @@ importers:
         specifier: 19.2.8
         version: 19.2.8(react@19.2.8)
       react-resizable-panels:
-        specifier: ^4.12.2
-        version: 4.12.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        specifier: ^4.12.3
+        version: 4.12.3(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       recharts:
         specifier: 3.10.1
         version: 3.10.1(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react-is@16.13.1)(react@19.2.8)(redux@5.0.1)
@@ -784,31 +784,31 @@ packages:
   '@date-fns/tz@1.5.0':
     resolution: {integrity: sha512-lwYN/vDPeNRULcepoE/LO2Pgx+7/RV+S9ARfbc9lr2DtGkOD7pAiruHvbR1RX3Qyf6ja47EWJDMsNK5vK08DJg==}
 
-  '@dimah-s3/core@0.7.4':
-    resolution: {integrity: sha512-XpvbYfWsaXCGmEfZVm8CHZCTgj2PC7C4iGFeeYZdZBAvY0/ILiLF5dbBEe0okSfE7wrq9GQZtZQMnCKvG1m0fw==}
+  '@dimah-s3/core@0.8.0':
+    resolution: {integrity: sha512-SYIMpiKnfj1b+cEZGAkqZmM2Skwvoih2DVwP65vI9TksHaTjOb6HDCnhXp9CfiS90+juakDQ3I+xZfYsA1JZTw==}
 
-  '@dimah-s3/db@0.7.4':
-    resolution: {integrity: sha512-+GosiRN7T4ZjbeAq4+QArH4TkP7RHKK9PYn9jNUYpFOy4HdJQ5zzoD0SOfZH66mdm6Zmj77KHEaj8CQMELWuUw==}
+  '@dimah-s3/db@0.8.0':
+    resolution: {integrity: sha512-clmiWFac52hrP5b6tnrpdgvpEszSVPwYGTvsvv39A0PGNzpRofywlW4CAIBocEjS22su3ohgPlfcBL/HUgvvRQ==}
     peerDependencies:
-      '@dimah-s3/server': 0.7.4
+      '@dimah-s3/server': 0.8.0
       drizzle-orm: ^0.44.0 || ^0.45.0 || >=1.0.0-rc.1 <2.0.0
     peerDependenciesMeta:
       drizzle-orm:
         optional: true
 
-  '@dimah-s3/react@0.7.4':
-    resolution: {integrity: sha512-ae0ylRr9LwAIHsohXXjXn+nxBPXBTQErI3mimQovnENJJBmzIy9Kh7ngcff1d8wIoe0wXlMEyaSzf6xHtMwUQQ==}
+  '@dimah-s3/react@0.8.0':
+    resolution: {integrity: sha512-TM0K2DURzuqkgsfaZtth768D+eyQFQpixfbaacpQbdLgXaVvxg/uPLDsYqQuWlw20kUCMy5ibMfHdH/1ejl9UA==}
     peerDependencies:
       '@fuma-translate/react': ^1.0.2
       react: '>=18'
 
-  '@dimah-s3/server@0.7.4':
-    resolution: {integrity: sha512-kPg6INsaPfrKzPJjJlHvCciQG9rGP69fWd7N8DJ6/IQF5/0sBguNmbagaUvLdKQwEia9E3ZPHcfGKWpef2NjpA==}
+  '@dimah-s3/server@0.8.0':
+    resolution: {integrity: sha512-2U2xa7ks+LWEvXTwsbW2bdFNYxZrjQp9tEg5+5HEHWERETgPM/qoXLxNJtGNgRbcumdUu7q6pNH0efoBlSYFdw==}
     peerDependencies:
       '@aws-sdk/client-s3': '>=3'
 
-  '@dimah-s3/ui@0.7.4':
-    resolution: {integrity: sha512-b8eav0YR5DUObuaTm7f3XGQHsA8HQm7ERng8ggPEX5EO1isSoeOZiSMdGMFC25dTWJrzDK7Xv/Eqduy7sr9EwA==}
+  '@dimah-s3/ui@0.8.0':
+    resolution: {integrity: sha512-cB3jl6v1Z9f+yh5bNzbaGB/Fja0J/O3pL28O9omqFkUn+xPJMClD96SalO3svZoLDAHrHHAkYbnRGb7IEWRsiw==}
     peerDependencies:
       '@base-ui/react': '>=1.0.0'
       '@fuma-translate/react': ^1.0.2
@@ -2092,10 +2092,6 @@ packages:
     resolution: {integrity: sha512-tlqY9xq5ukxTUZBmoOp+m61cqwQD5pHJtFY3Mn8CA8ps6yghLH/Hw8UPdqg4OLmFW3IFlcXnQNmo/dh8HzXYIQ==}
     engines: {node: '>=18'}
 
-  '@smithy/core@3.33.0':
-    resolution: {integrity: sha512-uKbkxgqLyepQDZoq8aRSdUqD1ID//rOqG96ixBhp++O7vBtmwYM6fwldGhr9HJP0iYrdc7GP/AlgzPWEZIrNRg==}
-    engines: {node: '>=18.0.0'}
-
   '@smithy/core@3.33.2':
     resolution: {integrity: sha512-CUGXpnPkVdjUCbix+83sWLW9VFgQOm44MDOx/ihITJMAnOZKvL8YYIc7DR9pP/tZ8CIRvMiON/TucvygqbHO3w==}
     engines: {node: '>=18.0.0'}
@@ -2112,16 +2108,8 @@ packages:
     resolution: {integrity: sha512-Nmd/Nl35zfYrd+a6OO2cDJb3GPh9bgTjIUhcM+JFfjpp8/osCgboDV5nCT1I01Pv6R13eSKDKLSoVa5ZB6Zsfw==}
     engines: {node: '>=18.0.0'}
 
-  '@smithy/signature-v4@5.7.0':
-    resolution: {integrity: sha512-hCynhm22wMJ8wTF9crcwu8mxggtUrSLLJgDcGUvYFBqpofxycYJCGKOMYg4xtPPFtgNiDJSYmhsWLTrcU/g59Q==}
-    engines: {node: '>=18.0.0'}
-
   '@smithy/signature-v4@5.7.2':
     resolution: {integrity: sha512-P7Ki6px6OOrxVtx8K7nLmyx4SlXUW/uTKDdMG44UHefmPGSRMBKe2v+TM59WdLcpUIrBrnuCsIqiM2MbsZjmhw==}
-    engines: {node: '>=18.0.0'}
-
-  '@smithy/types@4.17.0':
-    resolution: {integrity: sha512-Aw4joiM0ZdErpo39lCj8phT2lxoiKZV+KZzBxnnQhWVtU2Is/WffQSL04uUWRcXUse9Ln8vXZK6V/FwqRVnQpg==}
     engines: {node: '>=18.0.0'}
 
   '@smithy/types@4.17.2':
@@ -4822,8 +4810,8 @@ packages:
       '@types/react':
         optional: true
 
-  react-resizable-panels@4.12.2:
-    resolution: {integrity: sha512-NwY5LCo4WrxVvDh0xoMML6EMLPONP/8ckKcIdpnojxexoatZdjLiRqLJQjQK5CPkd4SYiB/2M5BVrjZBQtOO7Q==}
+  react-resizable-panels@4.12.3:
+    resolution: {integrity: sha512-GHMJWnDXui/3RX4bT+cgBP+N3N2nkwcoZATr/2xLFpqQQe7TlBrE0cGM0dUa9ceT7A90tUrSRsiqgRG+g0/2AA==}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
@@ -5443,8 +5431,8 @@ snapshots:
     dependencies:
       '@aws-sdk/core': 3.977.8
       '@aws-sdk/types': 3.974.4
-      '@smithy/core': 3.33.0
-      '@smithy/types': 4.17.0
+      '@smithy/core': 3.33.2
+      '@smithy/types': 4.17.2
       tslib: 2.8.1
 
   '@aws-sdk/client-s3@3.1111.0':
@@ -5455,10 +5443,10 @@ snapshots:
       '@aws-sdk/middleware-sdk-s3': 3.972.74
       '@aws-sdk/signature-v4-multi-region': 3.996.45
       '@aws-sdk/types': 3.974.4
-      '@smithy/core': 3.33.0
+      '@smithy/core': 3.33.2
       '@smithy/fetch-http-handler': 5.6.13
       '@smithy/node-http-handler': 4.9.13
-      '@smithy/types': 4.17.0
+      '@smithy/types': 4.17.2
       tslib: 2.8.1
 
   '@aws-sdk/core@3.977.8':
@@ -5466,9 +5454,9 @@ snapshots:
       '@aws-sdk/types': 3.974.4
       '@aws-sdk/xml-builder': 3.972.39
       '@aws/lambda-invoke-store': 0.3.0
-      '@smithy/core': 3.33.0
-      '@smithy/signature-v4': 5.7.0
-      '@smithy/types': 4.17.0
+      '@smithy/core': 3.33.2
+      '@smithy/signature-v4': 5.7.2
+      '@smithy/types': 4.17.2
       bowser: 2.14.1
       tslib: 2.8.1
 
@@ -5476,18 +5464,18 @@ snapshots:
     dependencies:
       '@aws-sdk/core': 3.977.8
       '@aws-sdk/types': 3.974.4
-      '@smithy/core': 3.33.0
-      '@smithy/types': 4.17.0
+      '@smithy/core': 3.33.2
+      '@smithy/types': 4.17.2
       tslib: 2.8.1
 
   '@aws-sdk/credential-provider-http@3.972.71':
     dependencies:
       '@aws-sdk/core': 3.977.8
       '@aws-sdk/types': 3.974.4
-      '@smithy/core': 3.33.0
+      '@smithy/core': 3.33.2
       '@smithy/fetch-http-handler': 5.6.13
       '@smithy/node-http-handler': 4.9.13
-      '@smithy/types': 4.17.0
+      '@smithy/types': 4.17.2
       tslib: 2.8.1
 
   '@aws-sdk/credential-provider-ini@3.973.14':
@@ -5501,9 +5489,9 @@ snapshots:
       '@aws-sdk/credential-provider-web-identity': 3.972.75
       '@aws-sdk/nested-clients': 3.997.43
       '@aws-sdk/types': 3.974.4
-      '@smithy/core': 3.33.0
+      '@smithy/core': 3.33.2
       '@smithy/credential-provider-imds': 4.4.16
-      '@smithy/types': 4.17.0
+      '@smithy/types': 4.17.2
       tslib: 2.8.1
 
   '@aws-sdk/credential-provider-login@3.972.76':
@@ -5511,8 +5499,8 @@ snapshots:
       '@aws-sdk/core': 3.977.8
       '@aws-sdk/nested-clients': 3.997.43
       '@aws-sdk/types': 3.974.4
-      '@smithy/core': 3.33.0
-      '@smithy/types': 4.17.0
+      '@smithy/core': 3.33.2
+      '@smithy/types': 4.17.2
       tslib: 2.8.1
 
   '@aws-sdk/credential-provider-node@3.972.80':
@@ -5524,17 +5512,17 @@ snapshots:
       '@aws-sdk/credential-provider-sso': 3.973.13
       '@aws-sdk/credential-provider-web-identity': 3.972.75
       '@aws-sdk/types': 3.974.4
-      '@smithy/core': 3.33.0
+      '@smithy/core': 3.33.2
       '@smithy/credential-provider-imds': 4.4.16
-      '@smithy/types': 4.17.0
+      '@smithy/types': 4.17.2
       tslib: 2.8.1
 
   '@aws-sdk/credential-provider-process@3.972.69':
     dependencies:
       '@aws-sdk/core': 3.977.8
       '@aws-sdk/types': 3.974.4
-      '@smithy/core': 3.33.0
-      '@smithy/types': 4.17.0
+      '@smithy/core': 3.33.2
+      '@smithy/types': 4.17.2
       tslib: 2.8.1
 
   '@aws-sdk/credential-provider-sso@3.973.13':
@@ -5543,8 +5531,8 @@ snapshots:
       '@aws-sdk/nested-clients': 3.997.43
       '@aws-sdk/token-providers': 3.1111.0
       '@aws-sdk/types': 3.974.4
-      '@smithy/core': 3.33.0
-      '@smithy/types': 4.17.0
+      '@smithy/core': 3.33.2
+      '@smithy/types': 4.17.2
       tslib: 2.8.1
 
   '@aws-sdk/credential-provider-web-identity@3.972.75':
@@ -5552,8 +5540,8 @@ snapshots:
       '@aws-sdk/core': 3.977.8
       '@aws-sdk/nested-clients': 3.997.43
       '@aws-sdk/types': 3.974.4
-      '@smithy/core': 3.33.0
-      '@smithy/types': 4.17.0
+      '@smithy/core': 3.33.2
+      '@smithy/types': 4.17.2
       tslib: 2.8.1
 
   '@aws-sdk/middleware-sdk-s3@3.972.74':
@@ -5561,8 +5549,8 @@ snapshots:
       '@aws-sdk/core': 3.977.8
       '@aws-sdk/signature-v4-multi-region': 3.996.45
       '@aws-sdk/types': 3.974.4
-      '@smithy/core': 3.33.0
-      '@smithy/types': 4.17.0
+      '@smithy/core': 3.33.2
+      '@smithy/types': 4.17.2
       tslib: 2.8.1
 
   '@aws-sdk/nested-clients@3.997.43':
@@ -5570,10 +5558,10 @@ snapshots:
       '@aws-sdk/core': 3.977.8
       '@aws-sdk/signature-v4-multi-region': 3.996.45
       '@aws-sdk/types': 3.974.4
-      '@smithy/core': 3.33.0
+      '@smithy/core': 3.33.2
       '@smithy/fetch-http-handler': 5.6.13
       '@smithy/node-http-handler': 4.9.13
-      '@smithy/types': 4.17.0
+      '@smithy/types': 4.17.2
       tslib: 2.8.1
 
   '@aws-sdk/s3-presigned-post@3.1111.0':
@@ -5598,8 +5586,8 @@ snapshots:
   '@aws-sdk/signature-v4-multi-region@3.996.45':
     dependencies:
       '@aws-sdk/types': 3.974.4
-      '@smithy/signature-v4': 5.7.0
-      '@smithy/types': 4.17.0
+      '@smithy/signature-v4': 5.7.2
+      '@smithy/types': 4.17.2
       tslib: 2.8.1
 
   '@aws-sdk/token-providers@3.1111.0':
@@ -5607,18 +5595,18 @@ snapshots:
       '@aws-sdk/core': 3.977.8
       '@aws-sdk/nested-clients': 3.997.43
       '@aws-sdk/types': 3.974.4
-      '@smithy/core': 3.33.0
-      '@smithy/types': 4.17.0
+      '@smithy/core': 3.33.2
+      '@smithy/types': 4.17.2
       tslib: 2.8.1
 
   '@aws-sdk/types@3.974.4':
     dependencies:
-      '@smithy/types': 4.17.0
+      '@smithy/types': 4.17.2
       tslib: 2.8.1
 
   '@aws-sdk/xml-builder@3.972.39':
     dependencies:
-      '@smithy/types': 4.17.0
+      '@smithy/types': 4.17.2
       tslib: 2.8.1
 
   '@aws/lambda-invoke-store@0.3.0': {}
@@ -5915,14 +5903,19 @@ snapshots:
 
   '@date-fns/tz@1.5.0': {}
 
-  '@dimah-s3/core@0.7.4': {}
-
-  '@dimah-s3/db@0.7.4(@dimah-s3/server@0.7.4(@aws-sdk/client-s3@3.1111.0))(drizzle-orm@1.0.0-rc.4(@electric-sql/pglite@0.4.1)(@types/pg@8.21.0)(mysql2@3.15.3)(pg@8.23.0)(postgres@3.4.7)(valibot@1.2.0(typescript@7.0.2))(zod@4.4.3))(prisma@7.8.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@7.0.2))':
+  '@dimah-s3/core@0.8.0':
     dependencies:
-      '@dimah-s3/core': 0.7.4
-      '@dimah-s3/server': 0.7.4(@aws-sdk/client-s3@3.1111.0)
+      '@better-fetch/fetch': 1.3.1
+      better-call: 1.4.0(zod@4.4.3)
+      zod: 4.4.3
+
+  '@dimah-s3/db@0.8.0(@dimah-s3/server@0.8.0(@aws-sdk/client-s3@3.1111.0))(drizzle-orm@1.0.0-rc.4(@electric-sql/pglite@0.4.1)(@types/pg@8.21.0)(mysql2@3.15.3)(pg@8.23.0)(postgres@3.4.7)(valibot@1.2.0(typescript@7.0.2))(zod@4.4.3))(prisma@7.8.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@7.0.2))':
+    dependencies:
+      '@dimah-s3/core': 0.8.0
+      '@dimah-s3/server': 0.8.0(@aws-sdk/client-s3@3.1111.0)
       '@paralleldrive/cuid2': 3.3.0
       fumadb: 0.6.0(drizzle-orm@1.0.0-rc.4(@electric-sql/pglite@0.4.1)(@types/pg@8.21.0)(mysql2@3.15.3)(pg@8.23.0)(postgres@3.4.7)(valibot@1.2.0(typescript@7.0.2))(zod@4.4.3))(prisma@7.8.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@7.0.2))
+      zod: 4.4.3
     optionalDependencies:
       drizzle-orm: 1.0.0-rc.4(@electric-sql/pglite@0.4.1)(@types/pg@8.21.0)(mysql2@3.15.3)(pg@8.23.0)(postgres@3.4.7)(valibot@1.2.0(typescript@7.0.2))(zod@4.4.3)
     transitivePeerDependencies:
@@ -5931,9 +5924,9 @@ snapshots:
       - prisma
       - typeorm
 
-  '@dimah-s3/react@0.7.4(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(react@19.2.8)(use-sync-external-store@1.6.0(react@19.2.8))':
+  '@dimah-s3/react@0.8.0(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(react@19.2.8)(use-sync-external-store@1.6.0(react@19.2.8))':
     dependencies:
-      '@dimah-s3/core': 0.7.4
+      '@dimah-s3/core': 0.8.0
       '@fuma-translate/react': 1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       immer: 11.1.17
       react: 19.2.8
@@ -5943,18 +5936,20 @@ snapshots:
       - '@types/react'
       - use-sync-external-store
 
-  '@dimah-s3/server@0.7.4(@aws-sdk/client-s3@3.1111.0)':
+  '@dimah-s3/server@0.8.0(@aws-sdk/client-s3@3.1111.0)':
     dependencies:
       '@aws-sdk/client-s3': 3.1111.0
       '@aws-sdk/s3-presigned-post': 3.1111.0
       '@aws-sdk/s3-request-presigner': 3.1111.0
-      '@dimah-s3/core': 0.7.4
+      '@dimah-s3/core': 0.8.0
+      better-call: 1.4.0(zod@4.4.3)
+      zod: 4.4.3
 
-  '@dimah-s3/ui@0.7.4(@base-ui/react@1.7.0(@date-fns/tz@1.5.0)(@types/react@19.2.18)(date-fns@4.4.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(class-variance-authority@0.7.1)(cnfast@0.1.0)(lucide-react@1.31.0(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+  '@dimah-s3/ui@0.8.0(@base-ui/react@1.7.0(@date-fns/tz@1.5.0)(@types/react@19.2.18)(date-fns@4.4.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(class-variance-authority@0.7.1)(cnfast@0.1.0)(lucide-react@1.31.0(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
     dependencies:
       '@base-ui/react': 1.7.0(@date-fns/tz@1.5.0)(@types/react@19.2.18)(date-fns@4.4.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      '@dimah-s3/core': 0.7.4
-      '@dimah-s3/react': 0.7.4(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(react@19.2.8)(use-sync-external-store@1.6.0(react@19.2.8))
+      '@dimah-s3/core': 0.8.0
+      '@dimah-s3/react': 0.8.0(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(react@19.2.8)(use-sync-external-store@1.6.0(react@19.2.8))
       '@fuma-translate/react': 1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       class-variance-authority: 0.7.1
       cnfast: 0.1.0
@@ -6980,11 +6975,6 @@ snapshots:
 
   '@sindresorhus/merge-streams@4.0.0': {}
 
-  '@smithy/core@3.33.0':
-    dependencies:
-      '@smithy/types': 4.17.0
-      tslib: 2.8.1
-
   '@smithy/core@3.33.2':
     dependencies:
       '@smithy/types': 4.17.2
@@ -6992,36 +6982,26 @@ snapshots:
 
   '@smithy/credential-provider-imds@4.4.16':
     dependencies:
-      '@smithy/core': 3.33.0
-      '@smithy/types': 4.17.0
+      '@smithy/core': 3.33.2
+      '@smithy/types': 4.17.2
       tslib: 2.8.1
 
   '@smithy/fetch-http-handler@5.6.13':
     dependencies:
-      '@smithy/core': 3.33.0
-      '@smithy/types': 4.17.0
+      '@smithy/core': 3.33.2
+      '@smithy/types': 4.17.2
       tslib: 2.8.1
 
   '@smithy/node-http-handler@4.9.13':
     dependencies:
-      '@smithy/core': 3.33.0
-      '@smithy/types': 4.17.0
-      tslib: 2.8.1
-
-  '@smithy/signature-v4@5.7.0':
-    dependencies:
-      '@smithy/core': 3.33.0
-      '@smithy/types': 4.17.0
+      '@smithy/core': 3.33.2
+      '@smithy/types': 4.17.2
       tslib: 2.8.1
 
   '@smithy/signature-v4@5.7.2':
     dependencies:
       '@smithy/core': 3.33.2
       '@smithy/types': 4.17.2
-      tslib: 2.8.1
-
-  '@smithy/types@4.17.0':
-    dependencies:
       tslib: 2.8.1
 
   '@smithy/types@4.17.2':
@@ -9515,7 +9495,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.18
 
-  react-resizable-panels@4.12.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
+  react-resizable-panels@4.12.3(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
     dependencies:
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
