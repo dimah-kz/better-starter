@@ -1,7 +1,7 @@
-import { DimahS3Error } from "@dimah-s3/core"
+import { DimahS3Error, S3_ERROR_CODES } from "@dimah-s3/core"
 import type { StorageOwner } from "../../owner"
 
-/** Shared by upload.presignGuard and multipart.initGuard (first-write key check). */
+/** Shared by upload.guard and multipart.initGuard (first-write key check). */
 export type KeyOwnershipContext = {
   request: Request
   key: string
@@ -17,20 +17,25 @@ export function createKeyOwnershipGuard(options: {
 }) {
   return async ({ request, key }: KeyOwnershipContext) => {
     const owner = await options.resolveOwner(request, key)
-    if (!owner) throw new DimahS3Error("Unauthorized", 401)
+    if (!owner) {
+      throw DimahS3Error.from("UNAUTHORIZED", S3_ERROR_CODES.UNAUTHORIZED)
+    }
 
     const [kind, id, purpose] = key.split("/")
     if (kind !== owner.kind || id !== owner.id) {
-      throw new DimahS3Error("Key does not match caller scope", 403)
+      throw DimahS3Error.from("FORBIDDEN", {
+        ...S3_ERROR_CODES.FORBIDDEN,
+        message: "Key does not match caller scope",
+      })
     }
     if (
       options.allowedPurposes &&
       (!purpose || !options.allowedPurposes.includes(purpose))
     ) {
-      throw new DimahS3Error(
-        `Storage purpose "${purpose ?? ""}" is not allowed`,
-        403
-      )
+      throw DimahS3Error.from("FORBIDDEN", {
+        ...S3_ERROR_CODES.FORBIDDEN,
+        message: `Storage purpose "${purpose ?? ""}" is not allowed`,
+      })
     }
   }
 }

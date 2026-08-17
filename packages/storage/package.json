@@ -6,7 +6,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./keys": "./src/keys/index.ts",
-    "./react": "./src/react.tsx"
+    "./s3-client": "./src/s3-client.tsx"
   },
   "scripts": {
     "lint": "eslint",

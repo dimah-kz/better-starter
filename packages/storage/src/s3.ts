@@ -1,17 +1,27 @@
+import { S3Client } from "@aws-sdk/client-s3"
 import { db } from "@dimah-s3/db"
-import { dimahS3, chainHooks } from "@dimah-s3/server"
+import { dimahS3, errors } from "@dimah-s3/server"
+import { chainHooks } from "@dimah-s3/server/plugins"
 import { auth } from "@repo/auth"
 import { dimahS3Db } from "@repo/db/dimah-s3"
 import { createKeyOwnershipGuard } from "./hooks"
 import { toStorageScope } from "./owner"
 import { resolveOwner } from "./owner/resolve"
-import { defaultBucket, s3Client } from "./s3-client"
+
+export const awsS3 = new S3Client({
+  region: process.env.S3_REGION,
+  endpoint: process.env.S3_ENDPOINT,
+  credentials: {
+    accessKeyId: process.env.S3_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY!,
+  },
+})
 
 const keyOwnershipGuard = createKeyOwnershipGuard({ resolveOwner })
 
 export const s3 = dimahS3({
-  s3: s3Client,
-  defaultBucket,
+  client: awsS3,
+  bucket: process.env.S3_BUCKET!,
   plugins: [
     db({
       client: dimahS3Db,
@@ -23,24 +33,20 @@ export const s3 = dimahS3({
   ],
   guard: async ({ request }) => {
     const session = await auth.api.getSession({ headers: request.headers })
-    if (!session) {
-      throw Object.assign(new Error("Unauthorized"), { status: 401 })
-    }
+    if (!session) throw errors.unauthorized()
   },
   upload: {
-    enabled: true,
-    presignGuard: chainHooks(
+    guard: chainHooks(
       keyOwnershipGuard
       // later: createQuotaGuard({ resolveOwner, s3: () => s3 })
     ),
   },
   multipart: {
-    enabled: true,
     initGuard: chainHooks(
       keyOwnershipGuard
       // later: createQuotaGuard({ resolveOwner, s3: () => s3 })
     ),
   },
-  download: { enabled: true },
-  delete: { enabled: true },
+  download: true,
+  delete: true,
 })

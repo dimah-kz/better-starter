@@ -10,12 +10,12 @@ export const fa = {
   "All {count} file(s) uploaded(status)": "هر {count} فایل آپلود شد",
   'Are you sure you want to delete "{name}"? This action cannot be undone.(dialog description)':
     "آیا مطمئن هستید که می‌خواهید «{name}» را حذف کنید؟ این عمل قابل بازگشت نیست.",
-  "At least one upload part is required(API error)":
-    "حداقل یک بخش آپلود الزامی است",
+  "Bucket is not allowed(API error)": "باکت مجاز نیست",
   "Cancel download(tooltip)": "لغو دانلود",
   "Cancel(dialog button)": "لغو",
   "Cancel(toast action)": "لغو",
   "Cancel(upload control)": "لغو",
+  "Conflict(API error)": "تداخل",
   "Could not reach storage ({code})(API error)":
     "اتصال به ذخیره‌سازی برقرار نشد ({code})",
   "Delete failed(status)": "حذف ناموفق بود",
@@ -44,14 +44,12 @@ export const fa = {
     "نوع فایل «{type}» مجاز نیست",
   "Invalid request(API error)": "درخواست نامعتبر",
   "Not found(API error)": "یافت نشد",
-  "Object key is required(API error)": "کلید شیء الزامی است",
-  "Part number must be a positive integer(API error)":
-    "شماره بخش باید عدد صحیح مثبت باشد",
+  "Object key is invalid(API error)": "کلید شیء نامعتبر است",
   "Pause(upload control)": "مکث",
   "Preparing…(upload status)": "در حال آماده‌سازی…",
   "Something went wrong(API error)": "خطای داخلی سرور",
+  "Unauthorized(API error)": "احراز هویت نشده",
   "Unknown error(fallback)": "خطای ناشناخته",
-  "Upload ID is required(API error)": "شناسه آپلود الزامی است",
   "Upload complete(toast)": "آپلود کامل شد",
   "Upload failed(status)": "آپلود ناموفق بود",
   "Upload failed(toast)": "آپلود ناموفق بود",
@@ -63,7 +61,7 @@ export const fa = {
   "Validating…(upload status)": "در حال اعتبارسنجی…",
   "{count} file(s) uploaded(toast)": "{count} فایل آپلود شد",
   "{done}/{total} files(upload progress)": "{done}/{total} فایل",
-  "{name} is required(API error)": "{name} الزامی است",
+  "{feature} is disabled(API error)": "{feature} غیرفعال است",
   "{succeeded} succeeded, {failed} failed(toast)":
     "{succeeded} موفق، {failed} ناموفق",
 } satisfies Partial<Translations>

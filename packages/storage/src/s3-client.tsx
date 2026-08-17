@@ -5,7 +5,7 @@ import { createS3Client } from "@dimah-s3/react"
 import type { Locale } from "@repo/i18n"
 import { translationsByLocale } from "./translations"
 
-export const { api, S3Provider, useApi } = createS3Client({
+export const s3Client = createS3Client({
   plugins: [dbClient()],
 })
 
@@ -17,8 +17,8 @@ export function S3ClientProvider({
   children: React.ReactNode
 }) {
   return (
-    <S3Provider translations={translationsByLocale[locale]}>
+    <s3Client.Provider translations={translationsByLocale[locale]}>
       {children}
-    </S3Provider>
+    </s3Client.Provider>
   )
 }

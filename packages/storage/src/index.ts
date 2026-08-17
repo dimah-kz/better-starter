@@ -7,5 +7,4 @@ export {
   type StorageOwner,
   type StorageOwnerKind,
 } from "./keys"
-export { s3 } from "./s3"
-export { defaultBucket, s3Client } from "./s3-client"
+export { awsS3, s3 } from "./s3"

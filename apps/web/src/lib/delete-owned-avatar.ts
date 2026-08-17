@@ -21,7 +21,10 @@ export async function deleteOwnedAvatarObject(options: {
   }
 
   try {
-    await s3.api.delete(previousKey, { headers: options.headers })
+    await s3.api.delete({
+      query: { key: previousKey },
+      headers: options.headers,
+    })
   } catch {
     // Best-effort — the new/cleared image is already linked.
   }
