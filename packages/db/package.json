@@ -19,7 +19,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@dimah-s3/db": "0.8.0",
+    "@dimah-s3/db": "0.8.1",
     "@paralleldrive/cuid2": "^3.3.0",
     "dotenv": "^17.4.2",
     "drizzle-orm": "rc",

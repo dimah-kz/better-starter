@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
-    "@dimah-s3/ui": "0.8.0",
+    "@dimah-s3/ui": "0.8.1",
     "@shadcn/react": "^0.3.0",
     "class-variance-authority": "^0.7.1",
     "cmdk": "^1.1.1",
