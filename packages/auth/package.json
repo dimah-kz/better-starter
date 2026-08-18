@@ -10,20 +10,22 @@
     "./organization-access": "./src/organization-access.ts"
   },
   "scripts": {
+    "auth:generate": "auth generate --config ./src/auth.ts --output ../db/src/schema/auth.schema.ts -y",
     "lint": "eslint",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@better-auth/drizzle-adapter": "rc",
-    "@better-auth/i18n": "1.7.0-rc.4",
+    "@better-auth/drizzle-adapter": "1.7.0",
+    "@better-auth/i18n": "1.7.0",
     "@repo/db": "workspace:*",
     "@repo/i18n": "workspace:*",
-    "better-auth": "rc",
+    "better-auth": "1.7.0",
     "drizzle-orm": "rc"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "auth": "1.7.0",
     "eslint": "catalog:",
     "typescript": "catalog:"
   }

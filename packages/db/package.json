@@ -10,7 +10,7 @@
     "./dimah-s3": "./src/dimah-s3-db.ts"
   },
   "scripts": {
-    "auth:generate": "pnpm dlx auth@rc generate --config ../auth/src/auth.ts --output ./src/schema/auth.schema.ts -y",
+    "auth:generate": "pnpm --filter @repo/auth auth:generate",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",

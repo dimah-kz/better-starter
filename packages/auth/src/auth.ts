@@ -11,7 +11,11 @@ import { adminPluginAc, adminPluginRoles } from "./admin-access"
 import { orgAc, orgRoles } from "./organization-access"
 
 export const auth = betterAuth({
-  experimental: { joins: true },
+  advanced: {
+    database: {
+      joins: true,
+    },
+  },
   trustedOrigins: [
     process.env.BETTER_AUTH_URL,
     process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
