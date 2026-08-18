@@ -42,7 +42,10 @@ async function AdminLayoutContent({ children }: AdminLayoutProps) {
           {t("adminPage.title")}
         </h1>
         <DashboardSubnav
-          tabs={adminSlices.map(({ icon: _, ...tab }) => tab)}
+          tabs={adminSlices.map(({ icon: Icon, ...tab }) => ({
+            ...tab,
+            icon: <Icon aria-hidden />,
+          }))}
           defaultTabKey={adminSlices[0].key}
         />
       </header>

@@ -11,6 +11,7 @@ export type DashboardSubnavItem = {
   labelKey: Parameters<ReturnType<typeof useTranslations<"dashboard">>>[0]
   pathSuffix: string
   href: string
+  icon?: React.ReactNode
 }
 
 type DashboardSubnavProps = {
@@ -37,6 +38,7 @@ export function DashboardSubnav({ tabs, defaultTabKey }: DashboardSubnavProps) {
             nativeButton={false}
             render={<Link href={tab.href} />}
           >
+            {tab.icon}
             {t(tab.labelKey)}
           </TabsTrigger>
         ))}

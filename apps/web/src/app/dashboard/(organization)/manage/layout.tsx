@@ -49,7 +49,10 @@ async function OrganizationManageLayoutContent({
           {t("organizationManage.title")}
         </h1>
         <DashboardSubnav
-          tabs={organizationManageTabs.map(({ icon: _, ...tab }) => tab)}
+          tabs={organizationManageTabs.map(({ icon: Icon, ...tab }) => ({
+            ...tab,
+            icon: <Icon aria-hidden />,
+          }))}
           defaultTabKey={organizationManageTabs[0].key}
         />
       </header>

@@ -2,7 +2,7 @@ import {
   dashboardRouteSegments,
   dashboardRoutes,
 } from "@/app/dashboard/lib/dashboard-routes"
-import { Building2Icon, UsersIcon } from "lucide-react"
+import { Building2Icon, UserCogIcon } from "lucide-react"
 
 /**
  * Platform admin tabs registered for navigation and trim docs.
@@ -11,7 +11,7 @@ export const adminSlices = [
   {
     key: "users",
     labelKey: "adminTabs.users",
-    icon: UsersIcon,
+    icon: UserCogIcon,
     pathSuffix: `/${dashboardRouteSegments.users}`,
     href: dashboardRoutes.adminUsers(),
   },

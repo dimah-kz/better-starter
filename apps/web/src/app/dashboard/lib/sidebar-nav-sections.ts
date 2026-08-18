@@ -3,7 +3,7 @@ import { organizationManageTabs } from "@/app/dashboard/(organization)/manage/li
 import type { NavMainItem } from "@/app/dashboard/components/sidebar/nav-main"
 import { dashboardRoutes } from "@/app/dashboard/lib/dashboard-routes"
 import { matchesPathPrefix } from "@/app/dashboard/lib/path-utils"
-import { SettingsIcon, ShieldIcon } from "lucide-react"
+import { Building2Icon, ShieldIcon } from "lucide-react"
 import { createElement } from "react"
 
 export type SidebarNavSection = {
@@ -75,6 +75,6 @@ export const platformEntryIcon = createElement(ShieldIcon, {
   className: "size-4",
 })
 
-export const organizationEntryIcon = createElement(SettingsIcon, {
+export const organizationEntryIcon = createElement(Building2Icon, {
   className: "size-4",
 })
