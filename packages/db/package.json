@@ -19,7 +19,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@dimah-s3/db": "0.8.1",
+    "@dimah-s3/db": "0.8.4",
     "@paralleldrive/cuid2": "^3.3.0",
     "dotenv": "^17.4.2",
     "drizzle-orm": "rc",
@@ -30,7 +30,7 @@
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "^26.2.0",
-    "@types/pg": "^8.21.0",
+    "@types/pg": "^8.23.1",
     "drizzle-kit": "rc",
     "eslint": "catalog:",
     "typescript": "catalog:"
