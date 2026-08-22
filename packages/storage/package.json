@@ -13,11 +13,11 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.1113.0",
-    "@dimah-s3/core": "0.8.4",
-    "@dimah-s3/db": "0.8.4",
-    "@dimah-s3/react": "0.8.4",
-    "@dimah-s3/server": "0.8.4",
+    "@aws-sdk/client-s3": "^3.1116.0",
+    "@dimah-s3/core": "0.8.6",
+    "@dimah-s3/db": "0.8.6",
+    "@dimah-s3/react": "0.8.6",
+    "@dimah-s3/server": "0.8.6",
     "@repo/auth": "workspace:*",
     "@repo/db": "workspace:*",
     "@repo/i18n": "workspace:*",
