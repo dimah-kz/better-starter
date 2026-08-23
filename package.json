@@ -2,6 +2,7 @@
   "name": "better-starter",
   "version": "0.0.1",
   "private": true,
+  "description": "Server-first Turborepo starter for multi-tenant SaaS — Next.js dashboard, Better Auth, Postgres, and object storage.",
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",

@@ -1,6 +1,9 @@
 {
   "appTitle": "داشبورد بهتر",
-  "appDescription": "قالب داشبورد سازمانی موبایل‌اول با Better Auth برای Next.js — سایدبار واکنش‌گرا، فرم‌ها و چیدمان.",
+  "appDescription": "استارتر Turborepo سرور-اول برای SaaS چندمستأجری — داشبورد Next.js، Better Auth، Postgres و ذخیره‌سازی فایل.",
+  "home": {
+    "lede": "استارتر Turborepo سرور-اول برای SaaS چندمستأجری. داشبورد، احراز هویت، ذخیره‌سازی — نشست و نوشتن روی سرور، بدون SDK داده در UI."
+  },
   "metadataTitleTemplate": "%s · داشبورد بهتر",
   "tryAgain": "تلاش دوباره",
   "signOut": "خروج",

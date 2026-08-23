@@ -1,10 +1,19 @@
 # better-starter
 
-A Turborepo starter for **multi-tenant SaaS** — Next.js dashboard, Better Auth, Postgres, and [dimah-s3](https://dimah-s3.vercel.app) storage, with shared packages ready for mobile or extension later.
+A **server-first Turborepo starter** for multi-tenant SaaS — Next.js dashboard, Better Auth, Postgres, and [dimah-s3](https://dimah-s3.vercel.app) storage, with shared packages ready for mobile or extension later.
 
-Closest mental model: a production-shaped Turborepo / create-t3-app, opinionated for org-based products from day one.
+The whole product surface is server-first, not just login: session in RSC, lists from tagged cache, writes (auth, orgs, uploads) as Server Actions. No `authClient` and no client data layer in the UI.
 
 **[Use this template](https://github.com/hamidrezakz/better-starter/generate)**
+
+## Why server-first
+
+| Typical SaaS kit                         | This starter                              |
+| ---------------------------------------- | ----------------------------------------- |
+| Client SDK + React Query / providers     | RSC session via `auth.api.getSession`     |
+| Client mutations, then refetch           | Server Actions → `auth.api` → `updateTag` |
+| Drop-in widgets for auth, storage, menus | Your chrome: sidebar, org switcher, menus |
+| Copy and locale owned by the kit         | `@repo/i18n` + RTL from day one           |
 
 ## Structure
 

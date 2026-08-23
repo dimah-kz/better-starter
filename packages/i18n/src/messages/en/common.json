@@ -1,6 +1,9 @@
 {
   "appTitle": "Better Dashboard",
-  "appDescription": "Mobile-first Better Auth organization dashboard template for Next.js—responsive sidebar, forms, and layout.",
+  "appDescription": "Server-first Turborepo starter for multi-tenant SaaS — Next.js dashboard, Better Auth, Postgres, and object storage.",
+  "home": {
+    "lede": "Server-first Turborepo starter for multi-tenant SaaS. Dashboard, auth, storage — session and writes on the server, no client data SDK in the UI."
+  },
   "metadataTitleTemplate": "%s · Better Dashboard",
   "tryAgain": "Try again",
   "signOut": "Sign out",
