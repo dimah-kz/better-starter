@@ -6,27 +6,6 @@ import {
 } from "../keys/object-key"
 import { isOwnerKind, type StorageOwner, type StorageOwnerKind } from "./scope"
 
-type RequestAuth = {
-  session: Session | null
-  key: string | null
-  ownerKind: StorageOwnerKind | null
-}
-
-const authByRequest = new WeakMap<Request, Promise<RequestAuth>>()
-
-export function getRequestAuth(request: Request): Promise<RequestAuth> {
-  let pending = authByRequest.get(request)
-  if (!pending) {
-    pending = (async () => {
-      const session = await auth.api.getSession({ headers: request.headers })
-      if (!session) return { session: null, key: null, ownerKind: null }
-      return { session, ...(await peekIntent(request)) }
-    })()
-    authByRequest.set(request, pending)
-  }
-  return pending
-}
-
 function ownerFromKind(
   session: Session,
   kind: StorageOwnerKind
@@ -73,7 +52,7 @@ export async function composeObjectKey(
   request: Request,
   proposedKey: string
 ): Promise<string | null> {
-  const { session } = await getRequestAuth(request)
+  const session = await auth.api.getSession({ headers: request.headers })
   if (!session) return null
 
   const parts = parseObjectKey(proposedKey)
@@ -90,7 +69,7 @@ export async function resolveStoredOwner(
   request: Request,
   key: string
 ): Promise<StorageOwner | null> {
-  const { session } = await getRequestAuth(request)
+  const session = await auth.api.getSession({ headers: request.headers })
   if (!session) return null
 
   const parts = parseObjectKey(key)
@@ -102,8 +81,10 @@ export async function resolveStoredOwner(
 export async function resolveOwner(
   request: Request
 ): Promise<StorageOwner | null> {
-  const { session, key, ownerKind } = await getRequestAuth(request)
+  const session = await auth.api.getSession({ headers: request.headers })
   if (!session) return null
+
+  const { key, ownerKind } = await peekIntent(request)
   if (key) {
     const parts = parseObjectKey(key)
     const fromKey = parts ? sessionOwner(session, parts) : null

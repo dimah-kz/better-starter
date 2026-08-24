@@ -1,11 +1,11 @@
 import { S3Client } from "@aws-sdk/client-s3"
 import { db } from "@dimah-s3/db"
 import { dimahS3, errors } from "@dimah-s3/server"
+import { auth } from "@repo/auth"
 import { dimahS3Db } from "@repo/db/dimah-s3"
 import { toOwnerScope } from "./owner"
 import {
   composeObjectKey,
-  getRequestAuth,
   resolveOwner,
   resolveStoredOwner,
 } from "./owner/resolve"
@@ -33,7 +33,7 @@ export const s3 = dimahS3({
   client: awsS3,
   bucket: process.env.S3_BUCKET!,
   guard: async ({ request }) => {
-    const { session } = await getRequestAuth(request)
+    const session = await auth.api.getSession({ headers: request.headers })
     if (!session) throw errors.unauthorized()
   },
   upload: {
