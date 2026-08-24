@@ -6,13 +6,11 @@ import { AvatarUploadField } from "@/components/avatar-upload-field"
 import { useTranslations } from "next-intl"
 
 type AccountAvatarFieldProps = {
-  userId: string
   name: string
   image: string | null
 }
 
 export function AccountAvatarField({
-  userId,
   name,
   image,
 }: AccountAvatarFieldProps) {
@@ -21,7 +19,7 @@ export function AccountAvatarField({
   return (
     <div className="flex justify-center">
       <AvatarUploadField
-        owner={{ kind: "user", id: userId }}
+        ownerKind="user"
         name={name}
         image={image}
         setAction={setAccountAvatarAction}

@@ -1,4 +1,4 @@
-import { buildObjectKey, sanitizeFileName } from "@dimah-s3/core"
+import { sanitizeFileName } from "@dimah-s3/core"
 import type { StorageOwner } from "../owner"
 
 /** Defensive format check only — app-level allowlists live beside the feature. */
@@ -13,8 +13,24 @@ function safeFileName(fileName: string): string {
   return base || "file"
 }
 
+/** Owner tenancy prefix: `{kind}/{id}`. */
+export function toOwnerPrefix(owner: StorageOwner): string {
+  return `${owner.kind}/${owner.id}`
+}
+
 /**
- * S3 key aligned with scope:
+ * Client-proposed key for upload:
+ * `{purpose}/{fileName}`
+ */
+export function toRelativeKey(purpose: string, fileName: string): string {
+  if (!PURPOSE_PATTERN.test(purpose)) {
+    throw new Error(`Invalid storage purpose: "${purpose}"`)
+  }
+  return `${purpose}/${safeFileName(fileName)}`
+}
+
+/**
+ * Canonical S3 key:
  * `{kind}/{id}/{purpose}/{fileName}`
  */
 export function toObjectKey(
@@ -22,10 +38,7 @@ export function toObjectKey(
   purpose: string,
   fileName: string
 ): string {
-  if (!PURPOSE_PATTERN.test(purpose)) {
-    throw new Error(`Invalid storage purpose: "${purpose}"`)
-  }
-  return buildObjectKey(owner.kind, owner.id, purpose, safeFileName(fileName))
+  return `${toOwnerPrefix(owner)}/${toRelativeKey(purpose, fileName)}`
 }
 
 export function isObjectKeyFor(

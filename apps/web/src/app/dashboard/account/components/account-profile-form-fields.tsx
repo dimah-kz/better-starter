@@ -30,7 +30,6 @@ export function AccountProfileFormFields({
     <FieldGroup>
       <Field>
         <AccountAvatarField
-          userId={profile.id}
           name={profile.name}
           image={profile.image}
         />

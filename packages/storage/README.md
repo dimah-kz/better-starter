@@ -6,4 +6,4 @@ Apps use it for avatars, org logos, and similar assets. This package wires the d
 
 Needs the `S3_*` env vars from `.env.example` (any S3-compatible bucket, e.g. Cloudflare R2).
 
-Object keys are `{kind}/{id}/{purpose}/{fileName}`. Server `resolveKey` stamps the owner prefix on upload, download, and delete so clients cannot write outside their scope.
+Object keys are `{kind}/{id}/{purpose}/{fileName}`. The client proposes `{purpose}/{fileName}` plus owner kind (`user` | `org`). Upload `prefix` stamps `{kind}/{id}/`. Download and delete authorize the stored key and do not rewrite it.

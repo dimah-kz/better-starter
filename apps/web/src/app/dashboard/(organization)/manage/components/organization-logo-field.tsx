@@ -21,7 +21,7 @@ export function OrganizationLogoField({
   return (
     <div className="flex justify-center">
       <AvatarUploadField
-        owner={{ kind: "org", id: organizationId }}
+        ownerKind="org"
         name={name}
         image={logo}
         setAction={(key) => setOrganizationLogoAction(organizationId, key)}

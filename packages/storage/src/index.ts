@@ -4,6 +4,8 @@ export {
   objectKeyFromPublicUrl,
   parseStorageScope,
   toObjectKey,
+  toOwnerPrefix,
+  toRelativeKey,
   toStorageScope,
   type StorageOwner,
   type StorageOwnerKind,

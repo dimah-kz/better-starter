@@ -1,5 +1,5 @@
 import { auth, type Session } from "@repo/auth"
-import type { StorageOwner } from "./scope"
+import type { StorageOwner, StorageOwnerKind } from "./scope"
 
 /**
  * Active organization wins; otherwise the user owns the upload.
@@ -11,20 +11,69 @@ function ownerFromSession(session: Session): StorageOwner {
     : { kind: "user", id: session.user.id }
 }
 
-async function peekObjectKey(request: Request): Promise<string | null> {
-  const fromQuery = new URL(request.url).searchParams.get("key")
-  if (fromQuery) return fromQuery
+function ownerFromKind(
+  session: Session,
+  kind: StorageOwnerKind
+): StorageOwner | null {
+  if (kind === "user") return { kind: "user", id: session.user.id }
+  const id = session.session.activeOrganizationId
+  if (!id) return null
+  return { kind: "org", id }
+}
+
+function parseOwnerKind(value: unknown): StorageOwnerKind | null {
+  return value === "user" || value === "org" ? value : null
+}
+
+function ownerFromKey(
+  session: Session,
+  key: string
+): StorageOwner | null {
+  const [kind, id] = key.split("/")
+  if (kind === "user" && id === session.user.id) {
+    return { kind: "user", id }
+  }
+  if (kind === "org" && id && id === session.session.activeOrganizationId) {
+    return { kind: "org", id }
+  }
+  return null
+}
+
+type RequestIntent = {
+  key: string | null
+  ownerKind: StorageOwnerKind | null
+}
+
+async function peekIntent(request: Request): Promise<RequestIntent> {
+  const url = new URL(request.url)
+  const ownerKind =
+    parseOwnerKind(url.searchParams.get("owner")) ??
+    parseOwnerKind(url.searchParams.get("ownerKind"))
+  const keyFromQuery = url.searchParams.get("key")
+
   try {
-    const body = (await request.clone().json()) as { key?: unknown }
-    return typeof body.key === "string" ? body.key : null
+    const body = (await request.clone().json()) as {
+      key?: unknown
+      owner?: unknown
+      ownerKind?: unknown
+      metadata?: { owner?: unknown }
+    }
+    return {
+      key: keyFromQuery ?? (typeof body.key === "string" ? body.key : null),
+      ownerKind:
+        ownerKind ??
+        parseOwnerKind(body.owner) ??
+        parseOwnerKind(body.ownerKind) ??
+        parseOwnerKind(body.metadata?.owner),
+    }
   } catch {
-    return null
+    return { key: keyFromQuery, ownerKind }
   }
 }
 
 /**
- * Prefer owner implied by the object key when it matches the caller
- * (`user/{self}/…` or `org/{activeOrg}/…`); otherwise session context.
+ * Owner for a request: matching canonical key, then explicit `user` | `org`
+ * intent, then session context.
  */
 export async function resolveOwner(
   request: Request,
@@ -33,16 +82,14 @@ export async function resolveOwner(
   const session = await auth.api.getSession({ headers: request.headers })
   if (!session) return null
 
-  const objectKey = key ?? (await peekObjectKey(request))
+  const intent = await peekIntent(request)
+  const objectKey = key ?? intent.key
   if (objectKey) {
-    const [kind, id] = objectKey.split("/")
-    if (kind === "user" && id === session.user.id) {
-      return { kind: "user", id }
-    }
-    if (kind === "org" && id && id === session.session.activeOrganizationId) {
-      return { kind: "org", id }
-    }
+    const fromKey = ownerFromKey(session, objectKey)
+    if (fromKey) return fromKey
   }
+
+  if (intent.ownerKind) return ownerFromKind(session, intent.ownerKind)
 
   return ownerFromSession(session)
 }

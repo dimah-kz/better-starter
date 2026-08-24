@@ -4,7 +4,10 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { UserIcon, XIcon } from "lucide-react"
 import { useFormatDimahError, useUpload } from "@dimah-s3/react"
-import { toObjectKey, type StorageOwner } from "@repo/storage/keys"
+import {
+  toRelativeKey,
+  type StorageOwnerKind,
+} from "@repo/storage/keys"
 import { toast } from "@repo/ui/components/toast"
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar"
 import { Button } from "@repo/ui/components/button"
@@ -27,7 +30,7 @@ type SetAvatarResult = { error: string } | { imageUrl: string }
 type RemoveAvatarResult = { error: string } | { success: true }
 
 type AvatarUploadFieldProps = {
-  owner: StorageOwner
+  ownerKind: StorageOwnerKind
   name: string
   image: string | null
   setAction: (key: string) => Promise<SetAvatarResult>
@@ -38,7 +41,7 @@ type AvatarUploadFieldProps = {
 }
 
 export function AvatarUploadField({
-  owner,
+  ownerKind,
   name,
   image,
   setAction,
@@ -66,7 +69,8 @@ export function AvatarUploadField({
   } = useUpload({
     accept: ACCEPT,
     maxFileSize: MAX_BYTES,
-    objectKey: (file) => toObjectKey(owner, PURPOSE, file.name),
+    objectKey: (file) => toRelativeKey(PURPOSE, file.name),
+    uploadOptions: { metadata: { owner: ownerKind } },
     disabled: Boolean(preview) || removing,
     onSuccess: async (_file, { key }) => {
       const outcome = await setAction(key)
