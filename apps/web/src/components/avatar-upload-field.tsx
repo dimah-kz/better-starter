@@ -4,10 +4,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { UserIcon, XIcon } from "lucide-react"
 import { useFormatDimahError, useUpload } from "@dimah-s3/react"
-import {
-  toRelativeKey,
-  type StorageOwnerKind,
-} from "@repo/storage/keys"
+import { uploadKey, type StorageOwnerKind } from "@repo/storage/keys"
 import { toast } from "@repo/ui/components/toast"
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar"
 import { Button } from "@repo/ui/components/button"
@@ -69,8 +66,7 @@ export function AvatarUploadField({
   } = useUpload({
     accept: ACCEPT,
     maxFileSize: MAX_BYTES,
-    objectKey: (file) => toRelativeKey(PURPOSE, file.name),
-    uploadOptions: { metadata: { owner: ownerKind } },
+    objectKey: (file) => uploadKey(ownerKind, PURPOSE, file.name),
     disabled: Boolean(preview) || removing,
     onSuccess: async (_file, { key }) => {
       const outcome = await setAction(key)

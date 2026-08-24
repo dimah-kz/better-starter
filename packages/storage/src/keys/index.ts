@@ -1,14 +1,20 @@
 /** Client-safe key/URL helpers — no auth, db, or server instance. */
 export {
-  parseStorageScope,
-  toStorageScope,
+  isOwnerKind,
+  ownerScope,
+  parseOwnerScope,
   type StorageOwner,
   type StorageOwnerKind,
 } from "../owner"
 export {
   isObjectKeyFor,
-  toObjectKey,
-  toOwnerPrefix,
-  toRelativeKey,
+  isOwnedKey,
+  objectKey,
+  ownerPrefix,
+  parseObjectKey,
+  parseUploadKey,
+  uploadKey,
+  type ObjectKeyParts,
+  type UploadKeyParts,
 } from "./object-key"
-export { buildPublicUrl, objectKeyFromPublicUrl } from "./public-url"
+export { objectKeyFromPublicUrl, publicUrl } from "./public-url"

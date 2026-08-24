@@ -1,7 +1,8 @@
 /** Client-safe owner/scope helpers — no auth or server instance. */
 export {
-  parseStorageScope,
-  toStorageScope,
+  isOwnerKind,
+  ownerScope,
+  parseOwnerScope,
   type StorageOwner,
   type StorageOwnerKind,
 } from "./scope"

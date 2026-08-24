@@ -1,8 +1,32 @@
 import { sanitizeFileName } from "@dimah-s3/core"
-import type { StorageOwner } from "../owner"
+import { isOwnerKind, type StorageOwner, type StorageOwnerKind } from "../owner"
+
+/**
+ * Canonical object key:
+ *   `{kind}/{id}/{purpose}/{fileName}`
+ *
+ * Upload: client sends `{kind}/{purpose}/{fileName}` (`uploadKey`); the server
+ * inserts `id` from the session. Purpose is an app label (`avatars`, later
+ * `attachments`, …) — never `user` | `org`.
+ */
+export type ObjectKeyParts = {
+  owner: StorageOwner
+  purpose: string
+  fileName: string
+}
+
+export type UploadKeyParts = {
+  kind: StorageOwnerKind
+  purpose: string
+  fileName: string
+}
 
 /** Defensive format check only — app-level allowlists live beside the feature. */
 const PURPOSE_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/
+
+function isPurpose(value: string): boolean {
+  return PURPOSE_PATTERN.test(value) && !isOwnerKind(value)
+}
 
 /** Keep the original name, but strip path separators so the key stays under purpose/. */
 function safeFileName(fileName: string): string {
@@ -13,32 +37,70 @@ function safeFileName(fileName: string): string {
   return base || "file"
 }
 
-/** Owner tenancy prefix: `{kind}/{id}`. */
-export function toOwnerPrefix(owner: StorageOwner): string {
-  return `${owner.kind}/${owner.id}`
-}
-
-/**
- * Client-proposed key for upload:
- * `{purpose}/{fileName}`
- */
-export function toRelativeKey(purpose: string, fileName: string): string {
-  if (!PURPOSE_PATTERN.test(purpose)) {
+function purposePath(purpose: string, fileName: string): string {
+  if (!isPurpose(purpose)) {
     throw new Error(`Invalid storage purpose: "${purpose}"`)
   }
   return `${purpose}/${safeFileName(fileName)}`
 }
 
+function ownedBy(parts: ObjectKeyParts, owner: StorageOwner): boolean {
+  return parts.owner.kind === owner.kind && parts.owner.id === owner.id
+}
+
+/** `{kind}/{id}` */
+export function ownerPrefix(owner: StorageOwner): string {
+  return `${owner.kind}/${owner.id}`
+}
+
 /**
- * Canonical S3 key:
- * `{kind}/{id}/{purpose}/{fileName}`
+ * Client-proposed upload key — kind only, never an id:
+ * `{kind}/{purpose}/{fileName}`
  */
-export function toObjectKey(
+export function uploadKey(
+  kind: StorageOwnerKind,
+  purpose: string,
+  fileName: string
+): string {
+  return `${kind}/${purposePath(purpose, fileName)}`
+}
+
+/** `{kind}/{id}/{purpose}/{fileName}` */
+export function objectKey(
   owner: StorageOwner,
   purpose: string,
   fileName: string
 ): string {
-  return `${toOwnerPrefix(owner)}/${toRelativeKey(purpose, fileName)}`
+  return `${ownerPrefix(owner)}/${purposePath(purpose, fileName)}`
+}
+
+export function parseUploadKey(key: string): UploadKeyParts | null {
+  const [kind, purpose, ...rest] = key.split("/")
+  const fileName = rest.join("/")
+  if (!isOwnerKind(kind) || !purpose || !isPurpose(purpose) || !fileName) {
+    return null
+  }
+  return { kind, purpose, fileName }
+}
+
+export function parseObjectKey(key: string): ObjectKeyParts | null {
+  const [kind, id, purpose, ...rest] = key.split("/")
+  const fileName = rest.join("/")
+  if (
+    !isOwnerKind(kind) ||
+    !id ||
+    !purpose ||
+    !isPurpose(purpose) ||
+    !fileName
+  ) {
+    return null
+  }
+  return { owner: { kind, id }, purpose, fileName }
+}
+
+export function isOwnedKey(key: string, owner: StorageOwner): boolean {
+  const parsed = parseObjectKey(key)
+  return parsed !== null && ownedBy(parsed, owner)
 }
 
 export function isObjectKeyFor(
@@ -46,6 +108,6 @@ export function isObjectKeyFor(
   owner: StorageOwner,
   purpose: string
 ): boolean {
-  const [kind, id, keyPurpose] = key.split("/")
-  return kind === owner.kind && id === owner.id && keyPurpose === purpose
+  const parsed = parseObjectKey(key)
+  return parsed !== null && ownedBy(parsed, owner) && parsed.purpose === purpose
 }
