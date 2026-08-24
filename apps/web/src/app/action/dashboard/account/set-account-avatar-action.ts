@@ -4,7 +4,7 @@ import { invalidateUserCache } from "@/app/dashboard/lib/invalidate-user-cache"
 import { deleteOwnedAvatarObject } from "@/lib/delete-owned-avatar"
 import { headers } from "next/headers"
 import { auth, getAuthApiErrorMessage } from "@repo/auth"
-import { isObjectKeyFor, publicUrl } from "@repo/storage"
+import { buildPublicUrl, isObjectKeyFor } from "@repo/storage"
 
 export async function setAccountAvatarAction(key: string) {
   const requestHeaders = await headers()
@@ -18,7 +18,7 @@ export async function setAccountAvatarAction(key: string) {
     return { error: "Invalid avatar key" as const }
   }
 
-  const imageUrl = publicUrl(key)
+  const imageUrl = buildPublicUrl(key)
   if (!imageUrl) {
     return { error: "Public storage URL is not configured" as const }
   }

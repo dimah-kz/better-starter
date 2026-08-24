@@ -2,12 +2,12 @@ import { sanitizeFileName } from "@dimah-s3/core"
 import { isOwnerKind, type StorageOwner, type StorageOwnerKind } from "../owner"
 
 /**
- * Canonical object key:
- *   `{kind}/{id}/{purpose}/{fileName}`
+ * Canonical: `{kind}/{id}/{purpose}/{fileName}`
+ * Upload:    `{kind}/{purpose}/{fileName}` — server inserts `id` from the session.
  *
- * Upload: client sends `{kind}/{purpose}/{fileName}` (`uploadKey`); the server
- * inserts `id` from the session. Purpose is an app label (`avatars`, later
- * `attachments`, …) — never `user` | `org`.
+ * Purpose is an app label (`avatars`, later `attachments`, …), never `user` | `org`.
+ *
+ * `build*` assembles a key · `parse*` splits it · `is*` matches owner/purpose.
  */
 export type ObjectKeyParts = {
   owner: StorageOwner
@@ -49,15 +49,12 @@ function ownedBy(parts: ObjectKeyParts, owner: StorageOwner): boolean {
 }
 
 /** `{kind}/{id}` */
-export function ownerPrefix(owner: StorageOwner): string {
+export function buildOwnerPrefix(owner: StorageOwner): string {
   return `${owner.kind}/${owner.id}`
 }
 
-/**
- * Client-proposed upload key — kind only, never an id:
- * `{kind}/{purpose}/{fileName}`
- */
-export function uploadKey(
+/** `{kind}/{purpose}/{fileName}` — kind only, never an id. */
+export function buildUploadKey(
   kind: StorageOwnerKind,
   purpose: string,
   fileName: string
@@ -66,12 +63,12 @@ export function uploadKey(
 }
 
 /** `{kind}/{id}/{purpose}/{fileName}` */
-export function objectKey(
+export function buildObjectKey(
   owner: StorageOwner,
   purpose: string,
   fileName: string
 ): string {
-  return `${ownerPrefix(owner)}/${purposePath(purpose, fileName)}`
+  return `${buildOwnerPrefix(owner)}/${purposePath(purpose, fileName)}`
 }
 
 export function parseUploadKey(key: string): UploadKeyParts | null {

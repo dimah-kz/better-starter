@@ -9,7 +9,7 @@ export function isOwnerKind(value: unknown): value is StorageOwnerKind {
 }
 
 /** DB plugin scope — colon form (`user:abc`, `org:xyz`). */
-export function ownerScope(owner: StorageOwner): string {
+export function toOwnerScope(owner: StorageOwner): string {
   return `${owner.kind}:${owner.id}`
 }
 

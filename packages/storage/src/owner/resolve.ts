@@ -1,5 +1,9 @@
 import { auth, type Session } from "@repo/auth"
-import { objectKey, parseObjectKey, parseUploadKey } from "../keys/object-key"
+import {
+  buildObjectKey,
+  parseObjectKey,
+  parseUploadKey,
+} from "../keys/object-key"
 import { isOwnerKind, type StorageOwner, type StorageOwnerKind } from "./scope"
 
 type RequestAuth = {
@@ -52,18 +56,16 @@ async function peekIntent(request: Request): Promise<{
   const url = new URL(request.url)
   const ownerKind = url.searchParams.get("owner")
   const keyFromQuery = url.searchParams.get("key")
+  const parsedOwnerKind = isOwnerKind(ownerKind) ? ownerKind : null
 
   try {
     const body = (await request.clone().json()) as { key?: unknown }
     return {
       key: keyFromQuery ?? (typeof body.key === "string" ? body.key : null),
-      ownerKind: isOwnerKind(ownerKind) ? ownerKind : null,
+      ownerKind: parsedOwnerKind,
     }
   } catch {
-    return {
-      key: keyFromQuery,
-      ownerKind: isOwnerKind(ownerKind) ? ownerKind : null,
-    }
+    return { key: keyFromQuery, ownerKind: parsedOwnerKind }
   }
 }
 
@@ -79,7 +81,7 @@ function ownerFromKey(session: Session, key: string): StorageOwner | null {
  * Upload: insert session `id` into `{kind}/{purpose}/{fileName}`.
  * Confirm: leave a stored canonical key unchanged.
  */
-export async function resolveComposedKey(
+export async function composeObjectKey(
   request: Request,
   proposedKey: string
 ): Promise<string | null> {
@@ -93,7 +95,7 @@ export async function resolveComposedKey(
   if (!upload) return null
   const owner = ownerFromKind(session, upload.kind)
   if (!owner) return null
-  return objectKey(owner, upload.purpose, upload.fileName)
+  return buildObjectKey(owner, upload.purpose, upload.fileName)
 }
 
 /** Download / delete: authorize the stored key; do not rewrite it. */
@@ -110,7 +112,7 @@ export async function resolveStoredOwner(
 }
 
 /** DB listings: owner from the object key, else `?owner=`, else the workspace. */
-export async function resolveRequestOwner(
+export async function resolveOwner(
   request: Request
 ): Promise<StorageOwner | null> {
   const { session, key, ownerKind } = await loadAuth(request)

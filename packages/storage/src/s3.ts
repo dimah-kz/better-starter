@@ -3,10 +3,10 @@ import { db } from "@dimah-s3/db"
 import { dimahS3, errors } from "@dimah-s3/server"
 import { auth } from "@repo/auth"
 import { dimahS3Db } from "@repo/db/dimah-s3"
-import { ownerScope } from "./owner"
+import { toOwnerScope } from "./owner"
 import {
-  resolveComposedKey,
-  resolveRequestOwner,
+  composeObjectKey,
+  resolveOwner,
   resolveStoredOwner,
 } from "./owner/resolve"
 
@@ -19,20 +19,18 @@ export const awsS3 = new S3Client({
   },
 })
 
-/** Insert `{id}` into `{kind}/{purpose}/{fileName}`. Confirm keys stay as-is. */
-async function composeObjectKey({
+async function resolveKey({
   request,
   proposedKey,
 }: {
   request: Request
   proposedKey: string
 }) {
-  const key = await resolveComposedKey(request, proposedKey)
+  const key = await composeObjectKey(request, proposedKey)
   if (!key) throw errors.forbidden()
   return key
 }
 
-/** Same check for composed uploads and stored download/delete keys. */
 async function assertOwnedObject({
   request,
   key,
@@ -53,7 +51,7 @@ export const s3 = dimahS3({
   upload: {
     method: "PUT",
     requireFileSize: true,
-    resolveKey: composeObjectKey,
+    resolveKey,
     guard: assertOwnedObject,
     // later: chain a quota guard here
   },
@@ -64,8 +62,8 @@ export const s3 = dimahS3({
     db({
       client: dimahS3Db,
       resolveScope: async (request) => {
-        const owner = await resolveRequestOwner(request)
-        return owner ? ownerScope(owner) : null
+        const owner = await resolveOwner(request)
+        return owner ? toOwnerScope(owner) : null
       },
     }),
   ],

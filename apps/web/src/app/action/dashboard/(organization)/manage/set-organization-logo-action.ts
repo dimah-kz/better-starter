@@ -7,7 +7,7 @@ import { deleteOwnedAvatarObject } from "@/lib/delete-owned-avatar"
 import { headers } from "next/headers"
 import { updateTag } from "next/cache"
 import { auth, getAuthApiErrorMessage } from "@repo/auth"
-import { isObjectKeyFor, publicUrl } from "@repo/storage"
+import { buildPublicUrl, isObjectKeyFor } from "@repo/storage"
 
 export async function setOrganizationLogoAction(
   organizationId: string,
@@ -24,7 +24,7 @@ export async function setOrganizationLogoAction(
     return { error: "Invalid avatar key" as const }
   }
 
-  const imageUrl = publicUrl(key)
+  const imageUrl = buildPublicUrl(key)
   if (!imageUrl) {
     return { error: "Public storage URL is not configured" as const }
   }
