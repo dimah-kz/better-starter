@@ -24,7 +24,7 @@ Core auth from `@repo/auth`. Do not gate before `auth.api`. Never cache session.
 
 Canonical object key: `{kind}/{id}/{purpose}/{fileName}`. Layout SSOT: `packages/storage/src/keys/object-key.ts` (`buildObjectKey` / `parseObjectKey`).
 
-1. Client calls `buildObjectKey({ owner: { kind }, purpose, fileName })` — kind only, never an id. The server inserts `{id}` from the session. Download/delete **assert** the stored key — they do not rewrite.
+1. Client calls `buildObjectKey(kind, purpose, fileName)` — kind only, never an id. The server inserts `{id}` from the session (`buildObjectKey(owner, purpose, fileName)`). Download/delete **assert** the stored key — they do not rewrite.
 2. Validate session → build `StorageOwner` (`user` / `org`) — see `packages/storage/src/owner/`.
 3. Verify the object key matches the owner **and purpose** before persisting (`isObjectKeyFor(key, owner, "avatars")`). Use `buildPublicUrl(key)` when linking the file.
 4. Persist via **`auth.api`** (user image, org logo, …) — not direct DB writes on auth tables.

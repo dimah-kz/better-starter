@@ -40,8 +40,8 @@ function sessionOwner(
   session: Session,
   parts: ObjectKeyParts
 ): StorageOwner | null {
-  const owner = ownerFromKind(session, parts.owner.kind)
-  if (!owner || (parts.owner.id && parts.owner.id !== owner.id)) return null
+  const owner = ownerFromKind(session, parts.kind)
+  if (!owner || (parts.id && parts.id !== owner.id)) return null
   return owner
 }
 
@@ -80,7 +80,9 @@ export async function composeObjectKey(
   if (!parts) return null
   const owner = sessionOwner(session, parts)
   if (!owner) return null
-  return parts.owner.id ? proposedKey : buildObjectKey({ ...parts, owner })
+  return parts.id
+    ? proposedKey
+    : buildObjectKey(owner, parts.purpose, parts.fileName)
 }
 
 /** Download / delete: authorize the stored key; do not rewrite it. */
@@ -92,7 +94,7 @@ export async function resolveStoredOwner(
   if (!session) return null
 
   const parts = parseObjectKey(key)
-  if (!parts?.owner.id) return null
+  if (!parts?.id) return null
   return sessionOwner(session, parts)
 }
 

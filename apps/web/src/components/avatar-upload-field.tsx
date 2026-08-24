@@ -66,12 +66,7 @@ export function AvatarUploadField({
   } = useUpload({
     accept: ACCEPT,
     maxFileSize: MAX_BYTES,
-    objectKey: (file) =>
-      buildObjectKey({
-        owner: { kind: ownerKind },
-        purpose: PURPOSE,
-        fileName: file.name,
-      }),
+    objectKey: (file) => buildObjectKey(ownerKind, PURPOSE, file.name),
     disabled: Boolean(preview) || removing,
     onSuccess: async (_file, { key }) => {
       const outcome = await setAction(key)

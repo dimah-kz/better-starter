@@ -7,7 +7,8 @@ import { isOwnerKind, type StorageOwner, type StorageOwnerKind } from "../owner"
  * later `attachments`, …), never `user` | `org`.
  */
 export type ObjectKeyParts = {
-  owner: { kind: StorageOwnerKind; id?: string }
+  kind: StorageOwnerKind
+  id?: string
   purpose: string
   fileName: string
 }
@@ -35,15 +36,16 @@ function purposePath(purpose: string, fileName: string): string {
   return `${purpose}/${safeFileName(fileName)}`
 }
 
-export function buildObjectKey({
-  owner,
-  purpose,
-  fileName,
-}: ObjectKeyParts): string {
+/** Client: pass `kind` only. Server: pass `StorageOwner` (includes id). */
+export function buildObjectKey(
+  owner: StorageOwnerKind | StorageOwner,
+  purpose: string,
+  fileName: string
+): string {
+  const kind = typeof owner === "string" ? owner : owner.kind
+  const id = typeof owner === "string" ? undefined : owner.id
   const rest = purposePath(purpose, fileName)
-  return owner.id
-    ? `${owner.kind}/${owner.id}/${rest}`
-    : `${owner.kind}/${rest}`
+  return id ? `${kind}/${id}/${rest}` : `${kind}/${rest}`
 }
 
 export function parseObjectKey(key: string): ObjectKeyParts | null {
@@ -52,12 +54,12 @@ export function parseObjectKey(key: string): ObjectKeyParts | null {
 
   const storedName = rest.join("/")
   if (third && isPurpose(third) && storedName) {
-    return { owner: { kind, id: second }, purpose: third, fileName: storedName }
+    return { kind, id: second, purpose: third, fileName: storedName }
   }
 
   const proposedName = [third, ...rest].join("/")
   if (isPurpose(second) && proposedName) {
-    return { owner: { kind }, purpose: second, fileName: proposedName }
+    return { kind, purpose: second, fileName: proposedName }
   }
 
   return null
@@ -71,8 +73,8 @@ export function isObjectKeyFor(
   const parsed = parseObjectKey(key)
   return (
     parsed !== null &&
-    parsed.owner.kind === owner.kind &&
-    parsed.owner.id === owner.id &&
+    parsed.kind === owner.kind &&
+    parsed.id === owner.id &&
     parsed.purpose === purpose
   )
 }
