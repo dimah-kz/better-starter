@@ -3,7 +3,6 @@
 import { removeAccountAvatarAction } from "@/app/action/dashboard/account/remove-account-avatar-action"
 import { setAccountAvatarAction } from "@/app/action/dashboard/account/set-account-avatar-action"
 import { AvatarUploadField } from "@/components/avatar-upload-field"
-import { toAvatarKey } from "@/lib/avatar-storage"
 import { useTranslations } from "next-intl"
 
 type AccountAvatarFieldProps = {
@@ -22,11 +21,9 @@ export function AccountAvatarField({
   return (
     <div className="flex justify-center">
       <AvatarUploadField
+        owner={{ kind: "user", id: userId }}
         name={name}
         image={image}
-        toKey={(fileName) =>
-          toAvatarKey({ kind: "user", id: userId }, fileName)
-        }
         setAction={setAccountAvatarAction}
         removeAction={removeAccountAvatarAction}
         labels={{

@@ -1,5 +1,4 @@
-import { isAvatarKey } from "@/lib/avatar-storage"
-import { objectKeyFromPublicUrl, s3, type StorageOwner } from "@repo/storage"
+import { isObjectKeyFor, objectKeyFromPublicUrl, s3, type StorageOwner } from "@repo/storage"
 
 /** Best-effort delete of a previous owned avatar object (after profile/org link update). */
 export async function deleteOwnedAvatarObject(options: {
@@ -15,7 +14,7 @@ export async function deleteOwnedAvatarObject(options: {
   if (
     !previousKey ||
     previousKey === options.exceptKey ||
-    !isAvatarKey(previousKey, options.owner)
+    !isObjectKeyFor(previousKey, options.owner, "avatars")
   ) {
     return
   }

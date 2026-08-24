@@ -1,11 +1,10 @@
 "use server"
 
 import { invalidateUserCache } from "@/app/dashboard/lib/invalidate-user-cache"
-import { isAvatarKey } from "@/lib/avatar-storage"
 import { deleteOwnedAvatarObject } from "@/lib/delete-owned-avatar"
 import { headers } from "next/headers"
 import { auth, getAuthApiErrorMessage } from "@repo/auth"
-import { buildPublicUrl } from "@repo/storage"
+import { buildPublicUrl, isObjectKeyFor } from "@repo/storage"
 
 export async function setAccountAvatarAction(key: string) {
   const requestHeaders = await headers()
@@ -15,7 +14,7 @@ export async function setAccountAvatarAction(key: string) {
   }
 
   const owner = { kind: "user" as const, id: session.user.id }
-  if (!isAvatarKey(key, owner)) {
+  if (!isObjectKeyFor(key, owner, "avatars")) {
     return { error: "Invalid avatar key" as const }
   }
 

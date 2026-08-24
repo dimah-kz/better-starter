@@ -3,7 +3,6 @@
 import { removeOrganizationLogoAction } from "@/app/action/dashboard/(organization)/manage/remove-organization-logo-action"
 import { setOrganizationLogoAction } from "@/app/action/dashboard/(organization)/manage/set-organization-logo-action"
 import { AvatarUploadField } from "@/components/avatar-upload-field"
-import { toAvatarKey } from "@/lib/avatar-storage"
 import { useTranslations } from "next-intl"
 
 type OrganizationLogoFieldProps = {
@@ -22,11 +21,9 @@ export function OrganizationLogoField({
   return (
     <div className="flex justify-center">
       <AvatarUploadField
+        owner={{ kind: "org", id: organizationId }}
         name={name}
         image={logo}
-        toKey={(fileName) =>
-          toAvatarKey({ kind: "org", id: organizationId }, fileName)
-        }
         setAction={(key) => setOrganizationLogoAction(organizationId, key)}
         removeAction={() => removeOrganizationLogoAction(organizationId)}
         labels={{

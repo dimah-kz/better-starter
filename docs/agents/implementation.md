@@ -23,7 +23,7 @@ Core auth from `@repo/auth`. Do not gate before `auth.api`. Never cache session.
 `@repo/storage` owns keys and public URLs; app actions wire auth + cache.
 
 1. Validate session → build `StorageOwner` (`user` / `org`) — see `packages/storage/src/owner/`.
-2. Verify the object key matches the owner **and purpose** before persisting (`isObjectKeyFor` / e.g. `isAvatarKey`). The server already stamps `{kind}/{id}/` via `resolveKey`.
+2. Verify the object key matches the owner **and purpose** before persisting (`isObjectKeyFor(key, owner, "avatars")`). The server already stamps `{kind}/{id}/` via `resolveKey`.
 3. Persist via **`auth.api`** (user image, org logo, …) — not direct DB writes on auth tables.
 4. Clean up replaced objects (`deleteOwnedAvatarObject` pattern in app `lib/`).
 5. **`updateTag`** / `invalidateUserCache` so the actor sees fresh UI — [caching.md](./caching.md).

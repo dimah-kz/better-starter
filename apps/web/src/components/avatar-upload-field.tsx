@@ -3,13 +3,17 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { UserIcon, XIcon } from "lucide-react"
-import { AVATAR_ACCEPT, AVATAR_MAX_BYTES } from "@/lib/avatar-storage"
 import { useFormatDimahError, useUpload } from "@dimah-s3/react"
+import { toObjectKey, type StorageOwner } from "@repo/storage/keys"
 import { toast } from "@repo/ui/components/toast"
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar"
 import { Button } from "@repo/ui/components/button"
 import { Spinner } from "@repo/ui/components/spinner"
 import { cn } from "@repo/ui/lib/utils"
+
+const PURPOSE = "avatars"
+const ACCEPT = ["image/jpeg", "image/png", "image/webp", "image/gif"]
+const MAX_BYTES = 2 * 1024 * 1024
 
 export type AvatarUploadLabels = {
   upload: string
@@ -23,9 +27,9 @@ type SetAvatarResult = { error: string } | { imageUrl: string }
 type RemoveAvatarResult = { error: string } | { success: true }
 
 type AvatarUploadFieldProps = {
+  owner: StorageOwner
   name: string
   image: string | null
-  toKey: (fileName: string) => string
   setAction: (key: string) => Promise<SetAvatarResult>
   removeAction: () => Promise<RemoveAvatarResult>
   labels: AvatarUploadLabels
@@ -34,9 +38,9 @@ type AvatarUploadFieldProps = {
 }
 
 export function AvatarUploadField({
+  owner,
   name,
   image,
-  toKey,
   setAction,
   removeAction,
   labels,
@@ -60,9 +64,9 @@ export function AvatarUploadField({
     isDragActive,
     isDragReject,
   } = useUpload({
-    accept: AVATAR_ACCEPT,
-    maxFileSize: AVATAR_MAX_BYTES,
-    objectKey: (file) => toKey(file.name),
+    accept: ACCEPT,
+    maxFileSize: MAX_BYTES,
+    objectKey: (file) => toObjectKey(owner, PURPOSE, file.name),
     disabled: Boolean(preview) || removing,
     onSuccess: async (_file, { key }) => {
       const outcome = await setAction(key)
