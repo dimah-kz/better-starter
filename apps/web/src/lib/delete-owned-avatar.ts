@@ -1,4 +1,9 @@
-import { isObjectKeyFor, objectKeyFromPublicUrl, s3, type StorageOwner } from "@repo/storage"
+import {
+  isObjectKeyFor,
+  objectKeyFromPublicUrl,
+  s3,
+  type StorageOwner,
+} from "@repo/storage"
 
 /** Best-effort delete of a previous owned avatar object (after profile/org link update). */
 export async function deleteOwnedAvatarObject(options: {
