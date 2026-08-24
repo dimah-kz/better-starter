@@ -45,15 +45,6 @@ const keyPolicy = { resolveKey: resolveOwnedKey }
 export const s3 = dimahS3({
   client: awsS3,
   bucket: process.env.S3_BUCKET!,
-  plugins: [
-    db({
-      client: dimahS3Db,
-      resolveScope: async (request) => {
-        const owner = await resolveOwner(request)
-        return owner ? toStorageScope(owner) : null
-      },
-    }),
-  ],
   guard: async ({ request }) => {
     const session = await auth.api.getSession({ headers: request.headers })
     if (!session) throw errors.unauthorized()
@@ -66,4 +57,14 @@ export const s3 = dimahS3({
   },
   download: keyPolicy,
   delete: keyPolicy,
+  
+  plugins: [
+    db({
+      client: dimahS3Db,
+      resolveScope: async (request) => {
+        const owner = await resolveOwner(request)
+        return owner ? toStorageScope(owner) : null
+      },
+    }),
+  ],
 })
