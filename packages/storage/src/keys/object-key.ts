@@ -2,21 +2,12 @@ import { sanitizeFileName } from "@dimah-s3/core"
 import { isOwnerKind, type StorageOwner, type StorageOwnerKind } from "../owner"
 
 /**
- * Canonical: `{kind}/{id}/{purpose}/{fileName}`
- * Upload:    `{kind}/{purpose}/{fileName}` — server inserts `id` from the session.
- *
- * Purpose is an app label (`avatars`, later `attachments`, …), never `user` | `org`.
- *
- * `build*` assembles a key · `parse*` splits it · `is*` matches owner/purpose.
+ * `{kind}/{id}/{purpose}/{fileName}` — `id` is omitted on client proposals;
+ * the server fills it from the session. Purpose is an app label (`avatars`,
+ * later `attachments`, …), never `user` | `org`.
  */
 export type ObjectKeyParts = {
-  owner: StorageOwner
-  purpose: string
-  fileName: string
-}
-
-export type UploadKeyParts = {
-  kind: StorageOwnerKind
+  owner: { kind: StorageOwnerKind; id?: string }
   purpose: string
   fileName: string
 }
@@ -44,60 +35,32 @@ function purposePath(purpose: string, fileName: string): string {
   return `${purpose}/${safeFileName(fileName)}`
 }
 
-function ownedBy(parts: ObjectKeyParts, owner: StorageOwner): boolean {
-  return parts.owner.kind === owner.kind && parts.owner.id === owner.id
-}
-
-/** `{kind}/{id}` */
-export function buildOwnerPrefix(owner: StorageOwner): string {
-  return `${owner.kind}/${owner.id}`
-}
-
-/** `{kind}/{purpose}/{fileName}` — kind only, never an id. */
-export function buildUploadKey(
-  kind: StorageOwnerKind,
-  purpose: string,
-  fileName: string
-): string {
-  return `${kind}/${purposePath(purpose, fileName)}`
-}
-
-/** `{kind}/{id}/{purpose}/{fileName}` */
-export function buildObjectKey(
-  owner: StorageOwner,
-  purpose: string,
-  fileName: string
-): string {
-  return `${buildOwnerPrefix(owner)}/${purposePath(purpose, fileName)}`
-}
-
-export function parseUploadKey(key: string): UploadKeyParts | null {
-  const [kind, purpose, ...rest] = key.split("/")
-  const fileName = rest.join("/")
-  if (!isOwnerKind(kind) || !purpose || !isPurpose(purpose) || !fileName) {
-    return null
-  }
-  return { kind, purpose, fileName }
+export function buildObjectKey({
+  owner,
+  purpose,
+  fileName,
+}: ObjectKeyParts): string {
+  const rest = purposePath(purpose, fileName)
+  return owner.id
+    ? `${owner.kind}/${owner.id}/${rest}`
+    : `${owner.kind}/${rest}`
 }
 
 export function parseObjectKey(key: string): ObjectKeyParts | null {
-  const [kind, id, purpose, ...rest] = key.split("/")
-  const fileName = rest.join("/")
-  if (
-    !isOwnerKind(kind) ||
-    !id ||
-    !purpose ||
-    !isPurpose(purpose) ||
-    !fileName
-  ) {
-    return null
-  }
-  return { owner: { kind, id }, purpose, fileName }
-}
+  const [kind, second, third, ...rest] = key.split("/")
+  if (!isOwnerKind(kind) || !second) return null
 
-export function isOwnedKey(key: string, owner: StorageOwner): boolean {
-  const parsed = parseObjectKey(key)
-  return parsed !== null && ownedBy(parsed, owner)
+  const storedName = rest.join("/")
+  if (third && isPurpose(third) && storedName) {
+    return { owner: { kind, id: second }, purpose: third, fileName: storedName }
+  }
+
+  const proposedName = [third, ...rest].join("/")
+  if (isPurpose(second) && proposedName) {
+    return { owner: { kind }, purpose: second, fileName: proposedName }
+  }
+
+  return null
 }
 
 export function isObjectKeyFor(
@@ -106,5 +69,10 @@ export function isObjectKeyFor(
   purpose: string
 ): boolean {
   const parsed = parseObjectKey(key)
-  return parsed !== null && ownedBy(parsed, owner) && parsed.purpose === purpose
+  return (
+    parsed !== null &&
+    parsed.owner.kind === owner.kind &&
+    parsed.owner.id === owner.id &&
+    parsed.purpose === purpose
+  )
 }

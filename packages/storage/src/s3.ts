@@ -1,11 +1,11 @@
 import { S3Client } from "@aws-sdk/client-s3"
 import { db } from "@dimah-s3/db"
 import { dimahS3, errors } from "@dimah-s3/server"
-import { auth } from "@repo/auth"
 import { dimahS3Db } from "@repo/db/dimah-s3"
 import { toOwnerScope } from "./owner"
 import {
   composeObjectKey,
+  getRequestAuth,
   resolveOwner,
   resolveStoredOwner,
 } from "./owner/resolve"
@@ -18,18 +18,6 @@ export const awsS3 = new S3Client({
     secretAccessKey: process.env.S3_SECRET_ACCESS_KEY!,
   },
 })
-
-async function resolveKey({
-  request,
-  proposedKey,
-}: {
-  request: Request
-  proposedKey: string
-}) {
-  const key = await composeObjectKey(request, proposedKey)
-  if (!key) throw errors.forbidden()
-  return key
-}
 
 async function assertOwnedObject({
   request,
@@ -45,13 +33,17 @@ export const s3 = dimahS3({
   client: awsS3,
   bucket: process.env.S3_BUCKET!,
   guard: async ({ request }) => {
-    const session = await auth.api.getSession({ headers: request.headers })
+    const { session } = await getRequestAuth(request)
     if (!session) throw errors.unauthorized()
   },
   upload: {
     method: "PUT",
     requireFileSize: true,
-    resolveKey,
+    resolveKey: async ({ request, proposedKey }) => {
+      const key = await composeObjectKey(request, proposedKey)
+      if (!key) throw errors.forbidden()
+      return key
+    },
     guard: assertOwnedObject,
     // later: chain a quota guard here
   },

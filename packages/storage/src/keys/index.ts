@@ -8,13 +8,8 @@ export {
 } from "../owner"
 export {
   buildObjectKey,
-  buildOwnerPrefix,
-  buildUploadKey,
   isObjectKeyFor,
-  isOwnedKey,
   parseObjectKey,
-  parseUploadKey,
   type ObjectKeyParts,
-  type UploadKeyParts,
 } from "./object-key"
 export { buildPublicUrl, objectKeyFromPublicUrl } from "./public-url"
