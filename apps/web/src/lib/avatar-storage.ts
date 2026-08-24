@@ -1,4 +1,4 @@
-import { toObjectKey, type StorageOwner } from "@repo/storage/keys"
+import { isObjectKeyFor, toObjectKey, type StorageOwner } from "@repo/storage/keys"
 
 export const AVATAR_PURPOSE = "avatars"
 export const AVATAR_ACCEPT: string[] = [
@@ -14,6 +14,5 @@ export function toAvatarKey(owner: StorageOwner, fileName: string) {
 }
 
 export function isAvatarKey(key: string, owner: StorageOwner) {
-  const [kind, id, purpose] = key.split("/")
-  return kind === owner.kind && id === owner.id && purpose === AVATAR_PURPOSE
+  return isObjectKeyFor(key, owner, AVATAR_PURPOSE)
 }

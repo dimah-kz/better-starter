@@ -1,5 +1,6 @@
 export {
   buildPublicUrl,
+  isObjectKeyFor,
   objectKeyFromPublicUrl,
   parseStorageScope,
   toObjectKey,

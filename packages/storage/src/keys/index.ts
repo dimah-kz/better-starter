@@ -5,5 +5,5 @@ export {
   type StorageOwner,
   type StorageOwnerKind,
 } from "../owner"
-export { toObjectKey } from "./object-key"
+export { isObjectKeyFor, toObjectKey } from "./object-key"
 export { buildPublicUrl, objectKeyFromPublicUrl } from "./public-url"

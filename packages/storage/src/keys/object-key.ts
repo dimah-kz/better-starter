@@ -14,7 +14,7 @@ function safeFileName(fileName: string): string {
 }
 
 /**
- * S3 key — slash form aligned with scope:
+ * S3 key aligned with scope:
  * `{kind}/{id}/{purpose}/{fileName}`
  */
 export function toObjectKey(
@@ -26,4 +26,13 @@ export function toObjectKey(
     throw new Error(`Invalid storage purpose: "${purpose}"`)
   }
   return buildObjectKey(owner.kind, owner.id, purpose, safeFileName(fileName))
+}
+
+export function isObjectKeyFor(
+  key: string,
+  owner: StorageOwner,
+  purpose: string
+): boolean {
+  const [kind, id, keyPurpose] = key.split("/")
+  return kind === owner.kind && id === owner.id && keyPurpose === purpose
 }

@@ -5,3 +5,5 @@
 Apps use it for avatars, org logos, and similar assets. This package wires the dimah-s3 server, React provider, and key helpers so ownership stays consistent across clients.
 
 Needs the `S3_*` env vars from `.env.example` (any S3-compatible bucket, e.g. Cloudflare R2).
+
+Object keys are `{kind}/{id}/{purpose}/{fileName}`. Server `resolveKey` stamps the owner prefix on upload, download, and delete so clients cannot write outside their scope.

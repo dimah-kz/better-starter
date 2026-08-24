@@ -63,7 +63,6 @@ export function AvatarUploadField({
     accept: AVATAR_ACCEPT,
     maxFileSize: AVATAR_MAX_BYTES,
     objectKey: (file) => toKey(file.name),
-    uploadOptions: { acl: "public-read" },
     disabled: Boolean(preview) || removing,
     onSuccess: async (_file, { key }) => {
       const outcome = await setAction(key)

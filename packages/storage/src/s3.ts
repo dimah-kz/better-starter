@@ -1,10 +1,8 @@
 import { S3Client } from "@aws-sdk/client-s3"
 import { db } from "@dimah-s3/db"
 import { dimahS3, errors } from "@dimah-s3/server"
-import { chainHooks } from "@dimah-s3/server/plugins"
 import { auth } from "@repo/auth"
 import { dimahS3Db } from "@repo/db/dimah-s3"
-import { createKeyOwnershipGuard } from "./hooks"
 import { toStorageScope } from "./owner"
 import { resolveOwner } from "./owner/resolve"
 
@@ -17,7 +15,32 @@ export const awsS3 = new S3Client({
   },
 })
 
-const keyOwnershipGuard = createKeyOwnershipGuard({ resolveOwner })
+/**
+ * Force keys under `{kind}/{id}/`. Already-scoped keys (confirm / download /
+ * delete) pass through. A different owner's prefix is rejected, not nested.
+ */
+async function resolveOwnedKey({
+  request,
+  proposedKey,
+}: {
+  request: Request
+  proposedKey: string
+}) {
+  const owner = await resolveOwner(request, proposedKey)
+  if (!owner) throw errors.unauthorized()
+
+  const prefix = `${owner.kind}/${owner.id}`
+  const key = proposedKey.replace(/^\/+/u, "")
+
+  if (key === prefix || key.startsWith(`${prefix}/`)) return key
+
+  const [root] = key.split("/")
+  if (root === "user" || root === "org") throw errors.forbidden()
+
+  return `${prefix}/${key}`
+}
+
+const keyPolicy = { resolveKey: resolveOwnedKey }
 
 export const s3 = dimahS3({
   client: awsS3,
@@ -36,17 +59,11 @@ export const s3 = dimahS3({
     if (!session) throw errors.unauthorized()
   },
   upload: {
-    guard: chainHooks(
-      keyOwnershipGuard
-      // later: createQuotaGuard({ resolveOwner, s3: () => s3 })
-    ),
+    method: "PUT",
+    requireFileSize: true,
+    ...keyPolicy,
+    // later: guard: chainHooks(createQuotaGuard({ resolveOwner, s3: () => s3 }))
   },
-  multipart: {
-    initGuard: chainHooks(
-      keyOwnershipGuard
-      // later: createQuotaGuard({ resolveOwner, s3: () => s3 })
-    ),
-  },
-  download: true,
-  delete: true,
+  download: keyPolicy,
+  delete: keyPolicy,
 })
