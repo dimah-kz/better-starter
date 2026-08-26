@@ -1,5 +1,5 @@
 import { sanitizeFileName } from "@dimah-s3/core"
-import { isOwnerKind, type StorageOwner, type StorageOwnerKind } from "../owner"
+import { isOwnerKind, type Owner, type OwnerKind } from "../owner"
 
 /**
  * `{kind}/{id}/{purpose}/{fileName}` — `id` is omitted on client proposals;
@@ -7,7 +7,7 @@ import { isOwnerKind, type StorageOwner, type StorageOwnerKind } from "../owner"
  * later `attachments`, …), never `user` | `org`.
  */
 export type ObjectKeyParts = {
-  kind: StorageOwnerKind
+  kind: OwnerKind
   id?: string
   purpose: string
   fileName: string
@@ -36,9 +36,9 @@ function purposePath(purpose: string, fileName: string): string {
   return `${purpose}/${safeFileName(fileName)}`
 }
 
-/** Client: pass `kind` only. Server: pass `StorageOwner` (includes id). */
-export function buildObjectKey(
-  owner: StorageOwnerKind | StorageOwner,
+/** Client: pass `kind` only. Server: pass `Owner` (includes id). */
+export function toObjectKey(
+  owner: OwnerKind | Owner,
   purpose: string,
   fileName: string
 ): string {
@@ -65,9 +65,9 @@ export function parseObjectKey(key: string): ObjectKeyParts | null {
   return null
 }
 
-export function isObjectKeyFor(
+export function objectKeyMatches(
   key: string,
-  owner: StorageOwner,
+  owner: Owner,
   purpose: string
 ): boolean {
   const parsed = parseObjectKey(key)

@@ -3,15 +3,15 @@ function publicBaseUrl(): string | null {
   return base || null
 }
 
-/** Public URL for an object key. Returns null when `S3_PUBLIC_BASE_URL` is unset. */
-export function buildPublicUrl(key: string): string | null {
+/** Public URL for an object key. `null` when `S3_PUBLIC_BASE_URL` is unset. */
+export function toPublicUrl(key: string): string | null {
   const base = publicBaseUrl()
   if (!base) return null
   return `${base}/${key.replace(/^\/+/, "")}`
 }
 
-/** Reverse of {@link buildPublicUrl}; null when URL is not under our public base. */
-export function objectKeyFromPublicUrl(url: string): string | null {
+/** Inverse of {@link toPublicUrl}; `null` when the URL is not under our public base. */
+export function fromPublicUrl(url: string): string | null {
   const base = publicBaseUrl()
   if (!base) return null
   const prefix = `${base}/`

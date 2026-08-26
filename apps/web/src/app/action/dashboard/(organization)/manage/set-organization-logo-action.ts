@@ -3,11 +3,11 @@
 import { invalidateOrganizationBrandingCache } from "@/app/action/dashboard/(organization)/manage/shared/invalidate-organization-manage-cache"
 import { getActiveOrganizationBranding } from "@/app/dashboard/(organization)/manage/lib/get-active-organization-branding"
 import { dashboardCacheTags } from "@/app/dashboard/lib/cache-tags"
-import { deleteOwnedAvatarObject } from "@/lib/delete-owned-avatar"
+import { deleteOwnedAvatar } from "@/lib/delete-owned-avatar"
 import { headers } from "next/headers"
 import { updateTag } from "next/cache"
 import { auth, getAuthApiErrorMessage } from "@repo/auth"
-import { buildPublicUrl, isObjectKeyFor } from "@repo/storage"
+import { objectKeyMatches, toPublicUrl } from "@repo/storage"
 
 export async function setOrganizationLogoAction(
   organizationId: string,
@@ -20,11 +20,11 @@ export async function setOrganizationLogoAction(
   }
 
   const owner = { kind: "org" as const, id: organizationId }
-  if (!isObjectKeyFor(key, owner, "avatars")) {
+  if (!objectKeyMatches(key, owner, "avatars")) {
     return { error: "Invalid avatar key" as const }
   }
 
-  const imageUrl = buildPublicUrl(key)
+  const imageUrl = toPublicUrl(key)
   if (!imageUrl) {
     return { error: "Public storage URL is not configured" as const }
   }
@@ -44,7 +44,7 @@ export async function setOrganizationLogoAction(
     return { error: getAuthApiErrorMessage(error) }
   }
 
-  await deleteOwnedAvatarObject({
+  await deleteOwnedAvatar({
     previousUrl,
     owner,
     headers: requestHeaders,

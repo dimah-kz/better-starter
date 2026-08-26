@@ -16,4 +16,6 @@ alwaysApply: false
 
 **Before new code:** search upward; inline by default; one call site (~10–20 lines) → no new file/module — [architecture.md § Placement](docs/agents/architecture.md#placement), [§ Do not over-extract](docs/agents/architecture.md#do-not-over-extract).
 
+**Naming:** `toX` / `fromX` / `parseX`; no package-name prefix — [architecture.md § Naming](docs/agents/architecture.md#naming).
+
 **Detail (Read):** [docs/agents/architecture.md](docs/agents/architecture.md).

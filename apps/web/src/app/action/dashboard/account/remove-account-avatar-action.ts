@@ -1,7 +1,7 @@
 "use server"
 
 import { invalidateUserCache } from "@/app/dashboard/lib/invalidate-user-cache"
-import { deleteOwnedAvatarObject } from "@/lib/delete-owned-avatar"
+import { deleteOwnedAvatar } from "@/lib/delete-owned-avatar"
 import { headers } from "next/headers"
 import { auth, getAuthApiErrorMessage } from "@repo/auth"
 
@@ -23,7 +23,7 @@ export async function removeAccountAvatarAction() {
     return { error: getAuthApiErrorMessage(error) }
   }
 
-  await deleteOwnedAvatarObject({
+  await deleteOwnedAvatar({
     previousUrl,
     owner: { kind: "user", id: session.user.id },
     headers: requestHeaders,

@@ -22,13 +22,13 @@ Core auth from `@repo/auth`. Do not gate before `auth.api`. Never cache session.
 
 `@repo/storage` owns keys and public URLs; app actions wire auth + cache.
 
-Canonical object key: `{kind}/{id}/{purpose}/{fileName}`. Layout SSOT: `packages/storage/src/keys/object-key.ts` (`buildObjectKey` / `parseObjectKey`).
+Canonical object key: `{kind}/{id}/{purpose}/{fileName}`. Layout SSOT: `packages/storage/src/keys/object-key.ts` (`toObjectKey` / `parseObjectKey`). Names: [architecture.md § Naming](./architecture.md#naming).
 
-1. Client calls `buildObjectKey(kind, purpose, fileName)` — kind only, never an id. The server inserts `{id}` from the session (`buildObjectKey(owner, purpose, fileName)`). Download/delete **assert** the stored key — they do not rewrite.
-2. Validate session → build `StorageOwner` (`user` / `org`) — see `packages/storage/src/owner/`.
-3. Verify the object key matches the owner **and purpose** before persisting (`isObjectKeyFor(key, owner, "avatars")`). Use `buildPublicUrl(key)` when linking the file.
+1. Client calls `toObjectKey(kind, purpose, fileName)` — kind only, never an id. The server inserts `{id}` from the session (`toObjectKey(owner, purpose, fileName)`). Download/delete **assert** the stored key — they do not rewrite.
+2. Validate session → build `Owner` (`user` / `org`) — see `packages/storage/src/owner/`.
+3. Verify the object key matches the owner **and purpose** before persisting (`objectKeyMatches(key, owner, "avatars")`). Use `toPublicUrl(key)` when linking the file.
 4. Persist via **`auth.api`** (user image, org logo, …) — not direct DB writes on auth tables.
-5. Clean up replaced objects (`deleteOwnedAvatarObject` pattern in app `lib/`).
+5. Clean up replaced objects (`deleteOwnedAvatar` pattern in app `lib/`).
 6. **`updateTag`** / `invalidateUserCache` so the actor sees fresh UI — [caching.md](./caching.md).
 
 **Reference:** `set-account-avatar-action.ts`, `organization-logo` sibling actions.

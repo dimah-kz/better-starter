@@ -3,13 +3,13 @@ export {
   isOwnerKind,
   parseOwnerScope,
   toOwnerScope,
-  type StorageOwner,
-  type StorageOwnerKind,
+  type Owner,
+  type OwnerKind,
 } from "../owner"
 export {
-  buildObjectKey,
-  isObjectKeyFor,
+  objectKeyMatches,
   parseObjectKey,
+  toObjectKey,
   type ObjectKeyParts,
 } from "./object-key"
-export { buildPublicUrl, objectKeyFromPublicUrl } from "./public-url"
+export { fromPublicUrl, toPublicUrl } from "./public-url"

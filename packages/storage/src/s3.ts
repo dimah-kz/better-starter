@@ -4,11 +4,7 @@ import { dimahS3, errors } from "@dimah-s3/server"
 import { auth } from "@repo/auth"
 import { dimahS3Db } from "@repo/db/dimah-s3"
 import { toOwnerScope } from "./owner"
-import {
-  composeObjectKey,
-  resolveOwner,
-  resolveStoredOwner,
-} from "./owner/resolve"
+import { completeObjectKey, ownerOfKey, resolveOwner } from "./owner/resolve"
 
 export const awsS3 = new S3Client({
   region: process.env.S3_REGION,
@@ -19,14 +15,14 @@ export const awsS3 = new S3Client({
   },
 })
 
-async function assertOwnedObject({
+async function assertOwned({
   request,
   key,
 }: {
   request: Request
   key: string
 }) {
-  if (!(await resolveStoredOwner(request, key))) throw errors.forbidden()
+  if (!(await ownerOfKey(request, key))) throw errors.forbidden()
 }
 
 export const s3 = dimahS3({
@@ -40,15 +36,15 @@ export const s3 = dimahS3({
     method: "PUT",
     requireFileSize: true,
     resolveKey: async ({ request, proposedKey }) => {
-      const key = await composeObjectKey(request, proposedKey)
+      const key = await completeObjectKey(request, proposedKey)
       if (!key) throw errors.forbidden()
       return key
     },
-    guard: assertOwnedObject,
+    guard: assertOwned,
     // later: chain a quota guard here
   },
-  download: { guard: assertOwnedObject },
-  delete: { guard: assertOwnedObject },
+  download: { guard: assertOwned },
+  delete: { guard: assertOwned },
 
   plugins: [
     db({

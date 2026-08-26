@@ -42,6 +42,14 @@
 
 **Forbidden:** `dashboard-access.ts`, custom RBAC modules, mutation Route Handlers.
 
+## Naming {#naming}
+
+Package APIs (not app `get-*.ts` reads):
+
+- Convert: `toX` / `fromX`. Structured inverse: `parseX`. Predicate: `xMatches` / `isX`.
+- Drop filler (`build`, `compose`, `get`). Don’t repeat the package name (`Owner` in `@repo/storage`, not `StorageOwner`).
+- Don’t collide with host APIs (`toObjectKey`, not `objectKey` — dimah’s `objectKey:` option).
+
 ## Package boundaries
 
 Explore each package’s public exports (`package.json` / `index`). Auth schema: Better Auth tables only in the db package — no product tables in auth core. Product tables = app or future product package.

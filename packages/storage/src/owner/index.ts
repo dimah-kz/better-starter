@@ -3,6 +3,6 @@ export {
   isOwnerKind,
   parseOwnerScope,
   toOwnerScope,
-  type StorageOwner,
-  type StorageOwnerKind,
+  type Owner,
+  type OwnerKind,
 } from "./scope"

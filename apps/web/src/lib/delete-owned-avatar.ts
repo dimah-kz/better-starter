@@ -1,25 +1,20 @@
-import {
-  isObjectKeyFor,
-  objectKeyFromPublicUrl,
-  s3,
-  type StorageOwner,
-} from "@repo/storage"
+import { fromPublicUrl, objectKeyMatches, s3, type Owner } from "@repo/storage"
 
-/** Best-effort delete of a previous owned avatar object (after profile/org link update). */
-export async function deleteOwnedAvatarObject(options: {
+/** Best-effort delete of a previous owned avatar (after profile/org link update). */
+export async function deleteOwnedAvatar(options: {
   previousUrl: string | null | undefined
-  owner: StorageOwner
+  owner: Owner
   headers: Headers
   exceptKey?: string
 }) {
   const previousKey = options.previousUrl
-    ? objectKeyFromPublicUrl(options.previousUrl)
+    ? fromPublicUrl(options.previousUrl)
     : null
 
   if (
     !previousKey ||
     previousKey === options.exceptKey ||
-    !isObjectKeyFor(previousKey, options.owner, "avatars")
+    !objectKeyMatches(previousKey, options.owner, "avatars")
   ) {
     return
   }

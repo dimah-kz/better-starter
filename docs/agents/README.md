@@ -5,7 +5,7 @@ Procedural guides — **not** a map of the repo. Explore code for what exists; r
 | File                                     | Read when                                                                           |
 | ---------------------------------------- | ----------------------------------------------------------------------------------- |
 | [monorepo.md](./monorepo.md)             | Workspace roles, deps, new package                                                  |
-| [architecture.md](./architecture.md)     | Placement, SSOT, over-extract                                                       |
+| [architecture.md](./architecture.md)     | Placement, SSOT, over-extract, package naming                                       |
 | [better-auth.md](./better-auth.md)       | Auth package, mutations, permissions                                                |
 | [dashboard.md](./dashboard.md)           | Dashboard route/feature; server lists → `list/` + `ListTable` (`members-table.tsx`) |
 | [implementation.md](./implementation.md) | RSC, Suspense, session, storage uploads                                             |
