@@ -8,8 +8,10 @@ alwaysApply: false
 
 **Config:** `packages/auth/`. Schema: `pnpm --filter @repo/db auth:generate` → `db:generate` + `db:migrate`. Teams off unless enabled in `organization()`.
 
-**Writes:** app `action/` → `auth.api` with `headers: await headers()` (i18n locale cookie + session). Sign-in/up still pass `body`; `nextCookies()` sets cookies.
+**Writes:** app `action/` → `auth.api` with `headers: await headers()`. Sign-in/up still pass `body`; `nextCookies()` sets cookies. Product copy via `getTranslations` — not hardcoded English.
 
-**Permissions:** extend `*-access.ts` in auth package; UI gates via `hasPermission` / `userHasPermission` — copy sibling pattern. No `dashboard-access.ts`.
+**Permissions:** extend `*-access.ts`; UI gates via `hasPermission` / `userHasPermission`. No `dashboard-access.ts`.
+
+`localhost` is not trusted in production. Rate-limit storage is the `auth.rate_limit` table (HTTP auth only). Cookie cache is 5 minutes.
 
 **Detail (Read):** [docs/agents/better-auth.md](docs/agents/better-auth.md).

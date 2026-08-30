@@ -1,6 +1,6 @@
 # apps/web — agent notes
 
-Next.js app for this monorepo. Repo index: [AGENTS.md](../../AGENTS.md). How-to guides: [docs/agents/](../../docs/agents/). Topic paths: [nextjs.md](../../docs/agents/nextjs.md).
+Next.js app for this monorepo. **Cache Components** is on (`cacheComponents: true`). Repo index: [AGENTS.md](../../AGENTS.md). How-to: [docs/agents/](../../docs/agents/). Topic paths: [nextjs.md](../../docs/agents/nextjs.md).
 
 **Before any Next.js work:** open the relevant file under `node_modules/next/dist/docs/` in **this** directory. Do **not** web-search Next.js — installed docs are the source of truth for this version.
 

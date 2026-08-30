@@ -1,16 +1,18 @@
 # Caching
 
-> Rule: `.cursor/rules/caching.mdc`.
+> Rule: `.cursor/rules/caching.mdc`
 
-Caching applies to **Next.js apps** (`apps/web`, etc.) — not to core packages unless a package explicitly documents cache helpers for apps.
+Applies to Next.js apps (`apps/web`). This app has **Cache Components** on (`cacheComponents: true`).
+
+Read Next in-repo docs first — [nextjs.md](./nextjs.md). Never web-search.
 
 1. **Read:** `'use cache'` + `cacheTag` from segment `cache-tags.ts` + `cacheLife("minutes")`.
-2. **Write:** after a successful mutation in the **same** action (`auth.api` or `createRouterClient`) → **`updateTag(tag)`** (same tag builder as the read).
+2. **Write:** after a successful `auth.api` / `createRouterClient` in the **same** action → `updateTag(tag)` (same builder as the read).
 3. Never cache session.
 
-| Situation                   | API                         |
-| --------------------------- | --------------------------- |
-| Actor must see fresh UI now | `updateTag`                 |
-| Elsewhere / staleness OK    | `revalidateTag(tag, "max")` |
+| Situation | API |
+| --- | --- |
+| Actor must see fresh UI now | `updateTag` |
+| Elsewhere / staleness OK | `revalidateTag(tag, "max")` |
 
-No bare `revalidateTag(tag)`. Next.js API semantics: read `node_modules/next/dist/docs/` first ([nextjs.md](./nextjs.md)) — do not web-search.
+No bare `revalidateTag(tag)`.

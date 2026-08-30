@@ -5,6 +5,7 @@ import { getActiveOrganizationBranding } from "@/app/dashboard/(organization)/ma
 import { dashboardCacheTags } from "@/app/dashboard/lib/cache-tags"
 import { deleteOwnedAvatar } from "@/lib/delete-owned-avatar"
 import { headers } from "next/headers"
+import { getTranslations } from "next-intl/server"
 import { updateTag } from "next/cache"
 import { auth, getAuthApiErrorMessage } from "@repo/auth"
 
@@ -12,7 +13,8 @@ export async function removeOrganizationLogoAction(organizationId: string) {
   const requestHeaders = await headers()
   const session = await auth.api.getSession({ headers: requestHeaders })
   if (!session) {
-    return { error: "Unauthorized" as const }
+    const t = await getTranslations("common.errors")
+    return { error: t("unauthorized") }
   }
 
   const branding = await getActiveOrganizationBranding(organizationId)

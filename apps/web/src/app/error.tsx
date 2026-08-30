@@ -3,13 +3,13 @@
 import { SegmentErrorFallback } from "@/components/segment-error-fallback"
 import { useTranslations } from "next-intl"
 
-type DashboardErrorProps = {
+type ErrorPageProps = {
   error: Error & { digest?: string }
   retry: () => void
 }
 
-export default function DashboardError({ error, retry }: DashboardErrorProps) {
-  const t = useTranslations("dashboard.errors")
+export default function ErrorPage({ error, retry }: ErrorPageProps) {
+  const t = useTranslations("common.errors")
 
   return (
     <SegmentErrorFallback

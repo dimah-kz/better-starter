@@ -7,6 +7,7 @@ import {
 import { dashboardCacheTags } from "@/app/dashboard/lib/cache-tags"
 import { dashboardRoutes } from "@/app/dashboard/lib/dashboard-routes"
 import { headers } from "next/headers"
+import { getTranslations } from "next-intl/server"
 import { updateTag } from "next/cache"
 import { auth, getAuthApiErrorMessage } from "@repo/auth"
 
@@ -27,7 +28,8 @@ export async function deleteOrganizationAction(
   const session = await auth.api.getSession({ headers: requestHeaders })
 
   if (!session) {
-    return { success: false, error: "Unauthorized" }
+    const t = await getTranslations("common.errors")
+    return { success: false, error: t("unauthorized") }
   }
 
   try {

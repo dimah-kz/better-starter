@@ -7,7 +7,7 @@ alwaysApply: true
 
 Explore the codebase for layout, packages, and routes. Open [docs/agents/](docs/agents/) only when **adding or changing** a feature.
 
-**Next.js:** training data is outdated. Before any Next API or pattern, **Read** docs under `apps/web` → `node_modules/next/dist/docs/`. **Never web-search** Next.js. Managed warning + resolve path: [apps/web/AGENTS.md](apps/web/AGENTS.md). Topic index: [nextjs.md](docs/agents/nextjs.md).
+**Next.js:** **Cache Components** is on (`cacheComponents: true`). Training data is outdated. Before any Next API or pattern, **Read** docs under `apps/web` → `node_modules/next/dist/docs/`. **Never web-search** Next.js. Managed warning + resolve path: [apps/web/AGENTS.md](apps/web/AGENTS.md). Topic index: [nextjs.md](docs/agents/nextjs.md).
 
 ## Workflow
 

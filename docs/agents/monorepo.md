@@ -1,63 +1,34 @@
 # Monorepo
 
-> Rule: `.cursor/rules/monorepo.mdc`.
+> Rule: `.cursor/rules/monorepo.mdc`
 
-## Layout (target)
+| Slot | Path | Role |
+| --- | --- | --- |
+| Web | `apps/web` | Next.js product — [AGENTS.md](../../apps/web/AGENTS.md) |
+| Mobile | `apps/mobile` | Future; share via `@repo/*` |
+| Extension | `apps/extension` | Future; own UI shell, same core |
 
-Three app slots under `apps/` + shared core under `packages/`:
+Do not import across apps. Workspaces: `apps/*`, `packages/*`, `tooling/*`. Turbo: `build` / `dev` / `lint` / `typecheck`.
 
-| Slot          | Path             | Role                                                                                          |
-| ------------- | ---------------- | --------------------------------------------------------------------------------------------- |
-| **Web**       | `apps/web`       | Next.js — primary target (has [AGENTS.md](../../apps/web/AGENTS.md) for Next’s managed block) |
-| **Mobile**    | `apps/mobile`    | Future client; stack TBD — share via `@repo/*`                                                |
-| **Extension** | `apps/extension` | Placeholder — own UI shell; same core packages                                                |
+| Layer | Owns | Does not |
+| --- | --- | --- |
+| `packages/` | Auth, Drizzle, oRPC, storage, i18n, shadcn | Routes, pages, Server Actions, dashboard chrome |
+| `tooling/` | eslint / tsconfig presets | Product code |
+| `apps/` | Routes, layouts, actions, feature UI, SSOT | Auth/db logic that belongs in a package |
 
-Explore `apps/` and `packages/` for what exists today. Do not import across apps; share through packages.
+`@repo/ui` = shadcn + ReUI + Dimah. App-composed UI (`list/`, dashboard chrome) stays in the app.
 
-**pnpm workspaces:** `apps/*`, `packages/*`, `tooling/*`. **Turbo:** `turbo.json` for `build` / `dev` / `lint` / `typecheck`.
+Server lists: [dashboard.md § Server lists](./dashboard.md#server-lists).
 
-## Package vs app responsibilities
-
-| Layer         | Owns                                                                                                                                    | Does not own                                            |
-| ------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
-| **packages/** | Auth config, Drizzle schema/client/migrations, product oRPC (`@repo/api`), S3 storage (`@repo/storage`), shadcn primitives (`@repo/ui`) | Routes, pages, app UI, Server Actions, dashboard chrome |
-| **tooling/**  | Shared eslint/tsconfig presets (`@repo/eslint-config`, `@repo/typescript-config`)                                                       | Product/runtime code                                    |
-| **apps/**     | Routes, layouts, Server Actions, feature UI, SSOT (`cache-tags`, `*-routes`), Next session helpers                                      | Duplicating auth/db logic that belongs in a package     |
-
-**UI split:** `@repo/ui` = shadcn primitives + ReUI (`components/reui/`) + first-party Dimah (`components/dimah/`) shared across apps. App-composed UI (`badge/`, `list/`, dashboard chrome) lives in `apps/<app>/src/components/` or route-scoped `components/`.
-
-**Lists (server pages):** [dashboard.md § Server lists](./dashboard.md#server-lists) — copy `members-table.tsx` (`list/` + `ListTable`); do not invent parallel table stacks.
-
-## Naming
-
-Explore `packages/*/package.json` and `tooling/*/package.json` for live names. Shared scope is `@repo/*`. Apps import via `workspace:*` until publish.
-
-## Dependency rules
-
-1. **apps → packages** — OK.
-2. **packages → packages** — OK when acyclic (e.g. `auth` may depend on `db`).
-3. **packages → apps** — **forbidden**.
-4. **app → app** — **forbidden** — share via packages, not cross-imports.
-
-## Commands (from repo root)
+**Deps:** apps → packages OK. packages → packages OK if acyclic. packages → apps forbidden. app → app forbidden.
 
 ```bash
-pnpm dev          # turbo dev — all apps
-pnpm build        # turbo build
-pnpm lint         # turbo lint
-pnpm typecheck    # turbo typecheck
-```
-
-Filter to one app/package when needed:
-
-```bash
+pnpm dev
+pnpm build
+pnpm lint
+pnpm typecheck
 pnpm --filter web dev
 pnpm --filter @repo/db db:migrate
 ```
 
-## Adding a new core package
-
-1. Create `packages/<name>/` with `package.json` (`name: "@repo/<name>"`, `"private": true` until publish).
-2. Extend `tooling/typescript-config` if needed; wire eslint from `@repo/eslint-config`.
-3. Export a minimal public surface — apps import from package root or documented subpaths only.
-4. Document exports in package `README.md` (one paragraph, not agent docs).
+New package: `packages/<name>/` with `"name": "@repo/<name>"`, `"private": true`. Minimal public exports. One-paragraph `README.md` (not agent docs).

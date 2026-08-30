@@ -14,14 +14,14 @@ type SegmentErrorFallbackProps = {
   title: string
   description: string
   error: Error & { digest?: string }
-  reset: () => void
+  retry: () => void
 }
 
 export function SegmentErrorFallback({
   title,
   description,
   error,
-  reset,
+  retry,
 }: SegmentErrorFallbackProps) {
   const t = useTranslations("common")
 
@@ -36,7 +36,7 @@ export function SegmentErrorFallback({
           {process.env.NODE_ENV === "development" && error.message ? (
             <p className="text-sm text-muted-foreground">{error.message}</p>
           ) : null}
-          <Button type="button" onClick={reset}>
+          <Button type="button" onClick={retry}>
             {t("tryAgain")}
           </Button>
         </CardContent>

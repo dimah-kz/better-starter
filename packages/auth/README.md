@@ -1,7 +1,7 @@
 # @repo/auth
 
-Authentication for the monorepo: [Better Auth](https://www.better-auth.com/) with email/password, `admin`, `organization`, and `lastLoginMethod` (`storeInDatabase: true`) plugins.
+[Better Auth](https://www.better-auth.com/) with email/password, `admin`, `organization`, and `lastLoginMethod`. Apps mutate through `auth.api`.
 
-Owns the auth server config, session helpers, and permission surfaces. Apps mutate through `auth.api` — never by talking to auth tables directly.
+Rate-limit counters live in Postgres (`auth.rate_limit`) so they survive serverless. That limiter applies to Better Auth HTTP routes, not `auth.api` Server Actions. Session cookie cache is 5 minutes — ban/role changes can lag until it expires. `localhost` is not a trusted origin in production.
 
-After changing auth config, regenerate schema from the db package: `auth:generate` → `db:generate` → `db:migrate`.
+After config changes: `auth:generate` → `db:generate` → `db:migrate`.

@@ -24,5 +24,18 @@
   "items": "items",
   "clearSearch": "Clear search",
   "cancel": "Cancel",
-  "language": "Language"
+  "language": "Language",
+  "errors": {
+    "title": "Something went wrong",
+    "description": "We could not load this page. Try again or return later.",
+    "unauthorized": "You need to sign in.",
+    "invalidAvatarKey": "That file is not a valid avatar.",
+    "storagePublicUrlMissing": "Public storage URL is not configured.",
+    "selectRole": "Select at least one role.",
+    "invalidRole": "Invalid role."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "This page does not exist or has been moved."
+  }
 }

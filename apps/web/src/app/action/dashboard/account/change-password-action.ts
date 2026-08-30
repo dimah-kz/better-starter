@@ -2,6 +2,7 @@
 
 import { type AccountFormState } from "@/app/action/dashboard/account/shared/account-form-state"
 import { headers } from "next/headers"
+import { getTranslations } from "next-intl/server"
 import { auth, getAuthApiErrorMessage } from "@repo/auth"
 import { getFormString } from "@/components/form/form-parse"
 
@@ -14,7 +15,8 @@ export async function changePasswordAction(
   const confirmPassword = getFormString(formData, "confirmPassword")
 
   if (newPassword !== confirmPassword) {
-    return { formError: "Passwords do not match." }
+    const t = await getTranslations("account.password")
+    return { formError: t("mismatch") }
   }
 
   try {

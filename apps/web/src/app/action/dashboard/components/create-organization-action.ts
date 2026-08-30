@@ -4,6 +4,7 @@ import { dashboardCacheTags } from "@/app/dashboard/lib/cache-tags"
 import { setDashboardActiveOrganization } from "@/app/dashboard/lib/dashboard-session"
 import { headers } from "next/headers"
 import { updateTag } from "next/cache"
+import { getTranslations } from "next-intl/server"
 import { auth, getAuthApiErrorMessage } from "@repo/auth"
 
 type CreateOrganizationInput = {
@@ -74,7 +75,8 @@ export async function createOrganizationAction(
   const organizationId = organization?.id
 
   if (!organizationId) {
-    return { success: false, error: "Could not create the organization." }
+    const t = await getTranslations("dashboard.nav.organizationSwitcher")
+    return { success: false, error: t("organizationCreateFailed") }
   }
 
   await setDashboardActiveOrganization(organizationId)

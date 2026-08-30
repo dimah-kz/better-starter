@@ -10,6 +10,8 @@ import { defaultLocale, localeCookieName } from "@repo/i18n"
 import { adminPluginAc, adminPluginRoles } from "./admin-access"
 import { orgAc, orgRoles } from "./organization-access"
 
+const isProduction = process.env.NODE_ENV === "production"
+
 export const auth = betterAuth({
   advanced: {
     database: {
@@ -19,7 +21,7 @@ export const auth = betterAuth({
   trustedOrigins: [
     process.env.BETTER_AUTH_URL,
     process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
-    "http://localhost:3000",
+    ...(isProduction ? [] : ["http://localhost:3000"]),
   ].filter(Boolean) as string[],
   database: drizzleAdapter(db, {
     provider: "pg",
@@ -28,10 +30,14 @@ export const auth = betterAuth({
   }),
   session: {
     freshAge: 0,
+    // Cookie cache skips a DB read. Ban/role changes can lag until maxAge.
     cookieCache: {
       enabled: true,
       maxAge: 5 * 60,
     },
+  },
+  rateLimit: {
+    storage: "database",
   },
   emailAndPassword: {
     enabled: true,

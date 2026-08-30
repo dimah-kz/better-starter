@@ -1,55 +1,24 @@
-# UI styling
+# UI
 
-> Rule: `.cursor/rules/ui-design.mdc`.
+> Rule: `.cursor/rules/ui-design.mdc`
 
-**Shared UI package:** shadcn/Base UI primitives live in `@repo/ui` (`packages/ui`). App-composed components stay in each app.
+`@repo/ui` holds shadcn / Base UI primitives. App-composed components stay in each app.
 
-## Per-app rules
+- `lang` / `dir` on root layout only
+- Logical Tailwind (`ms` / `me`, `start` / `end`)
+- shadcn + ReUI: **never hand-edit** for durable fixes — `pnpm ui:sync`. Durable ReUI overrides: `packages/ui/scripts/reui/patches/`
+- Dimah (`components/dimah/`): edit in place
+- Link-as-button: `render={<Link … />}` + `nativeButton={false}`
+- Product copy: `@repo/i18n` — [i18n.md](./i18n.md)
 
-- `lang` / `dir`: root layout only (`apps/<app>/src/app/layout.tsx`).
-- Logical Tailwind (`ms`/`me`, `start`/`end`) — not physical left/right for layout.
-- `@repo/ui/components/*`: shadcn preset (**base-mira**) — **never hand-edit** for durable fixes; regen via `sync:shadcn` / CLI.
-- `@repo/ui/components/reui/*`: ReUI registry items — same rule; list them in `packages/ui/scripts/reui/components.mjs`.
-- Durable ReUI overrides: `packages/ui/scripts/reui/patches/` (re-applied by `sync:reui`).
-- `@repo/ui/components/dimah/*`: first-party Dimah components — **edit in place**.
-- App behavior components: `apps/<app>/src/components/` (outside package UI) or route-scoped `components/`.
-- Link + Button: `render={<Link … />}`; `nativeButton={false}` when not a button.
-- Dashboard chrome copy: `@repo/i18n` messages — see [i18n.md](./i18n.md).
-
-## Default component styles
-
-Use `@repo/ui` components **with their built-in styles** for ordinary usage. That keeps screens consistent and lets shadcn/UI package updates apply without chasing redundant overrides in app code.
-
-- **Prefer defaults** — `variant`, `size`, and component props over `className` when they already express what you need.
-- **`className` only when needed** — add Tailwind classes at a call site only when that placement genuinely requires customization (layout in a parent, one-off spacing, a contextual exception).
-- **Do not re-specify what the component already sets** — e.g. avoid passing `rounded-lg` on `DropdownMenuContent` or overriding button radius when the default look is fine.
-- **Document intentional exceptions** — when you override defaults for a real design reason (sidebar avatars with square corners, full-width submit buttons), keep the override minimal and scoped to that element.
-
-## shadcn / ReUI sync (monorepo)
-
-Scripts are separate; the package `sync` script runs both (quiet summary + one format pass):
+Prefer component `variant` / `size` over `className`. Add classes only when that call site needs them. Do not re-state radius/padding the primitive already sets.
 
 ```bash
 pnpm ui:sync
-# → scripts/sync.mjs
-#   → sync:shadcn  (scripts/sync-shadcn.mjs)
-#   → sync:reui    (scripts/reui/sync.mjs → registry overwrite + patches)
-#   → prettier once
-```
-
-Add primitives / ReUI items:
-
-```bash
 pnpm dlx shadcn@latest add button -c packages/ui
 pnpm dlx shadcn@latest add @reui/icon-tile -c packages/ui
 ```
 
-After adding a new `@reui/…` item, append its name to `packages/ui/scripts/reui/components.mjs`. For a durable override that must survive the next ReUI sync, add a patch under `packages/ui/scripts/reui/patches/` and register it in `patches/index.mjs`.
+After a new `@reui/…` item, append it to `packages/ui/scripts/reui/components.mjs`.
 
-Apps import via `@repo/ui/components/<name>`, `@repo/ui/components/reui/…`, or `@repo/ui/components/dimah/…`. Each app's `components.json` aliases `ui` → `@repo/ui/components`.
-
-Match existing patterns in the subtree you edit — [architecture § Placement](./architecture.md#placement).
-
-## Client-safe auth imports
-
-Client components must **not** import `@repo/auth` (pulls in db/pg). Use app-local auth helpers under `apps/web/src/app/(auth)/lib/` instead.
+Client components must not import `@repo/auth`.

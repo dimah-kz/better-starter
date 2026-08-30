@@ -22,7 +22,8 @@
   "password": {
     "title": "Password",
     "description": "Change the password for this account.",
-    "unavailable": "This account does not sign in with email and password, so there is no password to change here."
+    "unavailable": "This account does not sign in with email and password, so there is no password to change here.",
+    "mismatch": "Passwords do not match."
   },
   "sessions": {
     "title": "Active sessions",

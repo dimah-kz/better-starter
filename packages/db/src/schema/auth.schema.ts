@@ -2,8 +2,10 @@ import { defineRelationsPart } from "drizzle-orm"
 import {
   pgSchema,
   text,
+  bigint,
   timestamp,
   boolean,
+  integer,
   index,
   uniqueIndex,
 } from "drizzle-orm/pg-core"
@@ -150,8 +152,24 @@ export const invitation = authSchema.table(
   ]
 )
 
+export const rateLimit = authSchema.table("rate_limit", {
+  id: text("id").primaryKey(),
+  key: text("key").notNull().unique(),
+  count: integer("count").notNull(),
+  lastRequest: bigint("last_request", { mode: "number" }).notNull(),
+})
+
 export const authRelations = defineRelationsPart(
-  { user, session, account, verification, organization, member, invitation },
+  {
+    user,
+    session,
+    account,
+    verification,
+    organization,
+    member,
+    invitation,
+    rateLimit,
+  },
   (r) => ({
     user: {
       sessions: r.many.session({

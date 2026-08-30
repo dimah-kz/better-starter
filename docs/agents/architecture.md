@@ -1,61 +1,42 @@
-# Architecture & layout
+# Architecture
 
-> Rule: `.cursor/rules/architecture.mdc`.
+> Rule: `.cursor/rules/architecture.mdc`
 
-**Monorepo scope:** core in `packages/` (auth tables, db client, product API). App UI/routes live in **apps** as removable subtrees (`route` + matching `action/` + SSOT keys). Product **domain** procedures live in [`@repo/api`](../../packages/api) — [api.md](./api.md).
+Core lives in `packages/` (auth, db, product oRPC). Feature UI is a **removable subtree** in an app: `route` + matching `action/` + SSOT keys. Product procedures live in [`@repo/api`](../../packages/api) — [api.md](./api.md).
 
 ## Placement {#placement}
 
-**Default:** inline in the file you edit.
+Inline in the file you are editing.
 
-**New file only when:** reused in 2+ places, or segment SSOT (`*-routes.ts`, `cache-tags.ts`, …).
+A **new file** only when something is reused in 2+ places, or it is segment SSOT (`*-routes.ts`, `cache-tags.ts`).
 
-**~10–20 lines at one call site:** do not extract to a new module.
+~10–20 lines at one call site → do not extract.
 
-### Search-up (before creating a file)
+**Search up before creating a file**
 
-**In an app** (e.g. `apps/web/src/…`):
+- App: beside `page.tsx` → parent `components/` → segment `lib/` or `components/` → `src/components/` → `@repo/ui/components/*`
+- Package: beside the caller → package `src/` → an export already on `index.ts`
 
-1. Beside `page.tsx` → parent route `components/` → segment `lib/` or `components/` → `src/components/` → `@repo/ui/components/*`
+**Deps:** sub-feature → segment `lib/` → `src/lib` / `src/components`. No cross-sibling feature imports. Apps import `@repo/*`. Packages never import apps.
 
-**In a package:**
+## App segment SSOT
 
-1. Beside the caller → package `src/` root → sibling module already exported from `index.ts`
+| Concern | Pattern |
+| --- | --- |
+| URLs | `*-routes.ts` |
+| Cache tags | `cache-tags.ts` |
+| Dashboard copy | `@repo/i18n` `dashboard.json` |
+| Writes | `app/action/<segment>/` — one mutation per file → `auth.api` or `createRouterClient` |
+| Reads | `get-*.ts` + `'use cache'` |
 
-### Dependencies
-
-**Within an app:** sub-feature → segment `lib/` → `src/lib` | `src/components`. **No** cross-sibling feature imports — share via segment SSOT only.
-
-**Across layers:** app code imports `@repo/auth`, `@repo/db`, etc. Packages never import from apps.
-
-`src/lib/<feature>/` mirrors `src/components/<feature>/` when both exist (inside the app).
-
-## Conventions (app segments)
-
-| Concern            | Pattern                                                                                                                        |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
-| URLs               | `*-routes.ts` per segment                                                                                                      |
-| Cache tags         | `cache-tags.ts` per segment                                                                                                    |
-| Dashboard nav copy | `@repo/i18n` `dashboard.json` namespace                                                                                        |
-| Writes             | `app/action/<segment>/` mirrors `app/<segment>/` — one mutation per file → `auth.api` (auth) or `createRouterClient` (product) |
-| Reads              | `get-*.ts` + `'use cache'`                                                                                                     |
-
-**Forbidden:** `dashboard-access.ts`, custom RBAC modules, mutation Route Handlers **except** the oRPC adapter at `/api/rpc`.
+Forbidden: `dashboard-access.ts`, custom RBAC modules, mutation Route Handlers except `/api/rpc`.
 
 ## Naming {#naming}
 
-Package APIs (not app `get-*.ts` reads):
+Package APIs (not app `get-*.ts`): `toX` / `fromX` / `parseX`; predicates `xMatches` / `isX`. Drop filler (`build`, `get`). Don’t repeat the package name. Don’t collide with host APIs (`toObjectKey`, not `objectKey`).
 
-- Convert: `toX` / `fromX`. Structured inverse: `parseX`. Predicate: `xMatches` / `isX`.
-- Drop filler (`build`, `compose`, `get`). Don’t repeat the package name (`Owner` in `@repo/storage`, not `StorageOwner`).
-- Don’t collide with host APIs (`toObjectKey`, not `objectKey` — dimah’s `objectKey:` option).
-
-## Package boundaries
-
-Explore each package’s public exports (`package.json` / `index`). Auth schema: Better Auth tables only in the db package — no product tables in auth core. Product tables = `@repo/db`; product procedures = `@repo/api`.
+Auth tables stay generated in `@repo/db`. Product tables = `@repo/db`. Product procedures = `@repo/api`.
 
 ## Do not over-extract {#do-not-over-extract}
 
-One importer ≠ reuse. No thin wrappers (e.g. toast helpers). Extract at true reuse or SSOT only.
-
-Do not create a package for code used by a single app unless it is clearly core (auth, db) or will be shared with `mobile` / `extension` later.
+One importer is not reuse. No thin wrappers. A new package only if it is core (auth, db) or will be shared with `mobile` / `extension`.
