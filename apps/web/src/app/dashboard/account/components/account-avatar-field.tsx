@@ -10,10 +10,7 @@ type AccountAvatarFieldProps = {
   image: string | null
 }
 
-export function AccountAvatarField({
-  name,
-  image,
-}: AccountAvatarFieldProps) {
+export function AccountAvatarField({ name, image }: AccountAvatarFieldProps) {
   const t = useTranslations("account.profile.avatar")
 
   return (

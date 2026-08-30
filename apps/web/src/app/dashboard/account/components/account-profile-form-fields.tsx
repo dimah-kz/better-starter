@@ -29,10 +29,7 @@ export function AccountProfileFormFields({
   return (
     <FieldGroup>
       <Field>
-        <AccountAvatarField
-          name={profile.name}
-          image={profile.image}
-        />
+        <AccountAvatarField name={profile.name} image={profile.image} />
       </Field>
       <Field>
         <FieldLabel htmlFor={`${formId}-email`}>{t("email")}</FieldLabel>
