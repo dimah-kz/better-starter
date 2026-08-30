@@ -25,6 +25,7 @@ minimumReleaseAgeExclude:
   - "@better-auth/*"
   - better-auth
   - auth
+  - "@orpc/*"
 
 allowBuilds:
   "@parcel/watcher": true

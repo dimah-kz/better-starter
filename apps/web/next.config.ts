@@ -15,6 +15,7 @@ const nextConfig: NextConfig = {
   partialPrefetching: true,
   transpilePackages: [
     "@repo/ui",
+    "@repo/api",
     "@repo/auth",
     "@repo/db",
     "@repo/i18n",

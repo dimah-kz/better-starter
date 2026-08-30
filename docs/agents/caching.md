@@ -5,7 +5,7 @@
 Caching applies to **Next.js apps** (`apps/web`, etc.) — not to core packages unless a package explicitly documents cache helpers for apps.
 
 1. **Read:** `'use cache'` + `cacheTag` from segment `cache-tags.ts` + `cacheLife("minutes")`.
-2. **Write:** after successful `auth.api` in the **same** action → **`updateTag(tag)`** (same tag builder as the read).
+2. **Write:** after a successful mutation in the **same** action (`auth.api` or `createCaller`) → **`updateTag(tag)`** (same tag builder as the read).
 3. Never cache session.
 
 | Situation                   | API                         |

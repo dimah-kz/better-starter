@@ -22,6 +22,7 @@ better-starter/
 ├── apps/
 │   └── web/                 # Next.js product (dashboard, auth, admin)
 ├── packages/
+│   ├── api/                 # Product oRPC (caller + /api/rpc)
 │   ├── auth/                # Better Auth server & access helpers
 │   ├── db/                  # Drizzle schema, client, migrations
 │   ├── storage/             # dimah-s3 storage

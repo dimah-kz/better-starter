@@ -2,7 +2,7 @@
 
 > Rule: `.cursor/rules/architecture.mdc`.
 
-**Monorepo scope:** core in `packages/` (auth tables, db client). Product features live in **apps** as removable subtrees (`route` + matching `action/` + SSOT keys).
+**Monorepo scope:** core in `packages/` (auth tables, db client, product API). App UI/routes live in **apps** as removable subtrees (`route` + matching `action/` + SSOT keys). Product **domain** procedures live in [`@repo/api`](../../packages/api) — [api.md](./api.md).
 
 ## Placement {#placement}
 
@@ -32,15 +32,15 @@
 
 ## Conventions (app segments)
 
-| Concern            | Pattern                                                                               |
-| ------------------ | ------------------------------------------------------------------------------------- |
-| URLs               | `*-routes.ts` per segment                                                             |
-| Cache tags         | `cache-tags.ts` per segment                                                           |
-| Dashboard nav copy | `@repo/i18n` `dashboard.json` namespace                                               |
-| Writes             | `app/action/<segment>/` mirrors `app/<segment>/` — one mutation per file → `auth.api` |
-| Reads              | `get-*.ts` + `'use cache'`                                                            |
+| Concern            | Pattern                                                                                                                  |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| URLs               | `*-routes.ts` per segment                                                                                                |
+| Cache tags         | `cache-tags.ts` per segment                                                                                              |
+| Dashboard nav copy | `@repo/i18n` `dashboard.json` namespace                                                                                  |
+| Writes             | `app/action/<segment>/` mirrors `app/<segment>/` — one mutation per file → `auth.api` (auth) or `createCaller` (product) |
+| Reads              | `get-*.ts` + `'use cache'`                                                                                               |
 
-**Forbidden:** `dashboard-access.ts`, custom RBAC modules, mutation Route Handlers.
+**Forbidden:** `dashboard-access.ts`, custom RBAC modules, mutation Route Handlers **except** the oRPC adapter at `/api/rpc`.
 
 ## Naming {#naming}
 
@@ -52,7 +52,7 @@ Package APIs (not app `get-*.ts` reads):
 
 ## Package boundaries
 
-Explore each package’s public exports (`package.json` / `index`). Auth schema: Better Auth tables only in the db package — no product tables in auth core. Product tables = app or future product package.
+Explore each package’s public exports (`package.json` / `index`). Auth schema: Better Auth tables only in the db package — no product tables in auth core. Product tables = `@repo/db`; product procedures = `@repo/api`.
 
 ## Do not over-extract {#do-not-over-extract}
 

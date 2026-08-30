@@ -18,11 +18,11 @@ Explore `apps/` and `packages/` for what exists today. Do not import across apps
 
 ## Package vs app responsibilities
 
-| Layer         | Owns                                                                                                        | Does not own                                            |
-| ------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
-| **packages/** | Auth config, Drizzle schema/client/migrations, S3 storage (`@repo/storage`), shadcn primitives (`@repo/ui`) | Routes, pages, app UI, Server Actions, dashboard chrome |
-| **tooling/**  | Shared eslint/tsconfig presets (`@repo/eslint-config`, `@repo/typescript-config`)                           | Product/runtime code                                    |
-| **apps/**     | Routes, layouts, Server Actions, feature UI, SSOT (`cache-tags`, `*-routes`), Next session helpers          | Duplicating auth/db logic that belongs in a package     |
+| Layer         | Owns                                                                                                                                    | Does not own                                            |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| **packages/** | Auth config, Drizzle schema/client/migrations, product oRPC (`@repo/api`), S3 storage (`@repo/storage`), shadcn primitives (`@repo/ui`) | Routes, pages, app UI, Server Actions, dashboard chrome |
+| **tooling/**  | Shared eslint/tsconfig presets (`@repo/eslint-config`, `@repo/typescript-config`)                                                       | Product/runtime code                                    |
+| **apps/**     | Routes, layouts, Server Actions, feature UI, SSOT (`cache-tags`, `*-routes`), Next session helpers                                      | Duplicating auth/db logic that belongs in a package     |
 
 **UI split:** `@repo/ui` = shadcn primitives + ReUI (`components/reui/`) + first-party Dimah (`components/dimah/`) shared across apps. App-composed UI (`badge/`, `list/`, dashboard chrome) lives in `apps/<app>/src/components/` or route-scoped `components/`.
 

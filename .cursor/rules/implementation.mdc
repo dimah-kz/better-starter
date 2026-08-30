@@ -6,7 +6,7 @@ alwaysApply: false
 
 # Implementation
 
-Server-first. `action/<segment>/` mirrors routes — one mutation → `auth.api` → `updateTag` when needed.
+Server-first. `action/<segment>/` mirrors routes — one mutation → `auth.api` (auth) or `createCaller` (product) → `updateTag` when needed.
 
 Suspense only on request-API slices. Auth gate inline at segment layout (`auth.api.getSession`) — not before `auth.api`.
 
