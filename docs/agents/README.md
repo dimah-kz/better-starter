@@ -6,7 +6,7 @@ Procedural guides — **not** a map of the repo. Explore code for what exists; r
 | ---------------------------------------- | ----------------------------------------------------------------------------------- |
 | [monorepo.md](./monorepo.md)             | Workspace roles, deps, new package                                                  |
 | [architecture.md](./architecture.md)     | Placement, SSOT, over-extract, package naming                                       |
-| [api.md](./api.md)                       | Product oRPC (`@repo/api`) — procedures, caller vs HTTP, cache rule                 |
+| [api.md](./api.md)                       | Product oRPC (`@repo/api`) — procedures, `createRouterClient` vs HTTP, cache rule   |
 | [better-auth.md](./better-auth.md)       | Auth package, mutations, permissions                                                |
 | [dashboard.md](./dashboard.md)           | Dashboard route/feature; server lists → `list/` + `ListTable` (`members-table.tsx`) |
 | [implementation.md](./implementation.md) | RSC, Suspense, session, storage uploads                                             |

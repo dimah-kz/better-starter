@@ -21,7 +21,7 @@ Explore the codebase for layout, packages, and routes. Open [docs/agents/](docs/
 
 - **Packages → apps**, never apps → packages for app-specific UI or routes.
 - Inline by default; ~10–20 lines → no new file.
-- Writes: app `action/` → **`auth.api`** (auth) or **`createCaller`** from `@repo/api` (product) — no custom access modules, no direct auth-table deletes.
+- Writes: app `action/` → **`auth.api`** (auth) or **`createRouterClient`** from `@repo/api` (product) — no custom access modules, no direct auth-table deletes.
 - SSOT inside each app segment: `*-routes.ts`, `cache-tags.ts`; UI copy in `@repo/i18n` messages.
 - Session: auth package `session.ts`; never cache session.
 - Same-user writes: `updateTag` in the mutating action.

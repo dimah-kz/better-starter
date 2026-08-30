@@ -1,19 +1,19 @@
-import { createORPCClient } from "@orpc/client"
+import { createORPCClient as createClient } from "@orpc/client"
 import { RPCLink } from "@orpc/client/fetch"
 import type { RouterClient } from "@orpc/server"
-import { rpcPrefix } from "./prefix"
+import { prefix } from "./prefix"
 import type { router } from "./router"
 
-export function createHttpClient(options: {
+export function createORPCClient(options: {
   origin: string
   headers?:
     Headers | Record<string, string> | (() => Headers | Promise<Headers>)
 }): RouterClient<typeof router> {
   const link = new RPCLink({
     origin: options.origin,
-    url: rpcPrefix,
+    url: prefix,
     headers: options.headers,
   })
 
-  return createORPCClient(link)
+  return createClient(link)
 }

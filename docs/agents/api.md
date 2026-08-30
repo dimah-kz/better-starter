@@ -1,6 +1,6 @@
 # Product API (`@repo/api`)
 
-> oRPC v2 procedures for **product** domain only. Auth stays on `auth.api`.
+> oRPC v2 procedures for **product** domain only. Auth stays on `auth.api`. Names follow the [oRPC docs](https://orpc.dev): `os`, `router`, `createRouterClient`, `RPCHandler` / `handleRequest`, `RPCLink` / `createORPCClient`.
 
 **Explore** [`packages/api/src`](../../packages/api/src) for the live router and builders.
 
@@ -21,14 +21,14 @@ Do not wrap Better Auth endpoints in oRPC.
 
 | Client                  | How                                                                                                                                       |
 | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| Web Server Action / RSC | `createCaller({ headers: await headers() })` — in-process, no HTTP                                                                        |
-| Mobile / other HTTP     | `createHttpClient` from `@repo/api/client` → `/api/rpc`                                                                                   |
+| Web Server Action / RSC | `createRouterClient(router, { context: { headers: await headers() } })` — in-process, no HTTP                                             |
+| Mobile / other HTTP     | `createORPCClient({ origin })` from `@repo/api/client` — never import `@repo/api` (pulls auth/db).                                        |
 | Next cache (`get-*.ts`) | Do **not** call `headers()` inside `'use cache'`. Pass explicit ids into the procedure, or keep the cached read as a db query in the app. |
 
-Web mutations stay in `app/action/<segment>/` — parse input → `createCaller` → `updateTag`. Next cache APIs never belong in `@repo/api`.
+Web mutations stay in `app/action/<segment>/` — parse input → `createRouterClient` → `updateTag`. Next cache APIs never belong in `@repo/api`.
 
-The only product HTTP surface is [`apps/web/src/app/api/rpc/[[...rest]]/route.ts`](../../apps/web/src/app/api/rpc/[[...rest]]/route.ts). Do not add ad-hoc mutation Route Handlers.
+The only product HTTP surface is [`apps/web/src/app/api/rpc/[[...rest]]/route.ts`](../../apps/web/src/app/api/rpc/[[...rest]]/route.ts) (`handleRequest`). Do not add ad-hoc mutation Route Handlers. Do not export `GET` (oRPC default; cookie CSRF).
 
 ## Client components
 
-Never import `@repo/api` in a client component (pulls auth/db). Mobile uses `@repo/api/client` only.
+Never import `@repo/api` in a client component (pulls auth/db). HTTP clients import `@repo/api/client` only.

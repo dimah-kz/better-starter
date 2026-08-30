@@ -1,1 +1,1 @@
-export const rpcPrefix = "/api/rpc"
+export const prefix = "/api/rpc"

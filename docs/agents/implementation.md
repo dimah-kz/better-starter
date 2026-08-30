@@ -5,7 +5,7 @@
 ## Defaults
 
 - Server Components; `"use client"` only for interactivity.
-- Mutations: `app/action/<segment>/` mirrors routes — validate → `auth.api` (auth) or `createCaller` (product) → `updateTag` if needed. See [api.md](./api.md).
+- Mutations: `app/action/<segment>/` mirrors routes — validate → `auth.api` (auth) or `createRouterClient` (product) → `updateTag` if needed. See [api.md](./api.md).
 - Suspense: only around slices that call request APIs (`headers`, `cookies`, …). Cached/static shells stay outside.
 - Next.js APIs/patterns: read `apps/web` → `node_modules/next/dist/docs/` first ([nextjs.md](./nextjs.md)); never web-search.
 
@@ -37,6 +37,6 @@ Canonical object key: `{kind}/{id}/{purpose}/{fileName}`. Layout SSOT: `packages
 
 - [Placement](./architecture.md#placement) respected — right app vs package.
 - SSOT updated (routes, tags, labels).
-- Writes via `auth.api` or `@repo/api` `createCaller`; `updateTag` when same user must see the change.
+- Writes via `auth.api` or `@repo/api` `createRouterClient`; `updateTag` when same user must see the change.
 - No custom access modules.
 - New work in `apps/web` + core packages only.

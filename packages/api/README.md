@@ -1,5 +1,5 @@
 # @repo/api
 
-Product-domain API for the monorepo: [oRPC](https://orpc.dev) v2 procedures, an in-process caller for Next.js Server Actions / RSC, and an HTTP adapter at `/api/rpc` for mobile or other clients.
+Product-domain [oRPC](https://orpc.dev) v2 procedures. Web calls them with `createRouterClient`; HTTP is `handleRequest` at `/api/rpc`. Other clients use `createORPCClient` from `@repo/api/client`.
 
-Auth stays in `@repo/auth` (`auth.api`). Add product procedures in this package; do not wrap Better Auth.
+Auth stays in `@repo/auth` (`auth.api`). Add procedures here; do not wrap Better Auth.

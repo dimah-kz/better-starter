@@ -32,13 +32,13 @@
 
 ## Conventions (app segments)
 
-| Concern            | Pattern                                                                                                                  |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| URLs               | `*-routes.ts` per segment                                                                                                |
-| Cache tags         | `cache-tags.ts` per segment                                                                                              |
-| Dashboard nav copy | `@repo/i18n` `dashboard.json` namespace                                                                                  |
-| Writes             | `app/action/<segment>/` mirrors `app/<segment>/` — one mutation per file → `auth.api` (auth) or `createCaller` (product) |
-| Reads              | `get-*.ts` + `'use cache'`                                                                                               |
+| Concern            | Pattern                                                                                                                        |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| URLs               | `*-routes.ts` per segment                                                                                                      |
+| Cache tags         | `cache-tags.ts` per segment                                                                                                    |
+| Dashboard nav copy | `@repo/i18n` `dashboard.json` namespace                                                                                        |
+| Writes             | `app/action/<segment>/` mirrors `app/<segment>/` — one mutation per file → `auth.api` (auth) or `createRouterClient` (product) |
+| Reads              | `get-*.ts` + `'use cache'`                                                                                                     |
 
 **Forbidden:** `dashboard-access.ts`, custom RBAC modules, mutation Route Handlers **except** the oRPC adapter at `/api/rpc`.
 
