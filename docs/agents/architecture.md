@@ -21,13 +21,13 @@ A **new file** only when something is reused in 2+ places, or it is segment SSOT
 
 ## App segment SSOT
 
-| Concern | Pattern |
-| --- | --- |
-| URLs | `*-routes.ts` |
-| Cache tags | `cache-tags.ts` |
-| Dashboard copy | `@repo/i18n` `dashboard.json` |
-| Writes | `app/action/<segment>/` — one mutation per file → `auth.api` or `createRouterClient` |
-| Reads | `get-*.ts` + `'use cache'` |
+| Concern        | Pattern                                                                              |
+| -------------- | ------------------------------------------------------------------------------------ |
+| URLs           | `*-routes.ts`                                                                        |
+| Cache tags     | `cache-tags.ts`                                                                      |
+| Dashboard copy | `@repo/i18n` `dashboard.json`                                                        |
+| Writes         | `app/action/<segment>/` — one mutation per file → `auth.api` or `createRouterClient` |
+| Reads          | `get-*.ts` + `'use cache'`                                                           |
 
 Forbidden: `dashboard-access.ts`, custom RBAC modules, mutation Route Handlers except `/api/rpc`.
 

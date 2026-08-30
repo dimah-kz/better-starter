@@ -2,19 +2,19 @@
 
 > Rule: `.cursor/rules/monorepo.mdc`
 
-| Slot | Path | Role |
-| --- | --- | --- |
-| Web | `apps/web` | Next.js product — [AGENTS.md](../../apps/web/AGENTS.md) |
-| Mobile | `apps/mobile` | Future; share via `@repo/*` |
-| Extension | `apps/extension` | Future; own UI shell, same core |
+| Slot      | Path             | Role                                                    |
+| --------- | ---------------- | ------------------------------------------------------- |
+| Web       | `apps/web`       | Next.js product — [AGENTS.md](../../apps/web/AGENTS.md) |
+| Mobile    | `apps/mobile`    | Future; share via `@repo/*`                             |
+| Extension | `apps/extension` | Future; own UI shell, same core                         |
 
 Do not import across apps. Workspaces: `apps/*`, `packages/*`, `tooling/*`. Turbo: `build` / `dev` / `lint` / `typecheck`.
 
-| Layer | Owns | Does not |
-| --- | --- | --- |
+| Layer       | Owns                                       | Does not                                        |
+| ----------- | ------------------------------------------ | ----------------------------------------------- |
 | `packages/` | Auth, Drizzle, oRPC, storage, i18n, shadcn | Routes, pages, Server Actions, dashboard chrome |
-| `tooling/` | eslint / tsconfig presets | Product code |
-| `apps/` | Routes, layouts, actions, feature UI, SSOT | Auth/db logic that belongs in a package |
+| `tooling/`  | eslint / tsconfig presets                  | Product code                                    |
+| `apps/`     | Routes, layouts, actions, feature UI, SSOT | Auth/db logic that belongs in a package         |
 
 `@repo/ui` = shadcn + ReUI + Dimah. App-composed UI (`list/`, dashboard chrome) stays in the app.
 

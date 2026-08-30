@@ -12,10 +12,10 @@ Next.js APIs: read `apps/web/node_modules/next/dist/docs/` first — [nextjs.md]
 
 ## Session {#auth--session}
 
-| Helper | When |
-| --- | --- |
-| `auth.api.getSession` | Read / route gate — `headers: await headers()` |
-| `auth.api` + `headers` | Mutations and permission checks |
+| Helper                 | When                                           |
+| ---------------------- | ---------------------------------------------- |
+| `auth.api.getSession`  | Read / route gate — `headers: await headers()` |
+| `auth.api` + `headers` | Mutations and permission checks                |
 
 Never cache session. Do not gate before `auth.api`. Client components must not import `@repo/auth`.
 

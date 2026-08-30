@@ -8,12 +8,12 @@ The product surface is server-first, not just login: session in RSC, lists from 
 
 ## Why server-first
 
-| Typical SaaS kit                     | This starter                              |
-| ------------------------------------ | ------------------------------------------ |
-| Client SDK + React Query / providers   | RSC session via `auth.api.getSession`      |
-| Client mutations, then refetch       | Server Actions → `auth.api` → `updateTag` |
+| Typical SaaS kit                         | This starter                              |
+| ---------------------------------------- | ----------------------------------------- |
+| Client SDK + React Query / providers     | RSC session via `auth.api.getSession`     |
+| Client mutations, then refetch           | Server Actions → `auth.api` → `updateTag` |
 | Drop-in widgets for auth, storage, menus | Your chrome: sidebar, org switcher, menus |
-| Copy and locale owned by the kit     | `@repo/i18n` + RTL from day one             |
+| Copy and locale owned by the kit         | `@repo/i18n` + RTL from day one           |
 
 ## Cache Components
 
@@ -23,8 +23,6 @@ The product surface is server-first, not just login: session in RSC, lists from 
 - Same-user writes: `updateTag` in the mutating Server Action
 - Session is never cached
 
-See [`docs/agents/caching.md`](docs/agents/caching.md). Next.js APIs for this version live in `apps/web/node_modules/next/dist/docs/` — not training data or the public web.
-
 ## Structure
 
 ```
@@ -33,11 +31,11 @@ better-starter/
 │   └── web/                 # Next.js product (dashboard, auth, admin)
 ├── packages/
 │   ├── api/                 # Product oRPC (caller + /api/rpc)
-│   ├── auth/                # Better Auth server & access helpers
+│   ├── auth/                # Better Auth server
 │   ├── db/                  # Drizzle schema, client, migrations
 │   ├── storage/             # dimah-s3 storage
-│   ├── i18n/                # Shared UI messages & locale config
-│   └── ui/                  # Shared shadcn primitives
+│   ├── i18n/                # UI messages & locale
+│   └── ui/                  # shadcn / ReUI / Dimah
 ├── tooling/
 │   ├── eslint-config/
 │   └── typescript-config/
@@ -68,8 +66,8 @@ pnpm dev                     # web + db
 ## Production
 
 - **Trusted origins** — `http://localhost:3000` is trusted only outside production. Set `BETTER_AUTH_URL` to the public origin.
-- **Auth rate limit** — stored in Postgres (`rateLimit.storage: "database"`) so counters survive serverless cold starts. Better Auth only rate-limits **HTTP** auth routes. This starter’s UI calls `auth.api` from Server Actions, which are not limited by that table. If you later mount `/api/auth`, the table is already there.
+- **Postgres on serverless** — use a **pooled** `DATABASE_URL` (Neon pooler, PgBouncer, Supabase pooler). Direct `5432` will exhaust connections under bursty functions.
 - **Session cookie cache** — `getSession` may use a cookie for up to **5 minutes**. After a ban or role change, the affected user can still look signed-in until that cache expires.
-- **Postgres on serverless** — `pg.Pool` is for a long-lived Node process. On Vercel (or similar), use a **pooled** connection string (Neon pooler, PgBouncer, Supabase pooler). Direct `5432` will exhaust connections under bursty functions.
+- **Auth rate limit** — counters live in Postgres so they survive serverless. That limiter applies to Better Auth HTTP routes (`/api/auth` if you mount it), not Server Actions.
 
 Conventions: [`AGENTS.md`](./AGENTS.md). MIT — see [LICENSE](./LICENSE).
