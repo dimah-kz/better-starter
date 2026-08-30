@@ -1,7 +1,7 @@
 {
   "version": "8",
   "dialect": "postgres",
-  "id": "9abd4402-4b2e-4069-8369-256990c2ed34",
+  "id": "f89b787f-5e4c-4a9a-bed0-7bd8a269af73",
   "prevIds": ["00000000-0000-0000-0000-000000000000"],
   "ddl": [
     {
@@ -33,6 +33,12 @@
     {
       "isRlsEnabled": false,
       "name": "organization",
+      "entityType": "tables",
+      "schema": "auth"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "rate_limit",
       "entityType": "tables",
       "schema": "auth"
     },
@@ -494,6 +500,58 @@
       "entityType": "columns",
       "schema": "auth",
       "table": "organization"
+    },
+    {
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "id",
+      "entityType": "columns",
+      "schema": "auth",
+      "table": "rate_limit"
+    },
+    {
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "key",
+      "entityType": "columns",
+      "schema": "auth",
+      "table": "rate_limit"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "count",
+      "entityType": "columns",
+      "schema": "auth",
+      "table": "rate_limit"
+    },
+    {
+      "type": "bigint",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "last_request",
+      "entityType": "columns",
+      "schema": "auth",
+      "table": "rate_limit"
     },
     {
       "type": "text",
@@ -1547,6 +1605,14 @@
     {
       "columns": ["id"],
       "nameExplicit": false,
+      "name": "rate_limit_pkey",
+      "schema": "auth",
+      "table": "rate_limit",
+      "entityType": "pks"
+    },
+    {
+      "columns": ["id"],
+      "nameExplicit": false,
       "name": "session_pkey",
       "schema": "auth",
       "table": "session",
@@ -1591,6 +1657,15 @@
       "name": "organization_slug_key",
       "schema": "auth",
       "table": "organization",
+      "entityType": "uniques"
+    },
+    {
+      "nameExplicit": false,
+      "columns": ["key"],
+      "nullsNotDistinct": false,
+      "name": "rate_limit_key_key",
+      "schema": "auth",
+      "table": "rate_limit",
       "entityType": "uniques"
     },
     {

@@ -47,6 +47,13 @@ CREATE TABLE "auth"."organization" (
 	"metadata" text
 );
 --> statement-breakpoint
+CREATE TABLE "auth"."rate_limit" (
+	"id" text PRIMARY KEY,
+	"key" text NOT NULL UNIQUE,
+	"count" integer NOT NULL,
+	"last_request" bigint NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE "auth"."session" (
 	"id" text PRIMARY KEY,
 	"expires_at" timestamp NOT NULL,
