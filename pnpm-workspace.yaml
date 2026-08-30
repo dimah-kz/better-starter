@@ -22,9 +22,6 @@ packages:
 
 minimumReleaseAgeExclude:
   - "@dimah-s3/*"
-  - "@better-auth/*"
-  - better-auth
-  - auth
   - "@orpc/*"
 
 allowBuilds:
