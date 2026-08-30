@@ -12,7 +12,6 @@
   "devDependencies": {
     "@eslint/js": "catalog:",
     "@next/eslint-plugin-next": "catalog:",
-    "@typescript/typescript6": "6.0.2",
     "eslint": "catalog:",
     "eslint-config-prettier": "catalog:",
     "eslint-plugin-only-warn": "catalog:",
