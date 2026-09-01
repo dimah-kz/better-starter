@@ -3,11 +3,11 @@
 import { invalidateOrganizationBrandingCache } from "@/app/action/dashboard/(organization)/manage/shared/invalidate-organization-manage-cache"
 import { getActiveOrganizationBranding } from "@/app/dashboard/(organization)/manage/lib/get-active-organization-branding"
 import { dashboardCacheTags } from "@/app/dashboard/lib/cache-tags"
-import { deleteOwnedAvatar } from "@/lib/delete-owned-avatar"
 import { headers } from "next/headers"
 import { getTranslations } from "next-intl/server"
 import { updateTag } from "next/cache"
 import { auth, getAuthApiErrorMessage } from "@repo/auth"
+import { fromPublicUrl, s3 } from "@repo/storage"
 
 export async function removeOrganizationLogoAction(organizationId: string) {
   const requestHeaders = await headers()
@@ -18,7 +18,7 @@ export async function removeOrganizationLogoAction(organizationId: string) {
   }
 
   const branding = await getActiveOrganizationBranding(organizationId)
-  const previousUrl = branding?.logo ?? null
+  const previousKey = branding?.logo ? fromPublicUrl(branding.logo) : null
 
   try {
     await auth.api.updateOrganization({
@@ -32,11 +32,16 @@ export async function removeOrganizationLogoAction(organizationId: string) {
     return { error: getAuthApiErrorMessage(error) }
   }
 
-  await deleteOwnedAvatar({
-    previousUrl,
-    owner: { kind: "org", id: organizationId },
-    headers: requestHeaders,
-  })
+  if (previousKey) {
+    try {
+      await s3.api.delete({
+        query: { route: "avatars", key: previousKey },
+        headers: requestHeaders,
+      })
+    } catch {
+      // Best-effort — the logo link is already cleared.
+    }
+  }
 
   invalidateOrganizationBrandingCache(organizationId)
   updateTag(dashboardCacheTags.sidebarConfigByUser(session.user.id))

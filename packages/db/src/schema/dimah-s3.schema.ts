@@ -1,6 +1,6 @@
 /**
  * dimah-s3 / FumaDB tables (PostgreSQL schema `storage`, not `public`).
- * Shape matches `@dimah-s3/db` v1 + recommended secondary indexes.
+ * Shape matches `@dimah-s3/db` v1 (including `route`) + recommended secondary indexes.
  *
  * @see https://dimah-s3.vercel.app/docs/db/setup
  */
@@ -30,6 +30,8 @@ export const storageObject = storagePg.table(
     scope: text("scope").notNull(),
     bucket: text("bucket").notNull(),
     key: text("key").notNull(),
+    /** Named dimah-s3 route that created the object. */
+    route: text("route").notNull().default("avatars"),
     contentType: text("content_type"),
     size: bigint("size", { mode: "bigint" }),
     eTag: text("e_tag"),

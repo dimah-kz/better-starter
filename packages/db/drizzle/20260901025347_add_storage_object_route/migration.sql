@@ -1,0 +1,1 @@
+ALTER TABLE "storage"."storage_object" ADD COLUMN "route" text DEFAULT 'avatars' NOT NULL;

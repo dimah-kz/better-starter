@@ -33,7 +33,7 @@ Forbidden: `dashboard-access.ts`, custom RBAC modules, mutation Route Handlers e
 
 ## Naming {#naming}
 
-Package APIs (not app `get-*.ts`): `toX` / `fromX` / `parseX`; predicates `xMatches` / `isX`. Drop filler (`build`, `get`). Don’t repeat the package name. Don’t collide with host APIs (`toObjectKey`, not `objectKey`).
+Package APIs (not app `get-*.ts`): `toX` / `fromX` / `parseX`; predicates `xMatches` / `isX`. Drop filler (`build`, `get`). Don’t repeat the package name. Don’t collide with host APIs (`toPublicUrl`, not `publicUrl`).
 
 Auth tables stay generated in `@repo/db`. Product tables = `@repo/db`. Product procedures = `@repo/api`.
 

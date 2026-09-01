@@ -1,11 +1,10 @@
 "use server"
 
 import { invalidateUserCache } from "@/app/dashboard/lib/invalidate-user-cache"
-import { deleteOwnedAvatar } from "@/lib/delete-owned-avatar"
 import { headers } from "next/headers"
 import { getTranslations } from "next-intl/server"
 import { auth, getAuthApiErrorMessage } from "@repo/auth"
-import { objectKeyMatches, toPublicUrl } from "@repo/storage"
+import { toPublicUrl } from "@repo/storage"
 
 export async function setAccountAvatarAction(key: string) {
   const requestHeaders = await headers()
@@ -15,8 +14,8 @@ export async function setAccountAvatarAction(key: string) {
     return { error: t("unauthorized") }
   }
 
-  const owner = { kind: "user" as const, id: session.user.id }
-  if (!objectKeyMatches(key, owner, "avatars")) {
+  const prefix = `avatars/user/${session.user.id}`
+  if (key !== prefix && !key.startsWith(`${prefix}/`)) {
     return { error: t("invalidAvatarKey") }
   }
 
@@ -33,13 +32,6 @@ export async function setAccountAvatarAction(key: string) {
   } catch (error) {
     return { error: getAuthApiErrorMessage(error) }
   }
-
-  await deleteOwnedAvatar({
-    previousUrl: session.user.image,
-    owner,
-    headers: requestHeaders,
-    exceptKey: key,
-  })
 
   invalidateUserCache(session.user.id)
   return { success: true as const, imageUrl }

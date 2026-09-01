@@ -1,9 +1,4 @@
 import { auth, type Session } from "@repo/auth"
-import {
-  parseObjectKey,
-  toObjectKey,
-  type ObjectKeyParts,
-} from "../keys/object-key"
 import { isOwnerKind, type Owner, type OwnerKind } from "./scope"
 
 function ownerOf(session: Session, kind: OwnerKind): Owner | null {
@@ -12,75 +7,51 @@ function ownerOf(session: Session, kind: OwnerKind): Owner | null {
   return id ? { kind: "org", id } : null
 }
 
-function matchingOwner(session: Session, parts: ObjectKeyParts): Owner | null {
-  const owner = ownerOf(session, parts.kind)
-  if (!owner || (parts.id && parts.id !== owner.id)) return null
-  return owner
+/** `{keyPrefix}/{kind}/{id}/…` — same folder `object()` writes for every route. */
+function ownerFromKey(key: string): Owner | null {
+  const [, kind, id] = key.split("/")
+  if (!isOwnerKind(kind) || !id) return null
+  return { kind, id }
 }
 
 async function peekRequest(request: Request): Promise<{
   key: string | null
-  kind: OwnerKind | null
+  ownerKind: OwnerKind | null
 }> {
   const url = new URL(request.url)
   const kindParam = url.searchParams.get("owner")
-  const kind = isOwnerKind(kindParam) ? kindParam : null
+  const ownerKind = isOwnerKind(kindParam) ? kindParam : null
   const keyFromQuery = url.searchParams.get("key")
 
   try {
-    const body = (await request.clone().json()) as { key?: unknown }
+    const body = (await request.clone().json()) as {
+      key?: unknown
+      metadata?: { ownerKind?: unknown }
+    }
+    const metaKind = isOwnerKind(body.metadata?.ownerKind)
+      ? body.metadata.ownerKind
+      : null
     return {
       key: keyFromQuery ?? (typeof body.key === "string" ? body.key : null),
-      kind,
+      ownerKind: metaKind ?? ownerKind,
     }
   } catch {
-    return { key: keyFromQuery, kind }
+    return { key: keyFromQuery, ownerKind }
   }
 }
 
-/** Upload: insert session `id` into a proposed key. Confirm: leave a stored key unchanged. */
-export async function completeObjectKey(
-  request: Request,
-  proposedKey: string
-): Promise<string | null> {
-  const session = await auth.api.getSession({ headers: request.headers })
-  if (!session) return null
-
-  const parts = parseObjectKey(proposedKey)
-  if (!parts) return null
-  const owner = matchingOwner(session, parts)
-  if (!owner) return null
-  return parts.id
-    ? proposedKey
-    : toObjectKey(owner, parts.purpose, parts.fileName)
-}
-
-/** Download / delete: authorize the stored key; do not rewrite it. */
-export async function ownerOfKey(
-  request: Request,
-  key: string
-): Promise<Owner | null> {
-  const session = await auth.api.getSession({ headers: request.headers })
-  if (!session) return null
-
-  const parts = parseObjectKey(key)
-  if (!parts?.id) return null
-  return matchingOwner(session, parts)
-}
-
-/** DB listings: owner from the object key, else `?owner=`, else the workspace. */
+/** DB plugin + `upload.object`: owner from a stored key, else client `ownerKind`. */
 export async function resolveOwner(request: Request): Promise<Owner | null> {
   const session = await auth.api.getSession({ headers: request.headers })
   if (!session) return null
 
-  const { key, kind } = await peekRequest(request)
+  const { key, ownerKind } = await peekRequest(request)
   if (key) {
-    const parts = parseObjectKey(key)
-    const fromKey = parts ? matchingOwner(session, parts) : null
-    if (fromKey) return fromKey
+    const parsed = ownerFromKey(key)
+    if (parsed) {
+      const current = ownerOf(session, parsed.kind)
+      if (current?.id === parsed.id) return current
+    }
   }
-  return ownerOf(
-    session,
-    kind ?? (session.session.activeOrganizationId ? "org" : "user")
-  )
+  return ownerOf(session, ownerKind ?? "user")
 }

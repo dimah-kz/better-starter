@@ -5,6 +5,12 @@ import { createS3Client } from "@dimah-s3/react"
 import type { Locale } from "@repo/i18n"
 import { translationsByLocale } from "./translations"
 
+declare module "@dimah-s3/core" {
+  interface DimahS3Routes {
+    avatars: true
+  }
+}
+
 export const s3Client = createS3Client({
   plugins: [dbClient()],
 })

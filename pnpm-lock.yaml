@@ -182,11 +182,11 @@ importers:
   apps/web:
     dependencies:
       '@dimah-s3/react':
-        specifier: 1.0.2
-        version: 1.0.2(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(react@19.2.8)
+        specifier: 1.2.1
+        version: 1.2.1(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(react@19.2.8)
       '@dimah-s3/server':
-        specifier: 1.0.2
-        version: 1.0.2(@aws-sdk/client-s3@3.1121.0)
+        specifier: 1.2.1
+        version: 1.2.1(@aws-sdk/client-s3@3.1121.0)
       '@repo/api':
         specifier: workspace:*
         version: link:../../packages/api
@@ -335,8 +335,8 @@ importers:
   packages/db:
     dependencies:
       '@dimah-s3/db':
-        specifier: 1.0.2
-        version: 1.0.2(@dimah-s3/server@1.0.2(@aws-sdk/client-s3@3.1121.0))(drizzle-orm@1.0.0-rc.4(@types/pg@8.23.1)(pg@8.23.0))
+        specifier: 1.2.1
+        version: 1.2.1(@aws-sdk/client-s3@3.1121.0)(@dimah-s3/server@1.2.1(@aws-sdk/client-s3@3.1121.0))(drizzle-orm@1.0.0-rc.4(@types/pg@8.23.1)(pg@8.23.0))
       '@paralleldrive/cuid2':
         specifier: ^3.3.0
         version: 3.3.0
@@ -396,17 +396,17 @@ importers:
         specifier: ^3.1121.0
         version: 3.1121.0
       '@dimah-s3/core':
-        specifier: 1.0.2
-        version: 1.0.2
+        specifier: 1.2.1
+        version: 1.2.1
       '@dimah-s3/db':
-        specifier: 1.0.2
-        version: 1.0.2(@dimah-s3/server@1.0.2(@aws-sdk/client-s3@3.1121.0))(drizzle-orm@1.0.0-rc.4(@types/pg@8.23.1)(pg@8.23.0))
+        specifier: 1.2.1
+        version: 1.2.1(@aws-sdk/client-s3@3.1121.0)(@dimah-s3/server@1.2.1(@aws-sdk/client-s3@3.1121.0))(drizzle-orm@1.0.0-rc.4(@types/pg@8.23.1)(pg@8.23.0))
       '@dimah-s3/react':
-        specifier: 1.0.2
-        version: 1.0.2(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(react@19.2.8)
+        specifier: 1.2.1
+        version: 1.2.1(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(react@19.2.8)
       '@dimah-s3/server':
-        specifier: 1.0.2
-        version: 1.0.2(@aws-sdk/client-s3@3.1121.0)
+        specifier: 1.2.1
+        version: 1.2.1(@aws-sdk/client-s3@3.1121.0)
       '@repo/auth':
         specifier: workspace:*
         version: link:../auth
@@ -416,9 +416,6 @@ importers:
       '@repo/i18n':
         specifier: workspace:*
         version: link:../i18n
-      drizzle-orm:
-        specifier: rc
-        version: 1.0.0-rc.4(@types/pg@8.23.1)(pg@8.23.0)
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -445,8 +442,8 @@ importers:
         specifier: ^1.7.0
         version: 1.7.0(@date-fns/tz@1.5.0)(@types/react@19.2.18)(date-fns@4.4.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@dimah-s3/ui':
-        specifier: 1.0.2
-        version: 1.0.2(@base-ui/react@1.7.0(@date-fns/tz@1.5.0)(@types/react@19.2.18)(date-fns@4.4.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(class-variance-authority@0.7.1)(cnfast@0.1.0)(lucide-react@1.37.0(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        specifier: 1.2.1
+        version: 1.2.1(@base-ui/react@1.7.0(@date-fns/tz@1.5.0)(@types/react@19.2.18)(date-fns@4.4.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(class-variance-authority@0.7.1)(cnfast@0.1.0)(lucide-react@1.37.0(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@shadcn/react':
         specifier: ^0.3.0
         version: 0.3.0(@types/react@19.2.18)(react@19.2.8)
@@ -961,31 +958,34 @@ packages:
   '@date-fns/tz@1.5.0':
     resolution: {integrity: sha512-lwYN/vDPeNRULcepoE/LO2Pgx+7/RV+S9ARfbc9lr2DtGkOD7pAiruHvbR1RX3Qyf6ja47EWJDMsNK5vK08DJg==}
 
-  '@dimah-s3/core@1.0.2':
-    resolution: {integrity: sha512-kvTNUXhvpf/QHmxGQN9+HwOuhi0VFhA/hyLOMRd8g2czX5+6WHh3/a+KadlfTXCKXoCDcsPSzDXu+g5RtUd2ng==}
+  '@dimah-s3/core@1.2.1':
+    resolution: {integrity: sha512-sqMXAswCg0gLpPoa1i5bKvhaZpAgziKxF4wGG2ea4kDIX9NOubwger0914rTDQOOVTv2MSid+WY4FmQSkuqtIw==}
 
-  '@dimah-s3/db@1.0.2':
-    resolution: {integrity: sha512-YS1dLByq2AKNOGg5T0+2gNwytCQUSw9vIrmqS6vI1LjaBems5KOjU5ULLKIgcUg8L84LyTMnKpCbiwGoFp6iow==}
+  '@dimah-s3/db@1.2.1':
+    resolution: {integrity: sha512-zaKXbDGvucEO4Zd6dUEZCruDALssZYrd9MMxU4fuzW+qOLKKR/a6Ium0OO2p+hEl94amTM5+kMDpdqKJYGhKMA==}
     peerDependencies:
-      '@dimah-s3/server': 1.0.2
+      '@aws-sdk/client-s3': '>=3'
+      '@dimah-s3/server': 1.2.1
       drizzle-orm: ^0.44.0 || ^0.45.0 || >=1.0.0-rc.1 <2.0.0
     peerDependenciesMeta:
+      '@aws-sdk/client-s3':
+        optional: true
       drizzle-orm:
         optional: true
 
-  '@dimah-s3/react@1.0.2':
-    resolution: {integrity: sha512-jGNaoXWn+StjGIJ2sZansPaT6OviSf9JLBJvHXhRXtT1A69EkcEgKRKMfO+jDdA5XFm5Jwlp0e7FYuno0wcqoQ==}
+  '@dimah-s3/react@1.2.1':
+    resolution: {integrity: sha512-8aSSr8QhuZJNWSPvrTj6TujCcm6By4Vmo6WiYvdJnDUBAbWLXaQhmfq2qIFfej5LxC/keeskAOIsIYuyKEdUKg==}
     peerDependencies:
       '@fuma-translate/react': ^1.0.2
       react: '>=18'
 
-  '@dimah-s3/server@1.0.2':
-    resolution: {integrity: sha512-6RIhPVGP7FElBiyg2eLdj5rTgmrNxTF5VGSaIaB2h/vqfqmczw3ElZaeMHP4oJDaT5dEg8upGW2ly8GbTu9NXw==}
+  '@dimah-s3/server@1.2.1':
+    resolution: {integrity: sha512-RKQIkt3ts+8fwu5OohC55f+xJXYhP83iHYJlJskqQA3vGynKpq+89VewrrxipIrOIN1TjNT30nFGloW1hmYh6g==}
     peerDependencies:
       '@aws-sdk/client-s3': '>=3'
 
-  '@dimah-s3/ui@1.0.2':
-    resolution: {integrity: sha512-AR533sJOjDs75rT7MHNjzwVKS28o1olH1Kf00X0JGYN+N+Ew6LrN+Waa5siMis5r7rCAdD7t+uCDB1ahYGCkZA==}
+  '@dimah-s3/ui@1.2.1':
+    resolution: {integrity: sha512-MCndgZEKv5RFCQyaEts5H0OA8G0yyvQZKyhrm4U8rh6aFnhY3dIsZsA4rDmxTBTPpBaZeAXZYzn1maA5P3P81A==}
     peerDependencies:
       '@base-ui/react': '>=1.0.0'
       '@fuma-translate/react': ^1.0.2
@@ -2756,8 +2756,8 @@ packages:
     resolution: {integrity: sha512-BNoCY6SXXPQ7gF2opIP4GBE+Xw7U+pHMYKuzjgCN3GwiaIR09UUeKfheyIry77QtrCBlC0KK0q5/TER/tYh3PQ==}
     engines: {node: '>= 0.4'}
 
-  ast-types@0.16.1:
-    resolution: {integrity: sha512-6t10qk83GOG8p0vKmaCr8eiilZwO171AvbROMtvvNiwrTly62t+7XkA8RdIIVbpMhCASAsxgAzdRSwh6nw/5Dg==}
+  ast-types@0.16.3:
+    resolution: {integrity: sha512-FvWoWYfSCM6kRxCSH+MGLHIKKGRL6A6AW7Zek2O32REPQRdg131428uRTKMBYAeRd3XXAaHDS60Wpri7CdKDrA==}
     engines: {node: '>=4'}
 
   async-function@1.0.0:
@@ -3855,8 +3855,8 @@ packages:
     resolution: {integrity: sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==}
     engines: {node: '>= 4'}
 
-  ignore@7.0.6:
-    resolution: {integrity: sha512-BAg6QkE8W+TuQLrrw0Ugr7HegXduRuuj8/ti2kSOc+jz1dmx8/WNcjr6XGnq5YpDWxFwwaavqD0+jIUOKelTsw==}
+  ignore@7.0.7:
+    resolution: {integrity: sha512-dML0wP6oak21rsNYCJpJB6O1BJIEwNpGrTw0URPfAk4hm0e3pRfCtzkfB6olBcXcVlU2rouCyz7lCyRB0OMVCA==}
     engines: {node: '>= 4'}
 
   immer@11.1.18:
@@ -4726,8 +4726,8 @@ packages:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
 
-  qs@6.15.3:
-    resolution: {integrity: sha512-O9gl3zCl5h5blw1KGUzQKhA5oUXSl8rwUIM5o0S3nCXMliSvy5Dzx7/DJcI+SwgICv+IneSZwhBh1oSyEHA71A==}
+  qs@6.16.0:
+    resolution: {integrity: sha512-h6fhOIaRrID2CbEY2fqs+7t+UXZo+MLAnU5gRIq85uFtdiUPCdsApMlHhXogKVM4HM2DVbIjGNTTYH2OcmP1vA==}
     engines: {node: '>=0.6'}
 
   queue-microtask@1.2.3:
@@ -5177,8 +5177,8 @@ packages:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
 
-  type-fest@5.8.0:
-    resolution: {integrity: sha512-YGYEVz3Fm5iy/AybuA0oyNFq7H4CgQNfRp/qfe8nurE1kuCeNm3/vfm9X4Mtl+qLyaKJUh5xrFZwogr41SMjYA==}
+  type-fest@5.9.0:
+    resolution: {integrity: sha512-yANm3Jr3GiJ1qgJlxGAVxTOIcEOk1rhQHamlXtnrCK7EHP4HeM9OGxtMg/W7HFdrVzw/ZWJKGVIJusVH85sLtw==}
     engines: {node: '>=20'}
 
   type-is@2.1.0:
@@ -5916,20 +5916,21 @@ snapshots:
 
   '@date-fns/tz@1.5.0': {}
 
-  '@dimah-s3/core@1.0.2':
+  '@dimah-s3/core@1.2.1':
     dependencies:
       '@better-fetch/fetch': 1.3.1
       better-call: 1.4.0(zod@4.5.4)
       zod: 4.5.4
 
-  '@dimah-s3/db@1.0.2(@dimah-s3/server@1.0.2(@aws-sdk/client-s3@3.1121.0))(drizzle-orm@1.0.0-rc.4(@types/pg@8.23.1)(pg@8.23.0))':
+  '@dimah-s3/db@1.2.1(@aws-sdk/client-s3@3.1121.0)(@dimah-s3/server@1.2.1(@aws-sdk/client-s3@3.1121.0))(drizzle-orm@1.0.0-rc.4(@types/pg@8.23.1)(pg@8.23.0))':
     dependencies:
-      '@dimah-s3/core': 1.0.2
-      '@dimah-s3/server': 1.0.2(@aws-sdk/client-s3@3.1121.0)
+      '@dimah-s3/core': 1.2.1
+      '@dimah-s3/server': 1.2.1(@aws-sdk/client-s3@3.1121.0)
       '@paralleldrive/cuid2': 3.3.0
       fumadb: 0.6.0(drizzle-orm@1.0.0-rc.4(@types/pg@8.23.1)(pg@8.23.0))
       zod: 4.5.4
     optionalDependencies:
+      '@aws-sdk/client-s3': 3.1121.0
       drizzle-orm: 1.0.0-rc.4(@types/pg@8.23.1)(pg@8.23.0)
     transitivePeerDependencies:
       - convex
@@ -5937,9 +5938,9 @@ snapshots:
       - prisma
       - typeorm
 
-  '@dimah-s3/react@1.0.2(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(react@19.2.8)':
+  '@dimah-s3/react@1.2.1(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(react@19.2.8)':
     dependencies:
-      '@dimah-s3/core': 1.0.2
+      '@dimah-s3/core': 1.2.1
       '@fuma-translate/react': 1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       immer: 11.1.18
       react: 19.2.8
@@ -5947,20 +5948,20 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
 
-  '@dimah-s3/server@1.0.2(@aws-sdk/client-s3@3.1121.0)':
+  '@dimah-s3/server@1.2.1(@aws-sdk/client-s3@3.1121.0)':
     dependencies:
       '@aws-sdk/client-s3': 3.1121.0
       '@aws-sdk/s3-presigned-post': 3.1121.0
       '@aws-sdk/s3-request-presigner': 3.1121.0
-      '@dimah-s3/core': 1.0.2
+      '@dimah-s3/core': 1.2.1
       better-call: 1.4.0(zod@4.5.4)
       zod: 4.5.4
 
-  '@dimah-s3/ui@1.0.2(@base-ui/react@1.7.0(@date-fns/tz@1.5.0)(@types/react@19.2.18)(date-fns@4.4.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(class-variance-authority@0.7.1)(cnfast@0.1.0)(lucide-react@1.37.0(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+  '@dimah-s3/ui@1.2.1(@base-ui/react@1.7.0(@date-fns/tz@1.5.0)(@types/react@19.2.18)(date-fns@4.4.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(class-variance-authority@0.7.1)(cnfast@0.1.0)(lucide-react@1.37.0(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
     dependencies:
       '@base-ui/react': 1.7.0(@date-fns/tz@1.5.0)(@types/react@19.2.18)(date-fns@4.4.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      '@dimah-s3/core': 1.0.2
-      '@dimah-s3/react': 1.0.2(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(react@19.2.8)
+      '@dimah-s3/core': 1.2.1
+      '@dimah-s3/react': 1.2.1(@fuma-translate/react@1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.18)(react@19.2.8)
       '@fuma-translate/react': 1.0.2(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       class-variance-authority: 0.7.1
       cnfast: 0.1.0
@@ -6630,7 +6631,7 @@ snapshots:
     dependencies:
       '@standardserver/shared': 0.8.2
       radash: 12.1.1
-      type-fest: 5.8.0
+      type-fest: 5.9.0
 
   '@paralleldrive/cuid2@3.3.0':
     dependencies:
@@ -7151,7 +7152,7 @@ snapshots:
       '@typescript-eslint/utils': 8.68.0(eslint@10.9.1(jiti@2.7.0))(typescript@7.0.2)
       '@typescript-eslint/visitor-keys': 8.68.0
       eslint: 10.9.1(jiti@2.7.0)
-      ignore: 7.0.6
+      ignore: 7.0.7
       natural-compare: 1.4.0
       ts-api-utils: 2.5.0(typescript@7.0.2)
       typescript: 7.0.2
@@ -7399,7 +7400,7 @@ snapshots:
       get-intrinsic: 1.3.0
       is-array-buffer: 3.0.5
 
-  ast-types@0.16.1:
+  ast-types@0.16.3:
     dependencies:
       tslib: 2.8.1
 
@@ -7527,7 +7528,7 @@ snapshots:
       http-errors: 2.0.1
       iconv-lite: 0.7.3
       on-finished: 2.4.1
-      qs: 6.15.3
+      qs: 6.16.0
       raw-body: 3.0.2
       type-is: 2.1.0
     transitivePeerDependencies:
@@ -8253,7 +8254,7 @@ snapshots:
       once: 1.4.0
       parseurl: 1.3.3
       proxy-addr: 2.0.7
-      qs: 6.15.3
+      qs: 6.16.0
       range-parser: 1.3.0
       router: 2.2.0
       send: 1.2.1
@@ -8508,7 +8509,7 @@ snapshots:
 
   ignore@5.3.2: {}
 
-  ignore@7.0.6: {}
+  ignore@7.0.7: {}
 
   immer@11.1.18: {}
 
@@ -9246,7 +9247,7 @@ snapshots:
 
   punycode@2.3.1: {}
 
-  qs@6.15.3:
+  qs@6.16.0:
     dependencies:
       es-define-property: 1.0.1
       side-channel: 1.1.1
@@ -9344,7 +9345,7 @@ snapshots:
 
   recast@0.23.21:
     dependencies:
-      ast-types: 0.16.1
+      ast-types: 0.16.3
       esprima: 4.0.1
       source-map: 0.6.1
       tiny-invariant: 1.3.3
@@ -9808,7 +9809,7 @@ snapshots:
     dependencies:
       prelude-ls: 1.2.1
 
-  type-fest@5.8.0:
+  type-fest@5.9.0:
     dependencies:
       tagged-tag: 1.0.0
 

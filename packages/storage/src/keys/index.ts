@@ -6,10 +6,4 @@ export {
   type Owner,
   type OwnerKind,
 } from "../owner"
-export {
-  objectKeyMatches,
-  parseObjectKey,
-  toObjectKey,
-  type ObjectKeyParts,
-} from "./object-key"
 export { fromPublicUrl, toPublicUrl } from "./public-url"

@@ -23,15 +23,13 @@ Cookie cache (5 min) can lag ban/role changes — [better-auth.md](./better-auth
 
 ## Storage uploads {#storage-uploads}
 
-`@repo/storage` owns keys and public URLs. App actions wire auth + cache.
+`@repo/storage` owns `dimahS3({ routes })`. App actions persist URLs and cache. To add a kind of file, add a named route — do not invent a key helper.
 
-Key layout: `{kind}/{id}/{purpose}/{fileName}` — `toObjectKey` / `parseObjectKey` in `packages/storage/src/keys/object-key.ts`.
-
-1. Client: `toObjectKey(kind, purpose, fileName)` — no id. Server inserts `{id}` from the session.
-2. Build `Owner` (`user` / `org`) from the session.
-3. Assert `objectKeyMatches(key, owner, purpose)` before persist. `toPublicUrl(key)` for the stored URL.
+1. Client: `useUpload({ route: "avatars", uploadOptions: { metadata: { ownerKind } } })`. Omit `accept` / `maxFileSize` (catalog).
+2. The route's `object()` scopes the key (`{kind}/{id}` under the route prefix). Constraints live on the route.
+3. Before persist, check the key sits under `avatars/{kind}/{id}`. `toPublicUrl(key)` for the stored URL.
 4. Persist via **`auth.api`** — not a direct auth-table write.
-5. Delete the replaced object (`deleteOwnedAvatar`).
+5. On remove, `fromPublicUrl` + `s3.api.delete({ query: { route, key } })`.
 6. `updateTag` / `invalidateUserCache` — [caching.md](./caching.md).
 
 Reference: `set-account-avatar-action.ts`, organization-logo siblings.

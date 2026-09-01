@@ -4,16 +4,12 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { UserIcon, XIcon } from "lucide-react"
 import { useFormatDimahError, useUpload } from "@dimah-s3/react"
-import { toObjectKey, type OwnerKind } from "@repo/storage/keys"
+import type { OwnerKind } from "@repo/storage/keys"
 import { toast } from "@repo/ui/components/toast"
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar"
 import { Button } from "@repo/ui/components/button"
 import { Spinner } from "@repo/ui/components/spinner"
 import { cn } from "@repo/ui/lib/utils"
-
-const PURPOSE = "avatars"
-const ACCEPT = ["image/jpeg", "image/png", "image/webp", "image/gif"]
-const MAX_BYTES = 2 * 1024 * 1024
 
 export type AvatarUploadLabels = {
   upload: string
@@ -58,17 +54,19 @@ export function AvatarUploadField({
 
   const {
     phase,
-    fileInfo,
+    file,
     getRootProps,
     getInputProps,
     isDragActive,
     isDragReject,
+    isPending,
   } = useUpload({
-    accept: ACCEPT,
-    maxFileSize: MAX_BYTES,
-    objectKey: (file) => toObjectKey(ownerKind, PURPOSE, file.name),
+    route: "avatars",
+    uploadOptions: { metadata: { ownerKind } },
     disabled: Boolean(preview) || removing,
-    onSuccess: async (_file, { key }) => {
+    onSuccess: async (results) => {
+      const key = results[0]?.key
+      if (!key) return
       const outcome = await setAction(key)
       if ("error" in outcome) {
         toast.add({ title: outcome.error, type: "error" })
@@ -78,7 +76,7 @@ export function AvatarUploadField({
       router.refresh()
       toast.add({ title: labels.updated, type: "success" })
     },
-    onError: (_file, error) => {
+    onError: (error) => {
       toast.add({ title: formatError(error), type: "error" })
     },
     onFileReject: () => {
@@ -86,10 +84,9 @@ export function AvatarUploadField({
     },
   })
 
-  const pending =
-    (phase !== "idle" && phase !== "success" && phase !== "error") || removing
+  const pending = isPending || removing
   const canUpload = !preview && !pending
-  const src = preview ?? (phase === "error" ? null : fileInfo?.previewUrl)
+  const src = preview ?? (phase === "error" ? null : file?.previewUrl)
 
   const onRemove = async () => {
     setRemoving(true)

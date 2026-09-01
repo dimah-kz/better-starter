@@ -1,10 +1,10 @@
 import { S3Client } from "@aws-sdk/client-s3"
 import { db } from "@dimah-s3/db"
-import { dimahS3, errors } from "@dimah-s3/server"
+import { dimahS3, errors, route } from "@dimah-s3/server"
 import { auth } from "@repo/auth"
 import { dimahS3Db } from "@repo/db/dimah-s3"
 import { toOwnerScope } from "./owner"
-import { completeObjectKey, ownerOfKey, resolveOwner } from "./owner/resolve"
+import { resolveOwner } from "./owner/resolve"
 
 export const awsS3 = new S3Client({
   region: process.env.S3_REGION,
@@ -15,16 +15,6 @@ export const awsS3 = new S3Client({
   },
 })
 
-async function assertOwned({
-  request,
-  key,
-}: {
-  request: Request
-  key: string
-}) {
-  if (!(await ownerOfKey(request, key))) throw errors.forbidden()
-}
-
 export const s3 = dimahS3({
   client: awsS3,
   bucket: process.env.S3_BUCKET!,
@@ -32,20 +22,6 @@ export const s3 = dimahS3({
     const session = await auth.api.getSession({ headers: request.headers })
     if (!session) throw errors.unauthorized()
   },
-  upload: {
-    method: "PUT",
-    requireFileSize: true,
-    resolveKey: async ({ request, proposedKey }) => {
-      const key = await completeObjectKey(request, proposedKey)
-      if (!key) throw errors.forbidden()
-      return key
-    },
-    guard: assertOwned,
-    // later: chain a quota guard here
-  },
-  download: { guard: assertOwned },
-  delete: { guard: assertOwned },
-
   plugins: [
     db({
       client: dimahS3Db,
@@ -55,4 +31,20 @@ export const s3 = dimahS3({
       },
     }),
   ],
+  routes: {
+    avatars: route({
+      upload: {
+        method: "PUT",
+        replace: "overwrite",
+        fileTypes: ["image/jpeg", "image/png", "image/webp", "image/gif"],
+        maxFileSize: 2 * 1024 * 1024,
+        object: async ({ request }) => {
+          const owner = await resolveOwner(request)
+          if (!owner) throw errors.forbidden()
+          return { key: `${owner.kind}/${owner.id}` }
+        },
+      },
+      delete: true,
+    }),
+  },
 })
