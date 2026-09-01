@@ -16,8 +16,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@dimah-s3/react": "1.2.1",
-    "@dimah-s3/server": "1.2.1",
+    "@dimah-s3/react": "1.3.0",
+    "@dimah-s3/server": "1.3.0",
     "@repo/api": "workspace:*",
     "@repo/auth": "workspace:*",
     "@repo/db": "workspace:*",
