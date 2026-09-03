@@ -101,6 +101,7 @@ CREATE TABLE "storage"."storage_object" (
 	"scope" text NOT NULL,
 	"bucket" text NOT NULL,
 	"key" text NOT NULL,
+	"route" text DEFAULT 'avatars' NOT NULL,
 	"content_type" text,
 	"size" bigint,
 	"e_tag" text,
