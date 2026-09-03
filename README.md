@@ -69,8 +69,6 @@ Ships with email/password sign-in and sign-up, organizations, members, platform 
 
 Not in the UI (add from this template when the product needs them): password reset, email verification, OAuth, org invitations. The Better Auth `invitation` table is generated with the rest of the schema. Product oRPC is a `health.ping` stub in `@repo/api` — add procedures there, then call them from Server Actions with `createRouterClient`.
 
-TypeScript stays on **6.x** until typescript-eslint can use 7.1 (TypeScript 7.0 has no compiler API).
-
 ## Production
 
 - **Trusted origins** — `http://localhost:3000` is trusted only outside production. Set `BETTER_AUTH_URL` to the public origin.
