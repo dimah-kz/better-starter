@@ -77,7 +77,10 @@
     "removeDescription": "{name} عضویت و دسترسی مدیریت سازمان را از دست می‌دهد.",
     "removeConfirm": "حذف عضو",
     "removed": "عضو از سازمان حذف شد.",
-    "removeFailed": "حذف عضو ممکن نشد."
+    "removeFailed": "حذف عضو ممکن نشد.",
+    "saveRole": "ذخیره نقش",
+    "roleUpdated": "نقش عضو به‌روزرسانی شد.",
+    "roleUpdateFailed": "به‌روزرسانی نقش عضو ممکن نشد."
   },
   "adminPage": {
     "title": "مدیریت پلتفرم"
@@ -106,7 +109,10 @@
     "banned": "کاربر مسدود شد.",
     "banFailed": "مسدود کردن کاربر ممکن نشد.",
     "unbanned": "مسدودیت کاربر رفع شد.",
-    "unbanFailed": "رفع مسدودیت کاربر ممکن نشد."
+    "unbanFailed": "رفع مسدودیت کاربر ممکن نشد.",
+    "saveRole": "ذخیره نقش",
+    "roleUpdated": "نقش پلتفرم به‌روزرسانی شد.",
+    "roleUpdateFailed": "به‌روزرسانی نقش پلتفرم ممکن نشد."
   },
   "breadcrumbSegments": {
     "dashboard": "داشبورد",
@@ -118,9 +124,5 @@
     "manage": "مدیریت",
     "members": "اعضا",
     "settings": "تنظیمات"
-  },
-  "errors": {
-    "title": "مشکلی پیش آمد",
-    "description": "بارگذاری این صفحه ممکن نشد. دوباره تلاش کنید یا بعداً برگردید."
   }
 }

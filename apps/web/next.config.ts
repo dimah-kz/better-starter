@@ -21,7 +21,6 @@ const nextConfig: NextConfig = {
     "@repo/i18n",
     "@repo/storage",
   ],
-  allowedDevOrigins: ["10.108.145.199"],
 }
 
 export default withNextIntl(nextConfig)

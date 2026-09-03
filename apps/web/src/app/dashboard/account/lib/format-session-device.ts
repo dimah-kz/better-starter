@@ -8,13 +8,19 @@ export type SessionDeviceDisplay = {
   subtitle: string | null
 }
 
+type SessionDeviceLabels = {
+  unknownDevice: string
+  deviceOnOs: (browser: string, os: string) => string
+}
+
 export function getSessionDeviceDisplay(
-  userAgent: string | null
+  userAgent: string | null,
+  labels: SessionDeviceLabels
 ): SessionDeviceDisplay {
   if (!userAgent?.trim()) {
     return {
       kind: "unknown",
-      title: "Unknown device",
+      title: labels.unknownDevice,
       subtitle: null,
     }
   }
@@ -31,9 +37,9 @@ export function getSessionDeviceDisplay(
   const browserLabel = formatBrowserLabel(browser)
   const osLabel = os.name?.trim() || null
 
-  let title = "Unknown device"
+  let title = labels.unknownDevice
   if (browserLabel && osLabel) {
-    title = `${browserLabel} on ${osLabel}`
+    title = labels.deviceOnOs(browserLabel, osLabel)
   } else if (browserLabel) {
     title = browserLabel
   } else if (osLabel) {

@@ -43,6 +43,7 @@ export async function deleteOrganizationAction(
 
   invalidateOrganizationBrandingCache(input.organizationId)
   invalidateOrganizationMembersCache(input.organizationId)
+  updateTag(dashboardCacheTags.adminOrganizationsPage())
   updateTag(dashboardCacheTags.sidebarConfigByUser(session.user.id))
 
   return { success: true, redirectTo: dashboardRoutes.home() }

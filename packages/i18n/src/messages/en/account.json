@@ -16,14 +16,19 @@
     "displayName": "Display name",
     "save": "Save changes",
     "saving": "Saving…",
-    "saved": "Your profile was updated.",
-    "cancel": "Cancel"
+    "saved": "Your profile was updated."
   },
   "password": {
     "title": "Password",
     "description": "Change the password for this account.",
     "unavailable": "This account does not sign in with email and password, so there is no password to change here.",
-    "mismatch": "Passwords do not match."
+    "mismatch": "Passwords do not match.",
+    "current": "Current password",
+    "new": "New password",
+    "confirm": "Confirm new password",
+    "save": "Update password",
+    "saving": "Updating…",
+    "saved": "Your password was updated."
   },
   "sessions": {
     "title": "Active sessions",
@@ -33,10 +38,16 @@
     "currentDevice": "This device",
     "revoke": "Revoke",
     "revoking": "Revoking…",
+    "revoked": "Session revoked.",
+    "revokeFailed": "Could not revoke session.",
     "signOutOthers": "Sign out other sessions",
     "signingOutOthers": "Signing out…",
+    "signedOutOthers": "Other sessions were signed out.",
+    "signOutOthersFailed": "Could not revoke other sessions.",
     "signedIn": "Signed in",
     "expires": "Session ends",
-    "ip": "IP address"
+    "ip": "IP address",
+    "unknownDevice": "Unknown device",
+    "deviceOnOs": "{browser} on {os}"
   }
 }

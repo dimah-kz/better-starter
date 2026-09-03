@@ -1,6 +1,6 @@
 "use client"
 
-import type { Locale } from "@repo/i18n"
+import { formatDate, type Locale } from "@repo/i18n"
 import {
   Identity,
   IdentityAvatar,
@@ -13,7 +13,6 @@ import { MemberRowActionsMenu } from "@/app/dashboard/(organization)/manage/memb
 import { memberRoleOptions } from "@/app/dashboard/(organization)/manage/lib/member-role-options"
 import { MembershipRoleBadge } from "@/components/badge/membership-role-badge"
 import type { ListColumn } from "@/components/list"
-import { formatDate } from "@/lib/format-date"
 import { parseRoleString } from "@/lib/role-string"
 
 function canChangeMemberRole(

@@ -8,6 +8,7 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from "@repo/ui/components/input-group"
+import { useTranslations } from "next-intl"
 
 type PasswordInputProps = Omit<React.ComponentProps<"input">, "type">
 
@@ -15,6 +16,7 @@ export function PasswordInput({
   placeholder = "********",
   ...props
 }: PasswordInputProps) {
+  const t = useTranslations("common.password")
   const [isVisible, setIsVisible] = useState(false)
 
   return (
@@ -29,7 +31,7 @@ export function PasswordInput({
       </InputGroupAddon>
       <InputGroupAddon align="inline-end">
         <InputGroupButton
-          aria-label={isVisible ? "Hide password" : "Show password"}
+          aria-label={isVisible ? t("hide") : t("show")}
           onClick={() => setIsVisible((previous) => !previous)}
         >
           {isVisible ? (

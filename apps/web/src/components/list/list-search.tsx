@@ -50,13 +50,14 @@ function commitSearch(
 
 export function ListSearch({
   value,
-  placeholder = "Search…",
+  placeholder,
   className,
   debounceMs = DEFAULT_DEBOUNCE_MS,
   minLength = LIST_SEARCH_MIN_LENGTH,
   onCommit,
 }: ListSearchProps) {
   const t = useTranslations("common")
+  const searchPlaceholder = placeholder ?? t("search")
   const [draft, setDraft] = useState(value ?? "")
   const timeoutRef = useRef<number>(undefined)
   const normalizedValue = value?.trim() ?? ""
@@ -101,8 +102,8 @@ export function ListSearch({
           window.clearTimeout(timeoutRef.current)
           commitSearch(draft, normalizedValue, minLength, onCommit)
         }}
-        placeholder={placeholder}
-        aria-label={placeholder}
+        placeholder={searchPlaceholder}
+        aria-label={searchPlaceholder}
         className="[&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
       />
       {draft.length > 0 ? (

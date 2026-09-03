@@ -40,6 +40,7 @@ export function AccountSettingsPanel({
   currentSessionToken = "",
 }: AccountSettingsPanelProps) {
   const t = useTranslations("account")
+  const tCommon = useTranslations("common")
   const router = useRouter()
   const profileFormId = useId()
   const passwordFormId = useId()
@@ -78,7 +79,7 @@ export function AccountSettingsPanel({
       const result = await changePasswordAction({}, formData)
 
       if (result.success) {
-        toast.add({ title: "Your password was updated.", type: "success" })
+        toast.add({ title: t("password.saved"), type: "success" })
         passwordFormRef.current?.reset()
         onClose()
         router.refresh()
@@ -96,18 +97,19 @@ export function AccountSettingsPanel({
       const result = await revokeOtherSessionsAction()
       if (!result.success) {
         toast.add({
-          title: result.error ?? "Could not revoke other sessions.",
+          title: result.error ?? t("sessions.signOutOthersFailed"),
           type: "error",
         })
         return
       }
-      toast.add({ title: "Other sessions were signed out.", type: "success" })
+      toast.add({ title: t("sessions.signedOutOthers"), type: "success" })
       router.refresh()
     })
   }
 
   const { title, description, footer, children } = resolvePanelContent({
     t,
+    tCommon,
     section,
     isPending,
     hasPasswordCredential,
@@ -143,6 +145,7 @@ export function AccountSettingsPanel({
 
 type ResolvePanelContentArgs = {
   t: ReturnType<typeof useTranslations<"account">>
+  tCommon: ReturnType<typeof useTranslations<"common">>
   section: AccountPanel | null
   isPending: boolean
   hasPasswordCredential: boolean
@@ -161,6 +164,7 @@ type ResolvePanelContentArgs = {
 
 function resolvePanelContent({
   t,
+  tCommon,
   section,
   isPending,
   hasPasswordCredential,
@@ -201,7 +205,7 @@ function resolvePanelContent({
               disabled={isPending}
               onClick={onClose}
             >
-              {t("profile.cancel")}
+              {tCommon("cancel")}
             </Button>
           </>
         ),
@@ -233,7 +237,7 @@ function resolvePanelContent({
               disabled={isPending}
               onClick={handlePasswordSubmit}
             >
-              {isPending ? "Updating…" : "Update password"}
+              {isPending ? t("password.saving") : t("password.save")}
             </Button>
             <Button
               type="button"
@@ -241,12 +245,12 @@ function resolvePanelContent({
               disabled={isPending}
               onClick={onClose}
             >
-              Cancel
+              {tCommon("cancel")}
             </Button>
           </>
         ) : (
           <Button type="button" variant="outline" onClick={onClose}>
-            Close
+            {tCommon("close")}
           </Button>
         ),
         children: hasPasswordCredential ? (
@@ -289,12 +293,12 @@ function resolvePanelContent({
               disabled={isPending}
               onClick={onClose}
             >
-              Close
+              {tCommon("close")}
             </Button>
           </>
         ) : (
           <Button type="button" variant="outline" onClick={onClose}>
-            Close
+            {tCommon("close")}
           </Button>
         ),
         children: (

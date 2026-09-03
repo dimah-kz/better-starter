@@ -14,7 +14,6 @@ import { Alert, AlertDescription } from "@repo/ui/components/alert"
 import { Badge } from "@repo/ui/components/badge"
 import { FormSubmitButton } from "@/components/form/form-submit-button"
 import { PasswordInput } from "@/components/form/password-input"
-import { AuthSocialButtons } from "@/app/(auth)/components/auth-social-buttons"
 import { useTranslations } from "next-intl"
 
 type LoginFormProps = {
@@ -34,60 +33,57 @@ export function LoginForm({
   )
 
   return (
-    <div className="space-y-4">
-      <form action={formAction} className="space-y-4">
-        <input type="hidden" name="redirectTo" value={redirectTo} />
-        {state.formError ? (
-          <Alert variant="destructive">
-            <AlertDescription>{state.formError}</AlertDescription>
-          </Alert>
-        ) : null}
-        <FieldGroup>
-          <Field>
-            <FieldLabel htmlFor="email">{t("email")}</FieldLabel>
-            <InputGroup>
-              <InputGroupInput
-                id="email"
-                name="email"
-                type="email"
-                placeholder={t("emailPlaceholder")}
-                autoComplete="email"
-                required
-              />
-              <InputGroupAddon>
-                <MailIcon
-                  className="size-3.5 shrink-0 opacity-60"
-                  aria-hidden="true"
-                />
-              </InputGroupAddon>
-            </InputGroup>
-          </Field>
-          <Field>
-            <FieldLabel htmlFor="password">{t("password")}</FieldLabel>
-            <PasswordInput
-              id="password"
-              name="password"
-              autoComplete="current-password"
+    <form action={formAction} className="space-y-4">
+      <input type="hidden" name="redirectTo" value={redirectTo} />
+      {state.formError ? (
+        <Alert variant="destructive">
+          <AlertDescription>{state.formError}</AlertDescription>
+        </Alert>
+      ) : null}
+      <FieldGroup>
+        <Field>
+          <FieldLabel htmlFor="email">{t("email")}</FieldLabel>
+          <InputGroup>
+            <InputGroupInput
+              id="email"
+              name="email"
+              type="email"
+              placeholder={t("emailPlaceholder")}
+              autoComplete="email"
               required
             />
-          </Field>
-        </FieldGroup>
-        <div className="relative">
-          <FormSubmitButton
-            idleText={t("submit")}
-            loadingText={t("submitting")}
+            <InputGroupAddon>
+              <MailIcon
+                className="size-3.5 shrink-0 opacity-60"
+                aria-hidden="true"
+              />
+            </InputGroupAddon>
+          </InputGroup>
+        </Field>
+        <Field>
+          <FieldLabel htmlFor="password">{t("password")}</FieldLabel>
+          <PasswordInput
+            id="password"
+            name="password"
+            autoComplete="current-password"
+            required
           />
-          {lastLoginMethod === "email" ? (
-            <Badge
-              variant="secondary"
-              className="pointer-events-none absolute end-2 top-0 z-10 -translate-y-1/2"
-            >
-              {tSocial("lastUsed")}
-            </Badge>
-          ) : null}
-        </div>
-      </form>
-      <AuthSocialButtons lastLoginMethod={lastLoginMethod} />
-    </div>
+        </Field>
+      </FieldGroup>
+      <div className="relative">
+        <FormSubmitButton
+          idleText={t("submit")}
+          loadingText={t("submitting")}
+        />
+        {lastLoginMethod === "email" ? (
+          <Badge
+            variant="secondary"
+            className="pointer-events-none absolute end-2 top-0 z-10 -translate-y-1/2"
+          >
+            {tSocial("lastUsed")}
+          </Badge>
+        ) : null}
+      </div>
+    </form>
   )
 }

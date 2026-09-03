@@ -1,7 +1,6 @@
 import { Suspense } from "react"
 import { redirect } from "next/navigation"
 import { organizationManageTabs } from "@/app/dashboard/(organization)/manage/lib/organization-manage-tabs"
-import { canAccessOrganizationManage } from "@/app/dashboard/(organization)/manage/lib/can-access-organization-manage"
 import {
   DashboardPageFallback,
   DashboardPageShell,
@@ -9,6 +8,8 @@ import {
 import { DashboardSubnav } from "@/app/dashboard/components/layout/dashboard-subnav"
 import { dashboardRoutes } from "@/app/dashboard/lib/dashboard-routes"
 import { resolveDashboardActiveOrganizationId } from "@/app/dashboard/lib/dashboard-session"
+import { headers } from "next/headers"
+import { auth } from "@repo/auth"
 import { getTranslations } from "next-intl/server"
 
 type OrganizationManageLayoutProps = {
@@ -36,7 +37,15 @@ async function OrganizationManageLayoutContent({
     redirect(dashboardRoutes.home())
   }
 
-  if (!(await canAccessOrganizationManage(organizationId))) {
+  const { success } = await auth.api.hasPermission({
+    headers: await headers(),
+    body: {
+      organizationId,
+      permissions: { member: ["update"] },
+    },
+  })
+
+  if (!success) {
     redirect(dashboardRoutes.home())
   }
 

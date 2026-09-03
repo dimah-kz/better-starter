@@ -1,9 +1,6 @@
 "use server"
 
-import {
-  invalidateOrganizationBrandingCache,
-  invalidateOrganizationMembersCache,
-} from "@/app/action/dashboard/(organization)/manage/shared/invalidate-organization-manage-cache"
+import { invalidateOrganizationMembersCache } from "@/app/action/dashboard/(organization)/manage/shared/invalidate-organization-manage-cache"
 import { headers } from "next/headers"
 import { auth } from "@repo/auth"
 import { getAuthApiErrorMessage } from "@repo/auth"
@@ -34,7 +31,6 @@ export async function removeOrganizationMemberAction(
   }
 
   invalidateOrganizationMembersCache(input.organizationId)
-  invalidateOrganizationBrandingCache(input.organizationId)
 
   return { success: true }
 }

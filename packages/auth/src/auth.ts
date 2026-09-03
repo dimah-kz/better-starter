@@ -20,7 +20,6 @@ export const auth = betterAuth({
   },
   trustedOrigins: [
     process.env.BETTER_AUTH_URL,
-    process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
     ...(isProduction ? [] : ["http://localhost:3000"]),
   ].filter(Boolean) as string[],
   database: drizzleAdapter(db, {

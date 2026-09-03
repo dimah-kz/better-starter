@@ -20,6 +20,7 @@ export function CreateOrganizationFormShell({
   onClose,
 }: CreateOrganizationFormShellProps) {
   const t = useTranslations("dashboard.nav.organizationSwitcher")
+  const tCommon = useTranslations("common")
   const router = useRouter()
   const fieldId = useId()
   const [isPending, startTransition] = useTransition()
@@ -81,7 +82,7 @@ export function CreateOrganizationFormShell({
             disabled={isPending}
             onClick={onClose}
           >
-            Cancel
+            {tCommon("cancel")}
           </Button>
         </>
       }

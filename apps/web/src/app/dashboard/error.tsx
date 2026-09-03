@@ -9,7 +9,7 @@ type DashboardErrorProps = {
 }
 
 export default function DashboardError({ error, retry }: DashboardErrorProps) {
-  const t = useTranslations("dashboard.errors")
+  const t = useTranslations("common.errors")
 
   return (
     <SegmentErrorFallback

@@ -23,7 +23,7 @@ Explore the codebase for layout, packages, and routes. Open [docs/agents/](docs/
 - Inline by default; ~10–20 lines → no new file.
 - Writes: app `action/` → **`auth.api`** (auth) or **`createRouterClient`** from `@repo/api` (product) — no custom access modules, no direct auth-table deletes.
 - SSOT inside each app segment: `*-routes.ts`, `cache-tags.ts`; UI copy in `@repo/i18n` messages.
-- Session: auth package `session.ts`; never cache session.
+- Session: `auth.api.getSession` (`Session` from `@repo/auth`); never cache session.
 - Same-user writes: `updateTag` in the mutating action.
 - Do not hand-edit `@repo/ui` shadcn/ReUI components for durable fixes — regen via `pnpm ui:sync`. Dimah items: edit `packages/ui/src/components/dimah` in place.
 - **Do not add new features outside `apps/web` + core packages.**

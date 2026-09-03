@@ -81,6 +81,8 @@ export async function createOrganizationAction(
 
   await setDashboardActiveOrganization(organizationId)
 
+  updateTag(dashboardCacheTags.adminOrganizationsPage())
+
   const session = await auth.api.getSession({ headers: await headers() })
   if (session) {
     updateTag(dashboardCacheTags.sidebarConfigByUser(session.user.id))

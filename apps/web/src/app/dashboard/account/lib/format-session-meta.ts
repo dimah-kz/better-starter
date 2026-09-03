@@ -1,33 +1,31 @@
 import {
-  differenceInDays,
-  format,
-  formatDistanceToNow,
-  isBefore,
-} from "date-fns"
+  dateOnlyOptions,
+  dateTimeOptions,
+  formatDate,
+  formatRelativeTime,
+  type Locale,
+} from "@repo/i18n"
 
-export function formatSessionSignedIn(iso: string) {
-  const date = new Date(iso)
-  return formatDistanceToNow(date, { addSuffix: true })
+const FOURTEEN_DAYS_MS = 14 * 24 * 60 * 60 * 1000
+
+export function formatSessionSignedIn(iso: string, locale: Locale) {
+  return formatRelativeTime(iso, locale)
 }
 
-export function formatSessionSignedInTitle(iso: string) {
-  return format(new Date(iso), "MMM d, yyyy · h:mm a")
+export function formatSessionSignedInTitle(iso: string, locale: Locale) {
+  return formatDate(iso, locale, dateTimeOptions)
 }
 
-export function formatSessionExpires(iso: string) {
+export function formatSessionExpires(iso: string, locale: Locale) {
   const date = new Date(iso)
-  const now = new Date()
+  const now = Date.now()
+  const remainingMs = date.getTime() - now
 
-  if (isBefore(date, now)) {
-    return format(date, "MMM d, yyyy")
+  if (remainingMs <= 0 || remainingMs > FOURTEEN_DAYS_MS) {
+    return formatDate(date, locale, dateOnlyOptions)
   }
 
-  const daysUntil = differenceInDays(date, now)
-  if (daysUntil <= 14) {
-    return formatDistanceToNow(date, { addSuffix: true })
-  }
-
-  return format(date, "MMM d, yyyy")
+  return formatRelativeTime(date, locale)
 }
 
 export function formatSessionIpAddress(

@@ -16,7 +16,6 @@ import {
   listDashboardOrganizations,
   resolveDashboardActiveOrganizationId,
 } from "@/app/dashboard/lib/dashboard-session"
-import { canAccessOrganizationManage } from "@/app/dashboard/(organization)/manage/lib/can-access-organization-manage"
 import { headers } from "next/headers"
 import { auth } from "@repo/auth"
 
@@ -123,7 +122,15 @@ export async function getDashboardSidebarProps(
   )
 
   const canManageActiveOrganization = activeOrganizationId
-    ? await canAccessOrganizationManage(activeOrganizationId)
+    ? (
+        await auth.api.hasPermission({
+          headers: await headers(),
+          body: {
+            organizationId: activeOrganizationId,
+            permissions: { member: ["update"] },
+          },
+        })
+      ).success
     : false
 
   const { success: canAccessAdmin } = await auth.api.userHasPermission({

@@ -2,6 +2,7 @@
 
 import { PasswordInput } from "@/components/form/password-input"
 import { Field, FieldGroup, FieldLabel } from "@repo/ui/components/field"
+import { useTranslations } from "next-intl"
 
 type AccountPasswordFormFieldsProps = {
   formId: string
@@ -10,11 +11,13 @@ type AccountPasswordFormFieldsProps = {
 export function AccountPasswordFormFields({
   formId,
 }: AccountPasswordFormFieldsProps) {
+  const t = useTranslations("account.password")
+
   return (
     <FieldGroup>
       <Field>
         <FieldLabel htmlFor={`${formId}-currentPassword`}>
-          Current password
+          {t("current")}
         </FieldLabel>
         <PasswordInput
           id={`${formId}-currentPassword`}
@@ -24,7 +27,7 @@ export function AccountPasswordFormFields({
         />
       </Field>
       <Field>
-        <FieldLabel htmlFor={`${formId}-newPassword`}>New password</FieldLabel>
+        <FieldLabel htmlFor={`${formId}-newPassword`}>{t("new")}</FieldLabel>
         <PasswordInput
           id={`${formId}-newPassword`}
           name="newPassword"
@@ -34,7 +37,7 @@ export function AccountPasswordFormFields({
       </Field>
       <Field>
         <FieldLabel htmlFor={`${formId}-confirmPassword`}>
-          Confirm new password
+          {t("confirm")}
         </FieldLabel>
         <PasswordInput
           id={`${formId}-confirmPassword`}

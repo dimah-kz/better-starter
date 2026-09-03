@@ -23,7 +23,14 @@
   "item": "item",
   "items": "items",
   "clearSearch": "Clear search",
+  "search": "Search…",
   "cancel": "Cancel",
+  "close": "Close",
+  "roles": "Roles",
+  "password": {
+    "show": "Show password",
+    "hide": "Hide password"
+  },
   "language": "Language",
   "errors": {
     "title": "Something went wrong",

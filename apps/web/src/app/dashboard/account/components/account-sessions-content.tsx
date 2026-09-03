@@ -56,12 +56,12 @@ export function AccountSessionsContent({
       setPendingToken(null)
       if (!result.success) {
         toast.add({
-          title: result.error ?? "Could not revoke session.",
+          title: result.error ?? t("revokeFailed"),
           type: "error",
         })
         return
       }
-      toast.add({ title: "Session revoked.", type: "success" })
+      toast.add({ title: t("revoked"), type: "success" })
       router.refresh()
     })
   }

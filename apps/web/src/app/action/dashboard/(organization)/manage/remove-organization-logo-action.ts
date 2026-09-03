@@ -1,7 +1,6 @@
 "use server"
 
 import { invalidateOrganizationBrandingCache } from "@/app/action/dashboard/(organization)/manage/shared/invalidate-organization-manage-cache"
-import { getActiveOrganizationBranding } from "@/app/dashboard/(organization)/manage/lib/get-active-organization-branding"
 import { dashboardCacheTags } from "@/app/dashboard/lib/cache-tags"
 import { headers } from "next/headers"
 import { getTranslations } from "next-intl/server"
@@ -17,8 +16,13 @@ export async function removeOrganizationLogoAction(organizationId: string) {
     return { error: t("unauthorized") }
   }
 
-  const branding = await getActiveOrganizationBranding(organizationId)
-  const previousKey = branding?.logo ? fromPublicUrl(branding.logo) : null
+  const organizations = await auth.api.listOrganizations({
+    headers: requestHeaders,
+  })
+  const current = organizations.find(
+    (organization) => organization.id === organizationId
+  )
+  const previousKey = current?.logo ? fromPublicUrl(current.logo) : null
 
   try {
     await auth.api.updateOrganization({

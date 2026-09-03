@@ -11,10 +11,10 @@ import { Checkbox } from "@repo/ui/components/checkbox"
 import { Label } from "@repo/ui/components/label"
 import { adminPluginRoles, type PlatformRole } from "@repo/auth/admin-access"
 import { parseRoleString } from "@/lib/role-string"
-
-const platformRoles = Object.keys(adminPluginRoles) as PlatformRole[]
 import { toast } from "@repo/ui/components/toast"
 import { useTranslations } from "next-intl"
+
+const platformRoles = Object.keys(adminPluginRoles) as PlatformRole[]
 
 type UserPlatformRoleFormShellProps = {
   user: AdminUserItem | null
@@ -65,13 +65,17 @@ export function UserPlatformRoleFormShell({
 
       if (!result.success) {
         toast.add({
-          title: result.error ?? "Could not update the platform role.",
+          title:
+            result.error ?? t("dashboard.adminUserManage.roleUpdateFailed"),
           type: "error",
         })
         return
       }
 
-      toast.add({ title: "Platform role updated.", type: "success" })
+      toast.add({
+        title: t("dashboard.adminUserManage.roleUpdated"),
+        type: "success",
+      })
       onClose()
       router.refresh()
     })
@@ -96,7 +100,7 @@ export function UserPlatformRoleFormShell({
             disabled={isPending || !canSubmit}
             onClick={handleSubmit}
           >
-            {changeRoleLabel}
+            {t("dashboard.adminUserManage.saveRole")}
           </Button>
           <Button
             type="button"
@@ -104,14 +108,14 @@ export function UserPlatformRoleFormShell({
             disabled={isPending}
             onClick={onClose}
           >
-            Cancel
+            {t("common.cancel")}
           </Button>
         </>
       }
     >
       {user ? (
         <div className="space-y-3">
-          <FormLabel required>Roles</FormLabel>
+          <FormLabel required>{t("common.roles")}</FormLabel>
           {platformRoles.map((option) => {
             const checkboxId = `${fieldId}-${option}`
 

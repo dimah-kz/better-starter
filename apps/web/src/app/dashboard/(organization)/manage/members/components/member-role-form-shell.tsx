@@ -61,13 +61,16 @@ export function MemberRoleFormShell({
 
       if (!result.success) {
         toast.add({
-          title: result.error ?? "Could not update the member role.",
+          title: result.error ?? t("dashboard.memberManage.roleUpdateFailed"),
           type: "error",
         })
         return
       }
 
-      toast.add({ title: "Member role updated.", type: "success" })
+      toast.add({
+        title: t("dashboard.memberManage.roleUpdated"),
+        type: "success",
+      })
       onClose()
       router.refresh()
     })
@@ -91,7 +94,7 @@ export function MemberRoleFormShell({
             disabled={isPending || !canSubmit}
             onClick={handleSubmit}
           >
-            Save role
+            {t("dashboard.memberManage.saveRole")}
           </Button>
           <Button
             type="button"
@@ -99,14 +102,14 @@ export function MemberRoleFormShell({
             disabled={isPending}
             onClick={onClose}
           >
-            Cancel
+            {t("common.cancel")}
           </Button>
         </>
       }
     >
       {member ? (
         <div className="space-y-3">
-          <FormLabel required>Roles</FormLabel>
+          <FormLabel required>{t("common.roles")}</FormLabel>
           {options.map((option) => {
             const checkboxId = `${fieldId}-${option}`
 

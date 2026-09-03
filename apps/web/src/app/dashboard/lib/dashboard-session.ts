@@ -3,6 +3,7 @@ import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 import { authRoutes } from "@/app/(auth)/lib/auth-routes"
 import { normalizeAuthRedirectTarget } from "@/app/(auth)/lib/auth-redirect"
+import { dashboardRoutes } from "@/app/dashboard/lib/dashboard-routes"
 import { auth } from "@repo/auth"
 
 /** Redirects unauthenticated visitors to login; returns the session otherwise. */
@@ -11,7 +12,7 @@ export async function requireDashboardSession() {
 
   if (!session?.user) {
     const params = new URLSearchParams({
-      redirect: normalizeAuthRedirectTarget("/dashboard"),
+      redirect: normalizeAuthRedirectTarget(dashboardRoutes.home()),
     })
     redirect(`${authRoutes.login()}?${params.toString()}`)
   }

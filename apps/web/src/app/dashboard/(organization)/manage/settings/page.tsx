@@ -1,13 +1,11 @@
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
-import {
-  canDeleteOrganization,
-  canUpdateOrganizationDetails,
-} from "@/app/dashboard/(organization)/manage/lib/can-access-organization-manage"
 import { getActiveOrganizationBranding } from "@/app/dashboard/(organization)/manage/lib/get-active-organization-branding"
 import { OrganizationSettingsHub } from "@/app/dashboard/(organization)/manage/settings/components/organization-settings-hub"
 import { DashboardPageFallback } from "@/app/dashboard/components/layout/dashboard-page-shell"
 import { resolveDashboardActiveOrganizationId } from "@/app/dashboard/lib/dashboard-session"
+import { headers } from "next/headers"
+import { auth } from "@repo/auth"
 
 export default function OrganizationSettingsPage() {
   return (
@@ -30,9 +28,22 @@ async function OrganizationSettingsPageContent() {
     notFound()
   }
 
-  const [canEdit, canDelete] = await Promise.all([
-    canUpdateOrganizationDetails(organizationId),
-    canDeleteOrganization(organizationId),
+  const requestHeaders = await headers()
+  const [{ success: canEdit }, { success: canDelete }] = await Promise.all([
+    auth.api.hasPermission({
+      headers: requestHeaders,
+      body: {
+        organizationId,
+        permissions: { organization: ["update"] },
+      },
+    }),
+    auth.api.hasPermission({
+      headers: requestHeaders,
+      body: {
+        organizationId,
+        permissions: { organization: ["delete"] },
+      },
+    }),
   ])
 
   return (

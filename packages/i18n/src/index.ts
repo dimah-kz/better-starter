@@ -15,6 +15,7 @@ export {
   dateTimeOptions,
   formatDate,
   formatNumber,
+  formatRelativeTime,
 } from "./format"
 export {
   loadMessages,

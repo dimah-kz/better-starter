@@ -1,6 +1,6 @@
 "use client"
 
-import type { Locale } from "@repo/i18n"
+import { formatDate, type Locale } from "@repo/i18n"
 import {
   Identity,
   IdentityAvatar,
@@ -13,7 +13,6 @@ import { AdminUserRowActionsMenu } from "@/app/dashboard/admin/users/components/
 import { PlatformRoleBadge } from "@/components/badge/platform-role-badge"
 import { UserAccountStatusBadge } from "@/components/badge/user-account-status-badge"
 import type { ListColumn } from "@/components/list"
-import { formatDate } from "@/lib/format-date"
 
 type TablesTranslator = {
   (key: "columns.user"): string

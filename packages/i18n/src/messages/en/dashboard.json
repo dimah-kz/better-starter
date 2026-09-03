@@ -77,7 +77,10 @@
     "removeDescription": "{name} will lose organization membership and management access.",
     "removeConfirm": "Remove member",
     "removed": "Member removed from the organization.",
-    "removeFailed": "Could not remove the member."
+    "removeFailed": "Could not remove the member.",
+    "saveRole": "Save role",
+    "roleUpdated": "Member role updated.",
+    "roleUpdateFailed": "Could not update the member role."
   },
   "adminPage": {
     "title": "Platform administration"
@@ -106,7 +109,10 @@
     "banned": "User banned.",
     "banFailed": "Could not ban the user.",
     "unbanned": "User unbanned.",
-    "unbanFailed": "Could not unban the user."
+    "unbanFailed": "Could not unban the user.",
+    "saveRole": "Save role",
+    "roleUpdated": "Platform role updated.",
+    "roleUpdateFailed": "Could not update the platform role."
   },
   "breadcrumbSegments": {
     "dashboard": "Dashboard",
@@ -118,9 +124,5 @@
     "manage": "Manage",
     "members": "Members",
     "settings": "Settings"
-  },
-  "errors": {
-    "title": "Something went wrong",
-    "description": "We could not load this page. Try again or return later."
   }
 }

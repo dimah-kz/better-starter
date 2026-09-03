@@ -1,6 +1,6 @@
 "use client"
 
-import type { Locale } from "@repo/i18n"
+import { formatDate, type Locale } from "@repo/i18n"
 import {
   Identity,
   IdentityAvatar,
@@ -9,7 +9,6 @@ import {
 } from "@repo/ui/components/dimah/identity"
 import type { AdminOrganizationItem } from "@/app/dashboard/admin/organizations/lib/get-admin-organizations-page"
 import type { ListColumn } from "@/components/list"
-import { formatDate } from "@/lib/format-date"
 
 type TablesTranslator = {
   (key: "columns.organization"): string
