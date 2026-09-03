@@ -215,11 +215,7 @@ function resolvePanelContent({
         description: t("password.description"),
         footer: hasPasswordCredential ? (
           <>
-            <Button
-              type="submit"
-              form={passwordFormId}
-              disabled={isPending}
-            >
+            <Button type="submit" form={passwordFormId} disabled={isPending}>
               {isPending ? t("password.saving") : t("password.save")}
             </Button>
             <Button
