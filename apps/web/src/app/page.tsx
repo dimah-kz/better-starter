@@ -2,6 +2,8 @@ import Link from "next/link"
 import { getTranslations } from "next-intl/server"
 import { authRoutes } from "@/app/(auth)/lib/auth-routes"
 import { dashboardRoutes } from "@/app/dashboard/lib/dashboard-routes"
+import { buttonVariants } from "@repo/ui/components/button"
+import { cn } from "@repo/ui/lib/utils"
 
 export default async function Home() {
   const t = await getTranslations("common")
@@ -19,13 +21,13 @@ export default async function Home() {
       <div className="flex flex-wrap items-center justify-center gap-3">
         <Link
           href={authRoutes.login()}
-          className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+          className={cn(buttonVariants({ size: "lg" }))}
         >
           {tAuth("login.title")}
         </Link>
         <Link
           href={dashboardRoutes.home()}
-          className="inline-flex h-10 items-center justify-center rounded-md border border-border px-4 text-sm font-medium hover:bg-muted"
+          className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
         >
           {tDashboard("nav.sidebar.dashboard")}
         </Link>

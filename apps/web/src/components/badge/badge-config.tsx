@@ -18,9 +18,7 @@ function item(
   return { label, variant, icon }
 }
 
-const userAccountStatuses = ["active", "banned"] as const
-
-type UserAccountStatus = (typeof userAccountStatuses)[number]
+type UserAccountStatus = "active" | "banned"
 
 const platformRoleVariants: Record<PlatformRole, LabeledBadgeVariant> = {
   user: "outline",

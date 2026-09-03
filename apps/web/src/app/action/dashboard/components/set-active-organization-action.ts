@@ -35,9 +35,6 @@ export async function setActiveOrganizationAction({
     if (previousOrganizationId !== null) {
       await clearDashboardActiveOrganization()
       updateTag(dashboardCacheTags.sidebarConfigByUser(session.user.id))
-      updateTag(
-        dashboardCacheTags.organizationMembersById(previousOrganizationId)
-      )
     }
 
     return {
@@ -49,12 +46,6 @@ export async function setActiveOrganizationAction({
 
   if (previousOrganizationId !== organizationId) {
     updateTag(dashboardCacheTags.sidebarConfigByUser(session.user.id))
-    updateTag(dashboardCacheTags.organizationMembersById(organizationId))
-    if (previousOrganizationId) {
-      updateTag(
-        dashboardCacheTags.organizationMembersById(previousOrganizationId)
-      )
-    }
   }
 
   return {

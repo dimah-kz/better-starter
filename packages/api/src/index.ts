@@ -20,5 +20,5 @@ export async function handleRequest(request: Request): Promise<Response> {
     context: { headers: request.headers },
   })
 
-  return response ?? new Response("Not found", { status: 404 })
+  return response ?? new Response(null, { status: 404 })
 }

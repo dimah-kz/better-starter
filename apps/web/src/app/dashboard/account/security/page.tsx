@@ -1,13 +1,9 @@
 import { Suspense } from "react"
 import { AccountSecurityHub } from "@/app/dashboard/account/components/account-security-hub"
-import { mapAccountSessionsForDisplay } from "@/app/dashboard/account/lib/account-session-display"
 import { getAccountSessions } from "@/app/dashboard/account/lib/get-account-sessions"
 import { getUserHasPasswordCredential } from "@/app/dashboard/account/lib/get-user-has-password-credential"
 import { DashboardPageFallback } from "@/app/dashboard/components/layout/dashboard-page-shell"
-import type { Locale } from "@repo/i18n"
-import { headers } from "next/headers"
-import { getLocale, getTranslations } from "next-intl/server"
-import { auth } from "@repo/auth"
+import { requireDashboardSession } from "@/app/dashboard/lib/dashboard-session"
 
 export default function AccountSecurityPage() {
   return (
@@ -18,25 +14,18 @@ export default function AccountSecurityPage() {
 }
 
 async function AccountSecurityPageContent() {
-  const session = await auth.api.getSession({ headers: await headers() })
-  const userId = session!.user.id
+  const session = await requireDashboardSession()
+  const userId = session.user.id
 
-  const [hasPasswordCredential, sessions, locale, tSessions] =
-    await Promise.all([
-      getUserHasPasswordCredential(userId),
-      getAccountSessions(),
-      getLocale(),
-      getTranslations("account.sessions"),
-    ])
+  const [hasPasswordCredential, sessions] = await Promise.all([
+    getUserHasPasswordCredential(userId),
+    getAccountSessions(session.session.id),
+  ])
 
   return (
     <AccountSecurityHub
       hasPasswordCredential={hasPasswordCredential}
-      currentSessionToken={session!.session.token}
-      sessions={mapAccountSessionsForDisplay(sessions, locale as Locale, {
-        unknownDevice: tSessions("unknownDevice"),
-        deviceOnOs: (browser, os) => tSessions("deviceOnOs", { browser, os }),
-      })}
+      sessions={sessions}
     />
   )
 }

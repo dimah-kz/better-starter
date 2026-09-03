@@ -4,8 +4,8 @@ import Link from "next/link"
 import { useState } from "react"
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
 import { AccountSettingsPanel } from "@/app/dashboard/account/components/account-settings-panel"
-import type { AccountSessionDisplay } from "@/app/dashboard/account/components/account-sessions-content"
 import type { AccountSecurityPanel } from "@/app/dashboard/account/lib/account-panel"
+import type { AccountSession } from "@/app/dashboard/account/lib/get-account-sessions"
 import { accountSecurityItems } from "@/app/dashboard/account/lib/account-settings-items"
 import { dashboardRoutes } from "@/app/dashboard/lib/dashboard-routes"
 import { Button } from "@repo/ui/components/button"
@@ -23,14 +23,12 @@ import { useTranslations } from "next-intl"
 
 type AccountSecurityHubProps = {
   hasPasswordCredential: boolean
-  sessions: AccountSessionDisplay[]
-  currentSessionToken: string
+  sessions: AccountSession[]
 }
 
 export function AccountSecurityHub({
   hasPasswordCredential,
   sessions,
-  currentSessionToken,
 }: AccountSecurityHubProps) {
   const t = useTranslations("dashboard")
   const [openSection, setOpenSection] = useState<AccountSecurityPanel | null>(
@@ -103,7 +101,6 @@ export function AccountSecurityHub({
         onClose={() => setOpenSection(null)}
         hasPasswordCredential={hasPasswordCredential}
         sessions={sessions}
-        currentSessionToken={currentSessionToken}
       />
     </>
   )

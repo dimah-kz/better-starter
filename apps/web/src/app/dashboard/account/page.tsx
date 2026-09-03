@@ -3,8 +3,7 @@ import { Suspense } from "react"
 import { AccountSettingsHub } from "@/app/dashboard/account/components/account-settings-hub"
 import { getAccountProfile } from "@/app/dashboard/account/lib/get-account-profile"
 import { DashboardPageFallback } from "@/app/dashboard/components/layout/dashboard-page-shell"
-import { headers } from "next/headers"
-import { auth } from "@repo/auth"
+import { requireDashboardSession } from "@/app/dashboard/lib/dashboard-session"
 
 export default function AccountPage() {
   return (
@@ -15,8 +14,8 @@ export default function AccountPage() {
 }
 
 async function AccountPageContent() {
-  const session = await auth.api.getSession({ headers: await headers() })
-  const profile = await getAccountProfile(session!.user.id)
+  const session = await requireDashboardSession()
+  const profile = await getAccountProfile(session.user.id)
 
   if (!profile) {
     notFound()

@@ -4,11 +4,14 @@ import {
   getOrganizationMembersPage,
   parseOrganizationMembersPageQuery,
 } from "@/app/dashboard/(organization)/manage/members/lib/get-organization-members-page"
-import { resolveDashboardActiveOrganizationId } from "@/app/dashboard/lib/dashboard-session"
+import {
+  requireDashboardSession,
+  resolveDashboardActiveOrganizationId,
+} from "@/app/dashboard/lib/dashboard-session"
+import { dashboardRoutes } from "@/app/dashboard/lib/dashboard-routes"
 import { ListSkeleton } from "@/components/list"
 import { getActorOrganizationRole } from "@/app/dashboard/(organization)/manage/members/lib/get-actor-organization-role"
-import { headers } from "next/headers"
-import { auth } from "@repo/auth"
+import { redirect } from "next/navigation"
 
 type OrganizationMembersPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>
@@ -30,12 +33,12 @@ async function OrganizationMembersPageContent({
   const organizationId = await resolveDashboardActiveOrganizationId()
 
   if (!organizationId) {
-    return null
+    redirect(dashboardRoutes.home())
   }
 
   const resolvedSearchParams = await searchParams
   const query = parseOrganizationMembersPageQuery(resolvedSearchParams)
-  const session = await auth.api.getSession({ headers: await headers() })
+  const session = await requireDashboardSession()
   const data = await getOrganizationMembersPage(organizationId, query)
 
   const actorRole = await getActorOrganizationRole()
@@ -49,7 +52,7 @@ async function OrganizationMembersPageContent({
       totalCount={data.totalCount}
       filter={data.filter}
       q={data.q}
-      actorUserId={session!.user.id}
+      actorUserId={session.user.id}
       actorRole={actorRole}
     />
   )

@@ -1,15 +1,15 @@
 "use client"
 
-import { useId, useRef, useTransition, type RefObject } from "react"
+import { useId, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { updateProfileAction } from "@/app/action/dashboard/account/update-profile-action"
 import { changePasswordAction } from "@/app/action/dashboard/account/change-password-action"
 import { revokeOtherSessionsAction } from "@/app/action/dashboard/account/revoke-other-sessions-action"
 import { AccountPasswordFormFields } from "@/app/dashboard/account/components/account-password-form-fields"
 import { AccountProfileFormFields } from "@/app/dashboard/account/components/account-profile-form-fields"
-import type { AccountSessionDisplay } from "@/app/dashboard/account/components/account-sessions-content"
 import { AccountSessionsContent } from "@/app/dashboard/account/components/account-sessions-content"
 import type { AccountPanel } from "@/app/dashboard/account/lib/account-panel"
+import type { AccountSession } from "@/app/dashboard/account/lib/get-account-sessions"
 import { ResponsiveFormOverlay } from "@/components/responsive-form-overlay"
 import { toast } from "@repo/ui/components/toast"
 import { Button } from "@repo/ui/components/button"
@@ -27,8 +27,7 @@ type AccountSettingsPanelProps = {
   onClose: () => void
   profile?: AccountProfile
   hasPasswordCredential?: boolean
-  sessions?: AccountSessionDisplay[]
-  currentSessionToken?: string
+  sessions?: AccountSession[]
 }
 
 export function AccountSettingsPanel({
@@ -37,20 +36,16 @@ export function AccountSettingsPanel({
   profile,
   hasPasswordCredential = false,
   sessions = [],
-  currentSessionToken = "",
 }: AccountSettingsPanelProps) {
   const t = useTranslations("account")
   const tCommon = useTranslations("common")
   const router = useRouter()
   const profileFormId = useId()
   const passwordFormId = useId()
-  const passwordFormRef = useRef<HTMLFormElement>(null)
   const [isPending, startTransition] = useTransition()
 
   const open = section !== null
-  const hasOtherSessions = sessions.some(
-    (session) => session.token !== currentSessionToken
-  )
+  const hasOtherSessions = sessions.some((session) => !session.isCurrent)
 
   const handleProfileSubmit = (formData: FormData) => {
     startTransition(async () => {
@@ -69,18 +64,12 @@ export function AccountSettingsPanel({
     })
   }
 
-  const handlePasswordSubmit = () => {
-    if (!passwordFormRef.current) {
-      return
-    }
-
-    const formData = new FormData(passwordFormRef.current)
+  const handlePasswordSubmit = (formData: FormData) => {
     startTransition(async () => {
       const result = await changePasswordAction({}, formData)
 
       if (result.success) {
         toast.add({ title: t("password.saved"), type: "success" })
-        passwordFormRef.current?.reset()
         onClose()
         router.refresh()
         return
@@ -117,10 +106,8 @@ export function AccountSettingsPanel({
     onClose,
     profileFormId,
     passwordFormId,
-    passwordFormRef,
     profile,
     sessions,
-    currentSessionToken,
     handleProfileSubmit,
     handlePasswordSubmit,
     handleRevokeOthers,
@@ -153,12 +140,10 @@ type ResolvePanelContentArgs = {
   onClose: () => void
   profileFormId: string
   passwordFormId: string
-  passwordFormRef: RefObject<HTMLFormElement | null>
   profile: AccountProfile | undefined
-  sessions: AccountSessionDisplay[]
-  currentSessionToken: string
+  sessions: AccountSession[]
   handleProfileSubmit: (formData: FormData) => void
-  handlePasswordSubmit: () => void
+  handlePasswordSubmit: (formData: FormData) => void
   handleRevokeOthers: () => void
 }
 
@@ -172,10 +157,8 @@ function resolvePanelContent({
   onClose,
   profileFormId,
   passwordFormId,
-  passwordFormRef,
   profile,
   sessions,
-  currentSessionToken,
   handleProfileSubmit,
   handlePasswordSubmit,
   handleRevokeOthers,
@@ -233,9 +216,9 @@ function resolvePanelContent({
         footer: hasPasswordCredential ? (
           <>
             <Button
-              type="button"
+              type="submit"
+              form={passwordFormId}
               disabled={isPending}
-              onClick={handlePasswordSubmit}
             >
               {isPending ? t("password.saving") : t("password.save")}
             </Button>
@@ -255,13 +238,12 @@ function resolvePanelContent({
         ),
         children: hasPasswordCredential ? (
           <form
-            ref={passwordFormRef}
             id={passwordFormId}
             noValidate
             className="flex flex-col gap-4"
             onSubmit={(event) => {
               event.preventDefault()
-              handlePasswordSubmit()
+              handlePasswordSubmit(new FormData(event.currentTarget))
             }}
           >
             <AccountPasswordFormFields formId={passwordFormId} />
@@ -302,11 +284,7 @@ function resolvePanelContent({
           </Button>
         ),
         children: (
-          <AccountSessionsContent
-            sessions={sessions}
-            currentSessionToken={currentSessionToken}
-            disabled={isPending}
-          />
+          <AccountSessionsContent sessions={sessions} disabled={isPending} />
         ),
       }
     default:

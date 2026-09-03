@@ -9,12 +9,16 @@ import {
   TabletIcon,
 } from "lucide-react"
 import { revokeSessionAction } from "@/app/action/dashboard/account/revoke-session-action"
-import type { SessionDeviceDisplay } from "@/app/dashboard/account/lib/format-session-device"
+import type {
+  AccountSession,
+  AccountSessionDeviceKind,
+} from "@/app/dashboard/account/lib/get-account-sessions"
 import { toast } from "@repo/ui/components/toast"
 import { Badge } from "@repo/ui/components/badge"
 import { Button } from "@repo/ui/components/button"
 import {
-  ItemDescription,
+  Item,
+  ItemContent,
   ItemGroup,
   ItemMedia,
   ItemSeparator,
@@ -23,37 +27,25 @@ import {
 import { IconTile } from "@repo/ui/components/reui/icon-tile"
 import { useTranslations } from "next-intl"
 
-export type AccountSessionDisplay = {
-  id: string
-  token: string
-  device: SessionDeviceDisplay
-  signedInLabel: string
-  signedInTitle: string
-  expiresLabel: string
-  ipLabel: string | null
-}
-
 type AccountSessionsContentProps = {
-  sessions: AccountSessionDisplay[]
-  currentSessionToken: string
+  sessions: AccountSession[]
   disabled?: boolean
 }
 
 export function AccountSessionsContent({
   sessions,
-  currentSessionToken,
   disabled = false,
 }: AccountSessionsContentProps) {
   const t = useTranslations("account.sessions")
   const router = useRouter()
-  const [pendingToken, setPendingToken] = useState<string | null>(null)
+  const [pendingSessionId, setPendingSessionId] = useState<string | null>(null)
   const [isRevoking, startRevoke] = useTransition()
 
-  const handleRevoke = (token: string) => {
-    setPendingToken(token)
+  const handleRevoke = (sessionId: string) => {
+    setPendingSessionId(sessionId)
     startRevoke(async () => {
-      const result = await revokeSessionAction({ token })
-      setPendingToken(null)
+      const result = await revokeSessionAction(sessionId)
+      setPendingSessionId(null)
       if (!result.success) {
         toast.add({
           title: result.error ?? t("revokeFailed"),
@@ -71,58 +63,43 @@ export function AccountSessionsContent({
   }
 
   const onlyCurrentDevice =
-    sessions.length === 1 && sessions[0]?.token === currentSessionToken
+    sessions.length === 1 && sessions[0]?.isCurrent === true
 
   return (
     <div className="flex flex-col gap-3">
-      <ItemGroup className="gap-0" role="list">
+      <ItemGroup className="gap-0">
         {sessions.map((session, index) => {
-          const isCurrent = session.token === currentSessionToken
-          const isPending = pendingToken === session.token && isRevoking
+          const isPending = pendingSessionId === session.id && isRevoking
 
           return (
             <Fragment key={session.id}>
               {index > 0 ? <ItemSeparator /> : null}
-              <article
-                role="listitem"
-                className="flex w-full items-start gap-3 py-3"
-              >
+              <Item className="items-start py-3" role="listitem">
                 <ItemMedia>
-                  <SessionDeviceIcon kind={session.device.kind} />
+                  <SessionDeviceIcon kind={session.kind} />
                 </ItemMedia>
-                <div className="flex min-w-0 flex-1 flex-col gap-2">
+                <ItemContent className="min-w-0 gap-2">
                   <div className="flex items-start justify-between gap-3">
-                    <div className="flex min-w-0 flex-col gap-1">
-                      <ItemTitle className="text-sm">
-                        {session.device.title}
-                      </ItemTitle>
-                      {session.device.subtitle ? (
-                        <ItemDescription>
-                          {session.device.subtitle}
-                        </ItemDescription>
-                      ) : null}
-                    </div>
-                    <div className="flex shrink-0 items-center justify-end">
-                      {isCurrent ? (
-                        <Badge variant="secondary" className="font-normal">
-                          {t("currentDevice")}
-                        </Badge>
-                      ) : (
-                        <Button
-                          type="button"
-                          variant="destructive"
-                          size="sm"
-                          disabled={disabled || isPending}
-                          onClick={() => handleRevoke(session.token)}
-                        >
-                          {isPending ? t("revoking") : t("revoke")}
-                        </Button>
-                      )}
-                    </div>
+                    <ItemTitle className="text-sm">{session.title}</ItemTitle>
+                    {session.isCurrent ? (
+                      <Badge variant="secondary" className="font-normal">
+                        {t("currentDevice")}
+                      </Badge>
+                    ) : (
+                      <Button
+                        type="button"
+                        variant="destructive"
+                        size="sm"
+                        disabled={disabled || isPending}
+                        onClick={() => handleRevoke(session.id)}
+                      >
+                        {isPending ? t("revoking") : t("revoke")}
+                      </Button>
+                    )}
                   </div>
                   <SessionMetaList session={session} />
-                </div>
-              </article>
+                </ItemContent>
+              </Item>
             </Fragment>
           )
         })}
@@ -134,7 +111,7 @@ export function AccountSessionsContent({
   )
 }
 
-function SessionMetaList({ session }: { session: AccountSessionDisplay }) {
+function SessionMetaList({ session }: { session: AccountSession }) {
   const t = useTranslations("account.sessions")
   const rows: { label: string; value: string; title?: string }[] = [
     {
@@ -166,7 +143,7 @@ function SessionMetaList({ session }: { session: AccountSessionDisplay }) {
   )
 }
 
-function SessionDeviceIcon({ kind }: { kind: SessionDeviceDisplay["kind"] }) {
+function SessionDeviceIcon({ kind }: { kind: AccountSessionDeviceKind }) {
   const Icon =
     kind === "mobile"
       ? SmartphoneIcon

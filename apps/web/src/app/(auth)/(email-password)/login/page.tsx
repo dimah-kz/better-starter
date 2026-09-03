@@ -1,8 +1,13 @@
 import { Suspense } from "react"
 import { cookies } from "next/headers"
 import { LoginForm } from "@/app/(auth)/(email-password)/login/components/login-form"
-import { normalizeAuthRedirectTarget } from "@/app/(auth)/lib/auth-redirect"
-import { LAST_LOGIN_METHOD_COOKIE } from "@/app/(auth)/lib/last-login-method"
+import {
+  DEFAULT_AUTH_REDIRECT,
+  normalizeAuthRedirectTarget,
+} from "@/app/(auth)/lib/auth-redirect"
+
+/** Better Auth `lastLoginMethod` cookie (httpOnly: false; plugin default). */
+const LAST_LOGIN_METHOD_COOKIE = "better-auth.last_used_login_method"
 
 type LoginPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>
@@ -10,7 +15,7 @@ type LoginPageProps = {
 
 export default function LoginPage({ searchParams }: LoginPageProps) {
   return (
-    <Suspense fallback={<LoginForm redirectTo="/dashboard" />}>
+    <Suspense fallback={<LoginForm redirectTo={DEFAULT_AUTH_REDIRECT} />}>
       <LoginPageContent searchParams={searchParams} />
     </Suspense>
   )

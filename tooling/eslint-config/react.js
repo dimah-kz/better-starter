@@ -28,6 +28,12 @@ export const reactConfig = [
       "react/prop-types": "off",
     },
   },
+  {
+    files: ["scripts/**/*.{js,mjs,cjs}"],
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
 ]
 
 /** @type {import("eslint").Linter.Config} */

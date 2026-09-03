@@ -4,9 +4,8 @@ import {
   getAdminUsersPage,
   parseAdminUsersPageQuery,
 } from "@/app/dashboard/admin/users/lib/get-admin-users-page"
+import { requireDashboardSession } from "@/app/dashboard/lib/dashboard-session"
 import { ListSkeleton } from "@/components/list"
-import { headers } from "next/headers"
-import { auth } from "@repo/auth"
 
 type AdminUsersPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>
@@ -23,7 +22,7 @@ export default function AdminUsersPage(props: AdminUsersPageProps) {
 async function AdminUsersPageContent({ searchParams }: AdminUsersPageProps) {
   const resolvedSearchParams = await searchParams
   const query = parseAdminUsersPageQuery(resolvedSearchParams)
-  const session = await auth.api.getSession({ headers: await headers() })
+  const session = await requireDashboardSession()
   const data = await getAdminUsersPage(query)
 
   return (
@@ -34,7 +33,7 @@ async function AdminUsersPageContent({ searchParams }: AdminUsersPageProps) {
       totalCount={data.totalCount}
       filter={data.filter}
       q={data.q}
-      actorUserId={session!.user.id}
+      actorUserId={session.user.id}
     />
   )
 }

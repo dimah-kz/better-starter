@@ -1,7 +1,6 @@
 "use client"
 
 import type { ReactNode } from "react"
-import { useDirection } from "@repo/ui/components/direction"
 import {
   Sheet,
   SheetContent,
@@ -20,7 +19,6 @@ export type ResponsiveFormOverlayProps = {
   footer: ReactNode
   children: ReactNode
   headerClassName?: string
-  descriptionClassName?: string
   contentClassName?: string
   footerClassName?: string
 }

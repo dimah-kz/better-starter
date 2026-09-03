@@ -1,6 +1,9 @@
 import { Suspense } from "react"
 import { SignUpForm } from "@/app/(auth)/(email-password)/signup/components/signup-form"
-import { normalizeAuthRedirectTarget } from "@/app/(auth)/lib/auth-redirect"
+import {
+  DEFAULT_AUTH_REDIRECT,
+  normalizeAuthRedirectTarget,
+} from "@/app/(auth)/lib/auth-redirect"
 
 type SignUpPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>
@@ -8,7 +11,7 @@ type SignUpPageProps = {
 
 export default function SignUpPage({ searchParams }: SignUpPageProps) {
   return (
-    <Suspense fallback={<SignUpForm redirectTo="/dashboard" />}>
+    <Suspense fallback={<SignUpForm redirectTo={DEFAULT_AUTH_REDIRECT} />}>
       <SignUpPageContent searchParams={searchParams} />
     </Suspense>
   )

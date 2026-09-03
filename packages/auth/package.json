@@ -5,7 +5,6 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./errors": "./src/auth-api-error.ts",
     "./admin-access": "./src/admin-access.ts",
     "./organization-access": "./src/organization-access.ts"
   },

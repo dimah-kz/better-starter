@@ -12,20 +12,13 @@ import { useTranslations } from "next-intl"
 
 type PasswordInputProps = Omit<React.ComponentProps<"input">, "type">
 
-export function PasswordInput({
-  placeholder = "********",
-  ...props
-}: PasswordInputProps) {
+export function PasswordInput(props: PasswordInputProps) {
   const t = useTranslations("common.password")
   const [isVisible, setIsVisible] = useState(false)
 
   return (
     <InputGroup>
-      <InputGroupInput
-        type={isVisible ? "text" : "password"}
-        placeholder={placeholder}
-        {...props}
-      />
+      <InputGroupInput {...props} type={isVisible ? "text" : "password"} />
       <InputGroupAddon>
         <LockIcon className="size-3.5 shrink-0 opacity-60" aria-hidden="true" />
       </InputGroupAddon>
