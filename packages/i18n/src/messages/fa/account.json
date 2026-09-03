@@ -44,9 +44,8 @@
     "signingOutOthers": "در حال خروج…",
     "signedOutOthers": "از سایر نشست‌ها خارج شدید.",
     "signOutOthersFailed": "خروج از سایر نشست‌ها ممکن نشد.",
-    "signedIn": "ورود",
-    "expires": "پایان نشست",
-    "ip": "آدرس IP",
+    "summary": "ورود {signedIn} · پایان {expires}",
+    "summaryWithIp": "ورود {signedIn} · پایان {expires} · {ip}",
     "unknownDevice": "دستگاه ناشناس",
     "deviceOnOs": "{browser} روی {os}"
   }

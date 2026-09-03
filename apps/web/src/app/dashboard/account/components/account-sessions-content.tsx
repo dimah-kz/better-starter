@@ -2,12 +2,7 @@
 
 import { Fragment, useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
-import {
-  LaptopIcon,
-  MonitorIcon,
-  SmartphoneIcon,
-  TabletIcon,
-} from "lucide-react"
+import { MonitorIcon, SmartphoneIcon, TabletIcon } from "lucide-react"
 import { revokeSessionAction } from "@/app/action/dashboard/account/revoke-session-action"
 import type {
   AccountSession,
@@ -18,7 +13,9 @@ import { Badge } from "@repo/ui/components/badge"
 import { Button } from "@repo/ui/components/button"
 import {
   Item,
+  ItemActions,
   ItemContent,
+  ItemDescription,
   ItemGroup,
   ItemMedia,
   ItemSeparator,
@@ -26,6 +23,13 @@ import {
 } from "@repo/ui/components/item"
 import { IconTile } from "@repo/ui/components/reui/icon-tile"
 import { useTranslations } from "next-intl"
+
+const sessionDeviceIcons = {
+  mobile: SmartphoneIcon,
+  tablet: TabletIcon,
+  desktop: MonitorIcon,
+  unknown: MonitorIcon,
+} as const satisfies Record<AccountSessionDeviceKind, typeof MonitorIcon>
 
 type AccountSessionsContentProps = {
   sessions: AccountSession[]
@@ -70,35 +74,40 @@ export function AccountSessionsContent({
       <ItemGroup className="gap-0">
         {sessions.map((session, index) => {
           const isPending = pendingSessionId === session.id && isRevoking
+          const Icon = sessionDeviceIcons[session.kind]
 
           return (
             <Fragment key={session.id}>
               {index > 0 ? <ItemSeparator /> : null}
-              <Item className="items-start py-3" role="listitem">
+              <Item role="listitem">
                 <ItemMedia>
-                  <SessionDeviceIcon kind={session.kind} />
+                  <IconTile variant="outline" size="sm">
+                    <Icon aria-hidden />
+                  </IconTile>
                 </ItemMedia>
-                <ItemContent className="min-w-0 gap-2">
-                  <div className="flex items-start justify-between gap-3">
-                    <ItemTitle className="text-sm">{session.title}</ItemTitle>
-                    {session.isCurrent ? (
-                      <Badge variant="secondary" className="font-normal">
-                        {t("currentDevice")}
-                      </Badge>
-                    ) : (
-                      <Button
-                        type="button"
-                        variant="destructive"
-                        size="sm"
-                        disabled={disabled || isPending}
-                        onClick={() => handleRevoke(session.id)}
-                      >
-                        {isPending ? t("revoking") : t("revoke")}
-                      </Button>
-                    )}
-                  </div>
-                  <SessionMetaList session={session} />
+                <ItemContent className="min-w-0">
+                  <ItemTitle className="text-sm">{session.title}</ItemTitle>
+                  <ItemDescription title={session.signedInTitle}>
+                    {session.summary}
+                  </ItemDescription>
                 </ItemContent>
+                <ItemActions className="shrink-0">
+                  {session.isCurrent ? (
+                    <Badge variant="secondary" className="font-normal">
+                      {t("currentDevice")}
+                    </Badge>
+                  ) : (
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      size="sm"
+                      disabled={disabled || isPending}
+                      onClick={() => handleRevoke(session.id)}
+                    >
+                      {isPending ? t("revoking") : t("revoke")}
+                    </Button>
+                  )}
+                </ItemActions>
               </Item>
             </Fragment>
           )
@@ -108,54 +117,5 @@ export function AccountSessionsContent({
         <p className="text-sm text-muted-foreground">{t("onlyThisDevice")}</p>
       ) : null}
     </div>
-  )
-}
-
-function SessionMetaList({ session }: { session: AccountSession }) {
-  const t = useTranslations("account.sessions")
-  const rows: { label: string; value: string; title?: string }[] = [
-    {
-      label: t("signedIn"),
-      value: session.signedInLabel,
-      title: session.signedInTitle,
-    },
-    { label: t("expires"), value: session.expiresLabel },
-  ]
-
-  if (session.ipLabel) {
-    rows.push({ label: t("ip"), value: session.ipLabel })
-  }
-
-  return (
-    <dl className="grid w-full grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-1 text-xs">
-      {rows.map((row) => (
-        <Fragment key={row.label}>
-          <dt className="text-muted-foreground">{row.label}</dt>
-          <dd
-            className="min-w-0 truncate text-end text-foreground tabular-nums"
-            title={row.title ?? row.value}
-          >
-            {row.value}
-          </dd>
-        </Fragment>
-      ))}
-    </dl>
-  )
-}
-
-function SessionDeviceIcon({ kind }: { kind: AccountSessionDeviceKind }) {
-  const Icon =
-    kind === "mobile"
-      ? SmartphoneIcon
-      : kind === "tablet"
-        ? TabletIcon
-        : kind === "desktop"
-          ? MonitorIcon
-          : LaptopIcon
-
-  return (
-    <IconTile variant="outline" size="sm">
-      <Icon aria-hidden />
-    </IconTile>
   )
 }

@@ -1,12 +1,10 @@
 import { headers } from "next/headers"
 import { getLocale, getTranslations } from "next-intl/server"
 import {
-  dateOnlyOptions,
   dateTimeOptions,
   formatDate,
   formatRelativeTime,
   resolveLocale,
-  type Locale,
 } from "@repo/i18n"
 import { auth } from "@repo/auth"
 
@@ -18,23 +16,17 @@ export type AccountSession = {
   isCurrent: boolean
   kind: AccountSessionDeviceKind
   title: string
-  signedInLabel: string
+  summary: string
   signedInTitle: string
-  expiresLabel: string
-  ipLabel: string | null
 }
 
-const RELATIVE_EXPIRY_WINDOW_MS = 14 * 24 * 60 * 60 * 1000
-
 const BROWSER_PATTERNS: Array<[RegExp, string]> = [
-  [/Edg(?:e|A|iOS)?\/(\d+)/i, "Edge"],
-  [/OPR\/(\d+)/i, "Opera"],
-  [/SamsungBrowser\/(\d+)/i, "Samsung Internet"],
-  [/CriOS\/(\d+)/i, "Chrome"],
-  [/FxiOS\/(\d+)/i, "Firefox"],
-  [/Firefox\/(\d+)/i, "Firefox"],
-  [/Chrome\/(\d+)/i, "Chrome"],
-  [/Version\/(\d+).*Safari/i, "Safari"],
+  [/Edg(?:e|A|iOS)?/i, "Edge"],
+  [/OPR/i, "Opera"],
+  [/SamsungBrowser/i, "Samsung Internet"],
+  [/CriOS|Chrome/i, "Chrome"],
+  [/FxiOS|Firefox/i, "Firefox"],
+  [/Safari/i, "Safari"],
 ]
 
 const OS_PATTERNS: Array<[RegExp, string]> = [
@@ -81,18 +73,20 @@ export async function getAccountSessions(
     })
     .map((session) => {
       const createdAt = new Date(session.createdAt)
-      const expiresAt = new Date(session.expiresAt)
       const device = parseSessionUserAgent(session.userAgent ?? null)
+      const signedIn = formatRelativeTime(createdAt, locale)
+      const expires = formatRelativeTime(session.expiresAt, locale)
+      const ip = sessionIpLabel(session.ipAddress ?? null)
 
       return {
         id: session.id,
         isCurrent: session.id === currentSessionId,
         kind: device.kind,
         title: sessionDeviceTitle(device, labels),
-        signedInLabel: formatRelativeTime(createdAt, locale),
+        summary: ip
+          ? t("summaryWithIp", { signedIn, expires, ip })
+          : t("summary", { signedIn, expires }),
         signedInTitle: formatDate(createdAt, locale, dateTimeOptions),
-        expiresLabel: formatSessionExpires(expiresAt, locale),
-        ipLabel: sessionIpLabel(session.ipAddress ?? null),
       }
     })
 }
@@ -108,8 +102,8 @@ function parseSessionUserAgent(userAgent: string | null): {
 
   return {
     kind: parseDeviceKind(userAgent),
-    browser: parseLabeledVersion(userAgent, BROWSER_PATTERNS),
-    os: parseFirstMatch(userAgent, OS_PATTERNS),
+    browser: matchPattern(userAgent, BROWSER_PATTERNS),
+    os: matchPattern(userAgent, OS_PATTERNS),
   }
 }
 
@@ -128,23 +122,9 @@ function parseDeviceKind(userAgent: string): AccountSessionDeviceKind {
   return "desktop"
 }
 
-function parseLabeledVersion(
-  userAgent: string,
-  patterns: Array<[RegExp, string]>
-) {
+function matchPattern(value: string, patterns: Array<[RegExp, string]>) {
   for (const [pattern, name] of patterns) {
-    const match = pattern.exec(userAgent)
-    if (match?.[1]) {
-      return `${name} ${match[1]}`
-    }
-  }
-
-  return null
-}
-
-function parseFirstMatch(userAgent: string, patterns: Array<[RegExp, string]>) {
-  for (const [pattern, name] of patterns) {
-    if (pattern.test(userAgent)) {
+    if (pattern.test(value)) {
       return name
     }
   }
@@ -164,16 +144,6 @@ function sessionDeviceTitle(
   }
 
   return device.browser ?? device.os ?? labels.unknownDevice
-}
-
-function formatSessionExpires(expiresAt: Date, locale: Locale) {
-  const remainingMs = expiresAt.getTime() - Date.now()
-
-  if (remainingMs <= 0 || remainingMs > RELATIVE_EXPIRY_WINDOW_MS) {
-    return formatDate(expiresAt, locale, dateOnlyOptions)
-  }
-
-  return formatRelativeTime(expiresAt, locale)
 }
 
 function sessionIpLabel(ipAddress: string | null) {

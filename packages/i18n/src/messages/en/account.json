@@ -44,9 +44,8 @@
     "signingOutOthers": "Signing out…",
     "signedOutOthers": "Other sessions were signed out.",
     "signOutOthersFailed": "Could not revoke other sessions.",
-    "signedIn": "Signed in",
-    "expires": "Session ends",
-    "ip": "IP address",
+    "summary": "Signed in {signedIn} · Ends {expires}",
+    "summaryWithIp": "Signed in {signedIn} · Ends {expires} · {ip}",
     "unknownDevice": "Unknown device",
     "deviceOnOs": "{browser} on {os}"
   }
