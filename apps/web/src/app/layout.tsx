@@ -10,7 +10,7 @@ import { getLocale, getMessages, getTranslations } from "next-intl/server"
 import { NextIntlClientProvider } from "next-intl"
 import { DirectionProvider } from "@repo/ui/components/direction"
 import { Toaster } from "@repo/ui/components/toast"
-import { cn } from "@repo/ui/lib/utils"
+import { cn } from "cn"
 
 const vazirmatn = Vazirmatn({
   subsets: ["arabic", "latin", "latin-ext"],

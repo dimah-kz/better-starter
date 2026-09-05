@@ -1,5 +1,5 @@
 import { Badge, type BadgeProps } from "@repo/ui/components/reui/badge"
-import { cn } from "@repo/ui/lib/utils"
+import { cn } from "cn"
 import type { ReactElement } from "react"
 
 export type LabeledBadgeVariant = NonNullable<BadgeProps["variant"]>

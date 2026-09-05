@@ -6,7 +6,7 @@ alwaysApply: false
 
 # UI styling
 
-`lang`/`dir` on **root layout only**. **Logical Tailwind** (`me`/`ms`, `start`/`end`, …).
+`lang`/`dir` on **root layout only**. **Logical Tailwind** (`me`/`ms`, `start`/`end`, …). **`cn`** from the `cn` package — not `@repo/ui/lib/utils`.
 
 **shadcn + ReUI** in `@repo/ui` (`packages/ui`) — **never hand-edit** for durable fixes; regen via `pnpm ui:sync` (`sync:shadcn` then `sync:reui`). Durable ReUI overrides live in `packages/ui/scripts/reui/patches/`. **Dimah** (`@repo/ui/components/dimah`) is first-party — edit in place. App behavior in `src/app/**` or `src/components/` (outside package UI).
 

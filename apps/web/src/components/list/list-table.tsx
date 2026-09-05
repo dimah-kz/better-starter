@@ -9,7 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@repo/ui/components/table"
-import { cn } from "@repo/ui/lib/utils"
+import { cn } from "cn"
 import type { ListColumn } from "@/components/list/types"
 
 function columnChromeClass(columnId: string, isLast: boolean) {

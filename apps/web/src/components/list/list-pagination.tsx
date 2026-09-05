@@ -17,7 +17,7 @@ import {
 } from "@repo/ui/components/select"
 import { Button } from "@repo/ui/components/button"
 import { formatNumber } from "@repo/i18n"
-import { cn } from "@repo/ui/lib/utils"
+import { cn } from "cn"
 import { useLocale, useTranslations } from "next-intl"
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
 import {

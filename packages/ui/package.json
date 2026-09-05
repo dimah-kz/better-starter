@@ -6,7 +6,6 @@
   "exports": {
     "./globals.css": "./src/styles/globals.css",
     "./postcss.config": "./postcss.config.mjs",
-    "./lib/*": "./src/lib/*.ts",
     "./components/*": "./src/components/*.tsx",
     "./components/reui/*": "./src/components/reui/*.tsx",
     "./components/dimah/*": "./src/components/dimah/*.tsx",
@@ -26,7 +25,7 @@
     "@shadcn/react": "^0.3.1",
     "class-variance-authority": "^0.7.1",
     "cmdk": "^1.1.1",
-    "cnfast": "^0.2.0",
+    "cn": "^0.2.5",
     "date-fns": "^4.4.0",
     "embla-carousel-react": "^8.6.0",
     "input-otp": "^1.5.0",

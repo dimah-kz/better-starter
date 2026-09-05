@@ -10,7 +10,7 @@ import {
   resolveSidebarNavSection,
   type SidebarNavSection,
 } from "@/app/dashboard/lib/sidebar-nav-sections"
-import { cn } from "@repo/ui/lib/utils"
+import { cn } from "cn"
 import {
   SidebarGroup,
   SidebarGroupLabel,

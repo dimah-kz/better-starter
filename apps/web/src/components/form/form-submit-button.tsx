@@ -3,7 +3,7 @@
 import { useFormStatus } from "react-dom"
 import { Button } from "@repo/ui/components/button"
 import { Spinner } from "@repo/ui/components/spinner"
-import { cn } from "@repo/ui/lib/utils"
+import { cn } from "cn"
 
 type FormSubmitButtonProps = {
   idleText: string

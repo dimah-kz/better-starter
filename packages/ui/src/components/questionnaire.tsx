@@ -2,8 +2,7 @@
 
 import * as React from "react"
 import { Questionnaire as QuestionnairePrimitive } from "@shadcn/react/questionnaire"
-
-import { cn } from "@repo/ui/lib/utils"
+import { cn } from "cn"
 import { buttonVariants, type Button } from "@repo/ui/components/button"
 import { CheckIcon } from "lucide-react"
 

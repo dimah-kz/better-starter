@@ -1,7 +1,87 @@
 import { spawnSync } from "node:child_process"
+import fs from "node:fs"
+import path from "node:path"
 
 import { intro, log, outro } from "@clack/prompts"
 import pc from "picocolors"
+
+const skipDirs = new Set(["node_modules", ".git", ".next", "dist"])
+const cnUtilsRe = /^export\s*\{\s*cn\s*\}\s*from\s*["'](?:cn|cnfast)["']\s*;?$/
+
+/**
+ * Official shadcn components import `cn` from the `cn` package.
+ * Drop the local wrapper and rewrite leftover `@repo/ui/lib/utils` imports.
+ * @param {string} root
+ */
+export function usePackageCn(root) {
+  const rewritten = rewriteCnImports(root)
+  const removed = removeLocalCnUtils(root)
+  if (rewritten === 0 && !removed) return
+
+  const parts = []
+  if (rewritten > 0) {
+    parts.push(`${rewritten} import${rewritten === 1 ? "" : "s"}`)
+  }
+  if (removed) parts.push("removed lib/utils.ts")
+  ok("cn", parts.join(" · "))
+}
+
+/** @param {string} root */
+function rewriteCnImports(root) {
+  const localUtils = ["@repo/ui/lib/utils", "@/lib/utils"]
+  let count = 0
+  for (const file of walkSourceFiles(root)) {
+    const before = fs.readFileSync(file, "utf8")
+    let after = before
+    for (const spec of localUtils) {
+      after = after.replaceAll(`from "${spec}"`, 'from "cn"')
+      after = after.replaceAll(`from '${spec}'`, 'from "cn"')
+    }
+    after = after.replace(
+      /(from ["'][^"']+["']\r?\n)\r?\nimport \{ cn \} from "cn"/g,
+      '$1import { cn } from "cn"'
+    )
+    if (after === before) continue
+    fs.writeFileSync(file, after)
+    count += 1
+  }
+  return count
+}
+
+/** @param {string} root */
+function removeLocalCnUtils(root) {
+  const file = path.join(root, "src/lib/utils.ts")
+  if (!fs.existsSync(file)) return false
+  if (!cnUtilsRe.test(fs.readFileSync(file, "utf8").trim())) return false
+  fs.unlinkSync(file)
+  const dir = path.dirname(file)
+  if (fs.existsSync(dir) && fs.readdirSync(dir).length === 0) {
+    fs.rmdirSync(dir)
+  }
+  return true
+}
+
+/** @param {string} root */
+function walkSourceFiles(root) {
+  const src = path.join(root, "src")
+  const start = fs.existsSync(src) ? src : root
+  /** @type {string[]} */
+  const files = []
+  /** @param {string} dir */
+  const walk = (dir) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      if (skipDirs.has(entry.name)) continue
+      const next = path.join(dir, entry.name)
+      if (entry.isDirectory()) {
+        walk(next)
+        continue
+      }
+      if (/\.(tsx?|jsx?|mjs)$/.test(entry.name)) files.push(next)
+    }
+  }
+  walk(start)
+  return files
+}
 
 export function blank() {
   console.log()

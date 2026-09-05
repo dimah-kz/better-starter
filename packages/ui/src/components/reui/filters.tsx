@@ -14,8 +14,7 @@ import {
 } from "react"
 import { useRender } from "@base-ui/react/use-render"
 import { cva } from "class-variance-authority"
-
-import { cn } from "@repo/ui/lib/utils"
+import { cn } from "cn"
 import { Button } from "@repo/ui/components/button"
 import { ButtonGroup, ButtonGroupText } from "@repo/ui/components/button-group"
 import {

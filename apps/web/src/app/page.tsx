@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server"
 import { authRoutes } from "@/app/(auth)/lib/auth-routes"
 import { dashboardRoutes } from "@/app/dashboard/lib/dashboard-routes"
 import { buttonVariants } from "@repo/ui/components/button"
-import { cn } from "@repo/ui/lib/utils"
+import { cn } from "cn"
 
 export default async function Home() {
   const t = await getTranslations("common")

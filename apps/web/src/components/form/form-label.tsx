@@ -1,5 +1,5 @@
 import { Label } from "@repo/ui/components/label"
-import { cn } from "@repo/ui/lib/utils"
+import { cn } from "cn"
 
 export function RequiredMark({ className }: { className?: string }) {
   return (

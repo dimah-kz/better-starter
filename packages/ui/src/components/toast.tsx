@@ -2,8 +2,7 @@
 
 import * as React from "react"
 import { Toast as ToastPrimitive } from "@base-ui/react/toast"
-
-import { cn } from "@repo/ui/lib/utils"
+import { cn } from "cn"
 import { Button } from "@repo/ui/components/button"
 import {
   XIcon,

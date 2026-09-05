@@ -12,6 +12,7 @@ import {
   parseShadcnOutput,
   runPnpm,
   step,
+  usePackageCn,
 } from "../lib/cli.mjs"
 import { reuiComponents } from "./components.mjs"
 import { applyReuiPatches, getOverrideFiles } from "./patches/index.mjs"
@@ -52,6 +53,7 @@ export function syncReui(opts = {}) {
       overridden,
     })
   )
+  usePackageCn(uiRoot)
 
   step("patches", "applying…")
   const patchResults = applyReuiPatches(uiRoot)

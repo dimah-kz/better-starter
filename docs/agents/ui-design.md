@@ -6,6 +6,7 @@
 
 - `lang` / `dir` on root layout only
 - Logical Tailwind (`ms` / `me`, `start` / `end`)
+- `cn` from the `cn` package (`import { cn } from "cn"`). No local `lib/utils`.
 - shadcn + ReUI: **never hand-edit** for durable fixes — `pnpm ui:sync`. Durable ReUI overrides: `packages/ui/scripts/reui/patches/`
 - Dimah (`components/dimah/`): edit in place
 - Link-as-button: `render={<Link … />}` + `nativeButton={false}`

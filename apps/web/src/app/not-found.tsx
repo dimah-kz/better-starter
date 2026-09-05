@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@repo/ui/components/card"
-import { cn } from "@repo/ui/lib/utils"
+import { cn } from "cn"
 
 export default async function NotFound() {
   const t = await getTranslations("common")

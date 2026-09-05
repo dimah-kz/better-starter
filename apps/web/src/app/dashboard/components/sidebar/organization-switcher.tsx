@@ -31,7 +31,7 @@ import {
 import { IconTile } from "@repo/ui/components/reui/icon-tile"
 import { useSidebarFlyoutSide } from "@/app/dashboard/lib/sidebar-side"
 import { Input } from "@repo/ui/components/input"
-import { cn } from "@repo/ui/lib/utils"
+import { cn } from "cn"
 import {
   CheckIcon,
   ChevronsUpDownIcon,

@@ -9,7 +9,7 @@ import { toast } from "@repo/ui/components/toast"
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar"
 import { Button } from "@repo/ui/components/button"
 import { Spinner } from "@repo/ui/components/spinner"
-import { cn } from "@repo/ui/lib/utils"
+import { cn } from "cn"
 
 export type AvatarUploadLabels = {
   upload: string

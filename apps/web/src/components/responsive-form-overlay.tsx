@@ -9,7 +9,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@repo/ui/components/sheet"
-import { cn } from "@repo/ui/lib/utils"
+import { cn } from "cn"
 
 export type ResponsiveFormOverlayProps = {
   open: boolean

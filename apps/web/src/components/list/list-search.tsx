@@ -9,7 +9,7 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@repo/ui/components/input-group"
-import { cn } from "@repo/ui/lib/utils"
+import { cn } from "cn"
 import { LIST_SEARCH_MIN_LENGTH } from "@/components/list/types"
 
 const DEFAULT_DEBOUNCE_MS = 300

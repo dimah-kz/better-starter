@@ -205,6 +205,9 @@ importers:
       '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      cn:
+        specifier: ^0.2.5
+        version: 0.2.5
       country-flag-icons:
         specifier: 1.6.20
         version: 1.6.20
@@ -447,9 +450,9 @@ importers:
       cmdk:
         specifier: ^1.1.1
         version: 1.1.1(@types/react-dom@19.2.7(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      cnfast:
-        specifier: ^0.2.0
-        version: 0.2.0
+      cn:
+        specifier: ^0.2.5
+        version: 0.2.5
       date-fns:
         specifier: ^4.4.0
         version: 4.4.0
@@ -2993,11 +2996,6 @@ packages:
   cn@0.2.5:
     resolution: {integrity: sha512-OCjZtMeQfXbI4Es1+EIjkd77gvWzaE689gD8KhfexlqjClC06qR1MQBR+Z35ZMSPNEBWyHiItW1Soy0UvwNv9w==}
     engines: {node: '>=20'}
-    hasBin: true
-
-  cnfast@0.2.0:
-    resolution: {integrity: sha512-US4gOKGIylQWC7Nm+wNj+rOej6hJKyY4HwZYgtfRrduejEIFNNxcGKIWzCcQZxzgx6wKCZCCysWjnzsffiyhrw==}
-    engines: {node: '>=22'}
     hasBin: true
 
   code-block-writer@13.0.3:
@@ -7676,8 +7674,6 @@ snapshots:
       - '@types/react-dom'
 
   cn@0.2.5: {}
-
-  cnfast@0.2.0: {}
 
   code-block-writer@13.0.3: {}
 

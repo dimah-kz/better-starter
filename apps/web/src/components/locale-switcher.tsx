@@ -8,7 +8,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
 } from "@repo/ui/components/dropdown-menu"
-import { cn } from "@repo/ui/lib/utils"
+import { cn } from "cn"
 import { IR, US } from "country-flag-icons/react/1x1"
 import { CheckIcon } from "lucide-react"
 import { useRouter } from "next/navigation"

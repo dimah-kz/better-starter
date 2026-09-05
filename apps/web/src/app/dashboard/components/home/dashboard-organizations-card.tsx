@@ -5,7 +5,7 @@ import { CreateOrganizationFormShell } from "@/app/dashboard/components/sidebar/
 import type { SidebarOrganizationItem } from "@/app/dashboard/components/sidebar/organization-switcher"
 import { useOrganizationSwitch } from "@/app/dashboard/components/sidebar/organization-switcher"
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar"
-import { cn } from "@repo/ui/lib/utils"
+import { cn } from "cn"
 import { PlusIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
 

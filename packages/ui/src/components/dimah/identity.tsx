@@ -1,7 +1,6 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
-
-import { cn } from "@repo/ui/lib/utils"
+import { cn } from "cn"
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/avatar"
 
 function getInitials(value: string) {
