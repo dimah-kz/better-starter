@@ -1,6 +1,6 @@
 catalog:
   typescript: ^7.0.2
-  eslint: ^10.9.1
+  eslint: ^10.10.0
   prettier: ^3.9.6
   prettier-plugin-packagejson: ^3.0.2
   prettier-plugin-tailwindcss: ^0.8.1
