@@ -11,7 +11,6 @@ import {
   parseShadcnOutput,
   runPnpm,
   step,
-  usePackageCn,
 } from "./lib/cli.mjs"
 
 const uiRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")
@@ -29,7 +28,6 @@ export function syncShadcn(opts = {}) {
 
   const summary = parseShadcnOutput(combined)
   ok("shadcn", formatSyncSummary(summary))
-  usePackageCn(uiRoot)
 
   if (!opts.skipFormat) {
     blank()

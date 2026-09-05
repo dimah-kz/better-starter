@@ -14,7 +14,7 @@
     "components": "@/components",
     "hooks": "@/hooks",
     "lib": "@/lib",
-    "utils": "cn",
+    "utils": "@repo/ui/lib/utils",
     "ui": "@repo/ui/components"
   },
   "rtl": true,
