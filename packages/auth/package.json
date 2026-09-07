@@ -14,17 +14,17 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@better-auth/drizzle-adapter": "1.7.2",
-    "@better-auth/i18n": "1.7.2",
+    "@better-auth/drizzle-adapter": "1.7.3",
+    "@better-auth/i18n": "1.7.3",
     "@repo/db": "workspace:*",
     "@repo/i18n": "workspace:*",
-    "better-auth": "1.7.2",
+    "better-auth": "1.7.3",
     "drizzle-orm": "rc"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "auth": "1.7.2",
+    "auth": "1.7.3",
     "eslint": "catalog:",
     "typescript": "catalog:"
   }
