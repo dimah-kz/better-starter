@@ -1,10 +1,10 @@
-# better-starter
+# dimah-starter
 
 A **server-first Turborepo starter** for multi-tenant SaaS — Next.js dashboard, Better Auth, Postgres, and [dimah-s3](https://dimah-s3.vercel.app) storage. Shared packages are ready for a mobile or extension app later.
 
 The product surface is server-first, not just login: session in RSC, lists from tagged cache, writes (auth, orgs, uploads) as Server Actions. No `authClient` and no client data layer in the UI.
 
-**[Use this template](https://github.com/hamidrezakz/better-starter/generate)**
+**[Use this template](https://github.com/dimah-kz/dimah-starter/generate)**
 
 ## Why server-first
 
@@ -26,7 +26,7 @@ The product surface is server-first, not just login: session in RSC, lists from 
 ## Structure
 
 ```
-better-starter/
+dimah-starter/
 ├── apps/
 │   └── web/                 # Next.js product (dashboard, auth, admin)
 ├── packages/

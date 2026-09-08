@@ -1,5 +1,5 @@
 ---
-description: better-starter monorepo — agent index; open detail only when needed
+description: dimah-starter monorepo — agent index; open detail only when needed
 alwaysApply: true
 ---
 
