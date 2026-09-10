@@ -1,4 +1,4 @@
-import { Suspense, ViewTransition } from "react"
+import { Suspense } from "react"
 import { redirect } from "next/navigation"
 import { organizationManageTabs } from "@/app/dashboard/(organization)/manage/lib/organization-manage-tabs"
 import {
@@ -65,7 +65,7 @@ async function OrganizationManageLayoutContent({
           defaultTabKey={organizationManageTabs[0].key}
         />
       </header>
-      <ViewTransition>{children}</ViewTransition>
+      {children}
     </DashboardPageShell>
   )
 }

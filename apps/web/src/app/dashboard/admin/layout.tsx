@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation"
-import { Suspense, ViewTransition } from "react"
+import { Suspense } from "react"
 import { adminSlices } from "@/app/dashboard/admin/lib/admin-slices"
 import { DashboardSubnav } from "@/app/dashboard/components/layout/dashboard-subnav"
 import {
@@ -49,7 +49,7 @@ async function AdminLayoutContent({ children }: AdminLayoutProps) {
           defaultTabKey={adminSlices[0].key}
         />
       </header>
-      <ViewTransition>{children}</ViewTransition>
+      {children}
     </DashboardPageShell>
   )
 }

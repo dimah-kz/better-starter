@@ -19,9 +19,8 @@ Paths below are relative to `node_modules/next/dist/docs/` (from `apps/web`).
 | Revalidating                             | `01-app/01-getting-started/09-revalidating.md`                                   |
 | Server Actions                           | `01-app/01-getting-started/07-mutating-data.md`                                  |
 | Suspense                                 | `01-app/02-guides/streaming.md`                                                  |
-| View Transitions                         | `01-app/02-guides/view-transitions.md`                                           |
 | Activity / preserved UI                  | `01-app/02-guides/preserving-ui-state.md`                                        |
 | `error.js`                               | `01-app/03-api-reference/03-file-conventions/error.md`                           |
 | `not-found.js`                           | `01-app/03-api-reference/03-file-conventions/not-found.md`                       |
 
-React 19.3 (this app): `ViewTransition` from `react` on **page children**, not around a layout shell that must stay put. `use(browser())` from `react-dom` for UI the server cannot produce. `useEffectEvent` for non-reactive Effect logic. Do not put session in `'use cache'`.
+React 19.3 (this app): `use(browser())` from `react-dom` for UI the server cannot produce. `useEffectEvent` for non-reactive Effect logic. Do not put session in `'use cache'`.
