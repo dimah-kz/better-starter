@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useId, useState, useTransition } from "react"
+import { useId, useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { createOrganizationAction } from "@/app/action/dashboard/components/create-organization-action"
 import { FormLabel } from "@/components/form/form-label"
@@ -26,12 +26,6 @@ export function CreateOrganizationFormShell({
   const [isPending, startTransition] = useTransition()
   const [name, setName] = useState("")
 
-  useEffect(() => {
-    if (!open) {
-      setName("")
-    }
-  }, [open])
-
   const canSubmit = Boolean(name.trim())
 
   const handleSubmit = () => {
@@ -51,6 +45,7 @@ export function CreateOrganizationFormShell({
       }
 
       toast.add({ title: t("organizationCreated"), type: "success" })
+      setName("")
       onClose()
       router.refresh()
     })
@@ -63,6 +58,7 @@ export function CreateOrganizationFormShell({
       open={open}
       onOpenChange={(nextOpen) => {
         if (!nextOpen) {
+          setName("")
           onClose()
         }
       }}
@@ -80,7 +76,10 @@ export function CreateOrganizationFormShell({
             type="button"
             variant="outline"
             disabled={isPending}
-            onClick={onClose}
+            onClick={() => {
+              setName("")
+              onClose()
+            }}
           >
             {tCommon("cancel")}
           </Button>

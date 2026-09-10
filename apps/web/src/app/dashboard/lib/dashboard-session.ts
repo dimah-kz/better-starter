@@ -6,9 +6,14 @@ import { normalizeAuthRedirectTarget } from "@/app/(auth)/lib/auth-redirect"
 import { dashboardRoutes } from "@/app/dashboard/lib/dashboard-routes"
 import { auth } from "@repo/auth"
 
+/** Request-scoped session read. Not Next `'use cache'` — never store session in the data cache. */
+const getDashboardSession = cache(async () => {
+  return auth.api.getSession({ headers: await headers() })
+})
+
 /** Redirects unauthenticated visitors to login; returns the session otherwise. */
 export async function requireDashboardSession() {
-  const session = await auth.api.getSession({ headers: await headers() })
+  const session = await getDashboardSession()
 
   if (!session?.user) {
     const params = new URLSearchParams({
@@ -47,7 +52,7 @@ export async function clearDashboardActiveOrganization() {
  * the first membership when active org is intentionally unset.
  */
 export const resolveDashboardActiveOrganizationId = cache(async () => {
-  const session = await auth.api.getSession({ headers: await headers() })
+  const session = await getDashboardSession()
   if (!session) {
     return null
   }

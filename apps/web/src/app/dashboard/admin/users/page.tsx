@@ -22,8 +22,10 @@ export default function AdminUsersPage(props: AdminUsersPageProps) {
 async function AdminUsersPageContent({ searchParams }: AdminUsersPageProps) {
   const resolvedSearchParams = await searchParams
   const query = parseAdminUsersPageQuery(resolvedSearchParams)
-  const session = await requireDashboardSession()
-  const data = await getAdminUsersPage(query)
+  const [session, data] = await Promise.all([
+    requireDashboardSession(),
+    getAdminUsersPage(query),
+  ])
 
   return (
     <AdminUserManagementPanel

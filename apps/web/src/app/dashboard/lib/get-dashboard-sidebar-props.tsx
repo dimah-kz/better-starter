@@ -113,40 +113,41 @@ export async function getDashboardSidebarProps(
 ): Promise<DashboardSidebarProps> {
   const activeOrganizationId = await resolveDashboardActiveOrganizationId()
   const isPersonalAccount = activeOrganizationId === null
-  const organizations = (await listDashboardOrganizations()).map(
-    (organization) => ({
-      id: organization.id,
-      name: organization.name,
-      logo: organization.logo ?? null,
-    })
-  )
+  const requestHeaders = await headers()
 
-  const canManageActiveOrganization = activeOrganizationId
-    ? (
-        await auth.api.hasPermission({
-          headers: await headers(),
-          body: {
-            organizationId: activeOrganizationId,
-            permissions: { member: ["update"] },
-          },
-        })
-      ).success
-    : false
-
-  const { success: canAccessAdmin } = await auth.api.userHasPermission({
-    headers: await headers(),
-    body: { permissions: { user: ["list"] } },
-  })
+  const [organizations, canManageActiveOrganization, adminPermission] =
+    await Promise.all([
+      listDashboardOrganizations(),
+      activeOrganizationId
+        ? auth.api
+            .hasPermission({
+              headers: requestHeaders,
+              body: {
+                organizationId: activeOrganizationId,
+                permissions: { member: ["update"] },
+              },
+            })
+            .then((result) => result.success)
+        : false,
+      auth.api.userHasPermission({
+        headers: requestHeaders,
+        body: { permissions: { user: ["list"] } },
+      }),
+    ])
 
   const { navGroups, navSections } = await getDashboardSidebarNavConfig(
     userId,
     isPersonalAccount,
     canManageActiveOrganization,
-    canAccessAdmin
+    adminPermission.success
   )
 
   return {
-    organizations,
+    organizations: organizations.map((organization) => ({
+      id: organization.id,
+      name: organization.name,
+      logo: organization.logo ?? null,
+    })),
     activeOrganizationId,
     navGroups,
     navSections,

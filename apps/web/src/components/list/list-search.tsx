@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useEffectEvent, useRef, useState } from "react"
 import { SearchIcon, XIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { Button } from "@repo/ui/components/button"
@@ -62,17 +62,21 @@ export function ListSearch({
   const timeoutRef = useRef<number>(undefined)
   const normalizedValue = value?.trim() ?? ""
 
+  const commitDraft = useEffectEvent((nextDraft: string) => {
+    commitSearch(nextDraft, normalizedValue, minLength, onCommit)
+  })
+
   useEffect(() => {
     setDraft(value ?? "")
   }, [value])
 
   useEffect(() => {
     timeoutRef.current = window.setTimeout(() => {
-      commitSearch(draft, normalizedValue, minLength, onCommit)
+      commitDraft(draft)
     }, debounceMs)
 
     return () => window.clearTimeout(timeoutRef.current)
-  }, [debounceMs, draft, minLength, normalizedValue, onCommit])
+  }, [debounceMs, draft])
 
   const handleClear = () => {
     window.clearTimeout(timeoutRef.current)
@@ -100,7 +104,7 @@ export function ListSearch({
           }
           event.preventDefault()
           window.clearTimeout(timeoutRef.current)
-          commitSearch(draft, normalizedValue, minLength, onCommit)
+          commitDraft(draft)
         }}
         placeholder={searchPlaceholder}
         aria-label={searchPlaceholder}

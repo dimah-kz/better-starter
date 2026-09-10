@@ -1,16 +1,19 @@
 "use client"
 
-import { Suspense, useEffect } from "react"
+import { Suspense, useEffect, useEffectEvent } from "react"
 import { usePathname } from "next/navigation"
 import { useSidebar } from "@repo/ui/components/sidebar"
 
 function SidebarCloseOnNavigateInner() {
   const pathname = usePathname()
   const { setOpenMobile } = useSidebar()
+  const closeMobile = useEffectEvent(() => {
+    setOpenMobile(false)
+  })
 
   useEffect(() => {
-    setOpenMobile(false)
-  }, [pathname, setOpenMobile])
+    closeMobile()
+  }, [pathname])
 
   return null
 }

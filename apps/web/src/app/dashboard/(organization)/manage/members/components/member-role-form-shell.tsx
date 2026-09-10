@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useId, useState, useTransition } from "react"
+import { useId, useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { updateOrganizationMemberRoleAction } from "@/app/action/dashboard/(organization)/manage/members/update-organization-member-role-action"
 import { FormLabel } from "@/components/form/form-label"
@@ -34,13 +34,16 @@ export function MemberRoleFormShell({
   const router = useRouter()
   const fieldId = useId()
   const [isPending, startTransition] = useTransition()
-  const [roles, setRoles] = useState<string[]>(["member"])
+  const memberId = member?.id ?? null
+  const [rolesMemberId, setRolesMemberId] = useState(memberId)
+  const [roles, setRoles] = useState(() =>
+    member ? parseRoleString(member.role) : ["member"]
+  )
 
-  useEffect(() => {
-    if (member) {
-      setRoles(parseRoleString(member.role))
-    }
-  }, [member])
+  if (rolesMemberId !== memberId) {
+    setRolesMemberId(memberId)
+    setRoles(member ? parseRoleString(member.role) : ["member"])
+  }
 
   const options = memberRoleOptions(actorRole)
   const canSubmit = Boolean(
@@ -108,7 +111,7 @@ export function MemberRoleFormShell({
       }
     >
       {member ? (
-        <div className="space-y-3">
+        <div key={member.id} className="space-y-3">
           <FormLabel required>{t("common.roles")}</FormLabel>
           {options.map((option) => {
             const checkboxId = `${fieldId}-${option}`

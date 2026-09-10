@@ -4,6 +4,7 @@ import * as React from "react"
 import Link from "next/link"
 import { logoutAction } from "@/app/action/dashboard/components/logout-action"
 import { NavUserLocaleMenu } from "@/components/locale-switcher"
+import { ThemeSwitchItem } from "@/components/theme-switch-item"
 import { useSidebarFlyoutSide } from "@/app/dashboard/lib/sidebar-side"
 import {
   Identity,
@@ -27,53 +28,13 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@repo/ui/components/sidebar"
-import { Switch } from "@repo/ui/components/switch"
-import {
-  ChevronsUpDownIcon,
-  HomeIcon,
-  LogOutIcon,
-  MoonIcon,
-} from "lucide-react"
+import { ChevronsUpDownIcon, HomeIcon, LogOutIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
-import { useTheme } from "next-themes"
 
 export type NavUserProfile = {
   name: string
   email: string
   avatar: string
-}
-
-function NavUserThemeItem() {
-  const t = useTranslations("common")
-  const { resolvedTheme, setTheme } = useTheme()
-  const [mounted, setMounted] = React.useState(false)
-
-  React.useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  const isDark = mounted && resolvedTheme === "dark"
-  const label = t("darkTheme")
-
-  return (
-    <div
-      role="group"
-      aria-label={label}
-      className="relative flex min-h-7 items-center justify-between gap-2 rounded-md px-2 py-1 text-xs/relaxed select-none [&_svg]:size-3.5 [&_svg]:shrink-0"
-    >
-      <MoonIcon className="pointer-events-none" />
-      <span className="flex-1">{label}</span>
-      <Switch
-        size="sm"
-        checked={isDark}
-        disabled={!mounted}
-        aria-label={label}
-        onCheckedChange={(checked) => {
-          setTheme(checked ? "dark" : "light")
-        }}
-      />
-    </div>
-  )
 }
 
 export function NavUser({ user }: { user: NavUserProfile }) {
@@ -128,7 +89,7 @@ export function NavUser({ user }: { user: NavUserProfile }) {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <NavUserThemeItem />
+            <ThemeSwitchItem />
             <DropdownMenuGroup>
               <NavUserLocaleMenu />
             </DropdownMenuGroup>

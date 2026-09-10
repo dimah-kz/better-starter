@@ -30,18 +30,21 @@ export default function OrganizationMembersPage(
 async function OrganizationMembersPageContent({
   searchParams,
 }: OrganizationMembersPageProps) {
-  const organizationId = await resolveDashboardActiveOrganizationId()
+  const [organizationId, resolvedSearchParams, session] = await Promise.all([
+    resolveDashboardActiveOrganizationId(),
+    searchParams,
+    requireDashboardSession(),
+  ])
 
   if (!organizationId) {
     redirect(dashboardRoutes.home())
   }
 
-  const resolvedSearchParams = await searchParams
   const query = parseOrganizationMembersPageQuery(resolvedSearchParams)
-  const session = await requireDashboardSession()
-  const data = await getOrganizationMembersPage(organizationId, query)
-
-  const actorRole = await getActorOrganizationRole()
+  const [data, actorRole] = await Promise.all([
+    getOrganizationMembersPage(organizationId, query),
+    getActorOrganizationRole(),
+  ])
 
   return (
     <MemberManagementPanel

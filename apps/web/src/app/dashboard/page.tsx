@@ -1,4 +1,4 @@
-import { Suspense } from "react"
+import { Suspense, ViewTransition } from "react"
 import { DashboardOrganizationsCard } from "@/app/dashboard/components/home/dashboard-organizations-card"
 import {
   DashboardPageFallback,
@@ -12,9 +12,11 @@ import {
 export default function DashboardPage() {
   return (
     <DashboardPageShell>
-      <Suspense fallback={<DashboardPageFallback />}>
-        <DashboardHome />
-      </Suspense>
+      <ViewTransition>
+        <Suspense fallback={<DashboardPageFallback />}>
+          <DashboardHome />
+        </Suspense>
+      </ViewTransition>
     </DashboardPageShell>
   )
 }

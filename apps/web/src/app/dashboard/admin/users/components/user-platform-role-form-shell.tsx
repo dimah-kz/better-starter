@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useId, useState, useTransition } from "react"
+import { useId, useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { updateUserPlatformRoleAction } from "@/app/action/dashboard/admin/users/update-user-platform-role-action"
 import type { AdminUserItem } from "@/app/dashboard/admin/users/lib/get-admin-users-page"
@@ -15,6 +15,20 @@ import { toast } from "@repo/ui/components/toast"
 import { useTranslations } from "next-intl"
 
 const platformRoles = Object.keys(adminPluginRoles) as PlatformRole[]
+
+function platformRolesFromUser(user: AdminUserItem | null) {
+  if (!user) {
+    return ["user"]
+  }
+
+  const tokens = parseRoleString(user.role)
+
+  return tokens.length
+    ? tokens.filter((token) =>
+        (platformRoles as readonly string[]).includes(token)
+      )
+    : ["user"]
+}
 
 type UserPlatformRoleFormShellProps = {
   user: AdminUserItem | null
@@ -31,20 +45,14 @@ export function UserPlatformRoleFormShell({
   const router = useRouter()
   const fieldId = useId()
   const [isPending, startTransition] = useTransition()
-  const [roles, setRoles] = useState<string[]>(["user"])
+  const userId = user?.id ?? null
+  const [rolesUserId, setRolesUserId] = useState(userId)
+  const [roles, setRoles] = useState(() => platformRolesFromUser(user))
 
-  useEffect(() => {
-    if (user) {
-      const tokens = parseRoleString(user.role)
-      setRoles(
-        tokens.length
-          ? tokens.filter((token) =>
-              (platformRoles as readonly string[]).includes(token)
-            )
-          : ["user"]
-      )
-    }
-  }, [user])
+  if (rolesUserId !== userId) {
+    setRolesUserId(userId)
+    setRoles(platformRolesFromUser(user))
+  }
 
   const canSubmit = Boolean(
     user &&
@@ -114,7 +122,7 @@ export function UserPlatformRoleFormShell({
       }
     >
       {user ? (
-        <div className="space-y-3">
+        <div key={user.id} className="space-y-3">
           <FormLabel required>{t("common.roles")}</FormLabel>
           {platformRoles.map((option) => {
             const checkboxId = `${fieldId}-${option}`

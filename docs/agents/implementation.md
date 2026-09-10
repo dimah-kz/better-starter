@@ -17,7 +17,11 @@ Next.js APIs: read `apps/web/node_modules/next/dist/docs/` first — [nextjs.md]
 | `auth.api.getSession`  | Read / route gate — `headers: await headers()` |
 | `auth.api` + `headers` | Mutations and permission checks                |
 
-Never cache session. Do not gate before `auth.api`. Client components must not import `@repo/auth`.
+Never put session in `'use cache'`. `React.cache()` around `getSession` is request-scoped memoization and is OK. Do not gate before `auth.api`. Client components must not import `@repo/auth`.
+
+Server Components may render a Context imported from a `'use client'` module (no empty Provider wrapper). Do not invent a Context only to use that API.
+
+Transient overlays: close them in `useLayoutEffect` cleanup so Cache Components `<Activity>` hide does not restore an open sheet.
 
 Cookie cache (5 min) can lag ban/role changes — [better-auth.md](./better-auth.md).
 
