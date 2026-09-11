@@ -1,6 +1,6 @@
 "use client"
 
-import { useLayoutEffect, useRef, type ReactNode } from "react"
+import { useEffectEvent, useLayoutEffect, type ReactNode } from "react"
 import {
   Sheet,
   SheetContent,
@@ -34,16 +34,15 @@ export function ResponsiveFormOverlay({
   contentClassName,
   footerClassName,
 }: ResponsiveFormOverlayProps) {
-  const openRef = useRef(open)
-  const onOpenChangeRef = useRef(onOpenChange)
-  openRef.current = open
-  onOpenChangeRef.current = onOpenChange
+  const closeOnHide = useEffectEvent(() => {
+    if (open) {
+      onOpenChange(false)
+    }
+  })
 
   useLayoutEffect(() => {
     return () => {
-      if (openRef.current) {
-        onOpenChangeRef.current(false)
-      }
+      closeOnHide()
     }
   }, [])
 

@@ -2,33 +2,35 @@ import pluginReact from "eslint-plugin-react"
 import pluginReactHooks from "eslint-plugin-react-hooks"
 import globals from "globals"
 
-import { config as baseConfig } from "./base.js"
+import { baseConfig, prettierConfig } from "./base.js"
 
 /** @type {import("eslint").Linter.Config[]} */
 export const reactConfig = [
+  pluginReact.configs.flat.recommended,
+  pluginReact.configs.flat["jsx-runtime"],
   {
-    ...pluginReact.configs.flat.recommended,
+    name: "repo/react-overrides",
     languageOptions: {
-      ...pluginReact.configs.flat.recommended.languageOptions,
       globals: {
         ...globals.serviceworker,
         ...globals.browser,
       },
     },
-  },
-  {
-    plugins: {
-      "react-hooks": pluginReactHooks,
-    },
+    // Pin version — `detect` still uses ESLint APIs removed in v10.
     settings: { react: { version: "19" } },
     rules: {
-      ...pluginReactHooks.configs.recommended.rules,
-      "react-hooks/set-state-in-effect": "off",
-      "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
     },
   },
+  pluginReactHooks.configs.flat.recommended,
   {
+    name: "repo/react-hooks-overrides",
+    rules: {
+      "react-hooks/set-state-in-effect": "off",
+    },
+  },
+  {
+    name: "repo/node-scripts",
     files: ["scripts/**/*.{js,mjs,cjs}"],
     languageOptions: {
       globals: globals.node,
@@ -36,5 +38,5 @@ export const reactConfig = [
   },
 ]
 
-/** @type {import("eslint").Linter.Config} */
-export const config = [...baseConfig, ...reactConfig]
+/** @type {import("eslint").Linter.Config[]} */
+export const config = [...baseConfig, ...reactConfig, prettierConfig]

@@ -8,12 +8,29 @@ catalog:
   "@eslint/js": ^10.0.1
   "@next/eslint-plugin-next": ^16.3.4
   eslint-config-prettier: ^10.1.8
-  eslint-plugin-only-warn: ^1.2.1
   eslint-plugin-react: ^7.37.5
   eslint-plugin-react-hooks: ^7.1.1
   eslint-plugin-turbo: ^2.10.12
   globals: ^17.12.0
   typescript-eslint: ^8.70.0
+
+# typescript-eslint has no TypeScript 7.0 compiler API. Keep `tsc` on 7;
+# point only eslint's typescript peer at the TS 6 compatibility package.
+# Remove `catalogs.ts-eslint` + these overrides when
+# https://github.com/typescript-eslint/typescript-eslint/issues/10940 supports >=7.1
+catalogs:
+  ts-eslint:
+    typescript: npm:@typescript/typescript6@^6.0.2
+
+overrides:
+  "typescript-eslint>typescript": "catalog:ts-eslint"
+  "@typescript-eslint/eslint-plugin>typescript": "catalog:ts-eslint"
+  "@typescript-eslint/parser>typescript": "catalog:ts-eslint"
+  "@typescript-eslint/project-service>typescript": "catalog:ts-eslint"
+  "@typescript-eslint/tsconfig-utils>typescript": "catalog:ts-eslint"
+  "@typescript-eslint/type-utils>typescript": "catalog:ts-eslint"
+  "@typescript-eslint/typescript-estree>typescript": "catalog:ts-eslint"
+  "@typescript-eslint/utils>typescript": "catalog:ts-eslint"
 
 packages:
   - "apps/*"

@@ -1,21 +1,18 @@
 import js from "@eslint/js"
-import eslintConfigPrettier from "eslint-config-prettier"
-import onlyWarn from "eslint-plugin-only-warn"
+import eslintConfigPrettier from "eslint-config-prettier/flat"
 import turboPlugin from "eslint-plugin-turbo"
 import tseslint from "typescript-eslint"
 
 import { globalIgnores } from "./ignores.js"
 
-/** @type {import("eslint").Linter.Config} */
-export const config = [
+/** @type {import("eslint").Linter.Config[]} */
+export const baseConfig = [
   globalIgnores,
   js.configs.recommended,
-  eslintConfigPrettier,
   ...tseslint.configs.recommended,
+  turboPlugin.configs["flat/recommended"],
   {
-    plugins: {
-      turbo: turboPlugin,
-    },
+    name: "repo/overrides",
     rules: {
       "@typescript-eslint/no-unused-vars": [
         "warn",
@@ -28,9 +25,10 @@ export const config = [
       "turbo/no-undeclared-env-vars": "warn",
     },
   },
-  {
-    plugins: {
-      onlyWarn,
-    },
-  },
 ]
+
+/** @type {import("eslint").Linter.Config} */
+export const prettierConfig = eslintConfigPrettier
+
+/** @type {import("eslint").Linter.Config[]} */
+export const config = [...baseConfig, prettierConfig]

@@ -104,7 +104,7 @@ export function ListSearch({
           }
           event.preventDefault()
           window.clearTimeout(timeoutRef.current)
-          commitDraft(draft)
+          commitSearch(draft, normalizedValue, minLength, onCommit)
         }}
         placeholder={searchPlaceholder}
         aria-label={searchPlaceholder}
